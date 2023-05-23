@@ -1,0 +1,17 @@
+  :root {
+    --background-color: #ffffff;
+    --title-color: #2E4C36;
+    --subtitle-color: #43815A;
+    --primary-font-color: #000000;
+    --secondary-font-color: #122116;
+    --primary-color: #43815A;
+    --secondary-color: #BDD0B9;
+    --alternative-color: #ffffff;
+  }
+  
+  body {
+    margin: 0;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  }
+  
+  

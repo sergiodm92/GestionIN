@@ -1,0 +1,26 @@
+.container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.dropdownList {
+    position: absolute;
+    background-color: var(--secondary-color);
+    top: 225px;
+    z-index: 9999;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .dropdownList li {
+    padding: 8px;
+    cursor: pointer;
+  }
+  
+  .dropdownList li:hover {
+    background-color: lightgray;
+  }

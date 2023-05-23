@@ -1,0 +1,30 @@
+.cardContainer{
+    background-color: var(--secondary-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    width: 400px;
+    height: 40px;
+    cursor: pointer;
+    border-radius: 15px;
+    border: 1px solid var(--secondary-font-color);
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 13px;
+    color: var(--secondary-font-color);
+}
+.cardContainer:hover{
+    background-color: var(--primary-color);
+}
+.bigSpace{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.smallSpace{
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
