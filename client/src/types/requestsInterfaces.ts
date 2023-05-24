@@ -25,6 +25,7 @@ export interface Request {
 }
 export interface RequestState {
   requests: Request[];
+  request: Request;
   isAllowedExpand: boolean;
 }
 export interface Deceased {
@@ -42,6 +43,7 @@ export interface Deceased {
 }
 export interface DeceasedState {
   deceaseds: Deceased[];
+  deceased: Deceased;
   isAllowedExpand: boolean;
 }
 export interface  FormDeceased {

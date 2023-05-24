@@ -5,6 +5,7 @@ declare const styles: {
     subTitleItems: string;
     items: string;
     subItems: string;
+    noStock: string;
   };
   
   export default styles;

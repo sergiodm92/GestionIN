@@ -1,0 +1,49 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-height: 70vh;
+}
+.title{
+    font-size: 25px;
+    color: var(--title-color);
+    font-weight: bold;
+    margin: 10px;
+}
+.subTitle{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 10px;
+    width: 400px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 16px;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+.bigSpace{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.smallSpace{
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.cardsContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.card {
+    position: relative;
+  }

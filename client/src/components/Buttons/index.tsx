@@ -1,4 +1,4 @@
-import { Button, ButtonClick, DobleButton } from "../../types/interfaces";
+import { Button, ButtonClick, DobleButton, SwitchButton } from "../../types/interfaces";
 import styles from "./styles/buttons.module.css";
 
 export const FormButton = (data: Button) => {
@@ -36,3 +36,14 @@ export const LargeButton = (data: ButtonClick) => {
     </div>
   );
 };
+
+export const SwitchBtn = (data :SwitchButton) => {
+  const {isOn, onClick}= data
+  const buttonClass = isOn ? styles.buttonOn : styles.buttonOff;
+
+  return (
+    <div className={buttonClass} onClick={onClick}>
+      <div className={styles.ball}></div>
+    </div>
+  );
+}

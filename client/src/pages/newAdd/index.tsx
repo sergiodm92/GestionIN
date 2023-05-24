@@ -12,17 +12,21 @@ import {
   handleCoffinSize,
   handleCoffinType,
   handleDateChange,
-  switchMetalBox,
 } from "./components/functions";
 import { places, types, sizes, colors } from "../../components/arrays";
-import { FormButton } from "../../components/Buttons";
+import { FormButton, SwitchBtn } from "../../components/Buttons";
 import styles from "./styles/newAdd.module.css";
 
 const Adds = () => {
+
   const [add, setAdd] = useState(addInicialState);
   const [date, setDate] = useState(initialDate);
   const [coffin, setCoffin] = useState(initialCoffin);
-  const [switchMB, setSwitchMB] = useState(false);
+  const [isOn, setIsOn] = useState(false);
+
+  const handleToggleSwitch = () => {
+    setIsOn(!isOn);
+  };
 
   return (
     <div className={styles.container}>
@@ -124,20 +128,11 @@ const Adds = () => {
                 ))}
               </select>
             </div>
-            <div>
+            <div className={styles.switchBox}>
               <div>Caja metálica:</div>
               <div className={styles.metalBox}>
                 <div>No</div>
-                <div className="form-check form-switch">
-                  <input
-                    className={`form-check-input ${styles["customSwitchInput"]}`}
-                    type="checkbox"
-                    id="metal_box"
-                    onChange={() =>
-                      switchMetalBox(switchMB, setSwitchMB, coffin)
-                    }
-                  />
-                </div>
+                <div className={styles.switchBtnContainer}><SwitchBtn isOn={isOn} onClick={handleToggleSwitch} /></div>
                 <div>Si</div>
               </div>
             </div>

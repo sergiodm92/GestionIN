@@ -11,7 +11,7 @@ const Home = ()=>{
     const router = useRouter()
 
     const handlePlaceClick = (place: string) => {
-        router.push(`/NewRequest/${place}`);
+        router.push(`/newRequest/${place}`);
       };
 
     return(

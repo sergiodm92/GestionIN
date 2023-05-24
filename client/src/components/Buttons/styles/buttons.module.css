@@ -1,12 +1,13 @@
+/* Small Button */
 .btn {
     background-color: var(--primary-color);
     border: 1px solid var(--title-color);
     border-radius: 4px;
     color: var(--alternative-color);
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 13px;
-    width: 80px;
-    height: 30px;
+    font-size: 17px;
+    width: 90px;
+    height: 35px;
     cursor: pointer;
     transition: all 0.2s ease-in-out; /* Animación de transición */
   }
@@ -15,14 +16,17 @@
     color: var(--subtitle-color);
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
+
+
+/* Double Button */
 .cont{
   display: flex;
   position: relative;
   justify-content: center;
 }
 .button1{
-  width: 100px;
-  height: 40px;
+  width: 120px;
+  height: 50px;
   background-color: var(--primary-color);
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
@@ -32,16 +36,17 @@
   padding: 0;
   color: var(--alternative-color);
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  font-size: 15px;
+  font-size: 20px;
   font-style: initial;
+  cursor: pointer;
 }
 .button1:hover{
   background-color: var(--secondary-color);
   color: var(--title-color);
 }
 .button2{
-  width: 100px;
-  height: 40px;
+  width: 120px;
+  height: 50px;
   background-color: var(--primary-color);
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
@@ -50,16 +55,20 @@
   padding: 0;
   color: var(--alternative-color);
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  font-size: 20px;
+  font-size: 25px;
   font-style: initial;
+  cursor: pointer;
 }
 .button2:hover{
   background-color: var(--secondary-color);
   color: var(--title-color);
 }
+
+
+/* Large Button */
 .largeButton{
-  width: 200px;
-  height: 40px;
+  width: 240px;
+  height: 50px;
   background-color: var(--primary-color);
   border-radius: 10px;
   border: 1px solid var(--title-color);
@@ -67,10 +76,53 @@
   padding: 0;
   color: var(--alternative-color);
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  font-size: 15px;
+  font-size: 20px;
   font-style: initial;
+  cursor: pointer;
 }
 .largeButton:hover{
   background-color: var(--secondary-color);
   color: var(--title-color);  
+}
+
+
+/* Switch Button */
+
+.buttonOn {
+  position: relative;
+  width: 40px;
+  height: 18px;
+  background-color: var(--primary-color);
+  border-radius: 15px;
+  border: 1px solid var(--title-color);
+  cursor: pointer;
+}
+
+.buttonOff {
+  position: relative;
+  width: 40px;
+  height: 18px;
+  background-color: var(--alternative-color);
+  border-radius: 15px;
+  border: 1px solid var(--title-color);
+  cursor: pointer;
+}
+
+.ball {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--title-color);
+  transition: transform 0.3s ease;
+}
+
+.buttonOn .ball {
+  transform: translateX(22px);
+}
+
+.buttonOff .ball {
+  transform: translateX(0);
 }

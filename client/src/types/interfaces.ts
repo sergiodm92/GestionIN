@@ -41,3 +41,7 @@ export interface Card1 {
   space2: string;
   space3: number;
 }
+export interface SwitchButton{
+  isOn: boolean;
+  onClick: any
+}
