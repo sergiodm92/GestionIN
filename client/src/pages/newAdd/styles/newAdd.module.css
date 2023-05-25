@@ -6,7 +6,7 @@
     width: 100%;
 }
 .title{
-    font-size: 20px;
+    font-size: 23px;
     color: var(--title-color);
     font-weight: bold;
     margin: 10px;
@@ -20,7 +20,7 @@
 }
 .formContainer{
     
-    font-size: 12px;
+    font-size: 15px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -31,13 +31,13 @@
     width: 40px;
     border: 1px solid var(--primary-color);
     border-radius: 5px;
-    font-size: 12px;
+    font-size: 15px;
 }
 .input{
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     border: 1px solid var(--primary-color);
     border-radius: 5px;
-    font-size: 12px;
+    font-size: 15px;
 }
 .textAreaP{
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
@@ -45,7 +45,7 @@
     height: 120px;
     border: 1px solid var(--primary-color);
     border-radius: 5px;
-    font-size: 12px;
+    font-size: 15px;
 }
 .textArea{
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
@@ -53,7 +53,7 @@
     height: 100px;
     border: 1px solid var(--primary-color);
     border-radius: 5px;
-    font-size: 12px;
+    font-size: 15px;
 }
 .formLevel{
     display: flex;
@@ -87,8 +87,20 @@
     border-color: var(--primary-color); /* Color del borde cuando el switch está desactivado */
     box-shadow: none;
 }
+.switchBox{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 .metalBox{
     display: flex;
     justify-content: center;
-    gap: 5px;
+    gap: 10px;
+}
+.switchBtnContainer{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
 }

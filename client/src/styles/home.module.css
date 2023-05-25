@@ -4,14 +4,16 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
 }
 .dropdownList {
     position: absolute;
     background-color: var(--secondary-color);
-    top: 225px;
+    top: 40%;
+    left: 50%;
     z-index: 9999;
     list-style: none;
+    border: 1px solid var(--title-color);
     padding: 0;
     margin: 0;
   }

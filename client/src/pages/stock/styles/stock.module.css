@@ -6,7 +6,7 @@
     min-height: 70vh;
 }
 .title{
-    font-size: 20px;
+    font-size: 30px;
     color: var(--title-color);
     font-weight: bold;
     margin: 10px;
@@ -20,7 +20,7 @@
     width: 75%;
     border: 1px solid var(--title-color);
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 13px;
+    font-size: 17px;
     color: var(--primary-color);
     font-weight: bold;
 }
@@ -41,7 +41,7 @@
     border: 1px solid var(--title-color);
     border-top: none;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 12px;
+    font-size: 15px;
     color: var(--primary-font-color);
 }
 .subItems{
@@ -51,4 +51,9 @@
     width: 16%;
     height: 100%;
     border-left: 1px solid var(--title-color);
+}
+.noStock{
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--bringht-color);
 }

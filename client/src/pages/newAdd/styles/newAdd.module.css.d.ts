@@ -14,6 +14,8 @@ declare const styles: {
   buttonContainer: string;
   customSwitchInput: string;
   metalBox: string;
+  switchBtnContainer: string;
+  switchBox: string;
 };
 
 export default styles;

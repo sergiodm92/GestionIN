@@ -1,4 +1,4 @@
-import { Coffin } from "interfaces";
+import { Coffin } from "./interfaces";
 
 export interface Stock {
     id: string;

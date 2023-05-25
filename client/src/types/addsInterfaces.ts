@@ -10,5 +10,6 @@ export interface Add {
 
   export interface AddState {
     adds: Add[];
+    add: Add;
     isAllowedExpand: boolean;
   }

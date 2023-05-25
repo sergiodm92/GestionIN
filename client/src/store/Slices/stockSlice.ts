@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import type { RootState } from '../store';
-import { Stock, StockState } from 'stockInterfaces';
+import { GetStock, StockState } from '../../types/stockInterfaces';
 
 const initialState: StockState = {
     stock: [],
@@ -11,7 +11,7 @@ export const stockSlice = createSlice({
   name: 'stock',
   initialState,
   reducers: {
-    setStockData: (state, action: PayloadAction<Array<Stock>>) => {
+    setStockData: (state, action: PayloadAction<Array<GetStock>>) => {
       state.stock = action.payload;
     },
     setIsAllowedExpand: (state, action: PayloadAction<boolean>) => {

@@ -40,6 +40,10 @@ const Places = ()=>{
                 title={"Embarcación"}
                 onClick={()=>router.push('/stock/Embarcacion')}
             />
+            <LargeButton
+                title={"Stock Total"}
+                onClick={()=>router.push('/stock')}
+            />
         </div>
     )    
 }
