@@ -22,6 +22,8 @@
     font-size: 15px;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    align-items: space-between;
     gap: 10px;    
 }
 .inputDate{

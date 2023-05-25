@@ -5,8 +5,7 @@ declare const styles: {
     subTitle: string;
     text: string;
     items: string;
-    subItems: string;
-    secondContainer: string;
+    withoutTombStone:string;
   };
   
   export default styles;

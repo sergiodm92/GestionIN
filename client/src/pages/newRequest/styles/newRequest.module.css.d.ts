@@ -14,6 +14,7 @@ declare const styles: {
     buttonContainer: string;
     customSwitchInput: string;
     metalBox: string;
+    wreath: string;
   };
   
   export default styles;

@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks"
 import { getDeceaseds } from "../../store/Slices/deceasedSlice"
 import { getAllDeceased } from "./functions/functions"
 import { useEffect } from "react"
-import styles from './styles/deceseds.module.css'
+import styles from './styles/deceaseds.module.css'
 import Card1 from "../../components/Cards/Card1"
 import Loading from "../../components/Loading/loading"
 
@@ -35,7 +35,7 @@ const Deceased = ()=>{
                         return(
                             <div className={styles.card} key={i}>
                             <Card1
-                                onClick={() => router.push('/')}
+                                onClick={() => router.push(`/deceased/${deceased.id}`)}
                                 space1={(new Date(deceased.dod)).toLocaleDateString('es').replaceAll("/", "-")}
                                 space2={deceased.name}
                                 space3={deceased.dni}

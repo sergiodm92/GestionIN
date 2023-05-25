@@ -36,6 +36,7 @@ const NewRequest = ({ place }: { place: string }) => {
   const [request, setRequest] = useState(initialRequest);
   const [currentDate, setCurrentDate] = useState(initialDate);
   const [coffin, setCoffin] = useState(initialCoffin);
+  const [isOn, setIsOn] = useState(false);
 
   const dispatch = useAppDispatch()
 
@@ -48,7 +49,7 @@ const NewRequest = ({ place }: { place: string }) => {
   return (
     <div className={styles.container}>
       <div className={styles.title}>Nueva Solicitud de Siniestro</div>
-      <form onSubmit={(e) => handleSubmit(e, deceased, request, date, birthDate, currentDate, coffin)} className={styles.form}>
+      <form onSubmit={(e) => handleSubmit(e, deceased, request, date, birthDate, currentDate, coffin, isOn)} className={styles.form}>
         <div >
           <FormDeceased
             deceased={deceased}
@@ -59,6 +60,8 @@ const NewRequest = ({ place }: { place: string }) => {
             setBirthDate={setBirthDate}
           />
           <FormRequest
+            isOn={isOn}
+            setIsOn={setIsOn}
             place={place}
             stock={stock}
             request={request}

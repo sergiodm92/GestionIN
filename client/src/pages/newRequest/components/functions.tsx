@@ -1,5 +1,5 @@
-import { CoffinInitials, DateType } from "interfaces";
-import { Deceased, Request } from "requestsInterfaces";
+import { CoffinInitials, DateType } from "../../../types/interfaces";
+import { Deceased, Request } from "../../../types/requestsInterfaces";
 import { createToast } from "../../../components/Notifications/Notifications";
 import { postRequestApi } from "../../../services/requestApi";
 import { generateRandomID } from "../../../components/functions";
@@ -8,7 +8,7 @@ export const handleDeceasedChange = (e: any, deceased: Deceased, setDeceased: an
   e.preventDefault();
   setDeceased({
     ...deceased,
-    [e.target.name]: e.target.value,
+    [e.target.name]: e.target.value.trim(),
   });
 };
 
@@ -16,7 +16,7 @@ export const handleRequestChange = (e: any, request: Request, setRequest: any) =
   e.preventDefault();
   setRequest({
     ...request,
-    [e.target.name]: e.target.value,
+    [e.target.name]: e.target.value.trim(),
   });
 };
 
@@ -24,7 +24,7 @@ export const handleDateChange = (e: any, date: DateType, setDate: any) => {
   e.preventDefault();
   setDate({
     ...date,
-    [e.target.name]: e.target.value,
+    [e.target.name]: e.target.value.trim(),
   });
 };
 
@@ -32,7 +32,7 @@ export const handleBirthDateChange = (e: any, birthDate: DateType, setBirthDate:
   e.preventDefault();
   setBirthDate({
     ...birthDate,
-    [e.target.name]: e.target.value,
+    [e.target.name]: e.target.value.trim(),
   });
 };
 
@@ -40,11 +40,11 @@ export const handleCurrentDateChange = (e: any, currentDate: DateType, setCurren
   e.preventDefault();
   setCurrentDate({
     ...currentDate,
-    [e.target.name]: e.target.value,
+    [e.target.name]: e.target.value.trim(),
   });
 };
 
-export const handleSubmit = async (e: any, deceased: Deceased, request: Request, date: DateType, birthDate: DateType, currentDate: DateType, coffin: CoffinInitials) => {
+export const handleSubmit = async (e: any, deceased: Deceased, request: Request, date: DateType, birthDate: DateType, currentDate: DateType, coffin: CoffinInitials, isOn: boolean) => {
   e.preventDefault();
   
   deceased.id = generateRandomID() 
@@ -53,6 +53,7 @@ export const handleSubmit = async (e: any, deceased: Deceased, request: Request,
   request.id_deceased = deceased.id;
 
   const dateString = `${date.year}-${date.month}-${date.day}T${date.time}:00`;
+  console.log(dateString)
   const milliseconds = new Date(dateString).getTime();
   deceased.dod = milliseconds
   
@@ -64,6 +65,8 @@ export const handleSubmit = async (e: any, deceased: Deceased, request: Request,
   const currentDateString = `${currentDate.year}-${currentDate.month}-${currentDate.day}T${currentDate.time}:00`;
   const milliseconds3 = new Date(currentDateString).getTime();
   request.date = milliseconds3
+
+  request.wreath=isOn
 
   request.id_coffin = `${coffin.place.initials}${coffin.type.initials}${coffin.size.initials}${coffin.color.initials}${coffin.metal_box.initials}`
   

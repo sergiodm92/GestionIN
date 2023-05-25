@@ -9,7 +9,7 @@ export const handleAddChange = (e: any, add: Add, setAdd: any)=>{
     e.preventDefault();
     setAdd({
       ...add,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value.trim(),
     });
 }
 
@@ -17,7 +17,7 @@ export const handleDateChange = (e: any, date: DateType, setDate: any) => {
     e.preventDefault();
     setDate({
       ...date,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value.trim(),
     });
   };
 

@@ -1,12 +1,14 @@
-import { FormRequest } from "requestsInterfaces";
-import {handleCurrentDateChange, handleRequestChange} from "./functions";
+import { FormRequest } from "../../../types/requestsInterfaces";
+import { handleCurrentDateChange, handleRequestChange } from "./functions";
 import styles from "../styles/newRequest.module.css";
 import { useState } from "react";
 import { places, types, sizes, colors } from "../../../components/arrays";
+import { SwitchBtn } from "../../../components/Buttons";
 
 const FormRequest = (data: FormRequest) => {
-
   const {
+    isOn,
+    setIsOn,
     place,
     stock,
     request,
@@ -17,31 +19,36 @@ const FormRequest = (data: FormRequest) => {
     setCoffin,
   } = data;
 
-  let placeTypes = stock.stock?.map(s=>s.coffin.type)
-  let typesArray = [...new Set(placeTypes)]
+  let placeTypes = stock.stock?.map((s) => s.coffin.type);
+  let typesArray = [...new Set(placeTypes)];
 
   const [filteredSizes, setFilteredSizes] = useState<string[]>([]);
   const [filteredColors, setFilteredColors] = useState<string[]>([]);
   const [filteredMetalBoxes, setFilteredMetalBoxes] = useState<string[]>([]);
 
+  const handleToggleSwitch = () => {
+    setIsOn(!isOn);
+  };
+
   const handleTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedType = e.target.value;
-    const place_initial = places.find((p)=>p.name==place)?.initials
-    const type_inital = types.find((t)=> t.name == selectedType)?.initials
-  
+    const place_initial = places.find((p) => p.name == place)?.initials;
+    const type_inital = types.find((t) => t.name == selectedType)?.initials;
+
     // Filtrar los tamaños disponibles para el tipo seleccionado
-    const sizesArray = stock.stock
-      ?.filter((s) => s.coffin.type === selectedType)
-      .map((s) => s.coffin.size) ?? [];
+    const sizesArray =
+      stock.stock
+        ?.filter((s) => s.coffin.type === selectedType)
+        .map((s) => s.coffin.size) ?? [];
     setFilteredSizes([...new Set(sizesArray)]);
-  
+
     // Restablecer la selección de tamaño, color y metal_box
     setCoffin({
-      place: {name: place, initials: place_initial},
-      type: {name: selectedType, initials: type_inital},
-      size: {name: "", initials: ""},
-      color: {name: "", initials: ""},
-      metal_box: {name: "", initials: ""}
+      place: { name: place, initials: place_initial },
+      type: { name: selectedType, initials: type_inital },
+      size: { name: "", initials: "" },
+      color: { name: "", initials: "" },
+      metal_box: { name: "", initials: "" },
     });
     (document.getElementById("size") as HTMLSelectElement).selectedIndex = 0;
     setFilteredColors([]);
@@ -50,63 +57,63 @@ const FormRequest = (data: FormRequest) => {
 
   const handleSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedSize = e.target.value;
-    const size_initial = sizes.find((s)=>s.name==selectedSize)?.initials
-  
+    const size_initial = sizes.find((s) => s.name == selectedSize)?.initials;
+
     // Filtrar los colores disponibles para el tipo y tamaño seleccionados
-    const colorsArray = stock.stock
-      ?.filter(
-        (s) =>
-          s.coffin.type === coffin.type.name &&
-          s.coffin.size === selectedSize
-      )
-      .map((s) => s.coffin.color) ?? [];
+    const colorsArray =
+      stock.stock
+        ?.filter(
+          (s) =>
+            s.coffin.type === coffin.type.name && s.coffin.size === selectedSize
+        )
+        .map((s) => s.coffin.color) ?? [];
     setFilteredColors([...new Set(colorsArray)]);
-  
+
     // Restablecer la selección de color y metal_box
     setCoffin((prevCoffin: any) => ({
       ...prevCoffin,
-      size: {name: selectedSize, initials: size_initial},
-      color: {name: "", initials: ""},
-      metal_box: {name: "", initials: ""}
+      size: { name: selectedSize, initials: size_initial },
+      color: { name: "", initials: "" },
+      metal_box: { name: "", initials: "" },
     }));
     setFilteredMetalBoxes([]);
   };
 
   const handleColorChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedColor = e.target.value;
-    const color_initial = colors.find(c=>c.name==selectedColor)?.initials
-  
+    const color_initial = colors.find((c) => c.name == selectedColor)?.initials;
+
     // Filtrar las opciones de metal_box disponibles para el tipo, tamaño y color seleccionados
-    const metalBoxes = stock.stock
-      ?.filter(
-        (s) =>
-          s.coffin.type === coffin.type.name &&
-          s.coffin.size === coffin.size.name &&
-          s.coffin.color === selectedColor
-      )
-      .map((s) => s.coffin.metal_box.toString()) ?? [];
+    const metalBoxes =
+      stock.stock
+        ?.filter(
+          (s) =>
+            s.coffin.type === coffin.type.name &&
+            s.coffin.size === coffin.size.name &&
+            s.coffin.color === selectedColor
+        )
+        .map((s) => s.coffin.metal_box.toString()) ?? [];
 
     setFilteredMetalBoxes([...new Set(metalBoxes)]);
-  
+
     // Actualizar la selección de color
-    setCoffin((prevCoffin:any) => ({
+    setCoffin((prevCoffin: any) => ({
       ...prevCoffin,
-      color: {name: selectedColor, initials: color_initial},
-      metal_box: {name: "", initials: ""}
+      color: { name: selectedColor, initials: color_initial },
+      metal_box: { name: "", initials: "" },
     }));
   };
 
   const handleMetalBoxChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedMetalBox = e.target.value;
-    let metal_box_initial = ""
-    if(selectedMetalBox=="true"){
-      metal_box_initial = "TR"
-    }
-    else if(selectedMetalBox=="false"){
-      metal_box_initial = "FS"
+    let metal_box_initial = "";
+    if (selectedMetalBox == "true") {
+      metal_box_initial = "TR";
+    } else if (selectedMetalBox == "false") {
+      metal_box_initial = "FS";
     }
     // Actualizar la selección de metal_box
-     coffin.metal_box = {name: selectedMetalBox, initials: metal_box_initial}
+    coffin.metal_box = { name: selectedMetalBox, initials: metal_box_initial };
   };
 
   return (
@@ -213,13 +220,13 @@ const FormRequest = (data: FormRequest) => {
                 onChange={handleTypeChange}
               >
                 <option defaultValue="-">-</option>
-                {typesArray.length > 0 ? (
-                  typesArray.map((type, i) => (
-                    <option key={i} value={type}>
-                      {type}
-                    </option>
-                  ))
-                ) : null}
+                {typesArray.length > 0
+                  ? typesArray.map((type, i) => (
+                      <option key={i} value={type}>
+                        {type}
+                      </option>
+                    ))
+                  : null}
               </select>
             </div>
 
@@ -227,57 +234,60 @@ const FormRequest = (data: FormRequest) => {
             <div>
               <div>Tamaño:</div>
               <select
-               id="size"
-               className={styles.input}
-               onChange={handleSizeChange}
-             >
-               <option defaultValue="-">-</option>
-               {filteredSizes.length > 0 ? (
-                 filteredSizes.map((size, i) => (
-                   <option key={i} value={size}>
-                     {size}
-                   </option>
-                 ))
-               ) : null}
-             </select>
-           </div>
+                id="size"
+                className={styles.input}
+                onChange={handleSizeChange}
+              >
+                <option defaultValue="-">-</option>
+                {filteredSizes.length > 0
+                  ? filteredSizes.map((size, i) => (
+                      <option key={i} value={size}>
+                        {size}
+                      </option>
+                    ))
+                  : null}
+              </select>
+            </div>
 
-           {/* Select de color */}
-           <div>
-             <div>Color:</div>
-             <select
-               id="color"
-               className={styles.input}
-               onChange={handleColorChange}
-             >
-               <option defaultValue="-">-</option>
-               {filteredColors.length > 0 ? (
-                 filteredColors.map((color, i) => (
-                   <option key={i} value={color}>
-                     {color}
-                   </option>
-                 ))
-               ) : null}
-             </select>
-           </div>
-           <div>
-    <div>Caja de Metal:</div>
-    <select
-      id="metal_box"
-      className={styles.input}
-      onChange={handleMetalBoxChange}
-    >
-      <option defaultValue="">-</option>
-      {filteredMetalBoxes.length > 0 &&
-        filteredMetalBoxes.map((metalBox, i) => (
-          <option key={i} value={metalBox=="true"? "true": "false"}>
-            {metalBox=="true"? "Si": "No"}
-          </option>
-        ))}
-    </select>
-  </div>
-         </div>
-       </label>
+            {/* Select de color */}
+            <div>
+              <div>Color:</div>
+              <select
+                id="color"
+                className={styles.input}
+                onChange={handleColorChange}
+              >
+                <option defaultValue="-">-</option>
+                {filteredColors.length > 0
+                  ? filteredColors.map((color, i) => (
+                      <option key={i} value={color}>
+                        {color}
+                      </option>
+                    ))
+                  : null}
+              </select>
+            </div>
+            <div>
+              <div>Caja de Metal:</div>
+              <select
+                id="metal_box"
+                className={styles.input}
+                onChange={handleMetalBoxChange}
+              >
+                <option defaultValue="">-</option>
+                {filteredMetalBoxes.length > 0 &&
+                  filteredMetalBoxes.map((metalBox, i) => (
+                    <option
+                      key={i}
+                      value={metalBox == "true" ? "true" : "false"}
+                    >
+                      {metalBox == "true" ? "Si" : "No"}
+                    </option>
+                  ))}
+              </select>
+            </div>
+          </div>
+        </label>
       </div>
       <div className={styles.formLevel}>
         <label>
@@ -291,9 +301,15 @@ const FormRequest = (data: FormRequest) => {
             onChange={(e) => handleRequestChange(e, request, setRequest)}
           />
         </label>
-        <label>
+        <label className={styles.metalBox}>
           Corona:
-          {/* <input type="text" id="wreath" name="wreath" value={request.wreath} onChange={handleRequestChange}/> */}
+          <div className={styles.metalBox}>
+            <div>No</div>
+            <div>
+              <SwitchBtn isOn={isOn} onClick={handleToggleSwitch} />
+            </div>
+            <div>Si</div>
+          </div>
         </label>
         <label>
           Presente de funeral:

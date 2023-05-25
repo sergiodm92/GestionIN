@@ -37,3 +37,7 @@
     color: var(--title-color);
     
 }
+.withoutTombStone{
+    font-size: 16px;
+    color: var(--bringht-color);
+}

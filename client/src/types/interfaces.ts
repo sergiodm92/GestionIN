@@ -25,6 +25,10 @@ export interface Double {
 export interface Button {
   title: string;
 }
+export interface SmallButton {
+  title: string;
+  onClick: any
+}
 export interface DobleButton {
   title1: string;
   title2: string;

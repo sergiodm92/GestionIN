@@ -1,4 +1,4 @@
-import { Button, ButtonClick, DobleButton, SwitchButton } from "../../types/interfaces";
+import { Button, ButtonClick, DobleButton, SwitchButton, SmallButton } from "../../types/interfaces";
 import styles from "./styles/buttons.module.css";
 
 export const FormButton = (data: Button) => {
@@ -6,6 +6,17 @@ export const FormButton = (data: Button) => {
   return (
     <div>
       <button className={styles.btn} type="submit">
+        {title}
+      </button>
+    </div>
+  );
+};
+
+export const SmallBtn = (data: SmallButton) => {
+  const { title, onClick } = data;
+  return (
+    <div>
+      <button className={styles.btn} onClick={onClick}>
         {title}
       </button>
     </div>
