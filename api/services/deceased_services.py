@@ -41,6 +41,28 @@ async def get_deceased_name_service(name):
         print(e)
         return {'error': 'Ocurrió un error inesperado: {}'.format(e)}
 
+async def get_deceased_id_service(id):
+    try:
+        deceased = db.collection('deceased').document(id).get()
+        if deceased.exists:
+            return deceased.to_dict()
+        else:
+            return False
+    except Exception as e:
+        print(e)
+        return {'error': 'Ocurrió un error inesperado: {}'.format(e)}
+
+async def get_deceased_id_request_service(id):
+    try:
+        deceased_docs = db.collection('deceased').where("id_request", "==", id).get()
+        for deceased in deceased_docs:
+            return deceased.to_dict()
+            break  
+        return False 
+    except Exception as e:
+        print(e)
+        return {'error': 'Ocurrió un error inesperado: {}'.format(e)}
+
 # Traer un deceased por tombstone true
 async def get_deceased_tombstone():
     try:
