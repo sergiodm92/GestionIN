@@ -58,7 +58,7 @@ const AddDetail = ({ id }: { id: string })=>{
                 <div className={styles.text}>{add.add.place}</div>
               </div>
               <div className={styles.items}>
-                <div className={styles.subTitle}>Cajon:</div>
+                <div className={styles.subTitle}>Ataúd:</div>
                 <div className={styles.text}><pre style={{fontFamily: "Cambria, Cochin, Georgia, Times, 'Times New Roman', serif"}}>{decomposeId(add.add.id_coffin)}</pre></div>
               </div>
               <div className={styles.items}>

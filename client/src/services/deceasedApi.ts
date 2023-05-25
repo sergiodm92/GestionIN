@@ -50,11 +50,43 @@ export const getDeceasedWithoutTombstoneApi =
   };
 
 // put deceased tombstone true
-export const putDeceasedTombstoneApi = async (
+export const putDeceasedTombstoneApi = async (id: string): Promise<AxiosResponse> => {
+  try {
+    const response = await apiClient.put(`/deceased/tombstone/${id}`, {}, {
+      headers: {
+        "auth-token": token,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+
+// get deceased by id
+export const getDeceasedByIdApi = async (
   id: string
 ): Promise<AxiosResponse> => {
   try {
-    const response = await apiClient.put(`/deceased/tombstone/${id}`, {
+    const response = await apiClient.get(`/deceased/id/${id}`, {
+      headers: {
+        "auth-token": token,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// get deceased by id
+export const getDeceasedByRequestIdApi = async (
+  id: string
+): Promise<AxiosResponse> => {
+  try {
+    const response = await apiClient.get(`/deceased/id_request/${id}`, {
       headers: {
         "auth-token": token,
       },

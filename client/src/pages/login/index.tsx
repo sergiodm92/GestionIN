@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import { createToast } from "../../components/Notifications/Notifications";
 import { LoginUserApi } from "../../services/userApi";
 import { useAppDispatch } from "../../store/hooks";
-import { setLoginData } from "../../store/Slices/userSlice";
 import { FormButton } from "../../../src/components/Buttons";
 import styles from './styles/login.module.css';
 

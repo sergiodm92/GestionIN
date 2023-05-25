@@ -9,7 +9,7 @@ const initialState: DeceasedState = {
 			dod: 0,
 			tombstone: false,
 			leyend: "",
-			id: "7FNxUW",
+			id: "",
 			news_paper: "",
 			news_paper_name: "",
 			pod: "",

@@ -1,5 +1,5 @@
-import { CoffinInitials, DateType } from "interfaces";
-import { StockState } from "stockInterfaces";
+import { CoffinInitials, DateType } from "../types/interfaces";
+import { StockState } from "../types/stockInterfaces";
 
 export interface Request {
     id: string;
@@ -55,6 +55,8 @@ export interface  FormDeceased {
   setBirthDate: any;
 }
 export interface  FormRequest {
+  isOn: boolean;
+  setIsOn: any;
   place: string;
   stock: StockState;
   request: Request;

@@ -33,7 +33,7 @@ const TombStones = ()=>{
                         return(
                             <div className={styles.card} key={i}>
                             <Card1
-                                onClick={() => router.push('/')}
+                                onClick={() => router.push(`/deceased/${deceased.id}`)}
                                 space1={(new Date(deceased.dod)).toLocaleDateString('es').replaceAll("/", "-")}
                                 space2={deceased.name}
                                 space3={deceased.dni}

@@ -3,7 +3,7 @@ import {
   handleDateChange,
   handleDeceasedChange,
 } from "./functions";
-import { FormDeceased } from "requestsInterfaces";
+import { FormDeceased } from "../../../types/requestsInterfaces";
 import styles from "../styles/newRequest.module.css";
 
 const FormDeceased = (data: FormDeceased) => {
