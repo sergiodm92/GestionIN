@@ -9,8 +9,8 @@
 .dropdownList {
     position: absolute;
     background-color: var(--secondary-color);
-    top: 40%;
-    left: 50%;
+    top: 33%;
+    left: 61%;
     z-index: 9999;
     list-style: none;
     border: 1px solid var(--title-color);

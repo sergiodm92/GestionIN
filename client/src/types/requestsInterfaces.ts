@@ -1,5 +1,5 @@
 import { CoffinInitials, DateType } from "../types/interfaces";
-import { StockState } from "../types/stockInterfaces";
+import { GetStock } from "../types/stockInterfaces";
 
 export interface Request {
     id: string;
@@ -25,7 +25,7 @@ export interface Request {
 }
 export interface RequestState {
   requests: Request[];
-  request: Request;
+  request: PostRequest;
   isAllowedExpand: boolean;
 }
 export interface Deceased {
@@ -58,7 +58,7 @@ export interface  FormRequest {
   isOn: boolean;
   setIsOn: any;
   place: string;
-  stock: StockState;
+  stock: GetStock[];
   request: Request;
   setRequest: any;
   currentDate: DateType;

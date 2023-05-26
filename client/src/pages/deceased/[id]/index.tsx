@@ -45,18 +45,18 @@ const DeceasedDetail = ({ id }: { id: string })=>{
     const [updateData, setUpdateData] = useState(initialData);
     const dispatch = useAppDispatch()
     const deceased = useAppSelector(getDeceased)
-    const prevDeceased = useRef(deceased.deceased);
+    const prevDeceased = useRef(deceased);
 
     useEffect(()=>{
         getDeceasedById(dispatch, id)
     },[])
 
     useEffect(() => {
-      if (prevDeceased.current.id === id || prevDeceased.current !== deceased.deceased) {
-        setUpdateData(deceased.deceased);
-        prevDeceased.current = deceased.deceased;
+      if (prevDeceased.current.id === id || prevDeceased.current !== deceased) {
+        setUpdateData(deceased);
+        prevDeceased.current = deceased;
       }
-    }, [deceased.deceased]);
+    }, [deceased]);
 
     const setTombStone = ()=>{
       Swal.fire({

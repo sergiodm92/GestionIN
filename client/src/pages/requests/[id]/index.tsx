@@ -69,7 +69,7 @@ const RequestDetail = ({ id }: { id: string }) => {
   const [updateData, setUpdateData] = useState(initialData);
   const dispatch = useAppDispatch();
   const request = useAppSelector(getRequest);
-  const prevRequest = useRef(request.request);
+  const prevRequest = useRef(request);
 
   const route = useRouter()
 
@@ -79,13 +79,13 @@ const RequestDetail = ({ id }: { id: string }) => {
 
   useEffect(() => {
     if (
-      prevRequest.current.id === id ||
-      prevRequest.current !== request.request
+      prevRequest.current.request.id === id ||
+      prevRequest.current !== request
     ) {
-      setUpdateData(request.request);
-      prevRequest.current = request.request;
+      setUpdateData(request);
+      prevRequest.current = request;
     }
-  }, [request.request]);
+  }, [request]);
 
   return (
     <div className={styles.container}>

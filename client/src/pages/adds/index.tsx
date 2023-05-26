@@ -21,7 +21,7 @@ const Adds = ()=>{
     
     return(
         <div className={styles.container}>
-          {adds.adds.length==0?
+          {adds.length==0?
           (<Loading/>)
           :(<>
             <div className={styles.title}>Ingresos</div>
@@ -31,7 +31,7 @@ const Adds = ()=>{
                 <div className={styles.smallSpace}>Cant</div>
             </div>
             <div className={styles.cardsContainer}>
-                {adds.adds.length>0?adds.adds.map((add: any, i: any)=>{
+                {adds.length>0?adds.map((add: any, i: any)=>{
                     return(
                         <div className={styles.card} key={i}>
                           <Card1

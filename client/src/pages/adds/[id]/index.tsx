@@ -29,18 +29,18 @@ const AddDetail = ({ id }: { id: string })=>{
     const [updateData, setUpdateData] = useState({});
     const dispatch = useAppDispatch()
     const add = useAppSelector(getAdd)
-    const prevAdd = useRef(add.add);
+    const prevAdd = useRef(add);
 
     useEffect(()=>{
         getAddsById(dispatch, id)
     },[])
 
     useEffect(() => {
-      if (prevAdd.current !== add.add) {
-        setUpdateData(add.add);
-        prevAdd.current = add.add;
+      if (prevAdd.current !== add) {
+        setUpdateData(add);
+        prevAdd.current = add;
       }
-    }, [add.add]);
+    }, [add]);
 
     return(
         <div className={styles.container}>
@@ -51,27 +51,27 @@ const AddDetail = ({ id }: { id: string })=>{
               <div className={styles.title}>Detalle:</div>
               <div className={styles.items}>
                 <div className={styles.subTitle}>Fecha:</div>
-                <div className={styles.text}>{(new Date(add.add.date)).toLocaleDateString('es')}</div>
+                <div className={styles.text}>{(new Date(add.date)).toLocaleDateString('es')}</div>
               </div>
               <div className={styles.items}>
                 <div className={styles.subTitle}>Lugar:</div>
-                <div className={styles.text}>{add.add.place}</div>
+                <div className={styles.text}>{add.place}</div>
               </div>
               <div className={styles.items}>
                 <div className={styles.subTitle}>Ataúd:</div>
-                <div className={styles.text}><pre style={{fontFamily: "Cambria, Cochin, Georgia, Times, 'Times New Roman', serif"}}>{decomposeId(add.add.id_coffin)}</pre></div>
+                <div className={styles.text}><pre style={{fontFamily: "Cambria, Cochin, Georgia, Times, 'Times New Roman', serif"}}>{decomposeId(add.id_coffin)}</pre></div>
               </div>
               <div className={styles.items}>
                 <div className={styles.subTitle}>Unidades:</div>
-                <div className={styles.text}>{add.add.units}</div>
+                <div className={styles.text}>{add.units}</div>
               </div>
               <div className={styles.items}>
                 <div className={styles.subTitle}>Responsable:</div>
-                <div className={styles.text}>{add.add.responsible}</div>
+                <div className={styles.text}>{add.responsible}</div>
               </div>
               <div className={styles.items}>
                 <div className={styles.subTitle}>Proveedor:</div>
-                <div className={styles.text}>{add.add.supplier}</div>
+                <div className={styles.text}>{add.supplier}</div>
               </div>
             </div>
           )}

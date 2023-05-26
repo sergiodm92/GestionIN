@@ -1,7 +1,10 @@
 import {Page, Text, View, Document, Image} from '@react-pdf/renderer';
+import { PostRequest } from '../../../types/requestsInterfaces';
 
-const PDFDetail = ()=>{
-
+const PDFDetail = (data: PostRequest)=>{
+    const {request, deceased}= data
+    console.log(request)    
+    console.log(deceased)    
     let fecha = new Date().toLocaleDateString('es')
     return (
         <Document>

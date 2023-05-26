@@ -34,8 +34,8 @@ export const addsSlice = createSlice({
 
 export const { setAddsData, setAddData, setIsAllowedExpand } = addsSlice.actions;
 
-export const getAdds = (state: RootState) => state.adds;
-export const getAdd = (state: RootState) => state.add;
+export const getAdds = (state: RootState) => state.adds.adds;
+export const getAdd = (state: RootState) => state.adds.add;
 export const getIsAllowedExpand = (state: RootState) => state.adds.isAllowedExpand;
 
 export default addsSlice.reducer;

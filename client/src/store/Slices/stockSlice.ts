@@ -22,7 +22,7 @@ export const stockSlice = createSlice({
 
 export const { setStockData, setIsAllowedExpand } = stockSlice.actions;
 
-export const getStock = (state: RootState) => state.stock;
+export const getStock = (state: RootState) => state.stock.stock;
 export const getIsAllowedExpand = (state: RootState) => state.stock.isAllowedExpand;
 
 export default stockSlice.reducer;

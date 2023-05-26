@@ -9,60 +9,64 @@ import { FormButton, SmallBtn } from "../../../../components/Buttons";
 import PDFDetail from "../../components/requestDetailPDF";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    const { params } = context;
-  
-    if (!params) {
-      return {
-        notFound: true,
-      };
-    }
-  
-    const { id } = params;
-  
+  const { params } = context;
+
+  if (!params) {
     return {
-      props: {
-        id,
-      },
+      notFound: true,
     };
+  }
+
+  const { id } = params;
+
+  return {
+    props: {
+      id,
+    },
   };
+};
 
-const RequestDetailPDF=({ id }: { id: string })=>{
-    const dispatch = useAppDispatch()
+const RequestDetailPDF = ({ id }: { id: string }) => {
+  const dispatch = useAppDispatch();
 
-    const request = useAppSelector(getRequest);
-    console.log(request.request)
+  const request = (useAppSelector(getRequest));
 
-    useEffect(() => {
-        getRequestById(dispatch, id);
-      }, []);
+  useEffect(() => {
+    getRequestById(dispatch, id);
+  }, []);
 
-    return (
-        <div>
+  return (
+    <div>
       {!request ? (
         <Loading />
       ) : (
         <div>
-                <div className="d-none d-lg-block">
-                    <PDFViewer style={{width:"100%", height: "95vh"}}>
-                        <PDFDetail/>
-                    </PDFViewer> 
-                </div>
-                <div className="d-lg-none" >
-                    <PDFDownloadLink
-                        style={{textDecoration:"none"}}
-                        document={<PDFDetail/>}
-
-                        fileName={'Detalle de Solicitud de Siniestro - '+ request.request.deceased.name}
-
-                    >
-                        <FormButton
-                            title={"Descargar PDF"}
-                        />
-                    </PDFDownloadLink>
-                </div>
-            </div>
+          <div className="d-none d-lg-block">
+            <PDFViewer style={{ width: "100%", height: "95vh" }}>
+              <PDFDetail 
+                request={request.request}
+                deceased={request.deceased}
+              />
+            </PDFViewer>
+          </div>
+          <div className="d-lg-none">
+            <PDFDownloadLink
+              style={{ textDecoration: "none" }}
+              document={<PDFDetail
+                request={request.request}
+                deceased={request.deceased}
+              />}
+              fileName={
+                "Detalle de Solicitud de Siniestro - " +
+                request.deceased.name
+              }
+            >
+              <FormButton title={"Descargar PDF"} />
+            </PDFDownloadLink>
+          </div>
+        </div>
       )}
     </div>
-    )
-}
-export default RequestDetailPDF
+  );
+};
+export default RequestDetailPDF;
