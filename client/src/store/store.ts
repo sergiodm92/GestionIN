@@ -10,11 +10,8 @@ export const store = configureStore({
   reducer: {
       user: userSlice.reducer,
       adds: addsSlice.reducer,
-      add: addsSlice.reducer,
       requests: requestsSlice.reducer,
-      request: requestsSlice.reducer,
       deceaseds: deceasedsSlice.reducer,
-      deceased: deceasedsSlice.reducer,
       stock: stockSlice.reducer
   }
 })

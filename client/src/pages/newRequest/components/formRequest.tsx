@@ -19,7 +19,7 @@ const FormRequest = (data: FormRequest) => {
     setCoffin,
   } = data;
 
-  let placeTypes = stock.stock?.map((s) => s.coffin.type);
+  let placeTypes = stock?.map((s) => s.coffin.type);
   let typesArray = [...new Set(placeTypes)];
 
   const [filteredSizes, setFilteredSizes] = useState<string[]>([]);
@@ -37,7 +37,7 @@ const FormRequest = (data: FormRequest) => {
 
     // Filtrar los tamaños disponibles para el tipo seleccionado
     const sizesArray =
-      stock.stock
+      stock
         ?.filter((s) => s.coffin.type === selectedType)
         .map((s) => s.coffin.size) ?? [];
     setFilteredSizes([...new Set(sizesArray)]);
@@ -61,7 +61,7 @@ const FormRequest = (data: FormRequest) => {
 
     // Filtrar los colores disponibles para el tipo y tamaño seleccionados
     const colorsArray =
-      stock.stock
+      stock
         ?.filter(
           (s) =>
             s.coffin.type === coffin.type.name && s.coffin.size === selectedSize
@@ -85,7 +85,7 @@ const FormRequest = (data: FormRequest) => {
 
     // Filtrar las opciones de metal_box disponibles para el tipo, tamaño y color seleccionados
     const metalBoxes =
-      stock.stock
+      stock
         ?.filter(
           (s) =>
             s.coffin.type === coffin.type.name &&

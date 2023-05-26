@@ -24,26 +24,33 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   };
 };
 
+const initialData = [{
+  id_coffin: "",
+  place: "",
+  units: 0,
+  coffin: {}
+}]
+
 const Stock = ({ place }: { place: string })=>{
-  const [updateData, setUpdateData] = useState(["sin datos"]);
+  const [updateData, setUpdateData] = useState(initialData);
   const dispatch = useAppDispatch();
   const stock = useAppSelector(getStock);
-  const prevStock = useRef(stock.stock);
+  const prevStock = useRef(stock);
 
   useEffect(()=>{
     getStockByPlace(dispatch, place)
   },[])
 
   useEffect(() => {
-    if (prevStock.current !== stock.stock) {
-      setUpdateData(stock.stock);
-      prevStock.current = stock.stock;
+    if (prevStock.current !== stock) {
+      setUpdateData(stock);
+      prevStock.current = stock;
     }
-  }, [stock.stock]);
+  }, [stock]);
 
     return(
         <div className={styles.container}>
-            {updateData[0]==="sin datos"?
+            {updateData[0].id_coffin === ""?
             (<Loading/>)
             :(updateData.length>0?
                 (<>

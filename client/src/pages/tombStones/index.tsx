@@ -19,7 +19,7 @@ const TombStones = ()=>{
     },[])
     return(
         <div className={styles.container}>
-            {deceaseds.deceaseds.length==0?
+            {deceaseds.length==0?
             (<Loading/>)
             :(<>
                 <div className={styles.title}>Difuntos sin lápida</div>
@@ -29,7 +29,7 @@ const TombStones = ()=>{
                     <div className={styles.smallSpace}>DNI</div>
                 </div>
                 <div className={styles.cardsContainer}>
-                    {deceaseds.deceaseds.length>0?deceaseds.deceaseds.map((deceased: any, i: any)=>{
+                    {deceaseds.length>0?deceaseds.map((deceased: any, i: any)=>{
                         return(
                             <div className={styles.card} key={i}>
                             <Card1

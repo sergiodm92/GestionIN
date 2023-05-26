@@ -5,26 +5,33 @@ import { getAllStock } from "./functions";
 import styles from "./styles/stock.module.css";
 import Loading from "../../components/Loading/loading";
 
+const initialData = [{
+  id_coffin: "",
+  place: "",
+  units: 0,
+  coffin: {}
+}]
+
 const AllStock = () => {
-  const [updateData, setUpdateData] = useState(["sin datos"]);
+  const [updateData, setUpdateData] = useState(initialData);
   const dispatch = useAppDispatch();
   const stock = useAppSelector(getStock);
-  const prevStock = useRef(stock.stock);
+  const prevStock = useRef(stock);
 
   useEffect(() => {
     getAllStock(dispatch);
   }, []);
 
   useEffect(() => {
-    if (prevStock.current !== stock.stock) {
-      setUpdateData(stock.stock);
-      prevStock.current = stock.stock;
+    if (prevStock.current !== stock) {
+      setUpdateData(stock);
+      prevStock.current = stock;
     }
-  }, [stock.stock]);
+  }, [stock]);
 
   return (
     <div className={styles.container}>
-      {updateData[0] === "sin datos" ? (
+      {updateData[0].id_coffin === "" ? (
         <Loading />
       ) : updateData.length > 0 ? (
         <>

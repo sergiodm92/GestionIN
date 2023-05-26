@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useRouter } from 'next/router';
 import { createToast } from "../../components/Notifications/Notifications";
 import { LoginUserApi } from "../../services/userApi";
-import { useAppDispatch } from "../../store/hooks";
 import { FormButton } from "../../../src/components/Buttons";
 import styles from './styles/login.module.css';
 
@@ -11,17 +10,9 @@ const initialStateUser = {
     password: ''
 }
 
-const sendUser = {  // eliminar
-    name: '',
-    password: '',
-    admin: true,
-    place: "Salta"
-}
-
 const Login = ()=>{
 
     const router = useRouter()
-    const dispatch = useAppDispatch();
 
 
     const [user, setUser] = useState(initialStateUser)

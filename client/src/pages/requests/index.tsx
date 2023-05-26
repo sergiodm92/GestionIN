@@ -20,7 +20,7 @@ const Requests = ()=>{
 
     return(
         <div className={styles.container}>
-            {requests.requests.length==0?
+            {requests.length==0?
             (<Loading/>)
             :(<>
                 <div className={styles.title}>Solicitudes de Siniestro</div>
@@ -30,7 +30,7 @@ const Requests = ()=>{
                     <div className={styles.smallSpace}>N° Certificado</div>
                 </div>
                 <div className={styles.cardsContainer}>
-                    {requests.requests.length>0?requests.requests.map((request: any, i: any)=>{
+                    {requests.length>0?requests.map((request: any, i: any)=>{
                         return(
                             <div className={styles.card} key={i}>
                             <Card1

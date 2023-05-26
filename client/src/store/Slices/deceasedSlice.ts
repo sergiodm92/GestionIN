@@ -38,8 +38,8 @@ export const deceasedsSlice = createSlice({
 
 export const { setDeceasedsData, setDeceasedData, setIsAllowedExpand } = deceasedsSlice.actions;
 
-export const getDeceaseds = (state: RootState) => state.deceaseds;
-export const getDeceased = (state: RootState) => state.deceased;
+export const getDeceaseds = (state: RootState) => state.deceaseds.deceaseds;
+export const getDeceased = (state: RootState) => state.deceaseds.deceased;
 export const getIsAllowedExpand = (state: RootState) => state.deceaseds.isAllowedExpand;
 
 export default deceasedsSlice.reducer;

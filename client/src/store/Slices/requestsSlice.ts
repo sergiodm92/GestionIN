@@ -1,11 +1,12 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import type { RootState } from '../store';
-import { Request, RequestState } from '../../types/requestsInterfaces';
+import { PostRequest, RequestState, Request } from '../../types/requestsInterfaces';
 
 const initialState: RequestState = {
     requests: [],
     request:{
-      cladding: "",
+		request: {
+			cladding: "",
 			cementery: "",
 			additional: "",
 			id: "",
@@ -25,6 +26,20 @@ const initialState: RequestState = {
 			funeral: "",
 			place: "",
 			holder_name: ""
+		},
+		deceased: {
+			name: "",
+			dod:0,
+			tombstone: false,
+			leyend: "",
+			id: "",
+			news_paper: "",
+			news_paper_name: "",
+			pod: "",
+			dni: "",
+			id_request: "",
+			dob: 0
+		}
     },
     isAllowedExpand: true
 }
@@ -36,7 +51,7 @@ export const requestsSlice = createSlice({
     setRequestsData: (state, action: PayloadAction<Array<Request>>) => {
       state.requests = action.payload;
     },
-    setRequestData: (state, action: PayloadAction<Request>) => {
+    setRequestData: (state, action: PayloadAction<PostRequest>) => {
       state.request = action.payload;
     },
     setIsAllowedExpand: (state, action: PayloadAction<boolean>) => {
@@ -47,8 +62,8 @@ export const requestsSlice = createSlice({
 
 export const { setRequestsData, setRequestData, setIsAllowedExpand } = requestsSlice.actions;
 
-export const getRequests = (state: RootState) => state.requests;
-export const getRequest = (state: RootState) => state.request;
+export const getRequests = (state: RootState) => state.requests.requests;
+export const getRequest = (state: RootState) => state.requests.request;
 export const getIsAllowedExpand = (state: RootState) => state.requests.isAllowedExpand;
 
 export default requestsSlice.reducer;
