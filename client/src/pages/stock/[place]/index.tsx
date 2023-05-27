@@ -1,10 +1,10 @@
-import { GetServerSideProps } from 'next';
-import { useAppDispatch, useAppSelector } from "../../../store/hooks"
-import { getStock } from '../../../store/Slices/stockSlice';
-import React,{ useEffect, useRef, useState } from 'react';
-import { getStockByPlace } from '../functions';
-import styles from '../styles/stock.module.css'
-import Loading from '../../../components/Loading/loading';
+import { GetServerSideProps } from "next";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { getStock } from "../../../store/Slices/stockSlice";
+import React, { useEffect, useRef, useState } from "react";
+import { getStockByPlace } from "../functions";
+import styles from "../styles/stock.module.css";
+import Loading from "../../../components/Loading/loading";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { params } = context;
@@ -24,22 +24,25 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   };
 };
 
-const initialData = [{
-  id_coffin: "",
-  place: "",
-  units: 0,
-  coffin: {}
-}]
+const initialData = [
+  {
+    id_coffin: "",
+    place: "",
+    units: 0,
+    coffin: {},
+  },
+];
 
-const Stock = ({ place }: { place: string })=>{
+const Stock = ({ place }: { place: string }) => {
   const [updateData, setUpdateData] = useState(initialData);
+  const [searchId, setSearchId] = useState("");
   const dispatch = useAppDispatch();
   const stock = useAppSelector(getStock);
   const prevStock = useRef(stock);
 
-  useEffect(()=>{
-    getStockByPlace(dispatch, place)
-  },[])
+  useEffect(() => {
+    getStockByPlace(dispatch, place);
+  }, []);
 
   useEffect(() => {
     if (prevStock.current !== stock) {
@@ -48,38 +51,69 @@ const Stock = ({ place }: { place: string })=>{
     }
   }, [stock]);
 
-    return(
-        <div className={styles.container}>
-            {updateData[0].id_coffin === ""?
-            (<Loading/>)
-            :(updateData.length>0?
-                (<>
-                    <div className={styles.title}>Stock disponible en {place}</div>
-                    <div className={styles.subTitle}>
-                        <div className={styles.subTitleItems} style={{borderLeft: "none"}}>ID</div>
-                        <div className={styles.subTitleItems}>Tipo</div>
-                        <div className={styles.subTitleItems}>Tamaño</div>
-                        <div className={styles.subTitleItems}>Color</div>
-                        <div className={styles.subTitleItems}>Caja Metálica</div>
-                        <div className={styles.subTitleItems}>Unidades</div>
-                    </div>
-                    {updateData?.map((s: any)=>{
-                        return (
-                            <div className={styles.items}>
-                                <div className={styles.subItems} style={{borderLeft: "none"}}>{s.id_coffin}</div>
-                                <div className={styles.subItems}>{s.coffin.type}</div>
-                                <div className={styles.subItems}>{s.coffin.size}</div>
-                                <div className={styles.subItems}>{s.coffin.color}</div>
-                                <div className={styles.subItems}>{s.coffin.metal_box? "Si" : "No"}</div>
-                                <div className={styles.subItems}>{s.units}</div>
-                            </div>
-                        )
-                    })}
-                </>)
-                :(<div className={styles.noStock}>No hay Stock disponible en {place}</div>)
-            )
-        }
-        </div>
-    )    
-}
-export default Stock
+  const filteredData = updateData.filter((s) =>
+    s.id_coffin.toLowerCase().includes(searchId.toLowerCase())
+  );
+
+  return (
+    <div className={styles.container}>
+      {updateData.length === 0 ? (
+        <div className={styles.noStock}>No hay Stock disponible en {place}</div>
+      ) : updateData[0].id_coffin === "" ? (
+        <Loading />
+      ) : (
+        <>
+          <div className={styles.title}>Stock disponible en {place}</div>
+          <div className={styles.searchContaier}>
+            <input
+              type="text"
+              placeholder="🔎"
+              value={searchId}
+              className={styles.search}
+              onChange={(e) => setSearchId(e.target.value)}
+            />
+          </div>
+          <div className={styles.subTitle}>
+            <div
+              className={styles.subTitleItems}
+              style={{ borderLeft: "none" }}
+            >
+              ID
+            </div>
+            <div className={styles.subTitleItems}>Tipo</div>
+            <div className={styles.subTitleItems}>Tamaño</div>
+            <div className={styles.subTitleItems}>Color</div>
+            <div className={styles.subTitleItems}>Caja Metálica</div>
+            <div className={styles.subTitleItems}>Unidades</div>
+          </div>
+          {filteredData.length > 0 ? (
+            filteredData.map((s: any, i: any) => {
+              return (
+                <div className={styles.items} key={i}>
+                  <div
+                    className={styles.subItems}
+                    style={{ borderLeft: "none" }}
+                  >
+                    {s.id_coffin}
+                  </div>
+                  <div className={styles.subItems}>{s.coffin.type}</div>
+                  <div className={styles.subItems}>{s.coffin.size}</div>
+                  <div className={styles.subItems}>{s.coffin.color}</div>
+                  <div className={styles.subItems}>
+                    {s.coffin.metal_box ? "Si" : "No"}
+                  </div>
+                  <div className={styles.subItems}>{s.units}</div>
+                </div>
+              );
+            })
+          ) : (
+            <div className={styles.noStock}>
+              No hay Stock con ese ID en {place}
+            </div>
+          )}
+        </>
+      )}
+    </div>
+  );
+};
+export default Stock;

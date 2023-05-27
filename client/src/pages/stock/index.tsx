@@ -5,15 +5,18 @@ import { getAllStock } from "./functions";
 import styles from "./styles/stock.module.css";
 import Loading from "../../components/Loading/loading";
 
-const initialData = [{
-  id_coffin: "",
-  place: "",
-  units: 0,
-  coffin: {}
-}]
+const initialData = [
+  {
+    id_coffin: "",
+    place: "",
+    units: 0,
+    coffin: {}
+  }
+];
 
 const AllStock = () => {
   const [updateData, setUpdateData] = useState(initialData);
+  const [searchId, setSearchId] = useState("");
   const dispatch = useAppDispatch();
   const stock = useAppSelector(getStock);
   const prevStock = useRef(stock);
@@ -29,13 +32,28 @@ const AllStock = () => {
     }
   }, [stock]);
 
+  const filteredData = updateData.filter((s) =>
+    s.id_coffin.toLowerCase().includes(searchId.toLowerCase())
+  );
+
   return (
     <div className={styles.container}>
-      {updateData[0].id_coffin === "" ? (
+      {updateData.length === 0 ? (
+        <div className={styles.noStock}>No hay Stock disponible</div>
+      ) : updateData[0].id_coffin === "" ? (
         <Loading />
-      ) : updateData.length > 0 ? (
+      ) : (
         <>
-          <div className={styles.title}>Stock Total</div>
+          <div className={styles.title}>Stock total disponible</div>
+          <div className={styles.searchContaier}>
+            <input
+              type="text"
+              placeholder="🔎"
+              value={searchId}
+              className={styles.search}
+              onChange={(e) => setSearchId(e.target.value)}
+            />
+          </div>
           <div className={styles.subTitle}>
             <div
               className={styles.subTitleItems}
@@ -49,27 +67,38 @@ const AllStock = () => {
             <div className={styles.subTitleItems}>Caja Metálica</div>
             <div className={styles.subTitleItems}>Unidades</div>
           </div>
-          {updateData?.map((s: any) => {
-            return (
-              <div className={styles.items}>
-                <div className={styles.subItems} style={{ borderLeft: "none" }}>
-                  {s.id_coffin}
+          {filteredData.length > 0 ? (
+            filteredData.map((s: any, i: any) => {
+              return (
+                <div className={styles.items} key={i}>
+                  <div
+                    className={styles.subItems}
+                    style={{ borderLeft: "none" }}
+                  >
+                    {s.id_coffin}
+                  </div>
+                  <div className={styles.subItems}>{s.coffin.type}</div>
+                  <div className={styles.subItems}>{s.coffin.size}</div>
+                  <div className={styles.subItems}>{s.coffin.color}</div>
+                  <div className={styles.subItems}>
+                    {s.coffin.metal_box ? "Si" : "No"}
+                  </div>
+                  <div className={styles.subItems}>{s.units}</div>
                 </div>
-                <div className={styles.subItems}>{s.coffin.type}</div>
-                <div className={styles.subItems}>{s.coffin.size}</div>
-                <div className={styles.subItems}>{s.coffin.color}</div>
-                <div className={styles.subItems}>
-                  {s.coffin.metal_box ? "Si" : "No"}
-                </div>
-                <div className={styles.subItems}>{s.units}</div>
-              </div>
-            );
-          })}
+              );
+            })
+          ) : (
+            <div className={styles.noStock}>
+              No hay Stock con ese ID
+            </div>
+          )}
         </>
-      ) : (
-        <div className={styles.noStock}>No hay Stock disponible</div>
       )}
     </div>
   );
 };
+
 export default AllStock;
+
+
+

@@ -6,6 +6,8 @@ declare const styles: {
     items: string;
     subItems: string;
     noStock: string;
+    search:string;
+    searchContaier: string;
   };
   
   export default styles;
