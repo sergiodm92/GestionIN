@@ -53,7 +53,27 @@
     border-left: 1px solid var(--title-color);
 }
 .noStock{
+    padding-top: 5%;
     font-size: 20px;
     font-weight: bold;
     color: var(--bringht-color);
 }
+.searchContaier{
+    width: 75%;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 15px;
+}
+.search{
+    border: none;
+    text-align: right;
+    outline: none;
+    width: 160px;
+}
+.search:focus{
+    border: none;
+    border-bottom: 1px solid var(--primary-color);
+    transition: border-bottom 0.3s ;
+}
+  
+  
