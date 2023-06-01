@@ -124,3 +124,7 @@ class Transfer(BaseModel):
     id_destiny: str
     id_origin: str
     units: int
+
+class Places(BaseModel):
+    initials: str
+    name: str
