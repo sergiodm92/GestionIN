@@ -2,8 +2,8 @@ import { Add } from "../../../types/addsInterfaces";
 import { Coffin, DateType } from "../../../types/interfaces";
 import { createToast } from "../../../components/Notifications/Notifications";
 import { postAddApi } from "../../../services/addApi";
-import { places } from "../../../components/arrays";
 import { generateRandomID } from "../../../components/functions";
+import { Place } from "../../../types/place";
 
 export const handleAddChange = (e: any, add: Add, setAdd: any)=>{
     e.preventDefault();
@@ -65,7 +65,7 @@ export const handleCoffinPlace = (e: any, coffin: Coffin, setCoffin: any) => {
 }
 //------------------------------------------------------------------------------------
 
-export const addHandleSubmit = async (e:any, coffin: Coffin, date: DateType, add: Add, setAdd: any, setDate: any)=>{
+export const addHandleSubmit = async (e:any, coffin: Coffin, date: DateType, add: Add, places: Place[])=>{
     e.preventDefault();
 
     add.id = generateRandomID() //add id

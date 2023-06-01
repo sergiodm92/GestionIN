@@ -4,6 +4,7 @@ import { addsSlice } from './Slices/addsSlice'
 import {requestsSlice} from './Slices/requestsSlice'
 import {stockSlice} from './Slices/stockSlice'
 import {deceasedsSlice} from './Slices/deceasedSlice'
+import { placeSlice } from './Slices/place'
 
 
 export const store = configureStore({
@@ -12,7 +13,8 @@ export const store = configureStore({
       adds: addsSlice.reducer,
       requests: requestsSlice.reducer,
       deceaseds: deceasedsSlice.reducer,
-      stock: stockSlice.reducer
+      stock: stockSlice.reducer,
+      place: placeSlice.reducer
   }
 })
 

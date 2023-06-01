@@ -1,5 +1,6 @@
 import { CoffinInitials, DateType } from "../types/interfaces";
 import { GetStock } from "../types/stockInterfaces";
+import { Place } from "./place";
 
 export interface Request {
     id: string;
@@ -57,7 +58,9 @@ export interface  FormDeceased {
 export interface  FormRequest {
   isOn: boolean;
   setIsOn: any;
-  place: string;
+  isOnBox: boolean;
+  setIsOnBox: any;
+  places: Place[];
   stock: GetStock[];
   request: Request;
   setRequest: any;

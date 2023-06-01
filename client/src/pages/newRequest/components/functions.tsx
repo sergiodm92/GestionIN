@@ -44,6 +44,14 @@ export const handleCurrentDateChange = (e: any, currentDate: DateType, setCurren
   });
 };
 
+//---------------formRequest-----------------------
+
+export const handleToggleSwitch = (isOn: boolean, setIsOn: any) => {
+  setIsOn(!isOn);
+};
+
+//-------------------------------------------------
+
 export const handleSubmit = async (e: any, deceased: Deceased, request: Request, date: DateType, birthDate: DateType, currentDate: DateType, coffin: CoffinInitials, isOn: boolean) => {
   e.preventDefault();
   
