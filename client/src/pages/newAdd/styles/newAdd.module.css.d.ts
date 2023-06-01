@@ -1,10 +1,11 @@
 declare const styles: {
   container: string;
   title: string;
-  form: string;
   formContainer: string;
   inputDate: string;
+  dateRow: string;
   input: string;
+  formRow: string;
   textAreaP: string;
   textArea: string;
   formLevel: string;

@@ -1,4 +1,4 @@
-import React,{ useState } from "react";
+import React,{ useState, useEffect } from "react";
 import {
   addInicialState,
   initialDate,
@@ -13,30 +13,42 @@ import {
   handleCoffinType,
   handleDateChange,
 } from "./components/functions";
-import { places, types, sizes, colors } from "../../components/arrays";
+import { types, sizes, colors } from "../../components/arrays";
 import { FormButton, SwitchBtn } from "../../components/Buttons";
 import styles from "./styles/newAdd.module.css";
+import { getAllPlaces } from "../places/functions";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { getplace } from "../../store/Slices/place";
 
 const Adds = () => {
 
+  const dispatch = useAppDispatch()
+
   const [add, setAdd] = useState(addInicialState);
+  const [product, setProduct] = useState("")
   const [date, setDate] = useState(initialDate);
   const [coffin, setCoffin] = useState(initialCoffin);
   const [isOn, setIsOn] = useState(false);
+
+  const places = useAppSelector(getplace)
 
   const handleToggleSwitch = () => {
     setIsOn(!isOn);
   };
 
+  useEffect(()=>{
+    getAllPlaces(dispatch)
+  },[])
+
   return (
     <div className={styles.container}>
       <div className={styles.title}>Nuevo Ingreso</div>
       <form
-        onSubmit={(e) => addHandleSubmit(e, coffin, date, add, setAdd, setDate)}
+        onSubmit={(e) => addHandleSubmit(e, coffin, date, add, places)}
         className={styles.formContainer}
       >
-        <div>
-          <div>Fecha</div>
+        <div className={styles.dateRow}>
+          <div>Fecha: </div>
           <input
             className={styles.inputDate}
             type="text"
@@ -65,7 +77,7 @@ const Adds = () => {
             placeholder="yyyy"
           />
         </div>
-        <div>
+        <div className={styles.formRow}>
           <div>Lugar de Depósito:</div>
           <select
             id="place"
@@ -74,6 +86,21 @@ const Adds = () => {
           >
             <option defaultValue={"-"}>-</option>
             {places.map((p, i) => (
+              <option key={i} value={p.initials}>
+                {p.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <div>Ingreso: </div>
+          <select
+            id="type"
+            className={styles.input}
+            onChange={(e) => handleCoffinType(e, coffin, setCoffin)}
+          >
+            <option defaultValue={"-"}>-</option>
+            {types.map((p, i) => (
               <option key={i} value={p.initials}>
                 {p.name}
               </option>

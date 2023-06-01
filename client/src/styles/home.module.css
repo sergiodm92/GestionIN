@@ -6,23 +6,3 @@
     align-items: center;
     gap: 12px;
 }
-.dropdownList {
-    position: absolute;
-    background-color: var(--secondary-color);
-    top: 33%;
-    left: 61%;
-    z-index: 9999;
-    list-style: none;
-    border: 1px solid var(--title-color);
-    padding: 0;
-    margin: 0;
-  }
-  
-  .dropdownList li {
-    padding: 8px;
-    cursor: pointer;
-  }
-  
-  .dropdownList li:hover {
-    background-color: lightgray;
-  }

@@ -4,17 +4,14 @@ declare const styles: {
     form: string;
     formContainer: string;
     inputDate: string;
+    dateRow: string;
     input: string;
-    textAreaP: string;
     textArea: string;
-    formLevel: string;
-    formTexts: string;
-    newsPaper: string;
-    coffinDiv: string;
+    formRow: string;
+    selects: string;
     buttonContainer: string;
     customSwitchInput: string;
-    metalBox: string;
-    wreath: string;
+    switch: string;
   };
   
   export default styles;

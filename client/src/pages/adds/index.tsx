@@ -7,6 +7,8 @@ import { getAdds } from "../../store/Slices/addsSlice"
 import  styles from "./styles/Adds.module.css" 
 import { decomposeId } from "../../components/functions"
 import Loading from "../../components/Loading/loading"
+import { getAllPlaces } from "../places/functions"
+import { getplace } from "../../store/Slices/place"
 
 const Adds = ()=>{
 
@@ -14,9 +16,11 @@ const Adds = ()=>{
     const dispatch = useAppDispatch()
 
     const adds = useAppSelector(getAdds)
+    const places = useAppSelector(getplace)
 
     useEffect(()=>{
         getAllAdds(dispatch)
+        getAllPlaces(dispatch)
     },[])
     
     return(
@@ -24,6 +28,7 @@ const Adds = ()=>{
           {adds.length==0?
           (<Loading/>)
           :(<>
+            <div></div>
             <div className={styles.title}>Ingresos</div>
             <div className={styles.subTitle}>
                 <div className={styles.smallSpace}>Fecha</div>
@@ -41,7 +46,7 @@ const Adds = ()=>{
                             space3={add.units}
                           />
                           <div className={styles.cardHover}>
-                            <pre>{decomposeId(add.id_coffin)}</pre>
+                            <pre>{decomposeId(add.id_coffin, places)}</pre>
                           </div>
                         </div>
                       )
