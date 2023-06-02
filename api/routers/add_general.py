@@ -1,14 +1,14 @@
 from fastapi import APIRouter, Depends
-from models import Add
+from models import AddGeneralStock
 from middlewares.response import custom_response_success, custom_response_error
 from middlewares.verify_token import verify_token
-from services.add_services import (get_added, get_latest_added, get_add_id, get_added_place, post_add, delete_add_id)
+from services.add_general_services import (get_added, get_latest_added, get_add_id, get_added_place, post_add, delete_add_id)
 
 
 router = APIRouter()
 
 @router.post("/")
-async def post_new_add(add: Add, token_data = Depends(verify_token)):
+async def post_new_add(add: AddGeneralStock, token_data = Depends(verify_token)):
     try:
         response = await post_add(add)
         if response : return custom_response_success(add)

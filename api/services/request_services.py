@@ -1,5 +1,5 @@
 from db import get_database
-from services.stock_services import put_stock_id
+from services.coffin_stock_services import put_coffin_stock_id
 from services.deceased_services import (post_deceased, delete_deceased_id)
 
 db = get_database()
@@ -17,7 +17,7 @@ async def post_request(new_request):
         if doc_snapshot_request.exists:
             response_post_deceased = await post_deceased(deceased)
             if response_post_deceased:
-                put_stock = await put_stock_id(id=id_coffin,operacion=-1)
+                put_stock = await put_coffin_stock_id(id=id_coffin,operacion=-1)
                 if(put_stock):
                     return True
                 else:
@@ -90,7 +90,7 @@ async def delete_request_id(id: str):
         id_deceased = request_get.to_dict()['id_deceased']
         if request_get.exists:
             requests = request_get.to_dict()
-            response = await put_stock_id(requests['id_coffin'], 1)
+            response = await put_coffin_stock_id(requests['id_coffin'], 1)
             if response:
                 request.delete()
                 response_delete_deceased = await delete_deceased_id(id_deceased)
