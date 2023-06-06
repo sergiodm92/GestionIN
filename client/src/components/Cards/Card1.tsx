@@ -10,6 +10,5 @@ const Card1 = (data: Card1)=>{
             <div className={styles.smallSpace}>{space3}</div>
         </div>
     )
-
 }
 export default Card1
