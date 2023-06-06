@@ -1,25 +1,25 @@
 import { useRouter } from "next/router"
 import Card1 from "../../components/Cards/Card1"
-import { getAllAdds } from "./functions/functions"
+import { getAllAddsCoffin } from "./functions/functions"
 import { useEffect } from "react"
 import { useAppDispatch, useAppSelector } from "../../store/hooks"
-import { getAdds } from "../../store/Slices/addsSlice"
 import  styles from "./styles/Adds.module.css" 
 import { decomposeId } from "../../components/functions"
 import Loading from "../../components/Loading/loading"
 import { getAllPlaces } from "../places/functions"
 import { getplace } from "../../store/Slices/place"
+import { getAddsCoffin } from "../../store/Slices/addsCoffinSlice"
 
 const Adds = ()=>{
 
     const router = useRouter()
     const dispatch = useAppDispatch()
 
-    const adds = useAppSelector(getAdds)
+    const adds = useAppSelector(getAddsCoffin)
     const places = useAppSelector(getplace)
 
     useEffect(()=>{
-        getAllAdds(dispatch)
+        getAllAddsCoffin(dispatch)
         getAllPlaces(dispatch)
     },[])
     

@@ -148,6 +148,18 @@ const FormRequest = (data: FormRequest) => {
   return (
     <div className={styles.formContainer}>
       <div className={styles.formRow}>
+        <div>Nombre del Cementerio: </div>
+        <input
+          className={styles.input}
+          style={{ width: "calc(100% - 170px)" }}
+          type="text"
+          id="cementery"
+          name="cementery"
+          value={request.cementery}
+          onChange={(e) => handleRequestChange(e, request, setRequest)}
+        />
+      </div>
+      <div className={styles.formRow}>
         <div>Lugar de velatorio: </div>
         <input
           className={styles.input}
@@ -309,16 +321,6 @@ const FormRequest = (data: FormRequest) => {
             ))}
         </select>
       </div>
-      {/* <div className={styles.formRow}>
-        <div>Agregar Caja de Metal:</div>
-        <div className={styles.switch}>
-          <div>No</div>
-          <div>
-            <SwitchBtn isOn={isOnBox} onClick={()=>handleToggleSwitch(isOnBox, setIsOnBox)} />
-          </div>
-          <div>Si</div>
-        </div>
-      </div> */}
       <div className={styles.formRow}>
         <div>Adicional: </div>
         <input
@@ -350,18 +352,6 @@ const FormRequest = (data: FormRequest) => {
           id="present"
           name="present"
           value={request.present}
-          onChange={(e) => handleRequestChange(e, request, setRequest)}
-        />
-      </div>
-      <div className={styles.formRow}>
-        <div>Cementerio: </div>
-        <input
-          className={styles.input}
-          style={{ width: "calc(100% - 90px)" }}
-          type="text"
-          id="cementery"
-          name="cementery"
-          value={request.cementery}
           onChange={(e) => handleRequestChange(e, request, setRequest)}
         />
       </div>
@@ -415,37 +405,15 @@ const FormRequest = (data: FormRequest) => {
         <div>Fecha: </div>
         <div className={styles.dateRow}>
           <input
-            className={styles.inputDate}
-            type="text"
-            id="day3"
-            name="day"
-            value={currentDate.day}
-            onChange={(e) =>
-              handleCurrentDateChange(e, currentDate, setCurrentDate)
-            }
-            placeholder="dd"
-          />
-          <input
-            className={styles.inputDate}
-            type="text"
-            id="month3"
-            name="month"
-            value={currentDate.month}
-            onChange={(e) =>
-              handleCurrentDateChange(e, currentDate, setCurrentDate)
-            }
-            placeholder="mm"
-          />
-          <input
-            className={styles.inputDate}
-            type="text"
-            id="year3"
-            name="year"
-            value={currentDate.year}
-            onChange={(e) =>
-              handleCurrentDateChange(e, currentDate, setCurrentDate)
-            }
-            placeholder="yyyy"
+            type="date"
+            id="currentDate"
+            name="currentDate"
+            value={currentDate}
+            className={styles.dateInput}
+            onChange={(e) => {
+              e.preventDefault()
+              setCurrentDate(e.target.value)
+            }}
           />
         </div>
         <div>Lugar: </div>

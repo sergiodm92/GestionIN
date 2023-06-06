@@ -6,6 +6,7 @@ declare const styles: {
     smallSpace: string;
     cardsContainer: string;
     card: string;
+    noDeceased: string;
   };
   
   export default styles;

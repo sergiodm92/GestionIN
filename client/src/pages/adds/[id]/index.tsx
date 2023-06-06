@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import { getAdd } from "../../../store/Slices/addsSlice"
+import { getAdd } from "../../../store/Slices/addsCoffinSlice"
 import { useAppDispatch, useAppSelector } from "../../../store/hooks"
 import { getAddsById } from "../functions/functions"
 import { GetServerSideProps } from "next";

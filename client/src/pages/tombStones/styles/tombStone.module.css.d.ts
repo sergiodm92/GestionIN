@@ -6,6 +6,9 @@ declare const styles: {
     smallSpace: string;
     cardsContainer: string;
     card: string;
+    filterContainer: string;
+    dateBox: string;
+    dateInput: string;
   };
   
   export default styles;

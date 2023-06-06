@@ -6,8 +6,8 @@ import FormRequest from "./components/formRequest";
 import { FormButton } from "../../components/Buttons";
 import styles from "./styles/newRequest.module.css"
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { getStock } from "../../store/Slices/stockSlice";
-import { getAllStock } from "../stock/functions";
+import { getCoffinStock } from "../../store/Slices/coffinStockSlice";
+import { getAllCoffinStock } from "../stock/functions";
 import { getAllPlaces } from "../places/functions";
 import { getplace } from "../../store/Slices/place";
 
@@ -15,20 +15,20 @@ const NewRequest = () => {
 
   const [deceased, setDeceased] = useState(initialDeceased);
   const [date, setDate] = useState(initialDate);
-  const [birthDate, setBirthDate] = useState(initialDate);
+  const [birthDate, setBirthDate] = useState("");
   const [request, setRequest] = useState(initialRequest);
-  const [currentDate, setCurrentDate] = useState(initialDate);
+  const [currentDate, setCurrentDate] = useState("");
   const [coffin, setCoffin] = useState(initialCoffin);
   const [isOn, setIsOn] = useState(false);
   const [isOnBox, setIsOnBox] = useState(false);
 
   const dispatch = useAppDispatch()
 
-  const stock = useAppSelector(getStock)
+  const stock = useAppSelector(getCoffinStock)
   const places = useAppSelector(getplace)
 
   useEffect(()=>{
-    getAllStock(dispatch)
+    getAllCoffinStock(dispatch)
     getAllPlaces(dispatch)
   },[])
 

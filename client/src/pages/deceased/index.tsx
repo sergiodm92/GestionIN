@@ -2,26 +2,54 @@ import { useRouter } from "next/router"
 import { useAppDispatch, useAppSelector } from "../../store/hooks"
 import { getDeceaseds } from "../../store/Slices/deceasedSlice"
 import { getAllDeceased } from "./functions/functions"
-import { useEffect } from "react"
+import { useEffect, useState, useRef } from "react"
 import styles from './styles/deceaseds.module.css'
 import Card1 from "../../components/Cards/Card1"
 import Loading from "../../components/Loading/loading"
 
+const initialDeceasedState = [
+    {
+        id: "",
+        id_request: "",
+        name: "",
+        dob: 0,
+        dod: 0,
+        pod: "",
+        dni: "",
+        leyend: "",
+        news_paper: "",
+        news_paper_name: "",
+        tombstone: true,
+        cementery_type: ""
+    }
+]
 
 const Deceased = ()=>{
 
     const router = useRouter()
     const dispatch = useAppDispatch()
 
+    const [updateData, setUpdateData] = useState(initialDeceasedState);
     const deceaseds = useAppSelector(getDeceaseds)
+    const prevDeceaseds = useRef(deceaseds)
+
 
     useEffect(()=>{
         getAllDeceased(dispatch)
     },[])
 
+    useEffect(() => {
+        if (prevDeceaseds.current !== deceaseds) {
+          setUpdateData(deceaseds);
+          prevDeceaseds.current = deceaseds;
+        }
+      }, [deceaseds]);
+
     return(
         <div className={styles.container}>
-            {deceaseds.length==0?
+      {updateData.length === 0 ? (
+        <div className={styles.noDeceased}>No hay Solicitudes disponible</div>
+      ) : updateData[0].id === "" ? 
             (<Loading/>)
             :(<>
                 <div className={styles.title}>Difuntos</div>
