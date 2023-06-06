@@ -12,6 +12,7 @@ declare const styles: {
     buttonContainer: string;
     customSwitchInput: string;
     switch: string;
+    dateInput: string;
   };
   
   export default styles;

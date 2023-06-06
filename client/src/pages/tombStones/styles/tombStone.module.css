@@ -46,4 +46,39 @@
 }
 .card {
     position: relative;
+    margin-right: 25px;
+    display: flex;
+    gap: 10px;
   }
+  .filterContainer {
+    width: 480px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .dateBox{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    color: var(--primary-color);
+  }
+.dateInput{
+    position: relative;
+    background-color: var(--primary-color);
+    padding: 5px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: #ffffff;
+    font-size: 15px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+}
+.dateInput::-webkit-calendar-picker-indicator{
+    background-color: var(--secondary-color);
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+  

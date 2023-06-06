@@ -25,4 +25,6 @@ export const colors = [
     {name:"Almendra", initials: "AL" },
     {name:"Blanco", initials: "BL" }
 ]
-export const products = ["Ataúd", "Caja Metálica", "Formol"]
+
+export const cementeryType = ["Parque", "Municipal"]
+

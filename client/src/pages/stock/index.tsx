@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { getStock } from "../../store/Slices/stockSlice";
+import { getCoffinStock } from "../../store/Slices/coffinStockSlice";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { getAllStock } from "./functions";
+import { getAllCoffinStock } from "./functions";
 import styles from "./styles/stock.module.css";
 import Loading from "../../components/Loading/loading";
 
@@ -18,11 +18,11 @@ const AllStock = () => {
   const [updateData, setUpdateData] = useState(initialData);
   const [searchId, setSearchId] = useState("");
   const dispatch = useAppDispatch();
-  const stock = useAppSelector(getStock);
+  const stock = useAppSelector(getCoffinStock);
   const prevStock = useRef(stock);
 
   useEffect(() => {
-    getAllStock(dispatch);
+    getAllCoffinStock(dispatch);
   }, []);
 
   useEffect(() => {
@@ -83,7 +83,7 @@ const AllStock = () => {
                   <div className={styles.subItems}>
                     {s.coffin.metal_box ? "Si" : "No"}
                   </div>
-                  <div className={styles.subItems}>{s.units}</div>
+                  <div className={styles.subItems} style={s.units>0?{color:"black"}:{color: "red"}}>{s.units}</div>
                 </div>
               );
             })

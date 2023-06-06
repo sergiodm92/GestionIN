@@ -1,10 +1,9 @@
-import { GetServerSideProps } from "next";
-import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
-import { getRequest } from "../../../../store/Slices/requestsSlice";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { useEffect, useState } from "react";
-import { getRequestById } from "../../functions/functions";
-import Loading from "../../../../components/Loading/loading";
+import Loading from "../../../components/Loading/loading";
 import dynamic from "next/dynamic";
+import PDFTombstoneDetail from '../components/tombStoneDetailPDF'
+import { FormButton } from "../../../components/Buttons";
 
 const PDFViewer = dynamic(
   () => import("@react-pdf/renderer").then((module) => module.PDFViewer),
@@ -19,36 +18,14 @@ const PDFDownloadLink = dynamic(
   }
 );
 
-import PDFDetail from "../../components/requestDetailPDF";
-import { FormButton } from "../../../../components/Buttons";
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { params } = context;
 
-  if (!params) {
-    return {
-      notFound: true,
-    };
-  }
-
-  const { id } = params;
-
-  return {
-    props: {
-      id,
-    },
-  };
-};
-
-const RequestDetailPDF = ({ id }: { id: string }) => {
-  const dispatch = useAppDispatch();
-  const request = useAppSelector(getRequest);
+const RequestDetailPDF = () => {
   const [isClient, setIsClient] = useState(false);
   const [windowWidth, setWindowWidth] = useState(0);
 
   useEffect(() => {
     setIsClient(true);
-    getRequestById(dispatch, id);
 
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
@@ -67,7 +44,7 @@ const RequestDetailPDF = ({ id }: { id: string }) => {
     if (windowWidth >= 700) {
       return (
         <PDFViewer style={{ width: "100%", height: "95vh" }}>
-          <PDFDetail request={request.request} deceased={request.deceased} />
+          <PDFTombstoneDetail />
         </PDFViewer>
       );
     } else {
@@ -75,10 +52,10 @@ const RequestDetailPDF = ({ id }: { id: string }) => {
         <PDFDownloadLink
           style={{ textDecoration: "none" }}
           document={
-            <PDFDetail request={request.request} deceased={request.deceased} />
+            <PDFTombstoneDetail />
           }
           fileName={
-            "Detalle de Solicitud de Siniestro - " + request.deceased.name
+            "Detalle de Placas y Lápidas faltantes"
           }
         >
           <FormButton title={"Descargar PDF"} />
@@ -89,7 +66,8 @@ const RequestDetailPDF = ({ id }: { id: string }) => {
 
   return (
     <div>
-      {!request ? <Loading /> : <div>{isClient && renderContent()}</div>}
+      {renderContent()}
+      {/* {!request ? <Loading /> : <div>{isClient && renderContent()}</div>} */}
     </div>
   );
 };

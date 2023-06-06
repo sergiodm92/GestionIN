@@ -1,5 +1,5 @@
 import { CoffinInitials, DateType } from "../types/interfaces";
-import { GetStock } from "../types/stockInterfaces";
+import { GetCoffinStock } from "../types/stockInterfaces";
 import { Place } from "./place";
 
 export interface Request {
@@ -41,6 +41,7 @@ export interface Deceased {
   news_paper: string;
   news_paper_name: string;
   tombstone: boolean;
+  cementery_type: string;
 }
 export interface DeceasedState {
   deceaseds: Deceased[];
@@ -52,7 +53,7 @@ export interface  FormDeceased {
   setDeceased: any;
   date: DateType;
   setDate: any;
-  birthDate: DateType;
+  birthDate: string;
   setBirthDate: any;
 }
 export interface  FormRequest {
@@ -61,10 +62,10 @@ export interface  FormRequest {
   isOnBox: boolean;
   setIsOnBox: any;
   places: Place[];
-  stock: GetStock[];
+  stock: GetCoffinStock[];
   request: Request;
   setRequest: any;
-  currentDate: DateType;
+  currentDate: string;
   setCurrentDate: any;
   coffin: CoffinInitials;
   setCoffin: any;

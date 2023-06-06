@@ -1,8 +1,8 @@
 import { GetServerSideProps } from "next";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
-import { getStock } from "../../../store/Slices/stockSlice";
+import { getCoffinStock } from "../../../store/Slices/coffinStockSlice";
 import React, { useEffect, useRef, useState } from "react";
-import { getStockByPlace } from "../functions";
+import { getCoffinStockByPlace } from "../functions";
 import styles from "../styles/stock.module.css";
 import Loading from "../../../components/Loading/loading";
 
@@ -37,11 +37,11 @@ const Stock = ({ place }: { place: string }) => {
   const [updateData, setUpdateData] = useState(initialData);
   const [searchId, setSearchId] = useState("");
   const dispatch = useAppDispatch();
-  const stock = useAppSelector(getStock);
+  const stock = useAppSelector(getCoffinStock);
   const prevStock = useRef(stock);
 
   useEffect(() => {
-    getStockByPlace(dispatch, place);
+    getCoffinStockByPlace(dispatch, place);
   }, []);
 
   useEffect(() => {

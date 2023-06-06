@@ -17,6 +17,7 @@ declare const styles: {
   metalBox: string;
   switchBtnContainer: string;
   switchBox: string;
+  dateInput: string;
 };
 
 export default styles;

@@ -31,13 +31,12 @@ export const initialDeceased = {
     leyend: "",
     news_paper: "",
     news_paper_name: "",
-    tombstone: false
+    tombstone: false,
+    cementery_type:""
 }
 export const initialDate={
     day:"",
-    month:"",
-    year:"",
-    time:"00:00"
+    time:""
 }
 export const initialCoffin={
     place:{name: "", initials: ""},
