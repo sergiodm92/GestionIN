@@ -1,63 +1,63 @@
 
 from db import get_database
-from models import Stock
+from models import CoffinStock
 
 db = get_database()
 
-# Traer stock
-async def get_stock():
+# Traer coffin_stock
+async def get_coffin_stock():
     try:
-        stock = []
-        # Obtiene todos los documentos de la colección "stock"
-        docs = db.collection('stock').get()
+        coffin_stock = []
+        # Obtiene todos los documentos de la colección "coffin_stock"
+        docs = db.collection('coffin_stock').get()
         for doc in docs:
             # Convierte los datos del documento a un diccionario
             product = doc.to_dict()
             id_coffin = product['id_coffin']
             product['coffin']= parse_id_coffin(id_coffin)
             # Agrega el diccionario a la lista de compras
-            stock.append(product)
-        return stock
+            coffin_stock.append(product)
+        return coffin_stock
     except Exception as e:
         print(e)
         return {'error': 'Ocurrió un error inesperado: {}'.format(e)}
 
-# Traer stock
-async def get_stock_place(place):
+# Traer coffin_stock
+async def get_coffin_stock_place(place):
     try:
-        stock = []
-        # Obtiene todos los documentos de la colección "stock"
-        docs = db.collection('stock').where('place','==',place).get()
+        coffin_stock = []
+        # Obtiene todos los documentos de la colección "coffin_stock"
+        docs = db.collection('coffin_stock').where('place','==',place).get()
         for doc in docs:
             # Convierte los datos del documento a un diccionario
             product = doc.to_dict()
             id_coffin = product['id_coffin']
             product['coffin']= parse_id_coffin(id_coffin)
             # Agrega el diccionario a la lista de compras
-            stock.append(product)
-        return stock
+            coffin_stock.append(product)
+        return coffin_stock
     except Exception as e:
         print(e)
         return {'error': 'Ocurrió un error inesperado: {}'.format(e)}
     
-# Get stock by ID
-async def get_stock_id_service(id):
+# Get coffin_stock by ID
+async def get_coffin_stock_id_service(id):
     try:
-        stock = {}
+        coffin_stock = {}
         # Obtiene todos los documentos de la colección "compras"
-        stock = db.collection('stock').document(id).get().to_dict()
-        id_coffin = stock['id_coffin']
-        stock['coffin']= parse_id_coffin(id_coffin)
-        return stock
+        coffin_stock = db.collection('coffin_stock').document(id).get().to_dict()
+        id_coffin = coffin_stock['id_coffin']
+        coffin_stock['coffin']= parse_id_coffin(id_coffin)
+        return coffin_stock
     except Exception as e:
         print(e)
         return {'error': 'Ocurrió un error inesperado: {}'.format(e)}
 
 # Post new model
-async def post_model(model:Stock):
+async def post_model(model:CoffinStock):
     try:
         # Crea el nuevo documento en Firestore con los datos de add
-        doc_ref = db.collection('stock').document(model.id_coffin)
+        doc_ref = db.collection('coffin_stock').document(model.id_coffin)
         doc_ref.set(model.dict())
         # Verifica que el documento se haya creado correctamente
         doc_snapshot = doc_ref.get()
@@ -73,18 +73,18 @@ async def post_model(model:Stock):
 async def post_transfer(transfer):
     try:
         # Crea el nuevo documento en Firestore con los datos de add
-        doc_ref_origin = db.collection('stock').document(transfer.id_origin)
+        doc_ref_origin = db.collection('coffin_stock').document(transfer.id_origin)
         doc_ref_origin_get = doc_ref_origin.get()
-        doc_ref_destiny = db.collection('stock').document(transfer.id_destiny)
+        doc_ref_destiny = db.collection('coffin_stock').document(transfer.id_destiny)
         doc_ref_destiny_get = doc_ref_destiny.get()
         place_destiny = parse_id_coffin(transfer.id_destiny)['place']
         if doc_ref_origin_get.exists:
-            put_stock_id(transfer.id_origin,-transfer.units)
+            put_coffin_stock_id(transfer.id_origin,-transfer.units)
             if doc_ref_destiny_get.exists:
-                put_stock_id(transfer.id_destiny,transfer.units)
+                put_coffin_stock_id(transfer.id_destiny,transfer.units)
                 return True
             else: 
-                model = Stock(id_coffin=transfer.id_destiny, units=transfer.units,place=place_destiny)
+                model = CoffinStock(id_coffin=transfer.id_destiny, units=transfer.units,place=place_destiny)
                 response_post_model = post_model(model)    
                 if response_post_model:
                     return True 
@@ -95,9 +95,9 @@ async def post_transfer(transfer):
         return False
 
 
-async def put_stock_id(id, operacion):
+async def put_coffin_stock_id(id, operacion):
     try:
-        doc_ref = db.collection('stock').document(id)
+        doc_ref = db.collection('coffin_stock').document(id)
         doc = doc_ref.get()
         if doc.exists:
             doc_ref.update({'units': doc.to_dict()['units'] + operacion})

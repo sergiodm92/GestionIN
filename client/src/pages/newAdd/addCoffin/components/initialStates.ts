@@ -1,4 +1,4 @@
-export const addInicialState = {
+export const addCoffinInicialState = {
     id: "",
     id_coffin: "",
     date: 0,
@@ -7,12 +7,6 @@ export const addInicialState = {
     supplier: "",
     place: ""
   }
-  export const initialDate={
-    day:"",
-    month:"",
-    year:"",
-    time:"00:00"
-}
 export const initialCoffin={
     place:"",
     type:"",

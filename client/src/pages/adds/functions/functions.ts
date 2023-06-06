@@ -1,11 +1,10 @@
-import { getAllAddsApi } from "../../../services/addApi"
-import { setAddsData } from "../../../store/Slices/addsSlice"
-import { setAddData } from '../../../store/Slices/addsSlice';
-import { getAddsByIdApi } from './../../../services/addApi';
+import { getAddCoffinByIdApi, getAllAddsCoffinApi } from "../../../services/addCoffinApi"
+import { setAddsData } from "../../../store/Slices/addsCoffinSlice"
+import { setAddData } from '../../../store/Slices/addsCoffinSlice';
 
-export const getAddsById = async (dispatch: any, id:string)=>{
+export const getAddCoffinById = async (dispatch: any, id:string)=>{
     try{
-        const add = await getAddsByIdApi(id)
+        const add = await getAddCoffinByIdApi(id)
         dispatch(setAddData(add.data.data))
     }
     catch(err){
@@ -13,9 +12,9 @@ export const getAddsById = async (dispatch: any, id:string)=>{
     }
 }
 
-export const getAllAdds = async (dispatch: any)=>{
+export const getAllAddsCoffin = async (dispatch: any)=>{
     try{
-        const allAdds = await getAllAddsApi()
+        const allAdds = await getAllAddsCoffinApi()
         dispatch(setAddsData(allAdds.data))
     }
     catch(err){

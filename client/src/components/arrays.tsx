@@ -1,13 +1,3 @@
-export const places = [
-    {name:"San Pedro", initials: "SP" },
-    {name:"San Salvador de Jujuy", initials: "SS" },
-    {name:"Fraile Pintado", initials: "FP" },
-    {name:"Libertador Gral. San Martin", initials: "LS" },
-    {name:"Salta", initials: "SA" },
-    {name:"Colonia", initials: "CO" },
-    {name:"Tartagal", initials: "TA" },
-    {name:"Embarcacion", initials: "EM" }
-]
 export const types = [
     {name:"Plano", initials: "PL" },
     {name:"Liso Comun", initials: "LC" },
@@ -35,3 +25,6 @@ export const colors = [
     {name:"Almendra", initials: "AL" },
     {name:"Blanco", initials: "BL" }
 ]
+
+export const cementeryType = ["Parque", "Municipal"]
+

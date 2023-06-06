@@ -1,18 +1,26 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { userSlice } from './Slices/userSlice'
-import { addsSlice } from './Slices/addsSlice'
+import { addsCoffinSlice } from './Slices/addsCoffinSlice'
 import {requestsSlice} from './Slices/requestsSlice'
-import {stockSlice} from './Slices/stockSlice'
+import {coffinStockSlice} from './Slices/coffinStockSlice'
 import {deceasedsSlice} from './Slices/deceasedSlice'
+import { placeSlice } from './Slices/place'
+// import {addsMetalBoxSlice} from './Slices/addsMetalBoxSlice'
+// import {addsGeneralSlice} from './Slices/addsGeneralSlice'
 
 
 export const store = configureStore({
   reducer: {
       user: userSlice.reducer,
-      adds: addsSlice.reducer,
+      addsCoffin: addsCoffinSlice.reducer,
+      // addsMetalBox: addsMetalBoxSlice.reducer,
+      // addsGeneral: addsGeneralSlice.reducer,
       requests: requestsSlice.reducer,
       deceaseds: deceasedsSlice.reducer,
-      stock: stockSlice.reducer
+      coffinStock: coffinStockSlice.reducer,
+      // metalBoxStock: coffinStockSlice.reducer,
+      // generalStock: coffinStockSlice.reducer,
+      place: placeSlice.reducer
   }
 })
 

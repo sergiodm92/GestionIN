@@ -1,56 +1,41 @@
 import { useEffect, useState } from "react";
-import { GetServerSideProps } from 'next';
-import { initialRequest, initialDate, initialCoffin, initialDeceased} from "../components/initialStates";
-import { handleSubmit } from "../components/functions";
-import FormDeceased from "../components/formDeceased";
-import FormRequest from "../components/formRequest";
-import { FormButton } from "../../../components/Buttons";
-import styles from "../styles/newRequest.module.css";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
-import { getStock } from "../../../store/Slices/stockSlice";
-import { getStockByPlace } from "../../stock/functions";
+import { initialRequest, initialDate, initialCoffin, initialDeceased} from "./components/initialStates";
+import { handleSubmit } from "./components/functions";
+import FormDeceased from "./components/formDeceased";
+import FormRequest from "./components/formRequest";
+import { FormButton } from "../../components/Buttons";
+import styles from "./styles/newRequest.module.css"
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { getCoffinStock } from "../../store/Slices/coffinStockSlice";
+import { getAllCoffinStock } from "../stock/functions";
+import { getAllPlaces } from "../places/functions";
+import { getplace } from "../../store/Slices/place";
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { params } = context;
-
-  if (!params) {
-    return {
-      notFound: true,
-    };
-  }
-
-  const { place } = params;
-
-  return {
-    props: {
-      place,
-    },
-  };
-};
-
-const NewRequest = ({ place }: { place: string }) => {
+const NewRequest = () => {
 
   const [deceased, setDeceased] = useState(initialDeceased);
   const [date, setDate] = useState(initialDate);
-  const [birthDate, setBirthDate] = useState(initialDate);
+  const [birthDate, setBirthDate] = useState("");
   const [request, setRequest] = useState(initialRequest);
-  const [currentDate, setCurrentDate] = useState(initialDate);
+  const [currentDate, setCurrentDate] = useState("");
   const [coffin, setCoffin] = useState(initialCoffin);
   const [isOn, setIsOn] = useState(false);
+  const [isOnBox, setIsOnBox] = useState(false);
 
   const dispatch = useAppDispatch()
 
-  const stock = useAppSelector(getStock)
+  const stock = useAppSelector(getCoffinStock)
+  const places = useAppSelector(getplace)
 
   useEffect(()=>{
-    getStockByPlace(dispatch, place)
+    getAllCoffinStock(dispatch)
+    getAllPlaces(dispatch)
   },[])
 
   return (
     <div className={styles.container}>
       <div className={styles.title}>Nueva Solicitud de Siniestro</div>
       <form onSubmit={(e) => handleSubmit(e, deceased, request, date, birthDate, currentDate, coffin, isOn)} className={styles.form}>
-        <div >
           <FormDeceased
             deceased={deceased}
             setDeceased={setDeceased}
@@ -62,7 +47,9 @@ const NewRequest = ({ place }: { place: string }) => {
           <FormRequest
             isOn={isOn}
             setIsOn={setIsOn}
-            place={place}
+            isOnBox={isOnBox}
+            setIsOnBox={setIsOnBox}
+            places={places}
             stock={stock}
             request={request}
             setRequest={setRequest}
@@ -76,7 +63,6 @@ const NewRequest = ({ place }: { place: string }) => {
               title={"Guardar"}
             />
           </div>
-        </div>
       </form>
     </div>
   );

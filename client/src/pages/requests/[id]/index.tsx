@@ -8,6 +8,8 @@ import { getRequestById } from "../functions/functions";
 import styles from "../styles/requestDetail.module.css";
 import { SmallBtn } from "../../../components/Buttons";
 import { useRouter } from "next/router";
+import { getAllPlaces } from "../../places/functions";
+import { getplace } from "../../../store/Slices/place";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { params } = context;
@@ -69,12 +71,14 @@ const RequestDetail = ({ id }: { id: string }) => {
   const [updateData, setUpdateData] = useState(initialData);
   const dispatch = useAppDispatch();
   const request = useAppSelector(getRequest);
+  const places = useAppSelector(getplace);
   const prevRequest = useRef(request);
 
   const route = useRouter()
 
   useEffect(() => {
     getRequestById(dispatch, id);
+    getAllPlaces(dispatch)
   }, []);
 
   useEffect(() => {
@@ -118,6 +122,8 @@ const RequestDetail = ({ id }: { id: string }) => {
                 <div className={styles.subTitle}>Lugar de fallecimiento:</div>
                 <div className={styles.text}>{updateData.deceased.pod}</div>
               </div>
+            </div>
+            <div className={styles.items}>
               <div className={styles.subItems}>
                 <div className={styles.subTitle}>Fecha:</div>
                 <div className={styles.text}>
@@ -157,15 +163,17 @@ const RequestDetail = ({ id }: { id: string }) => {
             </div>
             <div className={styles.items}>
               <div className={styles.subItems}>
-                <div className={styles.subTitle}>Parentesco del titular:</div>
-                <div className={styles.text}>
-                  {updateData.request.holder_relationship}
-                </div>
-              </div>
-              <div className={styles.subItems}>
                 <div className={styles.subTitle}>Nombre del titular:</div>
                 <div className={styles.text}>
                   {updateData.request.holder_name}
+                </div>
+              </div>
+            </div>
+            <div className={styles.items}>
+              <div className={styles.subItems}>
+                <div className={styles.subTitle}>Parentesco del titular:</div>
+                <div className={styles.text}>
+                  {updateData.request.holder_relationship}
                 </div>
               </div>
             </div>
@@ -180,6 +188,8 @@ const RequestDetail = ({ id }: { id: string }) => {
                 <div className={styles.subTitle}>Póliza:</div>
                 <div className={styles.text}>{updateData.request.policy}</div>
               </div>
+            </div>
+            <div className={styles.items}>
               <div className={styles.subItems}>
                 <div className={styles.subTitle}>Forma que paga el seguro:</div>
                 <div className={styles.text}>
@@ -194,6 +204,8 @@ const RequestDetail = ({ id }: { id: string }) => {
                   {updateData.request.agreement}
                 </div>
               </div>
+            </div>
+            <div className={styles.items}>
               <div className={styles.subItems}>
                 <div className={styles.subTitle}>Ataúd:</div>
                 <div className={styles.text}>
@@ -203,7 +215,7 @@ const RequestDetail = ({ id }: { id: string }) => {
                         "Cambria, Cochin, Georgia, Times, 'Times New Roman', serif",
                     }}
                   >
-                    {decomposeId(updateData.request.id_coffin)}
+                    {decomposeId(updateData.request.id_coffin, places)}
                   </pre>
                 </div>
               </div>
@@ -215,12 +227,16 @@ const RequestDetail = ({ id }: { id: string }) => {
                   {updateData.request.additional}
                 </div>
               </div>
+            </div>
+            <div className={styles.items}>
               <div className={styles.subItems}>
                 <div className={styles.subTitle}>Corona:</div>
                 <div className={styles.text}>
                   {updateData.request.wreath ? "Si" : "No"}
                 </div>
               </div>
+            </div>
+            <div className={styles.items}>
               <div className={styles.subItems}>
                 <div className={styles.subTitle}>Presente de funeral:</div>
                 <div className={styles.text}>{updateData.request.present}</div>
@@ -253,6 +269,8 @@ const RequestDetail = ({ id }: { id: string }) => {
                 <div className={styles.subTitle}>Revestimiento:</div>
                 <div className={styles.text}>{updateData.request.cladding}</div>
               </div>
+            </div>
+            <div className={styles.items}>
               <div className={styles.subItems}>
                 <div className={styles.subTitle}>
                   Mejoramiento del servicio:
@@ -267,18 +285,20 @@ const RequestDetail = ({ id }: { id: string }) => {
                 <div className={styles.subTitle}>Texto Placa:</div>
                 <div className={styles.text}>{updateData.deceased.leyend}</div>
               </div>
-              <div>
-                <div className={styles.subItems}>
-                  <div className={styles.subTitle}>Esquela:</div>
-                  <div className={styles.text}>
-                    {updateData.deceased.news_paper}
-                  </div>
+            </div>
+            <div className={styles.items}>
+              <div className={styles.subItems}>
+                <div className={styles.subTitle}>Esquela:</div>
+                <div className={styles.text}>
+                  {updateData.deceased.news_paper}
                 </div>
-                <div className={styles.subItems}>
-                  <div className={styles.subTitle}>Diario:</div>
-                  <div className={styles.text}>
-                    {updateData.deceased.news_paper_name}
-                  </div>
+              </div>
+            </div>
+            <div className={styles.items}>
+              <div className={styles.subItems}>
+                <div className={styles.subTitle}>Nombre del Diario:</div>
+                <div className={styles.text}>
+                  {updateData.deceased.news_paper_name}
                 </div>
               </div>
             </div>

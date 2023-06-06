@@ -1,6 +1,6 @@
 import { Coffin } from "./interfaces";
 
-export interface Stock {
+export interface CoffinStock {
     id: string;
     place: string;
     type: string;
@@ -8,8 +8,8 @@ export interface Stock {
     color: string;
     metal_box: boolean;
   }
-  export interface StockState {
-    stock: GetStock[];
+  export interface CoffinStockState {
+    coffinStock: GetCoffinStock[];
     isAllowedExpand: boolean;
   }
   export interface Transfer {
@@ -17,9 +17,19 @@ export interface Stock {
     id_origin: string;
     units: number
   }
-  export interface GetStock {
+  export interface GetCoffinStock {
     id_coffin: string;
     place: string;
     units: number;
     coffin: Coffin
+  }
+
+  export interface MetalBoxStock {
+    id: string;
+    place: string;
+    size: string;
+  }
+  export interface MetalBoxStockState {
+    stock: GetCoffinStock[];
+    isAllowedExpand: boolean;
   }

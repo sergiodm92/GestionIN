@@ -1,14 +1,14 @@
 import { AxiosResponse } from "axios";
 import { apiClient } from "../utils/constants";
-import { Add } from "../types/addsInterfaces";
+import { AddMetalBox } from "../types/addsInterfaces";
 import { getAuthToken } from "./authService";
 
 const token = getAuthToken()
 
 // Post Add
-export const postAddApi = async (data: Add): Promise<AxiosResponse> => {
+export const postAddMetalBoxApi = async (data: AddMetalBox): Promise<AxiosResponse> => {
   try {
-    const response = await apiClient.post("/add", data, {
+    const response = await apiClient.post("/add_metal_box", data, {
       headers: {
         "auth-token": token,
       },
@@ -20,9 +20,9 @@ export const postAddApi = async (data: Add): Promise<AxiosResponse> => {
 };
 
 // get all adds
-export const getAllAddsApi = async (): Promise<AxiosResponse> => {
+export const getAllAddsMetalBoxApi = async (): Promise<AxiosResponse> => {
   try {
-    const response = await apiClient.get("/add/all", {
+    const response = await apiClient.get("/add_metal_box/all", {
       headers: {
         "auth-token": token,
       },
@@ -34,11 +34,11 @@ export const getAllAddsApi = async (): Promise<AxiosResponse> => {
 };
 
 // get limit adds
-export const getLimitAddsApi = async (
+export const getLimitAddsMetalBoxApi = async (
   limit: string
 ): Promise<AxiosResponse> => {
   try {
-    const response = await apiClient.get(`/add/limit/${limit}`, {
+    const response = await apiClient.get(`/add_metal_box/limit/${limit}`, {
       headers: {
         "auth-token": token,
       },
@@ -50,9 +50,9 @@ export const getLimitAddsApi = async (
 };
 
 // get add by id
-export const getAddsByIdApi = async (id: string): Promise<AxiosResponse> => {
+export const getAddMetalBoxByIdApi = async (id: string): Promise<AxiosResponse> => {
   try {
-    const response = await apiClient.get(`/add/id/${id}`, {
+    const response = await apiClient.get(`/add_metal_box/id/${id}`, {
       headers: {
         "auth-token": token,
       },
@@ -64,11 +64,11 @@ export const getAddsByIdApi = async (id: string): Promise<AxiosResponse> => {
 };
 
 // get add by place
-export const getAddsByPlaceApi = async (
+export const getAddsMetalBoxByPlaceApi = async (
   place: string
 ): Promise<AxiosResponse> => {
   try {
-    const response = await apiClient.get(`/add/place/${place}`, {
+    const response = await apiClient.get(`/add_metal_box/place/${place}`, {
       headers: {
         "auth-token": token,
       },
@@ -80,9 +80,9 @@ export const getAddsByPlaceApi = async (
 };
 
 // delete add
-export const deleteAddApi = async (id: string): Promise<AxiosResponse> => {
+export const deleteAddMetalBoxApi = async (id: string): Promise<AxiosResponse> => {
   try {
-    const response = await apiClient.delete(`/add/${id}`, {
+    const response = await apiClient.delete(`/add_metal_box/${id}`, {
       headers: {
         "auth-token": token,
       },

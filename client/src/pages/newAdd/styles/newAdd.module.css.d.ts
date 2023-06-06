@@ -1,10 +1,11 @@
 declare const styles: {
   container: string;
   title: string;
-  form: string;
   formContainer: string;
   inputDate: string;
+  dateRow: string;
   input: string;
+  formRow: string;
   textAreaP: string;
   textArea: string;
   formLevel: string;
@@ -16,6 +17,7 @@ declare const styles: {
   metalBox: string;
   switchBtnContainer: string;
   switchBox: string;
+  dateInput: string;
 };
 
 export default styles;

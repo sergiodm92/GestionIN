@@ -40,15 +40,29 @@ class LoginResponse(BaseModel):
     user: User
 class Coffin(BaseModel):
     id: str
-    #place: str constr(regex='^("PLACES")$')
-    type: constr(regex='^(plano|liso_comun|liso_doble_cuerpo|ondeado|dos_panales|tres_paneles|paris_arito)$')
-    size: constr(regex='^(160|170|180|normal|semi_extraordinario|extraordinario|super|super_extraordinario)$')
-    color: constr(regex='^(roble|nogal|cedro|caoba|almendra|blanco)$')
+    place: str
+    type: str
+    size: str
+    color: str
     metal_box: bool
-    
-class Stock(BaseModel):
+
+#stock de cajones 
+class CoffinStock(BaseModel):
     id_coffin:str
     units: int
+    place: str
+#stock de cajas metalicas
+class MetalBoxStock(BaseModel):
+    id: str
+    size:str
+    units: int
+    place: str
+
+#stock general
+class GeneralStock(BaseModel):
+    id: str
+    product:str
+    amount: int
     place: str
 
 class Deceased(BaseModel):
@@ -63,31 +77,42 @@ class Deceased(BaseModel):
     news_paper: Optional[str]
     news_paper_name: Optional[str]
     tombstone: bool
+    cementery_type: str   #parque(Lápida) o municipal(Placa)
 
 class Material(BaseModel):
     id: str
-    type: constr(regex='^(plano|liso_comun|liso_doble_cuerpo|ondeado|dos_panales|tres_paneles|paris_arito)$')
-    size: constr(regex='^(160|170|180|normal|semi_extraordinario|extraordinario|super|super_extraordinario)$')
+    type: str
+    size: str
     place: str
     metal_box: bool
     code: str
     units: int
-    color: constr(regex='^(roble|nogal|cedro|caoba|almendra|blanco)$')
+    color: str
 
-class Place(BaseModel):
-    place: str
-    @validator('place')
-    def check_place_value(cls, v):
-        if v not in ['san_salvador_de_jujuy', 'san_pedro', 'fraile_pintado', 'ledesma', 'salta', 'colonia', 'tartagal', 'embarcacion']:
-            raise ValueError('El valor del campo "place" debe ser san_salvador_de_jujuy, san_pedro, fraile_pintado, ledesma,salta, colonia tartagal o embarcacion')
-        return v
-
-class Add(BaseModel):
+class AddCoffin(BaseModel):
     id: str
     id_coffin: str 
     date: int
     responsible: str
     units: int
+    supplier: str
+    place: str
+
+class AddMetalBox(BaseModel):
+    id: str
+    size: str 
+    date: int
+    responsible: str
+    units: int
+    supplier: str
+    place: str
+
+class AddGeneralStock(BaseModel):
+    id: str
+    product: str 
+    date: int
+    responsible: str
+    amount: int
     supplier: str
     place: str
 
@@ -124,3 +149,7 @@ class Transfer(BaseModel):
     id_destiny: str
     id_origin: str
     units: int
+
+class Places(BaseModel):
+    initials: str
+    name: str

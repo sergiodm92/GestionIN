@@ -6,12 +6,18 @@ import { getRequestById } from "../../functions/functions";
 import Loading from "../../../../components/Loading/loading";
 import dynamic from "next/dynamic";
 
-const PDFViewer = dynamic(() => import("@react-pdf/renderer").then((module) => module.PDFViewer), {
-  ssr: false,
-});
-const PDFDownloadLink = dynamic(() => import("@react-pdf/renderer").then((module) => module.PDFDownloadLink), {
-  ssr: false,
-});
+const PDFViewer = dynamic(
+  () => import("@react-pdf/renderer").then((module) => module.PDFViewer),
+  {
+    ssr: false,
+  }
+);
+const PDFDownloadLink = dynamic(
+  () => import("@react-pdf/renderer").then((module) => module.PDFDownloadLink),
+  {
+    ssr: false,
+  }
+);
 
 import PDFDetail from "../../components/requestDetailPDF";
 import { FormButton } from "../../../../components/Buttons";
@@ -68,8 +74,12 @@ const RequestDetailPDF = ({ id }: { id: string }) => {
       return (
         <PDFDownloadLink
           style={{ textDecoration: "none" }}
-          document={<PDFDetail request={request.request} deceased={request.deceased} />}
-          fileName={"Detalle de Solicitud de Siniestro - " + request.deceased.name}
+          document={
+            <PDFDetail request={request.request} deceased={request.deceased} />
+          }
+          fileName={
+            "Detalle de Solicitud de Siniestro - " + request.deceased.name
+          }
         >
           <FormButton title={"Descargar PDF"} />
         </PDFDownloadLink>
@@ -77,9 +87,11 @@ const RequestDetailPDF = ({ id }: { id: string }) => {
     }
   };
 
-  return <div>{!request ? <Loading /> : <div>{isClient && renderContent()}</div>}</div>;
+  return (
+    <div>
+      {!request ? <Loading /> : <div>{isClient && renderContent()}</div>}
+    </div>
+  );
 };
 
 export default RequestDetailPDF;
-
-

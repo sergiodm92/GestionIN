@@ -1,25 +1,17 @@
-import { Add } from "../../../types/addsInterfaces";
-import { Coffin, DateType } from "../../../types/interfaces";
-import { createToast } from "../../../components/Notifications/Notifications";
-import { postAddApi } from "../../../services/addApi";
-import { places } from "../../../components/arrays";
-import { generateRandomID } from "../../../components/functions";
+import { AddCoffin } from "../../../../types/addsInterfaces";
+import { Coffin } from "../../../../types/interfaces";
+import { createToast } from "../../../../components/Notifications/Notifications";
+import { postAddCoffinApi } from "../../../../services/addCoffinApi";
+import { generateRandomID } from "../../../../components/functions";
+import { Place } from "../../../../types/place";
 
-export const handleAddChange = (e: any, add: Add, setAdd: any)=>{
+export const handleAddChange = (e: any, add: AddCoffin, setAdd: any)=>{
     e.preventDefault();
     setAdd({
       ...add,
       [e.target.name]: e.target.value.trim(),
     });
 }
-
-export const handleDateChange = (e: any, date: DateType, setDate: any) => {
-    e.preventDefault();
-    setDate({
-      ...date,
-      [e.target.name]: e.target.value.trim(),
-    });
-  };
 
 //COFFIN ---------------------------------
 export const handleCoffinPlace = (e: any, coffin: Coffin, setCoffin: any) => {
@@ -65,12 +57,12 @@ export const handleCoffinPlace = (e: any, coffin: Coffin, setCoffin: any) => {
 }
 //------------------------------------------------------------------------------------
 
-export const addHandleSubmit = async (e:any, coffin: Coffin, date: DateType, add: Add, setAdd: any, setDate: any)=>{
+export const addHandleSubmit = async (e:any, coffin: Coffin, date: string, add: AddCoffin, places: Place[])=>{
     e.preventDefault();
 
     add.id = generateRandomID() //add id
 
-    const dateString = `${date.year}-${date.month}-${date.day}T${date.time}:00`; //add.date
+    const dateString = `${date}T00:00`; //add.date
     const milliseconds = new Date(dateString).getTime();
     add.date = milliseconds
 
@@ -89,7 +81,8 @@ export const addHandleSubmit = async (e:any, coffin: Coffin, date: DateType, add
 
     //send data
     try {
-        const response = await postAddApi(add);
+        console.log(add)
+        const response = await postAddCoffinApi(add);
         if (response.data.status === "ok") {
         createToast("success","Deposito guardado con éxito");
         (document.getElementById("type") as HTMLSelectElement).selectedIndex = 0;

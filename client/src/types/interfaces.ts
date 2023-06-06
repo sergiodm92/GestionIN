@@ -1,7 +1,5 @@
 export interface DateType {
   day: string;
-  month: string;
-  year: string;
   time: string;
 }
 export interface Coffin {

@@ -44,7 +44,15 @@ export const handleCurrentDateChange = (e: any, currentDate: DateType, setCurren
   });
 };
 
-export const handleSubmit = async (e: any, deceased: Deceased, request: Request, date: DateType, birthDate: DateType, currentDate: DateType, coffin: CoffinInitials, isOn: boolean) => {
+//---------------formRequest-----------------------
+
+export const handleToggleSwitch = (isOn: boolean, setIsOn: any) => {
+  setIsOn(!isOn);
+};
+
+//-------------------------------------------------
+
+export const handleSubmit = async (e: any, deceased: Deceased, request: Request, date: DateType, birthDate: string, currentDate: string, coffin: CoffinInitials, isOn: boolean) => {
   e.preventDefault();
   
   deceased.id = generateRandomID() 
@@ -52,17 +60,17 @@ export const handleSubmit = async (e: any, deceased: Deceased, request: Request,
   deceased.id_request = request.id;
   request.id_deceased = deceased.id;
 
-  const dateString = `${date.year}-${date.month}-${date.day}T${date.time}:00`;
+  const dateString = `${date.day}T${date.time}:00`;
   console.log(dateString)
   const milliseconds = new Date(dateString).getTime();
   deceased.dod = milliseconds
   
 
-  const birthDateString = `${birthDate.year}-${birthDate.month}-${birthDate.day}T${birthDate.time}:00`;
+  const birthDateString = `${birthDate}T00:00`;
   const milliseconds2 = new Date(birthDateString).getTime();
   deceased.dob = milliseconds2
 
-  const currentDateString = `${currentDate.year}-${currentDate.month}-${currentDate.day}T${currentDate.time}:00`;
+  const currentDateString = `${currentDate}T00:00`;
   const milliseconds3 = new Date(currentDateString).getTime();
   request.date = milliseconds3
 
