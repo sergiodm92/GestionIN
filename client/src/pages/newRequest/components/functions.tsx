@@ -28,22 +28,6 @@ export const handleDateChange = (e: any, date: DateType, setDate: any) => {
   });
 };
 
-export const handleBirthDateChange = (e: any, birthDate: DateType, setBirthDate: any) => {
-  e.preventDefault();
-  setBirthDate({
-    ...birthDate,
-    [e.target.name]: e.target.value.trim(),
-  });
-};
-
-export const handleCurrentDateChange = (e: any, currentDate: DateType, setCurrentDate: any) => {
-  e.preventDefault();
-  setCurrentDate({
-    ...currentDate,
-    [e.target.name]: e.target.value.trim(),
-  });
-};
-
 //---------------formRequest-----------------------
 
 export const handleToggleSwitch = (isOn: boolean, setIsOn: any) => {
@@ -66,11 +50,11 @@ export const handleSubmit = async (e: any, deceased: Deceased, request: Request,
   deceased.dod = milliseconds
   
 
-  const birthDateString = `${birthDate}T00:00`;
+  const birthDateString = `${birthDate}T00:00:00`;
   const milliseconds2 = new Date(birthDateString).getTime();
   deceased.dob = milliseconds2
 
-  const currentDateString = `${currentDate}T00:00`;
+  const currentDateString = `${currentDate}T00:00:00`;
   const milliseconds3 = new Date(currentDateString).getTime();
   request.date = milliseconds3
 

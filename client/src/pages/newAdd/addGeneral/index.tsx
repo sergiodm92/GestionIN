@@ -66,7 +66,7 @@ const AddGeneral = () => {
             type="text"
             id="product"
             name="product"
-            value={add.product}
+            value={add.product.toLowerCase().trim()}
             onChange={(e) => handleAddChange(e, add, setAdd)}
           />
         </div>        
@@ -88,7 +88,7 @@ const AddGeneral = () => {
             type="text"
             id="responsible"
             name="responsible"
-            value={add.responsible}
+            value={add.responsible.trim()}
             onChange={(e) => handleAddChange(e, add, setAdd)}
           />
         </div>
@@ -99,7 +99,7 @@ const AddGeneral = () => {
             type="text"
             id="supplier"
             name="supplier"
-            value={add.supplier}
+            value={add.supplier.trim()}
             onChange={(e) => handleAddChange(e, add, setAdd)}
           />
         </div>

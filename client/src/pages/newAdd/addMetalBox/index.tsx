@@ -98,7 +98,7 @@ const AddMetalBox = () => {
             type="text"
             id="responsible"
             name="responsible"
-            value={add.responsible}
+            value={add.responsible.trim()}
             onChange={(e) => handleAddChange(e, add, setAdd)}
           />
         </div>
@@ -109,7 +109,7 @@ const AddMetalBox = () => {
             type="text"
             id="supplier"
             name="supplier"
-            value={add.supplier}
+            value={add.supplier.trim()}
             onChange={(e) => handleAddChange(e, add, setAdd)}
           />
         </div>

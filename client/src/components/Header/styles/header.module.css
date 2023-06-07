@@ -1,7 +1,7 @@
 .container{
     background-color: var(--primary-color);
     width: 100%;
-    height: 90px;
+    height: auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -10,7 +10,7 @@
 }
 .leftDiv{
     display: flex;
-    padding-left: 7%;
+    padding-left: 5%;
     cursor: pointer;
 }
 .logo{
@@ -59,4 +59,30 @@
 }
 .sesion:hover{
     text-decoration: underline;
+}
+@media (max-width: 600px) {
+    .logo{
+        height: 50px;
+        width: 50px;
+    }
+    .subtitle{
+        font-size: 12px;
+    }
+    .title{
+        font-size: 16px;
+    }
+    .description{
+        font-size: 10px;
+    }
+    .leftDiv{
+        padding-left: 0;
+    }
+    .rigthDiv{
+        padding-right: 2%;
+        font-size: 12px;
+        gap: 4px;
+    }
+    .sesion{
+        cursor: pointer;
+    }
 }

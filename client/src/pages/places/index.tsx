@@ -12,7 +12,6 @@ const Places = ()=>{
     const dispatch = useAppDispatch()
     
     const places = useAppSelector(getplace)
-    console.log(places)
 
     useEffect(()=>{
         getAllPlaces(dispatch)

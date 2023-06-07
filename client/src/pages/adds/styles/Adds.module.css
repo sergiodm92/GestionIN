@@ -70,3 +70,9 @@
   .card:hover .cardHover {
     opacity: 0.8;
   }
+  .noAdds{
+    padding-top: 5%;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--bringht-color);
+  }

@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import { FormButton } from "../../../components/Buttons";
-import { capitalizeString, getAllPlaces } from "../functions";
+import { capitalizeString, getAllPlaces, handleSubmit } from "../functions";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { getplace } from "../../../store/Slices/place";
-import { createToast } from "../../../components/Notifications/Notifications";
-import { postPlaceApi } from "../../../services/placesApi";
 import styles from "../styles/places.module.css";
 
 const initialPlaceState = {
@@ -30,70 +28,34 @@ const newPlace = () => {
     });
   };
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-    if (!place.name) {
-      createToast("warning", "Debe ingresar un nombre");
-    } else if (!place.initials) {
-      createToast("warning", "Debe ingresar las iniciales");
-    } else if (
-      places.find((p) => p.name.toLowerCase() === place.name.toLowerCase())
-    ) {
-      createToast(
-        "warning",
-        "El nombre ingresado ya existe. Por favor ingrese otro nombre"
-      );
-    } else if (
-      places.find(
-        (p) => p.initials === place.initials
-      )
-    ) {
-      createToast(
-        "warning",
-        "Las iniciales ingresadas ya existe. Por favor ingrese otras iniciales"
-      );
-    } else {
-      try {
-        const response = await postPlaceApi(place);
-        if (response?.data.status === "ok") {
-          createToast("success", "Depósito creado con éxito");
-        } else {
-          createToast(
-            "error",
-            "Verifique que los datos ingresados sean correctos"
-          );
-        }
-      } catch (err) {
-        createToast("warning", "ocurrio un error, vuelva a intentar");
-        console.log(err);
-      }
-    }
-  };
-
   return (
     <div className={styles.container}>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={(e)=>handleSubmit(e, places, place)} className={styles.form}>
         <div className={styles.title}>Nuevo Depósito:</div>
-        <div>
+        <div className={styles.formRow}>
           <div>Nombre del Lugar:</div>
           <input
             type="text"
             id="name"
             name="name"
-            value={capitalizeString(place.name)}
+            value={capitalizeString(place.name).trim()}
             onChange={handleChange}
             placeholder="San Pedro"
+            className={styles.input}
+            style={{width: "calc(100% - 146px)"}}
           />
         </div>
-        <div>
+        <div className={styles.formRow}>
           <div>Iniciales:</div>
           <input
             type="text"
             id="initials"
             name="initials"
-            value={place.initials.toUpperCase()}
+            value={place.initials.toUpperCase().trim()}
             onChange={handleChange}
             placeholder="SP"
+            className={styles.input}
+            style={{width: "100%"}}
           />
         </div>
         <FormButton title="Guardar" />

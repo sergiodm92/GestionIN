@@ -1,5 +1,4 @@
 import {
-  handleBirthDateChange,
   handleDateChange,
   handleDeceasedChange,
 } from "./functions";
