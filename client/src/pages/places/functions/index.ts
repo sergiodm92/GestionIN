@@ -48,6 +48,8 @@ export const handleSubmit = async (e: any, places: Place[] , place: Place) => {
       "Las iniciales ingresadas ya existe. Por favor ingrese otras iniciales"
     );
   } else {
+    place.name = capitalizeString(place.name).trim()
+    place.initials = place.initials.toUpperCase().trim()
     try {
       const response = await postPlaceApi(place);
       if (response?.data.status === "ok") {

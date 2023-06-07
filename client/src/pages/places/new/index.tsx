@@ -38,7 +38,7 @@ const newPlace = () => {
             type="text"
             id="name"
             name="name"
-            value={capitalizeString(place.name)}
+            value={place.name}
             onChange={handleChange}
             placeholder="San Pedro"
             className={styles.input}
@@ -51,7 +51,7 @@ const newPlace = () => {
             type="text"
             id="initials"
             name="initials"
-            value={place.initials.toUpperCase().trim()}
+            value={place.initials}
             onChange={handleChange}
             placeholder="SP"
             className={styles.input}

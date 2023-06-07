@@ -43,6 +43,12 @@ const Header = ()=>{
           });
     }
 
+    const handleHelp = ()=>{
+        router.push('/help')
+    }
+    const handleAbout = ()=>{
+        router.push('/about')
+    }
     const handleLogIn = ()=>{
         router.push('/login')
     }
@@ -61,13 +67,15 @@ const Header = ()=>{
                 </div>
             </div>
             <div className={styles.rigthDiv}>
+                <div onClick={handleHelp} className={styles.sesion}>Ayuda</div>
+                <div onClick={handleAbout} className={styles.sesion}>Sobre nosotros</div>
                 {user.name?
-                (<>
+                (<div className={styles.sesionDiv}>
                     <div>{user.name}</div>
                     <div onClick={handleLogOut} className={styles.sesion}>
                         Cerrar Sesion
                     </div>
-                </>)
+                </div>)
                 : (<div onClick={handleLogIn} className={styles.sesion}>
                     Iniciar Sesion
                 </div>)}

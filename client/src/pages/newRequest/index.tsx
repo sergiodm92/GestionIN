@@ -24,7 +24,6 @@ const NewRequest = () => {
   const dispatch = useAppDispatch()
 
   const stock = useAppSelector(getCoffinStock)
-  console.log(stock);
   const places = useAppSelector(getplace)
 
   useEffect(()=>{

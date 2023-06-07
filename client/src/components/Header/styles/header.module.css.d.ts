@@ -8,6 +8,7 @@ declare const styles: {
     description: string;
     rigthDiv: string;
     sesion: string;
+    sesionDiv: string;
   };
   
   export default styles;

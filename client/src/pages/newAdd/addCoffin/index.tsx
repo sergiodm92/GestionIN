@@ -16,7 +16,6 @@ const AddCoffin = () => {
   const [date, setDate] = useState("");
   const [coffin, setCoffin] = useState(initialCoffin);
   const [isOn, setIsOn] = useState(false);
-  console.log(isOn)
 
   const places = useAppSelector(getplace);
 

@@ -6,11 +6,10 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 15px;
-    
 }
 .leftDiv{
     display: flex;
-    padding-left: 5%;
+    padding-left: 1%;
     cursor: pointer;
 }
 .logo{
@@ -46,12 +45,18 @@
 }
 .rigthDiv{
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-right: 7%;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-right: 3%;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     color: var(--alternative-color);
     font-size: 15px;
+    gap: 30px;
+}
+.sesionDiv{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: 8px;
 }
 .sesion{

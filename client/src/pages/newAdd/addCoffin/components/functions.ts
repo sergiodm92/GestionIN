@@ -84,7 +84,6 @@ export const addHandleSubmit = async (e:any, coffin: Coffin, isOn: boolean, date
 
     //send data
     try {
-        console.log(add)
         const response = await postAddCoffinApi(add);
         if (response.data.status === "ok") {
         createToast("success","Deposito guardado con éxito");

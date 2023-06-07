@@ -45,7 +45,6 @@ export const handleSubmit = async (e: any, deceased: Deceased, request: Request,
   request.id_deceased = deceased.id;
 
   const dateString = `${date.day}T${date.time}:00`;
-  console.log(dateString)
   const milliseconds = new Date(dateString).getTime();
   deceased.dod = milliseconds
   
