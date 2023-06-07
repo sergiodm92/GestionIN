@@ -1,9 +1,10 @@
+import PageUnderConstruction from "../../components/pageUnderConstruction/pageUnderConst"
 
 
 const About = ()=>{
     return(
         <div>
-            Sobre Nosotros
+            <PageUnderConstruction/>
         </div>
     )    
 }

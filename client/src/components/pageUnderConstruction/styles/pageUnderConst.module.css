@@ -1,0 +1,26 @@
+.container{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.image{
+    background-image: url('../../../../public/PAGINA\ EN\ CONSTRUCCION.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    width: 600px;
+    height: 300px;
+}
+@media (max-width: 600px){
+    .image{
+        background-image: url('../../../../public/PAGINA\ EN\ CONSTRUCCION\ celu.jpg');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        width: 300px;
+        height: 400px;
+    }
+}

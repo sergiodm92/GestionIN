@@ -54,7 +54,7 @@ const AddMetalBox = () => {
             }}
           >
             <option defaultValue={"-"}>-</option>
-            {places.map((p, i) => (
+            {places?.map((p, i) => (
               <option key={i} value={p.name}>
                 {p.name}
               </option>
@@ -98,7 +98,7 @@ const AddMetalBox = () => {
             type="text"
             id="responsible"
             name="responsible"
-            value={add.responsible.trim()}
+            value={add.responsible}
             onChange={(e) => handleAddChange(e, add, setAdd)}
           />
         </div>
@@ -109,7 +109,7 @@ const AddMetalBox = () => {
             type="text"
             id="supplier"
             name="supplier"
-            value={add.supplier.trim()}
+            value={add.supplier}
             onChange={(e) => handleAddChange(e, add, setAdd)}
           />
         </div>

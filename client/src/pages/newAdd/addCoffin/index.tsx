@@ -138,7 +138,7 @@ const AddCoffin = () => {
             type="text"
             id="responsible"
             name="responsible"
-            value={add.responsible.trim()}
+            value={add.responsible}
             onChange={(e) => handleAddChange(e, add, setAdd)}
           />
         </div>
@@ -149,7 +149,7 @@ const AddCoffin = () => {
             type="text"
             id="supplier"
             name="supplier"
-            value={add.supplier.trim()}
+            value={add.supplier}
             onChange={(e) => handleAddChange(e, add, setAdd)}
           />
         </div>

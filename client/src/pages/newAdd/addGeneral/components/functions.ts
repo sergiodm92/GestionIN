@@ -21,6 +21,10 @@ export const addGralHandleSubmit = async (e: any, date: string, place: string, a
   add.date = milliseconds;
   add.place = place
 
+  add.product = add.product.trim()
+  add.supplier = add.supplier.trim()
+  add.responsible = add.responsible.trim()
+
   //send data
   try {
     const response = await postAddGeneralApi(add);

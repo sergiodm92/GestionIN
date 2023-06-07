@@ -8,7 +8,7 @@ export const handleDeceasedChange = (e: any, deceased: Deceased, setDeceased: an
   e.preventDefault();
   setDeceased({
     ...deceased,
-    [e.target.name]: e.target.value.trim(),
+    [e.target.name]: e.target.value,
   });
 };
 
@@ -16,7 +16,7 @@ export const handleRequestChange = (e: any, request: Request, setRequest: any) =
   e.preventDefault();
   setRequest({
     ...request,
-    [e.target.name]: e.target.value.trim(),
+    [e.target.name]: e.target.value,
   });
 };
 
@@ -24,7 +24,7 @@ export const handleDateChange = (e: any, date: DateType, setDate: any) => {
   e.preventDefault();
   setDate({
     ...date,
-    [e.target.name]: e.target.value.trim(),
+    [e.target.name]: e.target.value,
   });
 };
 

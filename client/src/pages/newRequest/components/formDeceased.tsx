@@ -54,7 +54,7 @@ const FormDeceased = (data: FormDeceased) => {
           type="text"
           id="time"
           name="time"
-          value={date.time}
+          value={date.time.trim()}
           onChange={(e) => handleDateChange(e, date, setDate)}
           placeholder="00:00"
         />
@@ -82,7 +82,7 @@ const FormDeceased = (data: FormDeceased) => {
           type="text"
           id="dni"
           name="dni"
-          value={deceased.dni}
+          value={deceased.dni.trim()}
           onChange={(e) => handleDeceasedChange(e, deceased, setDeceased)}
         />
       </div>
@@ -114,7 +114,7 @@ const FormDeceased = (data: FormDeceased) => {
               type="text"
               id="news_paper_name"
               name="news_paper_name"
-              value={deceased.news_paper_name}
+              value={deceased.news_paper_name.trim()}
               onChange={(e) => handleDeceasedChange(e, deceased, setDeceased)}
             />
       </div>
