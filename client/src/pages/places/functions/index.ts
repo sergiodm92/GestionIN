@@ -10,3 +10,15 @@ export const getAllPlaces = async (dispatch: any)=>{
       console.log(err)
   }
 }
+
+export const capitalizeString = (str: string) => {
+  str = str.toLowerCase();
+  var words = str.split(" ");
+  for (var i = 0; i < words.length; i++) {
+    var firstLetter = words[i].charAt(0).toUpperCase();
+    var restOfWord = words[i].slice(1);
+    words[i] = firstLetter + restOfWord;
+  }
+  var capitalizedString = words.join(" ");
+  return capitalizedString;
+};

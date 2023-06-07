@@ -7,9 +7,3 @@ export const addGeneralInicialState = {
     supplier: "",
     place: ""
   }
-  export const initialDate={
-    day:"",
-    month:"",
-    year:"",
-    time:"00:00"
-}

@@ -1,15 +1,7 @@
 import React, { useState, useEffect } from "react";
-import {
-  addGeneralInicialState,
-  initialDate,
-} from "./components/initialStates";
-import {
-  addGralHandleSubmit,
-  handleAddChange,
-  handleDateChange,
-} from "./components/functions";
-import { types, sizes, colors } from "../../../components/arrays";
-import { FormButton, SwitchBtn } from "../../../components/Buttons";
+import { addGeneralInicialState} from "./components/initialStates";
+import { addGralHandleSubmit, handleAddChange} from "./components/functions";
+import { FormButton } from "../../../components/Buttons";
 import styles from "../styles/newAdd.module.css";
 import { getAllPlaces } from "../../places/functions";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
@@ -19,7 +11,8 @@ const AddGeneral = () => {
   const dispatch = useAppDispatch();
 
   const [add, setAdd] = useState(addGeneralInicialState);
-  const [date, setDate] = useState(initialDate);
+  const [date, setDate] = useState("");
+  const [place, setPlace] = useState("");
 
   const places = useAppSelector(getplace);
 
@@ -31,37 +24,21 @@ const AddGeneral = () => {
     <div className={styles.container}>
       <div className={styles.title}>Nuevo Ingreso</div>
       <form
-        onSubmit={(e) => addGralHandleSubmit(e, date, add)}
+        onSubmit={(e) => addGralHandleSubmit(e, date, place, add)}
         className={styles.formContainer}
       >
         <div className={styles.dateRow}>
           <div>Fecha: </div>
           <input
-            className={styles.inputDate}
-            type="text"
-            id="day"
-            name="day"
-            value={date.day}
-            onChange={(e) => handleDateChange(e, date, setDate)}
-            placeholder="dd"
-          />
-          <input
-            className={styles.inputDate}
-            type="text"
-            id="month"
-            name="month"
-            value={date.month}
-            onChange={(e) => handleDateChange(e, date, setDate)}
-            placeholder="mm"
-          />
-          <input
-            className={styles.inputDate}
-            type="text"
-            id="year"
-            name="year"
-            value={date.year}
-            onChange={(e) => handleDateChange(e, date, setDate)}
-            placeholder="yyyy"
+            type="date"
+            id="date"
+            name="date"
+            value={date}
+            className={styles.dateInput}
+            onChange={(e) => {
+              e.preventDefault()
+              setDate(e.target.value)
+            }}
           />
         </div>
         <div className={styles.formRow}>
@@ -69,7 +46,10 @@ const AddGeneral = () => {
           <select
             id="place"
             className={styles.input}
-            onChange={(e) => handleAddChange(e, add, setAdd)}
+            onChange={(e) => {
+              e.preventDefault()
+              setPlace(e.target.value)
+            }}
           >
             <option defaultValue={"-"}>-</option>
             {places.map((p, i) => (

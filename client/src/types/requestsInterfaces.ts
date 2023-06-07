@@ -59,8 +59,6 @@ export interface  FormDeceased {
 export interface  FormRequest {
   isOn: boolean;
   setIsOn: any;
-  isOnBox: boolean;
-  setIsOnBox: any;
   places: Place[];
   stock: GetCoffinStock[];
   request: Request;

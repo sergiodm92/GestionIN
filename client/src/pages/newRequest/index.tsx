@@ -20,11 +20,11 @@ const NewRequest = () => {
   const [currentDate, setCurrentDate] = useState("");
   const [coffin, setCoffin] = useState(initialCoffin);
   const [isOn, setIsOn] = useState(false);
-  const [isOnBox, setIsOnBox] = useState(false);
 
   const dispatch = useAppDispatch()
 
   const stock = useAppSelector(getCoffinStock)
+  console.log(stock);
   const places = useAppSelector(getplace)
 
   useEffect(()=>{
@@ -47,8 +47,6 @@ const NewRequest = () => {
           <FormRequest
             isOn={isOn}
             setIsOn={setIsOn}
-            isOnBox={isOnBox}
-            setIsOnBox={setIsOnBox}
             places={places}
             stock={stock}
             request={request}

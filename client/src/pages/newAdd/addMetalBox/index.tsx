@@ -1,13 +1,6 @@
 import React, { useState, useEffect } from "react";
-import {
-  addMetalBoxInicialState,
-  initialDate,
-} from "./components/initialStates";
-import {
-  addMetalBoxHandleSubmit,
-  handleAddChange,
-  handleDateChange,
-} from "./components/functions";
+import { addMetalBoxInicialState } from "./components/initialStates";
+import { addMetalBoxHandleSubmit, handleAddChange } from "./components/functions";
 import { FormButton } from "../../../components/Buttons";
 import styles from "../styles/newAdd.module.css";
 import { getAllPlaces } from "../../places/functions";
@@ -19,7 +12,9 @@ const AddMetalBox = () => {
   const dispatch = useAppDispatch();
 
   const [add, setAdd] = useState(addMetalBoxInicialState);
-  const [date, setDate] = useState(initialDate);
+  const [date, setDate] = useState("");
+  const [place, setPlace] = useState("");
+  const [size, setSize] = useState("");
 
   const places = useAppSelector(getplace);
 
@@ -31,37 +26,21 @@ const AddMetalBox = () => {
     <div className={styles.container}>
       <div className={styles.title}>Nuevo Ingreso de Cajas Metálicas</div>
       <form
-        onSubmit={(e) => addMetalBoxHandleSubmit(e, date, add)}
+        onSubmit={(e) => addMetalBoxHandleSubmit(e, date, place, size, add)}
         className={styles.formContainer}
       >
         <div className={styles.dateRow}>
           <div>Fecha: </div>
           <input
-            className={styles.inputDate}
-            type="text"
-            id="day"
-            name="day"
-            value={date.day}
-            onChange={(e) => handleDateChange(e, date, setDate)}
-            placeholder="dd"
-          />
-          <input
-            className={styles.inputDate}
-            type="text"
-            id="month"
-            name="month"
-            value={date.month}
-            onChange={(e) => handleDateChange(e, date, setDate)}
-            placeholder="mm"
-          />
-          <input
-            className={styles.inputDate}
-            type="text"
-            id="year"
-            name="year"
-            value={date.year}
-            onChange={(e) => handleDateChange(e, date, setDate)}
-            placeholder="yyyy"
+            type="date"
+            id="date"
+            name="date"
+            value={date}
+            className={styles.dateInput}
+            onChange={(e) => {
+              e.preventDefault()
+              setDate(e.target.value)
+            }}
           />
         </div>
         <div className={styles.formRow}>
@@ -69,7 +48,10 @@ const AddMetalBox = () => {
           <select
             id="place"
             className={styles.input}
-            onChange={(e) => handleAddChange(e, add, setAdd)}
+            onChange={(e)=>{
+              e.preventDefault()
+              setPlace(e.target.value)
+            }}
           >
             <option defaultValue={"-"}>-</option>
             {places.map((p, i) => (
@@ -85,7 +67,10 @@ const AddMetalBox = () => {
           <select
             id="size"
             className={styles.input}
-            onChange={(e) => handleAddChange(e, add, setAdd)}
+            onChange={(e) =>{
+              e.preventDefault()
+              setSize(e.target.value)
+            }}
           >
             <option defaultValue={"-"}>-</option>
             {sizes.map((p, i) => (

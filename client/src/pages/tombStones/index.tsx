@@ -3,23 +3,49 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { getDeceaseds } from "../../store/Slices/deceasedSlice";
 import Loading from "../../components/Loading/loading";
 import { getDeceasedesWithoutTombStone } from "./functions/functions";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Card1 from "../../components/Cards/Card1";
 import styles from "./styles/tombStone.module.css";
 import { SmallBtn } from "../../components/Buttons";
+
+const initialDeceasedState = [
+  {
+      id: "",
+      id_request: "",
+      name: "",
+      dob: 0,
+      dod: 0,
+      pod: "",
+      dni: "",
+      leyend: "",
+      news_paper: "",
+      news_paper_name: "",
+      tombstone: true,
+      cementery_type: ""
+  }
+]
 
 const TombStones = () => {
   const [selectedCards, setSelectedCards] = useState<string[]>([]);
   const [filterDate, setFilterDate] = useState<string | null>(null);
   const [selectAll, setSelectAll] = useState<boolean>(false);
-
+  const [updateData, setUpdateData] = useState(initialDeceasedState);
   const router = useRouter();
   const dispatch = useAppDispatch();
   const deceaseds = useAppSelector(getDeceaseds);
+  const prevDeceaseds = useRef(deceaseds)
+
 
   useEffect(() => {
     getDeceasedesWithoutTombStone(dispatch);
   }, []);
+
+  useEffect(() => {
+    if (prevDeceaseds.current !== deceaseds) {
+      setUpdateData(deceaseds);
+      prevDeceaseds.current = deceaseds;
+    }
+  }, [deceaseds]);
 
   const handleCardSelection = (cardId: string) => {
     if (selectedCards.includes(cardId)) {
@@ -60,7 +86,9 @@ const TombStones = () => {
 
   return (
     <div className={styles.container}>
-      {deceaseds.length === 0 ? (
+      {updateData.length === 0 ? (
+        <div className={styles.noDeceased}>No hay Placas o Lápidas pendientes</div>
+      ) : updateData[0].id === "" ?  (
         <Loading />
       ) : (
         <>

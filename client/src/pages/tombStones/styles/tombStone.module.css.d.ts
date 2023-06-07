@@ -9,6 +9,7 @@ declare const styles: {
     filterContainer: string;
     dateBox: string;
     dateInput: string;
+    noDeceased: string;
   };
   
   export default styles;
