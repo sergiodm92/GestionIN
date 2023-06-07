@@ -2,7 +2,6 @@ import { createToast } from "../../../../components/Notifications/Notifications"
 import { generateRandomID } from "../../../../components/functions";
 import { postAddMetalBoxApi } from "../../../../services/addMetalBoxApi";
 import { AddMetalBox } from "../../../../types/addsInterfaces";
-import { DateType } from "../../../../types/interfaces";
 
 export const handleAddChange = (e: any, add: AddMetalBox, setAdd: any)=>{
     e.preventDefault();
@@ -12,22 +11,17 @@ export const handleAddChange = (e: any, add: AddMetalBox, setAdd: any)=>{
     });
 }
 
-export const handleDateChange = (e: any, date: DateType, setDate: any) => {
-    e.preventDefault();
-    setDate({
-      ...date,
-      [e.target.name]: e.target.value.trim(),
-    });
-  };
-
-  export const addMetalBoxHandleSubmit = async (e:any, date: DateType, add: AddMetalBox)=>{
+  export const addMetalBoxHandleSubmit = async (e:any, date: string, place:string, size:string, add: AddMetalBox)=>{
     e.preventDefault();
 
     add.id = generateRandomID() //add id
 
-    const dateString = `${date.year}-${date.month}-${date.day}T${date.time}:00`; //add.date
+    const dateString = `${date}T00:00`; //add.date
     const milliseconds = new Date(dateString).getTime();
     add.date = milliseconds
+
+    add.place=place
+    add.size=size
 
     //send data
     try {

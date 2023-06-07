@@ -81,4 +81,11 @@
     cursor: pointer;
     border-radius: 3px;
 }
+.noDeceased{
+    padding-top: 5%;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--bringht-color);
+  }
+
   

@@ -16,6 +16,7 @@ const AddCoffin = () => {
   const [date, setDate] = useState("");
   const [coffin, setCoffin] = useState(initialCoffin);
   const [isOn, setIsOn] = useState(false);
+  console.log(isOn)
 
   const places = useAppSelector(getplace);
 
@@ -31,7 +32,7 @@ const AddCoffin = () => {
     <div className={styles.container}>
       <div className={styles.title}>Nuevo Ingreso de Ataúd</div>
       <form
-        onSubmit={(e) => addHandleSubmit(e, coffin, date, add, places)}
+        onSubmit={(e) => addHandleSubmit(e, coffin, isOn, date, add, places)}
         className={styles.formContainer}
       >
         <div className={styles.dateRow}>

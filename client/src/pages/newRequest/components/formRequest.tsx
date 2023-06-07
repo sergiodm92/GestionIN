@@ -1,5 +1,5 @@
 import { FormRequest } from "../../../types/requestsInterfaces";
-import { handleCurrentDateChange, handleRequestChange, handleToggleSwitch } from "./functions";
+import { handleRequestChange, handleToggleSwitch } from "./functions";
 import styles from "../styles/newRequest.module.css";
 import { useState } from "react";
 import { types, sizes, colors } from "../../../components/arrays";
@@ -9,8 +9,6 @@ const FormRequest = (data: FormRequest) => {
   const {
     isOn,
     setIsOn,
-    isOnBox,
-    setIsOnBox,
     places,
     stock,
     request,
@@ -21,7 +19,7 @@ const FormRequest = (data: FormRequest) => {
     setCoffin,
   } = data;
 
-  let stockPlaces = stock?.map((s) => s.coffin.place);
+  let stockPlaces = stock?.map((s) => s.place);
   let placesArray = [...new Set(stockPlaces)];
 
   const [filteredTypes, setFilteredTypes] = useState<string[]>([]);
@@ -36,7 +34,7 @@ const FormRequest = (data: FormRequest) => {
     // Filtrar los tipos disponibles para el lugar seleccionados
     const typesArray =
       stock
-        ?.filter((s) => s.coffin.place === selectedPlace)
+        ?.filter((s) => s.place === selectedPlace)
         .map((s) => s.coffin.type) ?? [];
     setFilteredTypes([...new Set(typesArray)]);
 
@@ -62,7 +60,7 @@ const FormRequest = (data: FormRequest) => {
       stock
         ?.filter(
           (s) =>
-            s.coffin.place === coffin.place.name &&
+            s.place === coffin.place.name &&
             s.coffin.type === selectedType
         )
         .map((s) => s.coffin.size) ?? [];
@@ -90,7 +88,7 @@ const FormRequest = (data: FormRequest) => {
       stock
         ?.filter(
           (s) =>
-            s.coffin.place === coffin.place.name &&
+            s.place === coffin.place.name &&
             s.coffin.type === coffin.type.name &&
             s.coffin.size === selectedSize
         )
@@ -116,7 +114,7 @@ const FormRequest = (data: FormRequest) => {
       stock
         ?.filter(
           (s) =>
-            s.coffin.place === coffin.place.name &&
+            s.place === coffin.place.name &&
             s.coffin.type === coffin.type.name &&
             s.coffin.size === coffin.size.name &&
             s.coffin.color === selectedColor

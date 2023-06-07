@@ -57,7 +57,7 @@ export const handleCoffinPlace = (e: any, coffin: Coffin, setCoffin: any) => {
 }
 //------------------------------------------------------------------------------------
 
-export const addHandleSubmit = async (e:any, coffin: Coffin, date: string, add: AddCoffin, places: Place[])=>{
+export const addHandleSubmit = async (e:any, coffin: Coffin, isOn: boolean, date: string, add: AddCoffin, places: Place[])=>{
     e.preventDefault();
 
     add.id = generateRandomID() //add id
@@ -67,7 +67,7 @@ export const addHandleSubmit = async (e:any, coffin: Coffin, date: string, add: 
     add.date = milliseconds
 
     var MB = ""  //add.id_coffin
-    if(coffin.metal_box){
+    if(isOn){
       MB = "TR"
     }
     else{
@@ -87,8 +87,7 @@ export const addHandleSubmit = async (e:any, coffin: Coffin, date: string, add: 
         createToast("success","Deposito guardado con éxito");
         (document.getElementById("type") as HTMLSelectElement).selectedIndex = 0;
         (document.getElementById("size") as HTMLSelectElement).selectedIndex = 0;
-        (document.getElementById("color") as HTMLSelectElement).selectedIndex = 0;  
-        (document.getElementById("metal_box") as HTMLInputElement).checked = false;
+        (document.getElementById("color") as HTMLSelectElement).selectedIndex = 0;
         (document.getElementById("units") as HTMLInputElement).value = "0";
         } else {
         createToast("error","Verifique que los datos ingresados sean correctos");

@@ -48,7 +48,7 @@ const Deceased = ()=>{
     return(
         <div className={styles.container}>
       {updateData.length === 0 ? (
-        <div className={styles.noDeceased}>No hay Solicitudes disponible</div>
+        <div className={styles.noDeceased}>No hay Difuntos disponible</div>
       ) : updateData[0].id === "" ? 
             (<Loading/>)
             :(<>

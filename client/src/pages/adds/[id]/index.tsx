@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react"
-import { getAdd } from "../../../store/Slices/addsCoffinSlice"
+import { getAddCoffin } from "../../../store/Slices/addsCoffinSlice"
 import { useAppDispatch, useAppSelector } from "../../../store/hooks"
-import { getAddsById } from "../functions/functions"
+import { getAddCoffinById } from "../functions/functions"
 import { GetServerSideProps } from "next";
 import styles from "../styles/addDetail.module.css"
 import { decomposeId } from "../../../components/functions";
@@ -30,12 +30,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 const AddDetail = ({ id }: { id: string })=>{
     const [updateData, setUpdateData] = useState({});
     const dispatch = useAppDispatch()
-    const add = useAppSelector(getAdd)
+    const add = useAppSelector(getAddCoffin)
     const places = useAppSelector(getplace)
     const prevAdd = useRef(add);
 
     useEffect(()=>{
-        getAddsById(dispatch, id)
+        getAddCoffinById(dispatch, id)
         getAllPlaces(dispatch)
     },[])
 
