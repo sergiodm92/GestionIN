@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { getUser, setLoginData, setLogoutData } from '../../store/Slices/userSlice'
-import { useEffect } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import Swal from 'sweetalert2'
 import { createToast } from '../Notifications/Notifications'
 import styles from './styles/header.module.css'
@@ -12,9 +12,26 @@ const Header = ()=>{
     const dispatch=useAppDispatch()
     const router = useRouter()
 
+    const [menuOpen, setMenuOpen] = useState(false)
+    const menuRef = useRef(null);
+
     useEffect(()=>{
         dispatch(setLoginData())
     },[])
+
+    useEffect(() => {
+        const handleClickOutside = (event : MouseEvent) => {
+            if (menuRef.current && !(menuRef.current as HTMLElement).contains(event.target as Node)) {
+                setMenuOpen(false);
+            }
+        };
+    
+        document.addEventListener('mousedown', handleClickOutside);
+    
+        return () => {
+          document.removeEventListener('mousedown', handleClickOutside);
+        };
+      }, []);
 
     const handleLogOut = ()=>{
         Swal.fire({
@@ -34,6 +51,9 @@ const Header = ()=>{
                 localStorage.setItem("userAdmin", "")
                 localStorage.setItem("userPlace", "")
                 createToast("success","Cerro sesion correctamente");
+                if(menuOpen){
+                    setMenuOpen(!menuOpen);
+                }
             } else if (
               /* Read more about handling dismissals below */
               result.dismiss === Swal.DismissReason.cancel
@@ -45,16 +65,28 @@ const Header = ()=>{
 
     const handleHelp = ()=>{
         router.push('/help')
+        if(menuOpen){
+            setMenuOpen(!menuOpen);
+        }
     }
     const handleAbout = ()=>{
         router.push('/about')
+        if(menuOpen){
+            setMenuOpen(!menuOpen);
+        }
     }
     const handleLogIn = ()=>{
         router.push('/login')
+        if(menuOpen){
+            setMenuOpen(!menuOpen);
+        }
     }
     const handleHome = ()=>{
         router.push('/')
     }
+    const toggleMenu = () => {
+        setMenuOpen(!menuOpen);
+      };
 
     return (
         <div className={styles.container}>
@@ -66,19 +98,29 @@ const Header = ()=>{
                     <div className={styles.description}>Sepelios - Velatorios - Traslados</div>
                 </div>
             </div>
-            <div className={styles.rigthDiv}>
-                <div onClick={handleHelp} className={styles.sesion}>Ayuda</div>
-                <div onClick={handleAbout} className={styles.sesion}>Sobre nosotros</div>
+            <div className={styles.rightDiv}>
+                <div onClick={handleHelp} className={styles.session}>Ayuda</div>
+                <div onClick={handleAbout} className={styles.session}>Sobre Nosotros</div>
                 {user.name?
-                (<div className={styles.sesionDiv}>
+                (<div className={styles.sessionDiv}>
                     <div>{user.name}</div>
-                    <div onClick={handleLogOut} className={styles.sesion}>
+                    <div onClick={handleLogOut} className={styles.session}>
                         Cerrar Sesion
                     </div>
                 </div>)
-                : (<div onClick={handleLogIn} className={styles.sesion}>
+                : (<div onClick={handleLogIn} className={styles.session}>
                     Iniciar Sesion
                 </div>)}
+            </div>
+            <div className={styles.sandwichMenu} onClick={toggleMenu}>
+                <div className={styles.line}></div>
+                <div className={styles.line}></div>
+                <div className={styles.line}></div>
+            </div>
+            <div ref={menuRef} className={menuOpen? styles.menu : styles.menuNone}>
+                <div className={styles.menuItems} onClick={handleAbout}>Sobre Nosotros</div>
+                <div className={styles.menuItems} onClick={handleHelp}>Ayuda</div>
+                <div className={styles.menuItems} onClick={user.name ? handleLogOut : handleLogIn}>{user.name? "Cerrar Sesion":"Iniciar Sesion"}</div>
             </div>
         </div>
     )

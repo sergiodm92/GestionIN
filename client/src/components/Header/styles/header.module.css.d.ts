@@ -6,9 +6,14 @@ declare const styles: {
     subtitle: string;
     title: string;
     description: string;
-    rigthDiv: string;
-    sesion: string;
-    sesionDiv: string;
+    rightDiv: string;
+    session: string;
+    sessionDiv: string;
+    sandwichMenu: string;
+    line: string;
+    menu: string;
+    menuItems: string;
+    menuNone: string;
   };
   
   export default styles;

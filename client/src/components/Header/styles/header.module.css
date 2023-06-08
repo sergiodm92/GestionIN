@@ -43,7 +43,7 @@
     color: var(--alternative-color);
     font-size: 12px;
 }
-.rigthDiv{
+.rightDiv{
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
@@ -53,18 +53,74 @@
     font-size: 15px;
     gap: 30px;
 }
-.sesionDiv{
+.sessionDiv{
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 8px;
 }
-.sesion{
+.session{
     cursor: pointer;
 }
-.sesion:hover{
+.session:hover{
     text-decoration: underline;
 }
+.sandwichMenu{
+    display: none;
+}
+.menuNone{
+    display: none;
+}
+.menu{
+    display: none;
+}
+@media (max-width: 650px){
+    .rightDiv{
+        display: none;
+    }
+    .sandwichMenu{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 35px;
+        height: 20px;
+        margin-right: 15px;
+        cursor: pointer;
+    }
+    .line{
+        background-color: white;
+        width: 100%;
+        height: 2px;
+    }
+    .menuNone{
+        display: none;
+    }
+    .menu{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        width: 140px;
+        height: 90px;
+        right: 0;
+        top: 100px;
+        background-color: var(--secondary-color);
+    }
+    .menuItems{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 30px;
+        color: var(--primary-color);
+    }
+    .menuItems:hover{
+        cursor: pointer;
+        background-color: var(--alternative-color);
+    }
+}
+
 @media (max-width: 600px) {
     .logo{
         height: 50px;
@@ -82,12 +138,15 @@
     .leftDiv{
         padding-left: 0;
     }
-    .rigthDiv{
+    .rightDiv{
         padding-right: 2%;
         font-size: 12px;
         gap: 4px;
     }
-    .sesion{
+    .session{
         cursor: pointer;
+    }
+    .menu{
+        top: 70px;
     }
 }
