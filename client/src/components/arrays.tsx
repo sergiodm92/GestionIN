@@ -25,6 +25,9 @@ export const colors = [
     {name:"Almendra", initials: "AL" },
     {name:"Blanco", initials: "BL" }
 ]
-
+export const metalBox = [
+    {name:"Con Caja Metálica", initials: "TR" },
+    {name:"Sin Caja Metálica", initials: "FS" }
+]
 export const cementeryType = ["Parque", "Municipal"]
 
