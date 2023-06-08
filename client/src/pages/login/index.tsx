@@ -31,6 +31,7 @@ const Login = ()=>{
             const json = await LoginUserApi(user);
             const response = json.data
             if(response.status === "ok"){
+                console.log(response.data)
                 createToast("success","Bienvenido");
                 localStorage.setItem("authToken", response.data.token)
                 localStorage.setItem("userName", response.data.user.name)
