@@ -8,7 +8,7 @@ const Footer = ()=>{
     return (
         <div className={styles.container}>
             <div>Copyright 2023 | Todos los derechos reservados | DR full code</div>
-            <div>✉ drfullcode@gmail.com</div>
+            <div className={styles.text}>✉ drfullcode@gmail.com</div>
             <div onClick={()=>router.push('https://www.instagram.com/drfullcode/')} className={styles.links}>@drfullcode</div>
             <div className={styles.wpp}>
                 <div>📱</div>

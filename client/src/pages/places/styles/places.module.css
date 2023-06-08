@@ -1,10 +1,16 @@
 .container{
     width: 100%;
+    min-height: 60vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     gap: 12px;
+}
+.form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
 }
 .title{
   font-size: 22px;
@@ -15,7 +21,7 @@
 .newPlace{
   position: absolute;
   right: 2%;
-  top: 95px;
+  top: 105px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -29,4 +35,22 @@
   background-color: var(--secondary-color);
   border-radius: 5px;
   cursor: pointer;
+}
+.input{
+  border: none;
+  border-bottom: 1px solid var(--primary-color);
+  outline: none;
+  font-size: 15px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+.formRow{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+@media (max-width: 600px){
+  .newPlace{
+    top: 75px;
+  }
 }

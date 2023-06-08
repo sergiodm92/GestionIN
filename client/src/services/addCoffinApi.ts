@@ -8,7 +8,6 @@ const token = getAuthToken()
 // Post Add
 export const postAddCoffinApi = async (data: AddCoffin): Promise<AxiosResponse> => {
   try {
-      console.log(data)
       const response = await apiClient.post("/add_coffin", data, {
       headers: {
         "auth-token": token,

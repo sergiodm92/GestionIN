@@ -1,29 +1,22 @@
-import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { SmallBtn } from '../components/Buttons';
+import styles from '../styles/404.module.css'
 
 const NotFound = () => {
+
+  const router = useRouter()
+
   return (
-    <div style={{ position: 'absolute', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <h2 style={{ fontSize: '10rem', marginBottom: '2rem', backgroundColor: '#083045', color: '#ffffff', padding: '1rem 2rem', borderRadius: '10px' }}>
-        404
-      </h2>
-      <h1 style={{ fontSize: '3rem', marginBottom: '1rem' }}>Oops! Esta página no existe.</h1>
-      <p style={{ fontSize: '1.5rem', textAlign: 'center', marginBottom: '2rem' }}>
-        Lo sentimos, no hemos podido encontrar la página que estás buscando.
-      </p>
-      <Link href="/">
-        <a
-          style={{
-            backgroundColor: '#083045',
-            color: '#ffffff',
-            fontSize: '1.5rem',
-            padding: '1rem 2rem',
-            borderRadius: '10px',
-            transition: 'background-color 0.2s ease-in-out',
-          }}
-        >
-          Volver al inicio
-        </a>
-      </Link>
+    <div className={styles.container}>
+      <div className={styles.number}>404</div>
+      <div className={styles.title}>Oops! Esta página no existe.</div>
+      <div className={styles.description}>
+        Lo sentimos, no hemos podido encontrar la página que está buscando.
+      </div>
+      <SmallBtn
+        title='Volver al inicio'
+        onClick={()=>router.push('/')}
+      />
     </div>
   );
 };

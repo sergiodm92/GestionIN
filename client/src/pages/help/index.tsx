@@ -1,11 +1,11 @@
 import PageUnderConstruction from "../../components/pageUnderConstruction/pageUnderConst"
 
 
-const About = ()=>{
+const Help = ()=>{
     return(
         <div>
             <PageUnderConstruction/>
         </div>
     )    
 }
-export default About
+export default Help

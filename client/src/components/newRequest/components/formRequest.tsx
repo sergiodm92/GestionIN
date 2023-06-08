@@ -370,7 +370,7 @@ const FormRequest = (data: FormRequest) => {
           type="text"
           id="burial_time"
           name="burial_time"
-          value={request.burial_time}
+          value={request.burial_time.trim()}
           placeholder="00:00"
           onChange={(e) => handleRequestChange(e, request, setRequest)}
         />

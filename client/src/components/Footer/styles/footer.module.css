@@ -16,3 +16,14 @@
 .links{
     cursor: pointer;
 }
+@media (max-width: 800px) {
+    .text{
+        display: none;
+    }
+    .links{
+        display: none;
+    }
+    .wpp{
+        display: none;
+    }
+}

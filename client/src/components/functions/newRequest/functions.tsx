@@ -8,7 +8,7 @@ export const handleDeceasedChange = (e: any, deceased: Deceased, setDeceased: an
   e.preventDefault();
   setDeceased({
     ...deceased,
-    [e.target.name]: e.target.value.trim(),
+    [e.target.name]: e.target.value,
   });
 };
 
@@ -16,7 +16,7 @@ export const handleRequestChange = (e: any, request: Request, setRequest: any) =
   e.preventDefault();
   setRequest({
     ...request,
-    [e.target.name]: e.target.value.trim(),
+    [e.target.name]: e.target.value,
   });
 };
 
@@ -24,23 +24,7 @@ export const handleDateChange = (e: any, date: DateType, setDate: any) => {
   e.preventDefault();
   setDate({
     ...date,
-    [e.target.name]: e.target.value.trim(),
-  });
-};
-
-export const handleBirthDateChange = (e: any, birthDate: DateType, setBirthDate: any) => {
-  e.preventDefault();
-  setBirthDate({
-    ...birthDate,
-    [e.target.name]: e.target.value.trim(),
-  });
-};
-
-export const handleCurrentDateChange = (e: any, currentDate: DateType, setCurrentDate: any) => {
-  e.preventDefault();
-  setCurrentDate({
-    ...currentDate,
-    [e.target.name]: e.target.value.trim(),
+    [e.target.name]: e.target.value,
   });
 };
 
@@ -61,16 +45,15 @@ export const handleSubmit = async (e: any, deceased: Deceased, request: Request,
   request.id_deceased = deceased.id;
 
   const dateString = `${date.day}T${date.time}:00`;
-  console.log(dateString)
   const milliseconds = new Date(dateString).getTime();
   deceased.dod = milliseconds
   
 
-  const birthDateString = `${birthDate}T00:00`;
+  const birthDateString = `${birthDate}T00:00:00`;
   const milliseconds2 = new Date(birthDateString).getTime();
   deceased.dob = milliseconds2
 
-  const currentDateString = `${currentDate}T00:00`;
+  const currentDateString = `${currentDate}T00:00:00`;
   const milliseconds3 = new Date(currentDateString).getTime();
   request.date = milliseconds3
 

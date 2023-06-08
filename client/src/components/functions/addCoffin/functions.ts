@@ -79,9 +79,11 @@ export const addHandleSubmit = async (e:any, coffin: Coffin, isOn: boolean, date
     let currentPlace = places.find(p=>p.initials==coffin.place) //add.place
     if(currentPlace) add.place = currentPlace.name
 
+    add.supplier = add.supplier.trim()
+    add.responsible = add.responsible.trim()
+
     //send data
     try {
-        console.log(add)
         const response = await postAddCoffinApi(add);
         if (response.data.status === "ok") {
         createToast("success","Deposito guardado con éxito");

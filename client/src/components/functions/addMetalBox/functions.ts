@@ -23,6 +23,9 @@ export const handleAddChange = (e: any, add: AddMetalBox, setAdd: any)=>{
     add.place=place
     add.size=size
 
+    add.supplier = add.supplier.trim()
+    add.responsible = add.responsible.trim()
+
     //send data
     try {
         const response = await postAddMetalBoxApi(add);

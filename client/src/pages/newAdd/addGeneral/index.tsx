@@ -66,7 +66,7 @@ const AddGeneral = () => {
             type="text"
             id="product"
             name="product"
-            value={add.product}
+            value={add.product.toLowerCase()}
             onChange={(e) => handleAddChange(e, add, setAdd)}
           />
         </div>        

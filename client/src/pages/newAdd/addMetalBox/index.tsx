@@ -54,7 +54,7 @@ const AddMetalBox = () => {
             }}
           >
             <option defaultValue={"-"}>-</option>
-            {places.map((p, i) => (
+            {places?.map((p, i) => (
               <option key={i} value={p.name}>
                 {p.name}
               </option>
