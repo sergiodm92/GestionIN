@@ -12,7 +12,7 @@ const initialPlaceState = {
   initials: "",
 };
 
-const newPlace = () => {
+const NewPlace = () => {
   const [place, setPlace] = useState(initialPlaceState);
 
   const dispatch = useAppDispatch();
@@ -101,4 +101,4 @@ const newPlace = () => {
     </div>
   );
 };
-export default newPlace;
+export default NewPlace;
