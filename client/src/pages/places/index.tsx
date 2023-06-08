@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import { LargeButton } from "../../components/Buttons"
 import { useRouter } from "next/router"
 import styles from "./styles/places.module.css"
-import { getAllPlaces } from "./functions"
+import { getAllPlaces } from "../../components/functions/places"
 import { useAppDispatch, useAppSelector } from "../../store/hooks"
 import { getplace } from "../../store/Slices/place"
 

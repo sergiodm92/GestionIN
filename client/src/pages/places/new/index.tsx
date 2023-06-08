@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { FormButton } from "../../../components/Buttons";
-import { capitalizeString, getAllPlaces } from "../functions";
+import { capitalizeString, getAllPlaces } from "../../../components/functions/places";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { getplace } from "../../../store/Slices/place";
 import { createToast } from "../../../components/Notifications/Notifications";

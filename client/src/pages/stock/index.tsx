@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { getCoffinStock } from "../../store/Slices/coffinStockSlice";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { getAllCoffinStock } from "./functions";
+import { getAllCoffinStock } from "../../components/functions/stock";
 import styles from "./styles/stock.module.css";
 import Loading from "../../components/Loading/loading";
 

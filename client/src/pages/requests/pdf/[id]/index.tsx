@@ -2,7 +2,7 @@ import { GetServerSideProps } from "next";
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
 import { getRequest } from "../../../../store/Slices/requestsSlice";
 import { useEffect, useState } from "react";
-import { getRequestById } from "../../functions/functions";
+import { getRequestById } from "../../../../components/functions/requests/functions";
 import Loading from "../../../../components/Loading/loading";
 import dynamic from "next/dynamic";
 

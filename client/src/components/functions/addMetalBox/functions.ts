@@ -1,7 +1,7 @@
-import { createToast } from "../../../../components/Notifications/Notifications";
-import { generateRandomID } from "../../../../components/functions";
-import { postAddMetalBoxApi } from "../../../../services/addMetalBoxApi";
-import { AddMetalBox } from "../../../../types/addsInterfaces";
+import { createToast } from "../../Notifications/Notifications";
+import { generateRandomID } from "../../functions";
+import { postAddMetalBoxApi } from "../../../services/addMetalBoxApi";
+import { AddMetalBox } from "../../../types/addsInterfaces";
 
 export const handleAddChange = (e: any, add: AddMetalBox, setAdd: any)=>{
     e.preventDefault();

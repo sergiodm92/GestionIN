@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { addGeneralInicialState} from "./components/initialStates";
-import { addGralHandleSubmit, handleAddChange} from "./components/functions";
+import { addGeneralInicialState} from "../../../components/initialState/addGeneral/initialStates";
+import { addGralHandleSubmit, handleAddChange} from "../../../components/functions/addGeneral/functions";
 import { FormButton } from "../../../components/Buttons";
 import styles from "../styles/newAdd.module.css";
-import { getAllPlaces } from "../../places/functions";
+import { getAllPlaces } from "../../../components/functions/places";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { getplace } from "../../../store/Slices/place";
 

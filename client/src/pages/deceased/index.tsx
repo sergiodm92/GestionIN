@@ -1,7 +1,7 @@
 import { useRouter } from "next/router"
 import { useAppDispatch, useAppSelector } from "../../store/hooks"
 import { getDeceaseds } from "../../store/Slices/deceasedSlice"
-import { getAllDeceased } from "./functions/functions"
+import { getAllDeceased } from "../../components/functions/deceased/functions"
 import { useEffect, useState, useRef } from "react"
 import styles from './styles/deceaseds.module.css'
 import Card1 from "../../components/Cards/Card1"

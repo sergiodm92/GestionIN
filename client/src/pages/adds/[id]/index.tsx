@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react"
 import { getAddCoffin } from "../../../store/Slices/addsCoffinSlice"
 import { useAppDispatch, useAppSelector } from "../../../store/hooks"
-import { getAddCoffinById } from "../functions/functions"
+import { getAddCoffinById } from "../../../components/functions/adds/functions"
 import { GetServerSideProps } from "next";
 import styles from "../styles/addDetail.module.css"
 import { decomposeId } from "../../../components/functions";
 import Loading from "../../../components/Loading/loading";
-import { getAllPlaces } from "../../places/functions";
+import { getAllPlaces } from "../../../components/functions/places";
 import { getplace } from "../../../store/Slices/place";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {

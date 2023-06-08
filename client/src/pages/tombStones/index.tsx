@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { getDeceaseds } from "../../store/Slices/deceasedSlice";
 import Loading from "../../components/Loading/loading";
-import { getDeceasedesWithoutTombStone } from "./functions/functions";
+import { getDeceasedesWithoutTombStone } from "../../components/functions/tombStones/functions";
 import { useEffect, useState, useRef } from "react";
 import Card1 from "../../components/Cards/Card1";
 import styles from "./styles/tombStone.module.css";

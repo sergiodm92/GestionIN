@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { addMetalBoxInicialState } from "./components/initialStates";
-import { addMetalBoxHandleSubmit, handleAddChange } from "./components/functions";
+import { addMetalBoxInicialState } from "../../../components/initialState/addMetalBox/initialStates";
+import { addMetalBoxHandleSubmit, handleAddChange } from "../../../components/functions/addMetalBox/functions";
 import { FormButton } from "../../../components/Buttons";
 import styles from "../styles/newAdd.module.css";
-import { getAllPlaces } from "../../places/functions";
+import { getAllPlaces } from "../../../components/functions/places";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { getplace } from "../../../store/Slices/place";
 import { sizes } from "../../../components/arrays";

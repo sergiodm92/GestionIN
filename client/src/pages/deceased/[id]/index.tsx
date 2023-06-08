@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { useAppDispatch, useAppSelector } from "../../../store/hooks"
 import { GetServerSideProps } from "next";
 import Loading from "../../../components/Loading/loading";
-import { getDeceasedById, putDeceasedTombstone } from "../functions/functions";
+import { getDeceasedById, putDeceasedTombstone } from "../../../components/functions/deceased/functions";
 import styles from "../styles/deceasedDetail.module.css"
 import { getDeceased } from "../../../store/Slices/deceasedSlice";
 import { SmallBtn } from "../../../components/Buttons";

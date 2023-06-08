@@ -1,7 +1,7 @@
-import { getDeceasedByIdApi, putDeceasedTombstoneApi } from './../../../services/deceasedApi';
+import { getDeceasedByIdApi, putDeceasedTombstoneApi } from '../../../services/deceasedApi';
 import { getAllDeceasedApi } from "../../../services/deceasedApi"
 import { setDeceasedData, setDeceasedsData } from "../../../store/Slices/deceasedSlice"
-import { createToast } from '../../../components/Notifications/Notifications';
+import { createToast } from '../../Notifications/Notifications';
 
 export const getAllDeceased = async (dispatch: any)=>{
     try{

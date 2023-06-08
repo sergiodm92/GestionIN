@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { addCoffinInicialState, initialCoffin } from "./components/initialStates";
-import { addHandleSubmit,  handleAddChange,  handleCoffinColor,  handleCoffinPlace,  handleCoffinSize,  handleCoffinType } from "./components/functions";
+import { addCoffinInicialState, initialCoffin } from "../../../components/initialState/addCoffin/initialStates";
+import { addHandleSubmit,  handleAddChange,  handleCoffinColor,  handleCoffinPlace,  handleCoffinSize,  handleCoffinType } from "../../../components/functions/addCoffin/functions";
 import { types, sizes, colors } from "../../../components/arrays";
 import { FormButton, SwitchBtn } from "../../../components/Buttons";
-import { getAllPlaces } from "../../places/functions";
+import { getAllPlaces } from "../../../components/functions/places";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { getplace } from "../../../store/Slices/place";
 import styles from "../styles/newAdd.module.css";

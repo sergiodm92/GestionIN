@@ -2,7 +2,7 @@ import { GetServerSideProps } from "next";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { getCoffinStock } from "../../../store/Slices/coffinStockSlice";
 import React, { useEffect, useRef, useState } from "react";
-import { getCoffinStockByPlace } from "../functions";
+import { getCoffinStockByPlace } from "../../../components/functions/stock";
 import styles from "../styles/stock.module.css";
 import Loading from "../../../components/Loading/loading";
 

@@ -1,7 +1,7 @@
-import { createToast } from "../../../../components/Notifications/Notifications";
-import { generateRandomID } from "../../../../components/functions";
-import { postAddGeneralApi } from "../../../../services/addGeneralApi";
-import { AddGeneral } from "../../../../types/addsInterfaces";
+import { createToast } from "../../Notifications/Notifications";
+import { generateRandomID } from "../../functions";
+import { postAddGeneralApi } from "../../../services/addGeneralApi";
+import { AddGeneral } from "../../../types/addsInterfaces";
 
 export const handleAddChange = (e: any, add: AddGeneral, setAdd: any) => {
   e.preventDefault();

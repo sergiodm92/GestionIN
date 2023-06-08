@@ -1,9 +1,9 @@
-import { AddCoffin } from "../../../../types/addsInterfaces";
-import { Coffin } from "../../../../types/interfaces";
-import { createToast } from "../../../../components/Notifications/Notifications";
-import { postAddCoffinApi } from "../../../../services/addCoffinApi";
-import { generateRandomID } from "../../../../components/functions";
-import { Place } from "../../../../types/place";
+import { AddCoffin } from "../../../types/addsInterfaces";
+import { Coffin } from "../../../types/interfaces";
+import { createToast } from "../../Notifications/Notifications";
+import { postAddCoffinApi } from "../../../services/addCoffinApi";
+import { generateRandomID } from "../../functions";
+import { Place } from "../../../types/place";
 
 export const handleAddChange = (e: any, add: AddCoffin, setAdd: any)=>{
     e.preventDefault();

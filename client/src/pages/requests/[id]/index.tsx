@@ -4,11 +4,11 @@ import { GetServerSideProps } from "next";
 import { decomposeId } from "../../../components/functions";
 import Loading from "../../../components/Loading/loading";
 import { getRequest } from "../../../store/Slices/requestsSlice";
-import { getRequestById } from "../functions/functions";
+import { getRequestById } from "../../../components/functions/requests/functions";
 import styles from "../styles/requestDetail.module.css";
 import { SmallBtn } from "../../../components/Buttons";
 import { useRouter } from "next/router";
-import { getAllPlaces } from "../../places/functions";
+import { getAllPlaces } from "../../../components/functions/places";
 import { getplace } from "../../../store/Slices/place";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {

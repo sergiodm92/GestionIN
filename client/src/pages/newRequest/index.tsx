@@ -7,8 +7,8 @@ import { FormButton } from "../../components/Buttons";
 import styles from "./styles/newRequest.module.css"
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { getCoffinStock } from "../../store/Slices/coffinStockSlice";
-import { getAllCoffinStock } from "../stock/functions";
-import { getAllPlaces } from "../places/functions";
+import { getAllCoffinStock } from "../../components/functions/stock";
+import { getAllPlaces } from "../../components/functions/places";
 import { getplace } from "../../store/Slices/place";
 
 const NewRequest = () => {
