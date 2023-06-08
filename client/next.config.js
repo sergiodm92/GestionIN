@@ -2,6 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
+  distDir: 'build',
   webpack: (config, { isServer }) => {
     // Configuración específica para el entorno del servidor (Node.js)
     if (isServer) {
