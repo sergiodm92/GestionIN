@@ -1,8 +1,8 @@
 import { CoffinInitials, DateType } from "../../../types/interfaces";
 import { Deceased, Request } from "../../../types/requestsInterfaces";
-import { createToast } from "../../../components/Notifications/Notifications";
+import { createToast } from "../../Notifications/Notifications";
 import { postRequestApi } from "../../../services/requestApi";
-import { generateRandomID } from "../../../components/functions";
+import { generateRandomID } from "../../functions";
 
 export const handleDeceasedChange = (e: any, deceased: Deceased, setDeceased: any) => {
   e.preventDefault();

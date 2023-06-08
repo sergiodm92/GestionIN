@@ -1,6 +1,6 @@
 import { Page, Text, View, Document, Image, StyleSheet } from '@react-pdf/renderer';
-import { PostRequest } from '../../../types/requestsInterfaces';
-import { types, sizes, colors } from '../../../components/arrays';
+import { PostRequest } from '../../types/requestsInterfaces';
+import { types, sizes, colors } from '../arrays';
 
 const styles = StyleSheet.create({
   letterhead: {

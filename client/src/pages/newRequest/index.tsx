@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { initialRequest, initialDate, initialCoffin, initialDeceased} from "./components/initialStates";
-import { handleSubmit } from "./components/functions";
-import FormDeceased from "./components/formDeceased";
-import FormRequest from "./components/formRequest";
+import { initialRequest, initialDate, initialCoffin, initialDeceased} from "../../components/initialState/newRequest/initialStates";
+import { handleSubmit } from "../../components/functions/newRequest/functions";
+import FormDeceased from "../../components/newRequest/components/formDeceased";
+import FormRequest from "../../components/newRequest/components/formRequest";
 import { FormButton } from "../../components/Buttons";
 import styles from "./styles/newRequest.module.css"
 import { useAppDispatch, useAppSelector } from "../../store/hooks";

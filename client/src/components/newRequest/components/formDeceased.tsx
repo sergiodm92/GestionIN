@@ -1,11 +1,10 @@
 import {
-  handleBirthDateChange,
   handleDateChange,
   handleDeceasedChange,
-} from "./functions";
+} from "../../functions/newRequest/functions";
 import { FormDeceased } from "../../../types/requestsInterfaces";
-import styles from "../styles/newRequest.module.css";
-import { cementeryType } from "../../../components/arrays";
+import styles from "../../../pages/newRequest/styles/newRequest.module.css";
+import { cementeryType } from "../../arrays";
 
 const FormDeceased = (data: FormDeceased) => {
   const { deceased, setDeceased, date, setDate, birthDate, setBirthDate } =

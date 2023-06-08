@@ -19,7 +19,7 @@ const PDFDownloadLink = dynamic(
   }
 );
 
-import PDFDetail from "../../components/requestDetailPDF";
+import PDFDetail from "../../../../components/Request/requestDetailPDF";
 import { FormButton } from "../../../../components/Buttons";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {

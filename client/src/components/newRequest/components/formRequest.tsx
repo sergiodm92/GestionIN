@@ -1,9 +1,9 @@
 import { FormRequest } from "../../../types/requestsInterfaces";
-import { handleRequestChange, handleToggleSwitch } from "./functions";
-import styles from "../styles/newRequest.module.css";
+import { handleRequestChange, handleToggleSwitch } from "../../functions/newRequest/functions";
+import styles from "../../../pages/newRequest/styles/newRequest.module.css";
 import { useState } from "react";
-import { types, sizes, colors } from "../../../components/arrays";
-import { SwitchBtn } from "../../../components/Buttons";
+import { types, sizes, colors } from "../../arrays";
+import { SwitchBtn } from "../../Buttons";
 
 const FormRequest = (data: FormRequest) => {
   const {
