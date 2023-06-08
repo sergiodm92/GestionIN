@@ -2,6 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import type { RootState } from '../store';
 import { PostRequest, RequestState, Request } from '../../types/requestsInterfaces';
 
+
 const initialState: RequestState = {
     requests: [],
     request:{
@@ -38,7 +39,8 @@ const initialState: RequestState = {
 			pod: "",
 			dni: "",
 			id_request: "",
-			dob: 0
+			dob: 0,
+			cementery_type:""
 		}
     },
     isAllowedExpand: true

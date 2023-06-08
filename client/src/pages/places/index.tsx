@@ -22,9 +22,9 @@ const Places = ()=>{
         <div className={styles.container}>
             <div className={styles.newPlace} onClick={()=>router.push('/places/new')}>+</div>
             {places.length?
-            (places.map(p=>{
+            (places.map((p,i)=>{
                 return(
-                    <div>
+                    <div key={i}>
                         <LargeButton
                             title={p.name}
                             onClick={()=>router.push(`/stock/${p.name}`)}

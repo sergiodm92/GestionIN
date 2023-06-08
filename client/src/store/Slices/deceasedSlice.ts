@@ -15,7 +15,8 @@ const initialState: DeceasedState = {
 			pod: "",
 			dni: "",
 			id_request: "",
-			dob: 0
+			dob: 0,
+      cementery_type:""
     },
     isAllowedExpand: true
 }
