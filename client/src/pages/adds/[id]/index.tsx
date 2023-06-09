@@ -8,6 +8,9 @@ import { decomposeId } from "../../../components/functions";
 import Loading from "../../../components/Loading/loading";
 import { getAllPlaces } from "../../../components/functions/places";
 import { getplace } from "../../../store/Slices/place";
+import { DeleteBtn} from "../../../components/Buttons";
+import { handleDeleteAddCoffin } from "../../../components/functions/addCoffin/functions";
+import { useRouter } from "next/router";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const { params } = context;
@@ -34,6 +37,8 @@ const AddDetail = ({ id }: { id: string })=>{
     const places = useAppSelector(getplace)
     const prevAdd = useRef(add);
 
+    const router = useRouter()
+
     useEffect(()=>{
         getAddCoffinById(dispatch, id)
         getAllPlaces(dispatch)
@@ -52,6 +57,11 @@ const AddDetail = ({ id }: { id: string })=>{
           (<Loading/>)
           :(
             <div className={styles.card}>
+              <div className={styles.deleteBtn}>
+                <DeleteBtn
+                  onClick={()=>handleDeleteAddCoffin(id, router)}
+                />
+              </div>
               <div className={styles.title}>Detalle:</div>
               <div className={styles.items}>
                 <div className={styles.subTitle}>Fecha:</div>
