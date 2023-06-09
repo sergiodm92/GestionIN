@@ -4,9 +4,9 @@ import { GetServerSideProps } from "next";
 import { decomposeId } from "../../../components/functions";
 import Loading from "../../../components/Loading/loading";
 import { getRequest } from "../../../store/Slices/requestsSlice";
-import { getRequestById } from "../../../components/functions/requests/functions";
+import { getRequestById, handleDeleteRequest } from "../../../components/functions/requests/functions";
 import styles from "../styles/requestDetail.module.css";
-import { SmallBtn } from "../../../components/Buttons";
+import { DeleteBtn, SmallBtn } from "../../../components/Buttons";
 import { useRouter } from "next/router";
 import { getAllPlaces } from "../../../components/functions/places";
 import { getplace } from "../../../store/Slices/place";
@@ -98,6 +98,11 @@ const RequestDetail = ({ id }: { id: string }) => {
       ) : (
         <div className={styles.secondContainer}>
           <div className={styles.card}>
+            <div className={styles.deleteBtn}>
+              <DeleteBtn
+                onClick={()=>handleDeleteRequest(id, route)}
+              />
+            </div>
             <div className={styles.title}>Detalle:</div>
             <div className={styles.items}>
               <div className={styles.subItems}>
