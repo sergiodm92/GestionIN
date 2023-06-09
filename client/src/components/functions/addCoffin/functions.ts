@@ -1,9 +1,10 @@
 import { AddCoffin } from "../../../types/addsInterfaces";
 import { Coffin } from "../../../types/interfaces";
 import { createToast } from "../../Notifications/Notifications";
-import { postAddCoffinApi } from "../../../services/addCoffinApi";
+import { deleteAddCoffinApi, postAddCoffinApi } from "../../../services/addCoffinApi";
 import { generateRandomID } from "../../functions";
 import { Place } from "../../../types/place";
+import Swal from "sweetalert2";
 
 export const handleAddChange = (e: any, add: AddCoffin, setAdd: any)=>{
     e.preventDefault();
@@ -99,3 +100,40 @@ export const addHandleSubmit = async (e:any, coffin: Coffin, isOn: boolean, date
         console.error(error);
     }
 }
+
+//------------------HANDLE DELETE----------------
+
+export const handleDeleteAddCoffin = (id:string, router: any)=>{
+  Swal.fire({
+      title: "Eliminar Ingreso",
+      text: "¿Esta seguro que desea eliminar el ingreso?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Si",
+      cancelButtonText: "Cancelar",
+      confirmButtonColor: "#43815A",
+      cancelButtonColor: "#b32020",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const response = await deleteAddCoffinApi(id);
+          console.log(response)
+          if (response.data) {
+            createToast("success","Se elimino correctamente");
+            router.push('/adds')
+          } else {
+          createToast("warning","No se pudo eliminar, intentente nuevamente");
+          }
+      } catch (error) {
+          createToast("warning","ocurrio un error, vuelva a intentar");
+          console.error(error);
+      }
+          
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+          createToast("warning","No se elimino el ingreso");
+      }
+    });
+  }
