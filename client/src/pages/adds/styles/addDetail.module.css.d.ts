@@ -5,6 +5,7 @@ declare const styles: {
     subTitle: string;
     text: string;
     items: string;
+    deleteBtn: string;
   };
   
   export default styles;
