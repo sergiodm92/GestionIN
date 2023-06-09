@@ -58,3 +58,9 @@ export const SwitchBtn = (data :SwitchButton) => {
     </div>
   );
 }
+export const DeleteBtn = (data: DeleteButton )=>{
+  const {onClick} = data
+  return (
+    <div onClick={onClick} className={styles.deleteButton}>x</div>
+  )
+}
