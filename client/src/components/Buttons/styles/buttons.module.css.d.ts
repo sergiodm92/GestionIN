@@ -7,6 +7,7 @@ declare const styles: {
     buttonOn: string;
     buttonOff: string;
     ball: string;
+    deleteButton: string;
   };
   
   export default styles;
