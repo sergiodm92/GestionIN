@@ -1,4 +1,4 @@
-import { Button, ButtonClick, DobleButton, SwitchButton, SmallButton } from "../../types/interfaces";
+import { Button, ButtonClick, DobleButton, SwitchButton, SmallButton, DeleteButton } from "../../types/interfaces";
 import styles from "./styles/buttons.module.css";
 
 export const FormButton = (data: Button) => {
