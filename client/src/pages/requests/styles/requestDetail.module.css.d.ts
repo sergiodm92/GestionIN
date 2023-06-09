@@ -7,6 +7,7 @@ declare const styles: {
     items: string;
     subItems: string;
     secondContainer: string;
+    deleteBtn: string;
   };
   
   export default styles;
