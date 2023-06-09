@@ -47,3 +47,6 @@ export interface SwitchButton{
   isOn: boolean;
   onClick: any
 }
+export interface DeleteButton{
+  onClick: any
+}
