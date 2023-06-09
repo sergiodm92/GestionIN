@@ -125,3 +125,21 @@
 .buttonOff .ball {
   transform: translateX(0);
 }
+
+.deleteButton{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--bringht-color);
+  width: 20px;
+  height: 16px;
+  padding-bottom: 5px;
+  font-size: 20px;
+  text-align: center;
+  border-radius: 5px;
+  color: var(--alternative-color);
+  cursor: pointer;
+}
+.deleteButton:hover{
+  background-color: darkred;
+}
