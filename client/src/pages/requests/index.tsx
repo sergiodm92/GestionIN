@@ -18,7 +18,7 @@ const initialRequestState = [
     holder_name: "",
     holder_relationship: "",
     policy: "",
-    cetificate_number: 0,
+    certificate_number: 0,
     way_to_pay: "",
     agreement: "",
     additional: "",
@@ -76,7 +76,7 @@ const Requests = () => {
                           .toLocaleDateString("es")
                           .replaceAll("/", "-")}
                         space2={request.place}
-                        space3={request.cetificate_number}
+                        space3={request.certificate_number}
                       />
                     </div>
                   );

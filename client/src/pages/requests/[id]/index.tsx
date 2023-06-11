@@ -58,7 +58,7 @@ const initialData = {
     burial_place: "",
     service_improvement: "",
     holder_relationship: "",
-    cetificate_number: 0,
+    certificate_number: 0,
     date: 0,
     present: "",
     funeral: "",
@@ -186,7 +186,7 @@ const RequestDetail = ({ id }: { id: string }) => {
               <div className={styles.subItems}>
                 <div className={styles.subTitle}>N° de Certificado:</div>
                 <div className={styles.text}>
-                  {updateData.request.cetificate_number}
+                  {updateData.request.certificate_number}
                 </div>
               </div>
               <div className={styles.subItems}>

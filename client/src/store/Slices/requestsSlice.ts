@@ -21,7 +21,7 @@ const initialState: RequestState = {
 			burial_place: "",
 			service_improvement: "",
 			holder_relationship: "",
-			cetificate_number: 0,
+			certificate_number: 0,
 			date: 0,
 			present: "",
 			funeral: "",
