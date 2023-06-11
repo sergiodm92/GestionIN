@@ -126,7 +126,7 @@ class Request(BaseModel):
     holder_name:str #titular que contrata el servicio
     holder_relationship: str #parentezco del titular
     policy: str   # a,b,c,d,e...
-    cetificate_number: int
+    certificate_number: int
     way_to_pay: str #forma de pago
     agreement: str  #convenio
     additional: str # cargos adicionales
