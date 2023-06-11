@@ -170,7 +170,7 @@ const PDFDetail = (data: PostRequest) => {
                 <View style={styles.row}>
                     <View style={styles.items}>
                         <Text style={styles.itemTitle}>N° de Certificado:</Text>
-                        <Text style={styles.itemText}> {request.cetificate_number}</Text>
+                        <Text style={styles.itemText}> {request.certificate_number}</Text>
                     </View>
                     <View style={styles.items}>
                         <Text style={styles.itemTitle}>Póliza:</Text>
