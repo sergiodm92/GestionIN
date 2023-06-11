@@ -87,7 +87,7 @@ const AddMetalBox = () => {
             type="number"
             id="units"
             name="units"
-            value={add.units}
+            value={add.units?add.units:""}
             onChange={(e) => handleAddChange(e, add, setAdd)}
           />
         </div>

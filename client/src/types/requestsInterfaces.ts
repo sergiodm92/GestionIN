@@ -12,7 +12,7 @@ export interface Request {
     holder_name: string;
     holder_relationship: string;
     policy: string;
-    cetificate_number: number;
+    certificate_number: number;
     way_to_pay: string;
     agreement: string;
     additional: string;

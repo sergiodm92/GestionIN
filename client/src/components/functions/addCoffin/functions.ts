@@ -5,6 +5,7 @@ import { deleteAddCoffinApi, postAddCoffinApi } from "../../../services/addCoffi
 import { generateRandomID } from "../../functions";
 import { Place } from "../../../types/place";
 import Swal from "sweetalert2";
+import { validateAddCoffin } from "../../Validations/addCoffin";
 
 export const handleAddChange = (e: any, add: AddCoffin, setAdd: any)=>{
     e.preventDefault();
@@ -85,6 +86,8 @@ export const addHandleSubmit = async (e:any, coffin: Coffin, isOn: boolean, date
 
     //send data
     try {
+      console.log(add)
+        if(validateAddCoffin(add)){
         const response = await postAddCoffinApi(add);
         if (response.data.status === "ok") {
         createToast("success","Deposito guardado con éxito");
@@ -95,6 +98,7 @@ export const addHandleSubmit = async (e:any, coffin: Coffin, isOn: boolean, date
         } else {
         createToast("error","Verifique que los datos ingresados sean correctos");
         }
+      }
     } catch (error) {
         createToast("warning","ocurrio un error, vuelva a intentar");
         console.error(error);

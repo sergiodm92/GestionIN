@@ -201,9 +201,9 @@ const FormRequest = (data: FormRequest) => {
           className={styles.input}
           style={{ width: "calc(50% - 93px)" }}
           type="text"
-          id="cetificate_number"
-          name="cetificate_number"
-          value={request.cetificate_number}
+          id="certificate_number"
+          name="certificate_number"
+          value={request.certificate_number?request.certificate_number:""}
           onChange={(e) => handleRequestChange(e, request, setRequest)}
         />
         <div>Póliza: </div>

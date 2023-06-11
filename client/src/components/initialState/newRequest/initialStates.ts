@@ -8,7 +8,7 @@ export const initialRequest = {
     holder_name: "",
     holder_relationship: "",
     policy: "",
-    cetificate_number: 0,
+    certificate_number: 0,
     way_to_pay: "",
     agreement: "",
     additional: "",
