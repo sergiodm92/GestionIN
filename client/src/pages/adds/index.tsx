@@ -55,7 +55,7 @@ const Adds = () => {
           <div className={styles.title}>Ingresos</div>
           <div className={styles.subTitle}>
             <div className={styles.smallSpace}>Fecha</div>
-            <div className={styles.bigSpace}>Cajon</div>
+            <div className={styles.bigSpace}>Ataud</div>
             <div className={styles.smallSpace}>Cant</div>
           </div>
           <div className={styles.cardsContainer}>
