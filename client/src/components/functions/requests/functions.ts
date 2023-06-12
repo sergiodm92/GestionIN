@@ -48,6 +48,7 @@ export const handleDeleteRequest = (id:string, router: any)=>{
       }).then(async (result) => {
         if (result.isConfirmed) {
           try {
+            console.log(id)
             const response = await deleteRequestApi(id);
             console.log(response)
             if (response.data) {

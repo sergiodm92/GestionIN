@@ -28,8 +28,8 @@ export const initialDeceased = {
     dod: 0,
     pod: "",
     dni: "",
-    leyend: "",
-    news_paper: "",
+    leyend: "-",
+    news_paper: "-",
     news_paper_name: "",
     tombstone: false,
     cementery_type:""

@@ -28,7 +28,8 @@ export const addGralHandleSubmit = async (e: any, date: string, place: string, a
   //send data
   try {
     const response = await postAddGeneralApi(add);
-    if (response.data.status === "ok") {
+    console.log(response)
+    if (response && response.data.status == "ok") {
       createToast("success", "Ingreso guardado con éxito");
       (document.getElementById("amount") as HTMLInputElement).value = "0";
     } else {

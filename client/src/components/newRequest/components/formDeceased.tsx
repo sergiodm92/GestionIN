@@ -9,6 +9,15 @@ import { cementeryType } from "../../arrays";
 const FormDeceased = (data: FormDeceased) => {
   const { deceased, setDeceased, date, setDate, birthDate, setBirthDate } =
     data;
+
+    const handleDeceasedSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+      e.preventDefault();
+      setDeceased({
+        ...deceased,
+        cementery_type: e.target.value,
+      });
+    };
+
   return (
     <div className={styles.formContainer}>
       <div className={styles.formRow}>
@@ -92,7 +101,7 @@ const FormDeceased = (data: FormDeceased) => {
             className={styles.textArea}
             id="leyend"
             name="leyend"
-            value={deceased.leyend}
+            value={deceased.leyend==="-"?"":deceased.leyend}
             onChange={(e) => handleDeceasedChange(e, deceased, setDeceased)}
           />
       </div>
@@ -102,7 +111,7 @@ const FormDeceased = (data: FormDeceased) => {
               className={styles.textArea}
               id="news_paper"
               name="news_paper"
-              value={deceased.news_paper}
+              value={deceased.news_paper==="-"?"":deceased.news_paper}
               onChange={(e) => handleDeceasedChange(e, deceased, setDeceased)}
             />
       </div>
@@ -121,9 +130,9 @@ const FormDeceased = (data: FormDeceased) => {
       <div className={styles.formRow}>
         <div>Tipo de cementerio: </div>
         <select
-          id="cementeryType"
+          id="cementery_type"
           className={styles.selects}
-          onChange={(e) => handleDeceasedChange(e, deceased, setDeceased)}
+          onChange={handleDeceasedSelect}
         >
           <option defaultValue="-">-</option>
           {cementeryType.length > 0
