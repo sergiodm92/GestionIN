@@ -13,10 +13,10 @@ const initialData = [
     place: "",
     units: 0,
     coffin: {
-      type:"",
-      size:"",
-      color:"",
-      metal_box:false,
+      type: "",
+      size: "",
+      color: "",
+      metal_box: false
     }
   }
 ];

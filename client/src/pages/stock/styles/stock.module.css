@@ -17,6 +17,28 @@
     font-weight: bold;
     margin: 10px;
 }
+.table {
+    border-collapse: collapse;
+  }
+  
+  .table th,
+  .table td {
+    border: 2px solid #43815a;
+    padding: 8px;
+  }
+  
+  .table th {
+    background-color: #43815a;
+    color: white;
+  }
+.subTitle{
+    background-color: var(--secondary-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 30px;
+    width: 75%;
+    border: 1px solid var(--title-color);
 .tableContainer{
     padding-left: 5%;
     padding-right: 5%;

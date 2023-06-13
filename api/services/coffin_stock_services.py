@@ -9,7 +9,7 @@ async def get_coffin_stock():
     try:
         coffin_stock = []
         # Obtiene todos los documentos de la colección "coffin_stock"
-        docs = db.collection('coffin_stock').get()
+        docs = db.collection('coffin_stock').where('units','>',0).get()
         for doc in docs:
             # Convierte los datos del documento a un diccionario
             product = doc.to_dict()
@@ -77,7 +77,7 @@ async def post_transfer(transfer):
         doc_ref_origin_get = doc_ref_origin.get()
         doc_ref_destiny = db.collection('coffin_stock').document(transfer.id_destiny)
         doc_ref_destiny_get = doc_ref_destiny.get()
-        place_destiny = parse_id_coffin(transfer.id_destiny)['place']
+        place_destiny = parse_id_coffin(transfer.id_destiny)['place']#traer el place usando slice
         if doc_ref_origin_get.exists:
             put_coffin_stock_id(transfer.id_origin,-transfer.units)
             if doc_ref_destiny_get.exists:
@@ -109,13 +109,11 @@ async def put_coffin_stock_id(id, operacion):
         return False
     
 def parse_id_coffin(id_coffin):
-    coffin_place = {'SS': 'San Salvador de Jujuy', 'SP': 'San Pedro', 'FP': 'Fraile Pintado', 'LS': 'Libertador Gral. San Martin', 'SA': 'Salta', 'CO': 'Colonia', 'TA': 'Tartagal', 'EM': 'Embarcacion'}
     coffin_types = {'PL': 'Plano', 'LC': 'Liso Comun', 'LD': 'Liso Doble Cuerpo', 'ON': 'Ondeado', 'DP':'Dos Paneles', 'TP': 'Tres Paneles', 'PA': 'Paris Arito'}
     coffin_sizes = {'16': '160cm', '17': '170cm', '18': '180cm', 'NO': 'Normal', 'SM': 'Semi Extraordinario', 'EX': 'Extraordinario', 'SU': 'Super', 'SE':'Super Extraordinario' }
     coffin_colors = {'RO': 'Roble', 'NO': 'Nogal', 'CE': 'Cedro', 'CA': 'Caoba', 'AL': 'Almendra', 'BL': 'Blanco'}
     coffin_mbox = {'TR': True, 'FS': False}
     return {
-        'place': coffin_place.get(id_coffin[:2]),
         'type': coffin_types.get(id_coffin[2:4]),
         'size': coffin_sizes.get(id_coffin[4:6]),
         'color': coffin_colors.get(id_coffin[6:8]),
