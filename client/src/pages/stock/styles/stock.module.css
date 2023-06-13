@@ -11,6 +11,12 @@
     font-weight: bold;
     margin: 10px;
 }
+.subTitle{
+    font-size: 25px;
+    color: var(--primary-color);
+    font-weight: bold;
+    margin: 10px;
+}
 .tableContainer{
     padding-left: 5%;
     padding-right: 5%;
