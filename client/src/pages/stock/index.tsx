@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { getCoffinStock } from "../../store/Slices/coffinStockSlice";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { getAllCoffinStock } from "../../components/functions/stock";
+import { getAllCoffinStock, getAllGeneralStock, getAllMetalBoxStock } from "../../components/functions/stock";
 import styles from "./styles/stock.module.css";
 import Loading from "../../components/Loading/loading";
+import { getGeneralStock } from "../../store/Slices/generalStockSlice";
+import { getmetalBoxStock } from "../../store/Slices/metalBoxStockSlice";
 
 const initialData = [
   {
@@ -24,10 +26,16 @@ const AllStock = () => {
   const [searchId, setSearchId] = useState("");
   const dispatch = useAppDispatch();
   const stock = useAppSelector(getCoffinStock);
+  const generalStock = useAppSelector(getGeneralStock);
+  console.log("Stock general", generalStock)
+  const MBStock = useAppSelector(getmetalBoxStock)
+  console.log("Stock MB",MBStock)
   const prevStock = useRef(stock);
 
   useEffect(() => {
     getAllCoffinStock(dispatch);
+    getAllGeneralStock(dispatch)
+    getAllMetalBoxStock(dispatch)
   }, []);
 
   useEffect(() => {
