@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks"
 import { getAddMetalBoxById } from "../../../../components/functions/adds/functions"
 import { GetServerSideProps } from "next";
-import styles from "../styles/addDetail.module.css"
+import styles from "../../styles/addDetail.module.css"
 import Loading from "../../../../components/Loading/loading";
 import { DeleteBtn} from "../../../../components/Buttons";
 import { handleDeleteAddMetalBox } from "../../../../components/functions/addCoffin/functions";

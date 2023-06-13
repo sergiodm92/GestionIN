@@ -1,4 +1,5 @@
 declare const styles: {
+    containerII: string;
     container: string;
     title: string;
     subTitle: string ;

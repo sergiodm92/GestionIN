@@ -1,6 +1,6 @@
 import { useRouter } from "next/router"
 import { useEffect, useRef, useState } from "react"
-import  styles from "./styles/Adds.module.css" 
+import  styles from "../styles/Adds.module.css" 
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { getAllAddsMetalBox } from "../../../components/functions/adds/functions";
 import Loading from "../../../components/Loading/loading";

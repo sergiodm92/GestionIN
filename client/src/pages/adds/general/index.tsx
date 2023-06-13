@@ -1,6 +1,6 @@
 import { useRouter } from "next/router"
 import { useEffect, useRef, useState } from "react"
-import  styles from "./styles/Adds.module.css" 
+import  styles from "../styles/Adds.module.css" 
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { getplace } from "../../../store/Slices/place";
 import { getAllAddsGeneral } from "../../../components/functions/adds/functions";

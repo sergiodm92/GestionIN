@@ -1,13 +1,13 @@
 import { useRouter } from 'next/router'
 import { LargeButton } from '../../components/Buttons'
-import styles from './styles/newAdd.module.css'
+import styles from './styles/Adds.module.css'
 
 const Adds = ()=>{
 
     const router = useRouter()
 
     return(
-        <div className={styles.container}>
+        <div className={styles.containerII}>
             <div className={styles.title}>Ver Ingresos</div>
             <LargeButton
                 title='Ataúdes'
