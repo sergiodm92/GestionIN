@@ -11,7 +11,7 @@ export const coffinStockSlice = createSlice({
   name: 'coffin_stock',
   initialState,
   reducers: {
-    setStockData: (state, action: PayloadAction<Array<GetCoffinStock>>) => {
+    setCoffinStockData: (state, action: PayloadAction<Array<GetCoffinStock>>) => {
       state.coffinStock = action.payload;
     },
     setIsAllowedExpand: (state, action: PayloadAction<boolean>) => {
@@ -20,7 +20,7 @@ export const coffinStockSlice = createSlice({
   }
 });
 
-export const { setStockData, setIsAllowedExpand } = coffinStockSlice.actions;
+export const { setCoffinStockData, setIsAllowedExpand } = coffinStockSlice.actions;
 
 export const getCoffinStock = (state: RootState) => state.coffinStock.coffinStock;
 export const getIsAllowedExpand = (state: RootState) => state.coffinStock.isAllowedExpand;

@@ -23,6 +23,19 @@ export interface CoffinStock {
     units: number;
     coffin: Coffin
   }
+  export interface GetMetalBoxStock {
+    size: string;
+    place: string;
+    units: number;
+    coffin: Coffin
+  }
+  export interface GetGeneralStock {
+    product: string;
+    place: string;
+    amount: number;
+    coffin: Coffin
+  }
+  
 
   export interface MetalBoxStock {
     id: string;
@@ -30,6 +43,10 @@ export interface CoffinStock {
     size: string;
   }
   export interface MetalBoxStockState {
-    stock: GetCoffinStock[];
+    metalBoxStock: GetMetalBoxStock[];
+    isAllowedExpand: boolean;
+  }
+  export interface GeneralStockState {
+    generalStock: GetGeneralStock[];
     isAllowedExpand: boolean;
   }

@@ -1,16 +1,13 @@
 import { useEffect, useRef, useState } from "react"
-import { getAddCoffin } from "../../../store/Slices/addsCoffinSlice"
-import { useAppDispatch, useAppSelector } from "../../../store/hooks"
-import { getAddCoffinById } from "../../../components/functions/adds/functions"
+import { useAppDispatch, useAppSelector } from "../../../../store/hooks"
+import { getAddMetalBoxById } from "../../../../components/functions/adds/functions"
 import { GetServerSideProps } from "next";
 import styles from "../styles/addDetail.module.css"
-import { decomposeId } from "../../../components/functions";
-import Loading from "../../../components/Loading/loading";
-import { getAllPlaces } from "../../../components/functions/places";
-import { getplace } from "../../../store/Slices/place";
-import { DeleteBtn} from "../../../components/Buttons";
-import { handleDeleteAddCoffin } from "../../../components/functions/addCoffin/functions";
+import Loading from "../../../../components/Loading/loading";
+import { DeleteBtn} from "../../../../components/Buttons";
+import { handleDeleteAddMetalBox } from "../../../../components/functions/addCoffin/functions";
 import { useRouter } from "next/router";
+import { getAddMetalBox } from "../../../../store/Slices/addsMetalBoxSlice";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const { params } = context;
@@ -30,18 +27,16 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   };
 
-const AddDetail = ({ id }: { id: string })=>{
+const AddGeneralDetail = ({ id }: { id: string })=>{
     const [updateData, setUpdateData] = useState({});
     const dispatch = useAppDispatch()
-    const add = useAppSelector(getAddCoffin)
-    const places = useAppSelector(getplace)
+    const add = useAppSelector(getAddMetalBox)
     const prevAdd = useRef(add);
 
     const router = useRouter()
 
     useEffect(()=>{
-        getAddCoffinById(dispatch, id)
-        getAllPlaces(dispatch)
+        getAddMetalBoxById(dispatch, id)
     },[])
 
     useEffect(() => {
@@ -59,7 +54,7 @@ const AddDetail = ({ id }: { id: string })=>{
             <div className={styles.card}>
               <div className={styles.deleteBtn}>
                 <DeleteBtn
-                  onClick={()=>handleDeleteAddCoffin(id, router)}
+                  onClick={()=>handleDeleteAddMetalBox(id, router)}
                 />
               </div>
               <div className={styles.title}>Detalle:</div>
@@ -72,8 +67,8 @@ const AddDetail = ({ id }: { id: string })=>{
                 <div className={styles.text}>{add.place}</div>
               </div>
               <div className={styles.items}>
-                <div className={styles.subTitle}>Ataúd:</div>
-                <div className={styles.text}><pre style={{fontFamily: "Cambria, Cochin, Georgia, Times, 'Times New Roman', serif"}}>{decomposeId(add.id_coffin, places)}</pre></div>
+                <div className={styles.subTitle}>Tamaño:</div>
+                <div className={styles.text}>{add.size}</div>
               </div>
               <div className={styles.items}>
                 <div className={styles.subTitle}>Unidades:</div>
@@ -92,4 +87,4 @@ const AddDetail = ({ id }: { id: string })=>{
         </div>
     )    
 }
-export default AddDetail
+export default AddGeneralDetail
