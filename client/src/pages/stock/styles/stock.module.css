@@ -17,6 +17,20 @@
     font-weight: bold;
     margin: 10px;
 }
+.table {
+    border-collapse: collapse;
+  }
+  
+  .table th,
+  .table td {
+    border: 2px solid #43815a;
+    padding: 8px;
+  }
+  
+  .table th {
+    background-color: #43815a;
+    color: white;
+  }
 .tableContainer{
     padding-left: 5%;
     padding-right: 5%;
