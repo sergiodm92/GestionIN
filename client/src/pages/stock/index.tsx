@@ -10,7 +10,12 @@ const initialData = [
     id_coffin: "",
     place: "",
     units: 0,
-    coffin: {}
+    coffin: {
+      type: "",
+      size: "",
+      color: "",
+      metal_box: false
+    }
   }
 ];
 
@@ -54,40 +59,35 @@ const AllStock = () => {
               onChange={(e) => setSearchId(e.target.value)}
             />
           </div>
-          <div className={styles.subTitle}>
-            <div
-              className={styles.subTitleItems}
-              style={{ borderLeft: "none" }}
-            >
-              ID
-            </div>
-            <div className={styles.subTitleItems}>Tipo</div>
-            <div className={styles.subTitleItems}>Tamaño</div>
-            <div className={styles.subTitleItems}>Color</div>
-            <div className={styles.subTitleItems}>Caja Metálica</div>
-            <div className={styles.subTitleItems}>Unidades</div>
-          </div>
           {filteredData.length > 0 ? (
-            filteredData.map((s: any, i: any) => {
-              return (
-                <div className={styles.items} key={i}>
-                  <div
-                    className={styles.subItems}
-                    style={{ borderLeft: "none" }}
-                  >
-                    {s.id_coffin}
-                  </div>
-                  <div className={styles.subItems}>{s.coffin.type}</div>
-                  <div className={styles.subItems}>{s.coffin.size}</div>
-                  <div className={styles.subItems}>{s.coffin.color}</div>
-                  <div className={styles.subItems}>
-                    {s.coffin.metal_box ? "Si" : "No"}
-                  </div>
-                  <div className={styles.subItems} style={s.units>0?{color:"black"}:{color: "red"}}>{s.units}</div>
-                </div>
-              );
-            })
-          ) : (
+          <div>
+            <table className={styles.table}>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Tipo</th>
+                  <th>Tamaño</th>
+                  <th>Color</th>
+                  <th>Caja Metálica</th>
+                  <th>Unidades</th>
+                </tr>
+              </thead>
+              
+              <tbody>
+                {filteredData?.map((s, i) => (
+                  <tr key={i}>
+                    <td>{s.id_coffin}</td>
+                    <td>{s.coffin.type}</td>
+                    <td>{s.coffin.size}</td>
+                    <td>{s.coffin.color}</td>
+                    <td>{s.coffin.metal_box ? "Si" : "No"}</td>
+                    <td>{s.units}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          ) : ( 
             <div className={styles.noStock}>
               No hay Stock con ese ID
             </div>

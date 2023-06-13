@@ -8,6 +8,7 @@ declare const styles: {
     noStock: string;
     search:string;
     searchContaier: string;
+    table: string;
   };
   
   export default styles;
