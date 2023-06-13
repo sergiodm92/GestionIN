@@ -53,11 +53,7 @@ async def post_model(model:GeneralStock):
         doc_ref = db.collection('general_stock').document(model.id)
         doc_ref.set(model.dict())
         # Verifica que el documento se haya creado correctamente
-        doc_snapshot = doc_ref.get()
-        if doc_snapshot.exists:
-            return True
-        else:
-            return False
+        return True
     except Exception as e:
         print(e)
         return False
