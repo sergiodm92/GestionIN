@@ -1,15 +1,15 @@
 import { useEffect, useRef, useState } from "react"
-import { getAddCoffin } from "../../../store/Slices/addsCoffinSlice"
-import { useAppDispatch, useAppSelector } from "../../../store/hooks"
-import { getAddCoffinById } from "../../../components/functions/adds/functions"
+import { getAddCoffin } from "../../../../store/Slices/addsCoffinSlice"
+import { useAppDispatch, useAppSelector } from "../../../../store/hooks"
+import { getAddCoffinById } from "../../../../components/functions/adds/functions"
 import { GetServerSideProps } from "next";
-import styles from "../styles/addDetail.module.css"
-import { decomposeId } from "../../../components/functions";
-import Loading from "../../../components/Loading/loading";
-import { getAllPlaces } from "../../../components/functions/places";
-import { getplace } from "../../../store/Slices/place";
-import { DeleteBtn} from "../../../components/Buttons";
-import { handleDeleteAddCoffin } from "../../../components/functions/addCoffin/functions";
+import styles from "../../styles/addDetail.module.css"
+import { decomposeId } from "../../../../components/functions";
+import Loading from "../../../../components/Loading/loading";
+import { getAllPlaces } from "../../../../components/functions/places";
+import { getplace } from "../../../../store/Slices/place";
+import { DeleteBtn} from "../../../../components/Buttons";
+import { handleDeleteAddCoffin } from "../../../../components/functions/addCoffin/functions";
 import { useRouter } from "next/router";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -30,7 +30,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   };
 
-const AddDetail = ({ id }: { id: string })=>{
+const AddCoffinDetail = ({ id }: { id: string })=>{
     const [updateData, setUpdateData] = useState({});
     const dispatch = useAppDispatch()
     const add = useAppSelector(getAddCoffin)
@@ -92,4 +92,4 @@ const AddDetail = ({ id }: { id: string })=>{
         </div>
     )    
 }
-export default AddDetail
+export default AddCoffinDetail

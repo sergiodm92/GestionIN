@@ -7,7 +7,7 @@ export const handleAddChange = (e: any, add: AddGeneral, setAdd: any) => {
   e.preventDefault();
   setAdd({
     ...add,
-    [e.target.name]: e.target.value.trim(),
+    [e.target.name]: e.target.value,
   });
 };
 
@@ -21,7 +21,7 @@ export const addGralHandleSubmit = async (e: any, date: string, place: string, a
   add.date = milliseconds;
   add.place = place
 
-  add.product = add.product.trim()
+  add.product = add.product.toLowerCase().trim()
   add.supplier = add.supplier.trim()
   add.responsible = add.responsible.trim()
 
