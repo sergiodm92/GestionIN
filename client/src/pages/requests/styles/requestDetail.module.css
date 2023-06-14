@@ -42,6 +42,8 @@
     font-weight: bold;
 }
 .text{
+    max-width: 500px;
+    text-align: justify;
     font-size: 16px;
     color: var(--title-color);
     
@@ -54,4 +56,24 @@
     position: absolute;
     right: 7px;
     top: 7px;
+}
+@media screen and (max-width: 700px){
+    .text{
+        max-width: 250px;
+    }
+}
+@media screen and (max-width: 450px){
+    .card{
+        padding: 15px;
+    }
+    .title{
+        font-size: 19px;
+    }
+    .subTitle{
+        font-size: 13px;
+    }
+    .text{
+        font-size: 13px;
+        max-width: 200px;
+    }
 }

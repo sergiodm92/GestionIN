@@ -77,7 +77,7 @@ const AddGeneral = () => {
             type="number"
             id="amount"
             name="amount"
-            value={add.amount}
+            value={add.amount?add.amount:""}
             onChange={(e) => handleAddChange(e, add, setAdd)}
           />
         </div>
