@@ -11,7 +11,12 @@
     font-weight: bold;
     margin: 10px;
 }
-<<<<<<< HEAD
+.subTitle{
+    font-size: 25px;
+    color: var(--primary-color);
+    font-weight: bold;
+    margin: 10px;
+}
 .table {
     border-collapse: collapse;
   }
@@ -26,22 +31,12 @@
     background-color: #43815a;
     color: white;
   }
-.subTitle{
-    background-color: var(--secondary-color);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 30px;
-    width: 75%;
-    border: 1px solid var(--title-color);
-=======
 .tableContainer{
     padding-left: 5%;
     padding-right: 5%;
 
 }
 .table {
->>>>>>> 7f0063609b301d93d621bf5c492c7ea6bfa5be84
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     border-collapse: collapse;
   }
