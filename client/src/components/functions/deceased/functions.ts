@@ -27,7 +27,7 @@ export const putDeceasedTombstone = async (id: string)=>{
     try{
         const response = await putDeceasedTombstoneApi(id)
         if (response.data) {
-            createToast("success","Lápida agregada");
+            createToast("success","Se agregado correctamente");
           } else {
             createToast("error","Verifique que los datos ingresados sean correctos");
           }

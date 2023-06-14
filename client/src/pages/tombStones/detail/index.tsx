@@ -1,86 +1,63 @@
-// import { useEffect, useState } from "react";
-// import dynamic from "next/dynamic";
-// import PDFTombstoneDetail from '../components/tombStoneDetailPDF'
-// import { FormButton } from "../../../components/Buttons";
+import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
+import PDFTombstoneDetail from "../components/tombStoneDetailPDF";
+import { FormButton } from "../../../components/Buttons";
 
+const PDFViewer = dynamic(() =>
+  import("@react-pdf/renderer").then((module) => module.PDFViewer)
+);
+const PDFDownloadLink = dynamic(() =>
+  import("@react-pdf/renderer").then((module) => module.PDFDownloadLink)
+);
 
-// const PDFViewer = dynamic(
-//   () => import("@react-pdf/renderer").then((module) => module.PDFViewer),
-//   {
-//     ssr: false,
-//   }
-// );
-// const PDFDownloadLink = dynamic(
-//   () => import("@react-pdf/renderer").then((module) => module.PDFDownloadLink),
-//   {
-//     ssr: false,
-//   }
-// );
+const RequestDetailPDF = () => {
+  const [isClient, setIsClient] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(0);
+  const [deceaseds, setDeceaseds] = useState([]);
 
+  useEffect(() => {
+    setIsClient(true);
 
+    if (typeof window !== "undefined") {
+      const deceasedsString = localStorage.getItem("deceaseds");
+      const parsedDeceaseds = deceasedsString ? JSON.parse(deceasedsString) : [];
+      setDeceaseds(parsedDeceaseds);
+    }
 
-// const RequestDetailPDF = () => {
-//   const [isClient, setIsClient] = useState(false);
-//   const [windowWidth, setWindowWidth] = useState(0);
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
 
-//   useEffect(() => {
-//     setIsClient(true);
+    // Actualizar el ancho de la ventana en el cambio de tamaño
+    window.addEventListener("resize", handleResize);
+    handleResize(); // Obtener el ancho inicial de la ventana
 
-//     const handleResize = () => {
-//       setWindowWidth(window.innerWidth);
-//     };
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
-//     // Actualizar el ancho de la ventana en el cambio de tamaño
-//     window.addEventListener("resize", handleResize);
-//     handleResize(); // Obtener el ancho inicial de la ventana
+  const renderContent = () => {
+    if (windowWidth >= 700) {
+      return (
+        <PDFViewer style={{ width: "100%", height: "95vh" }}>
+          <PDFTombstoneDetail deceaseds={deceaseds} />
+        </PDFViewer>
+      );
+    } else {
+      return (
+        <PDFDownloadLink
+          style={{ textDecoration: "none" }}
+          document={<PDFTombstoneDetail deceaseds={deceaseds} />}
+          fileName={"Detalle de Placas y Lápidas faltantes"}
+        >
+          <FormButton title={"Descargar PDF"} />
+        </PDFDownloadLink>
+      );
+    }
+  };
 
-//     return () => {
-//       window.removeEventListener("resize", handleResize);
-//     };
-//   }, []);
+  return <div>{isClient && renderContent()}</div>;
+};
 
-//   const renderContent = () => {
-//     if (windowWidth >= 700) {
-//       return (
-//         <PDFViewer style={{ width: "100%", height: "95vh" }}>
-//           <PDFTombstoneDetail />
-//         </PDFViewer>
-//       );
-//     } else {
-//       return (
-//         <PDFDownloadLink
-//           style={{ textDecoration: "none" }}
-//           document={
-//             <PDFTombstoneDetail />
-//           }
-//           fileName={
-//             "Detalle de Placas y Lápidas faltantes"
-//           }
-//         >
-//           <FormButton title={"Descargar PDF"} />
-//         </PDFDownloadLink>
-//       );
-//     }
-//   };
-
-//   return (
-//     <div>
-//       {renderContent()}
-//       {/* {!request ? <Loading /> : <div>{isClient && renderContent()}</div>} */}
-//     </div>
-//   );
-// };
-
-// export default RequestDetailPDF;
-
-import PageUnderConstruction from "../../../components/pageUnderConstruction/pageUnderConst"
-
-const RequestDetailPDF = ()=>{
-  return (
-    <div>
-      <PageUnderConstruction/>
-    </div>
-  )
-
-}
-export default RequestDetailPDF
+export default RequestDetailPDF;
