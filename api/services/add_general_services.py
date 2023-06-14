@@ -5,32 +5,33 @@ from services.general_stock_services import put_general_stock_id, post_model
 db = get_database()
 
 # Post add
+
 async def post_add(add: AddGeneralStock):
     try:
         # Crea el nuevo documento en Firestore con los datos de add
         doc_ref_add = db.collection('add_general').document(add.id)
         doc_ref_add.set(add.dict())
-
-        query = db.collection('general_stock').where("place", "==", add.place).where("product", "==", add.product).get()
-
-        if query:
-            put_general_stock = put_general_stock_id(add.place, add.product, add.amount)
-            # Si logra actualizar el general_stock verifica si se creó el add y si es correcto devuelve True
-            return put_general_stock
-
-        post_new_model = post_model(
-            GeneralStock(
-                id=add.id,
-                product=add.product,
-                place=add.place,
-                amount=add.amount
-            )
-        )
-        return post_new_model
+        doc_snapshot_add = doc_ref_add.get()
+        if doc_snapshot_add.exists:
+            doc_general_stock = db.collection('general_stock').where("place","==",add.place).where("product","==",add.product).get()
+            if doc_general_stock:
+                put_general_stock = put_general_stock_id(add.place, add.product, add.amount)
+                return put_general_stock
+            else:
+                post_new_model = post_model(
+                    GeneralStock(
+                        id=add.id,
+                        product=add.product,
+                        place=add.place,
+                        amount=add.amount
+                    )
+                )
+                return post_new_model
+        else:
+            return False
     except Exception as e:
         print(e)
         return False
-
 
 
 

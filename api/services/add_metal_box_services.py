@@ -14,17 +14,13 @@ async def post_add(add: AddMetalBox):
         doc_ref_add.set(add.dict())
         doc_snapshot_add = doc_ref_add.get()
         if doc_snapshot_add.exists:
-            doc_ref_metal_box_stock = db.collection('metal_box_stock').where("place","==",add.place).where("size","==",add.size)
-            doc_snapshot_metal_box_stock = doc_ref_metal_box_stock.get()
-            if doc_snapshot_metal_box_stock:
-                put_metal_box_stock = await put_metal_box_stock_id(add.place, add.size, add.units)
+            doc_metal_box_stock = db.collection('metal_box_stock').where("place","==",add.place).where("size","==",add.size).get()
+            if doc_metal_box_stock:
+                put_metal_box_stock = put_metal_box_stock_id(add.place, add.size, add.units)
                 # Si logra actualizar el metal_box_stock verifica si se creó el add y si es correcto devuelve True
-                if put_metal_box_stock:
-                    return True
-                else:
-                    return False
+                return put_metal_box_stock
             else:
-                post_new_model = await post_model(
+                post_new_model = post_model(
                     MetalBoxStock(
                         id=add.id,
                         size=add.size,
@@ -32,10 +28,7 @@ async def post_add(add: AddMetalBox):
                         units=add.units
                     )
                 )
-                if post_new_model:
-                    return True
-                else:
-                    return False
+                return post_new_model
         else:
             return False
     except Exception as e:
@@ -104,7 +97,7 @@ async def delete_add_id(id: str):
         add_document_snapshot = add_document_ref.get()
         if add_document_snapshot.exists:
             add = add_document_snapshot.to_dict()
-            response = await put_metal_box_stock_id(add['place'], add['size'], -add['units'])
+            response = put_metal_box_stock_id(add['place'], add['size'], -add['units'])
             if response:
                 add_document_ref.delete()
                 return True
