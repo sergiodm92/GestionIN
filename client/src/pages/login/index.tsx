@@ -4,6 +4,8 @@ import { createToast } from "../../components/Notifications/Notifications";
 import { LoginUserApi } from "../../services/userApi";
 import { FormButton } from "../../../src/components/Buttons";
 import styles from './styles/login.module.css';
+import { useAppDispatch } from "../../store/hooks";
+import { setLoginData } from "../../store/Slices/userSlice";
 
 const initialStateUser = {
     name: '',
@@ -16,7 +18,7 @@ const Login = ()=>{
 
 
     const [user, setUser] = useState(initialStateUser)
-
+    const dispatch = useAppDispatch()
     const handleChange = (e: any) => {
         e.preventDefault();
         setUser({
@@ -36,6 +38,7 @@ const Login = ()=>{
                 localStorage.setItem("userName", response.data.user.name)
                 localStorage.setItem("userAdmin", response.data.user.admin)
                 localStorage.setItem("userPlace", response.data.user.place)
+                dispatch(setLoginData())
                 router.push('/');
             }
             else{

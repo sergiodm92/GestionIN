@@ -9,7 +9,7 @@ import styles from './styles/header.module.css'
 const Header = ()=>{
 
     const user = useAppSelector(getUser)
-    const dispatch=useAppDispatch()
+    const dispatch = useAppDispatch()
     const router = useRouter()
 
     const [menuOpen, setMenuOpen] = useState(false)
@@ -17,7 +17,7 @@ const Header = ()=>{
 
     useEffect(()=>{
         dispatch(setLoginData())
-    },[])
+    },[user])
 
     useEffect(() => {
         const handleClickOutside = (event : MouseEvent) => {
