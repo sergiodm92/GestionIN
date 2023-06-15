@@ -81,7 +81,7 @@ const RequestDetailPDF = ({ id }: { id: string }) => {
             "Detalle de Solicitud de Siniestro - " + request.deceased.name
           }
         >
-          <FormButton title={"Descargar PDF"} loading={true}/>
+          <FormButton title={"Descargar PDF"} loading={false}/>
         </PDFDownloadLink>
       );
     }

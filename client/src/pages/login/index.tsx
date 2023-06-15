@@ -75,7 +75,7 @@ const Login = ()=>{
                 </div>
                 <FormButton
                     title={"Ingresar"}
-                    loading={true}
+                    loading={false}
                 />
             </form>
         </div>

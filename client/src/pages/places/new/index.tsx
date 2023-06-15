@@ -58,7 +58,7 @@ const NewPlace = () => {
             style={{width: "100%"}}
           />
         </div>
-        <FormButton title="Guardar" loading={true} />
+        <FormButton title="Guardar" loading={false} />
       </form>
     </div>
   );
