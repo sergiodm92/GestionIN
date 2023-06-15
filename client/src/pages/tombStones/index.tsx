@@ -35,6 +35,7 @@ const TombStones = () => {
   const deceaseds = useAppSelector(getDeceaseds);
   const prevDeceaseds = useRef(deceaseds)
 
+  const array = "mi array"
 
   useEffect(() => {
     getDeceasedesWithoutTombStone(dispatch);
@@ -56,10 +57,15 @@ const TombStones = () => {
   };
 
   const generateDetail = () => {
-    const selectedDeceaseds = deceaseds.filter((deceased) =>
+    const selecteds = deceaseds.filter((deceased) =>
       selectedCards.includes(deceased.id)
     );
-    console.log(selectedDeceaseds);
+    const selectedTombStones = selecteds.filter((d)=>d.cementery_type==="Parque")
+    const selectedPlaques = selecteds.filter((d)=>d.cementery_type!=="Parque")
+    const selectedDeceaseds = {tombstones : selectedTombStones, plaques: selectedPlaques}
+    const arrayString = JSON.stringify(selectedDeceaseds)
+    localStorage.setItem("deceaseds", arrayString)
+    router.push("/tombStones/detail")
   };
 
   const selectAllDisplayedCards = () => {
@@ -92,7 +98,7 @@ const TombStones = () => {
         <Loading />
       ) : (
         <>
-          <div className={styles.title}>Difuntos sin lápida</div>
+          <div className={styles.title}>Placas o Lápidas pendientes</div>
           <div className={styles.filterContainer}>
             <input
               type="checkbox"
@@ -101,7 +107,7 @@ const TombStones = () => {
             />
             <label htmlFor="selectAll"></label>
             <div className={styles.dateBox}>
-              <div>Filtrar por fecha</div>
+              <div>Filtrar hasta</div>
               <input
                 type="date"
                 value={filterDate || ""}
@@ -141,7 +147,7 @@ const TombStones = () => {
                   />
                 </div>
               ))}
-            <SmallBtn title={"Generar detalle"} onClick={generateDetail} />
+              <SmallBtn title={"Generar detalle"} onClick={generateDetail} />
           </div>
         </>
       )}

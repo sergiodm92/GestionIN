@@ -43,6 +43,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 const DeceasedDetail = ({ id }: { id: string })=>{
     const [updateData, setUpdateData] = useState(initialData);
+    const [cementeryType, setCementeryType] = useState("");
     const dispatch = useAppDispatch()
     const deceased = useAppSelector(getDeceased)
     const prevDeceased = useRef(deceased);
@@ -54,14 +55,15 @@ const DeceasedDetail = ({ id }: { id: string })=>{
     useEffect(() => {
       if (prevDeceased.current.id === id || prevDeceased.current !== deceased) {
         setUpdateData(deceased);
+        setCementeryType(deceased.cementery_type)
         prevDeceased.current = deceased;
       }
     }, [deceased]);
 
     const setTombStone = ()=>{
       Swal.fire({
-        title: "Agregar lápida",
-        text: "¿Esta seguro que desea agregar lápida?",
+        title: cementeryType==="Parque"?"Agregar Lápida":"Agregar Placa",
+        text: "¿Esta seguro que desea agregar " + (cementeryType==="Parque"?"Lápida":"Placa"),
         icon: "warning",
         showCancelButton: true,
         confirmButtonText: "Si",
@@ -75,7 +77,7 @@ const DeceasedDetail = ({ id }: { id: string })=>{
           /* Read more about handling dismissals below */
           result.dismiss === Swal.DismissReason.cancel
         ) {
-            createToast("warning","No agregó lápida");
+            createToast("warning","No se agregó");
         }
       });
     }
@@ -121,15 +123,22 @@ const DeceasedDetail = ({ id }: { id: string })=>{
                     <div className={styles.text}>{updateData.news_paper_name}</div>
               </div>
               <div className={styles.items}>
-                <div className={styles.subTitle}>Lápida:</div>
-                <div className={updateData.tombstone?styles.text:styles.withoutTombStone}>{updateData.tombstone?"Lápida Lista":"Sin Lápida"}</div>
+                <div className={styles.subTitle}></div>
+                {updateData.tombstone?
+                (
+                  <div className={styles.text}>{cementeryType==="Parque"?"Lápida Lista":"Placa Lista"}</div>
+                )
+                :(
+                <div className={styles.withoutTombStone}>{cementeryType==="Parque"?"Sin Lápida":"Sin Placa"}</div>
+                )
+                }
               </div>
               {updateData.tombstone?
                 (null)
                 :(
                   <div>
                     <SmallBtn
-                    title={"Agregar lápida"}
+                    title={"Agregar " + (cementeryType==="Parque"?"Lápida":"Placa")}
                     onClick={setTombStone}
                     />
                     </div>
