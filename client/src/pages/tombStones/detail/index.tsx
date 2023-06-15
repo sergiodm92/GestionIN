@@ -51,7 +51,7 @@ const RequestDetailPDF = () => {
           document={<PDFTombstoneDetail deceaseds={deceaseds} />}
           fileName={"Detalle de Placas y Lápidas faltantes"}
         >
-          <FormButton title={"Descargar PDF"} />
+          <FormButton title={"Descargar PDF"} loading={true}/>
         </PDFDownloadLink>
       );
     }

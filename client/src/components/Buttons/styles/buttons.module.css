@@ -15,6 +15,15 @@
     color: var(--subtitle-color);
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
+.btnLoading {
+  background-color: grey;
+  border: 1px solid var(--title-color);
+  border-radius: 4px;
+  color: var(--alternative-color);
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 15px;
+  padding: 7px;
+}
 
 
 /* Double Button */

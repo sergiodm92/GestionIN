@@ -111,6 +111,7 @@ const Register = ()=>{
                 </div>
                 <FormButton
                     title={"Registrarse"}
+                    loading={true}
                 />
             </form>
         </div>

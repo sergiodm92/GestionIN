@@ -61,8 +61,10 @@ export const handleCoffinPlace = (e: any, coffin: Coffin, setCoffin: any) => {
 }
 //------------------------------------------------------------------------------------
 
-export const addHandleSubmit = async (e:any, coffin: Coffin, isOn: boolean, date: string, add: AddCoffin, places: Place[])=>{
+export const addHandleSubmit = async (e:any, coffin: Coffin, isOn: boolean, date: string, add: AddCoffin, places: Place[], setIsLoading: React.Dispatch<React.SetStateAction<boolean>>)=>{
     e.preventDefault();
+
+    setIsLoading(true)
 
     add.id = generateRandomID() //add id
 
@@ -90,21 +92,22 @@ export const addHandleSubmit = async (e:any, coffin: Coffin, isOn: boolean, date
     try {
       console.log(add)
         if(validateAddCoffin(add)){
-        const response = await postAddCoffinApi(add);
-        if (response.data.status === "ok") {
-        createToast("success","Deposito guardado con éxito");
-        (document.getElementById("type") as HTMLSelectElement).selectedIndex = 0;
-        (document.getElementById("size") as HTMLSelectElement).selectedIndex = 0;
-        (document.getElementById("color") as HTMLSelectElement).selectedIndex = 0;
-        (document.getElementById("units") as HTMLInputElement).value = "0";
-        } else {
-        createToast("error","Verifique que los datos ingresados sean correctos");
+          const response = await postAddCoffinApi(add);
+          if (response.data.status === "ok") {
+          createToast("success","Deposito guardado con éxito");
+          (document.getElementById("type") as HTMLSelectElement).selectedIndex = 0;
+          (document.getElementById("size") as HTMLSelectElement).selectedIndex = 0;
+          (document.getElementById("color") as HTMLSelectElement).selectedIndex = 0;
+          (document.getElementById("units") as HTMLInputElement).value = "0";
+          } else {
+          createToast("error","Verifique que los datos ingresados sean correctos");
+          }
         }
-      }
     } catch (error) {
         createToast("warning","ocurrio un error, vuelva a intentar");
         console.error(error);
     }
+    setIsLoading(false)
 }
 
 //------------------HANDLE DELETE----------------

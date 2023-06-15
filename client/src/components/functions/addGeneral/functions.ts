@@ -2,6 +2,7 @@ import { createToast } from "../../Notifications/Notifications";
 import { generateRandomID } from "../../functions";
 import { postAddGeneralApi } from "../../../services/addGeneralApi";
 import { AddGeneral } from "../../../types/addsInterfaces";
+import { Place } from "../../../types/place";
 
 export const handleAddChange = (e: any, add: AddGeneral, setAdd: any) => {
   e.preventDefault();
@@ -11,15 +12,17 @@ export const handleAddChange = (e: any, add: AddGeneral, setAdd: any) => {
   });
 };
 
-export const addGralHandleSubmit = async (e: any, date: string, place: string, add: AddGeneral) => {
+export const addGralHandleSubmit = async (e: any, date: string, place: string, places: Place[], add: AddGeneral, setIsLoading: React.Dispatch<React.SetStateAction<boolean>>) => {
   e.preventDefault();
 
-  add.id = generateRandomID(); //add id
+  setIsLoading(true);
+
+  add.id = place + add.product.trim().toLowerCase().replace(" ", "_"); //add id
 
   const dateString = `${date}T00:00`; //add.date
   const milliseconds = new Date(dateString).getTime();
   add.date = milliseconds;
-  add.place = place
+  add.place = places.find(p => p.initials === place)?.name ?? "";
 
   add.product = add.product.toLowerCase().trim()
   add.supplier = add.supplier.trim()
@@ -39,4 +42,7 @@ export const addGralHandleSubmit = async (e: any, date: string, place: string, a
     createToast("warning", "ocurrio un error, vuelva a intentar");
     console.error(error);
   }
+
+  setIsLoading(false);
+
 };
