@@ -1,6 +1,6 @@
 from db import get_database
 from models import AddGeneralStock, GeneralStock
-from services.general_stock_services import put_general_stock_id, post_model
+from services.general_stock_services import put_general_stock_id, post_general_model
 
 db = get_database()
 
@@ -15,10 +15,10 @@ async def post_add(add: AddGeneralStock):
         if doc_snapshot_add.exists:
             doc_general_stock = db.collection('general_stock').where("place","==",add.place).where("product","==",add.product).get()
             if doc_general_stock:
-                put_general_stock = put_general_stock_id(add.place, add.product, add.amount)
+                put_general_stock = await put_general_stock_id(add.place, add.product, add.amount)
                 return put_general_stock
             else:
-                post_new_model = post_model(
+                post_new_model = await post_general_model(
                     GeneralStock(
                         id=add.id,
                         product=add.product,

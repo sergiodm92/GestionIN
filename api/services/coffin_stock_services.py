@@ -54,7 +54,7 @@ async def get_coffin_stock_id_service(id):
         return {'error': 'Ocurrió un error inesperado: {}'.format(e)}
 
 # Post new model
-async def post_model(model:CoffinStock):
+async def post_coffin_model(model:CoffinStock):
     try:
         # Crea el nuevo documento en Firestore con los datos de add
         doc_ref = db.collection('coffin_stock').document(model.id_coffin)
@@ -85,9 +85,9 @@ async def post_transfer(transfer):
                 return True
             else: 
                 model = CoffinStock(id_coffin=transfer.id_destiny, units=transfer.units,place=place_destiny)
-                response_post_model = post_model(model)    
-                if response_post_model:
-                    return True 
+                # response_post_model = post_model(model)    
+                # if response_post_model:
+                    # return True 
         else:
             return False
     except Exception as e:

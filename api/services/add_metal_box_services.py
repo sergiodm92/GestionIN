@@ -1,6 +1,6 @@
 from db import get_database
 from models import AddMetalBox, MetalBoxStock
-from services.metal_box_stock_services import put_metal_box_stock_id, post_model
+from services.metal_box_stock_services import put_metal_box_stock_id, post_metal_box_model
 
 db = get_database()
 
@@ -20,7 +20,7 @@ async def post_add(add: AddMetalBox):
                 # Si logra actualizar el metal_box_stock verifica si se creó el add y si es correcto devuelve True
                 return put_metal_box_stock
             else:
-                post_new_model = post_model(
+                post_new_model = post_metal_box_model(
                     MetalBoxStock(
                         id=add.id,
                         size=add.size,

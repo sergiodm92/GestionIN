@@ -47,7 +47,7 @@ async def get_general_stock_id_service(id):
         return {'error': 'Ocurrió un error inesperado: {}'.format(e)}
 
 # Post new model
-async def post_model(model:GeneralStock):
+async def post_general_model(model:GeneralStock):
     try:
         doc_ref = db.collection('general_stock').document(model.id)
         doc_ref.set(model.dict())

@@ -1,6 +1,6 @@
 from db import get_database
 from models import AddCoffin, CoffinStock
-from services.coffin_stock_services import put_coffin_stock_id, post_model
+from services.coffin_stock_services import put_coffin_stock_id, post_coffin_model
 
 db = get_database()
 
@@ -24,7 +24,7 @@ async def post_add(add: AddCoffin):
                 else:
                     return False
             else:
-                post_new_model = await post_model(
+                post_new_model = await post_coffin_model(
                     CoffinStock(
                         id_coffin=add.id_coffin,
                         place=add.place,

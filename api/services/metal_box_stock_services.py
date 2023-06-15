@@ -47,7 +47,7 @@ async def get_metal_box_stock_id_service(id):
         return {'error': 'Ocurrió un error inesperado: {}'.format(e)}
 
 # Post new model
-async def post_model(model:MetalBoxStock):
+async def post_metal_box_model(model:MetalBoxStock):
     try:
         # Crea el nuevo documento en Firestore con los datos de add
         doc_ref = db.collection('metal_box_stock').document(model.id)
