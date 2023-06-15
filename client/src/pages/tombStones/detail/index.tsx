@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
-import PDFTombstoneDetail from "../components/tombStoneDetailPDF";
+import PDFTombstoneDetail from "../../../components/TombStoneDetailPDF";
 import { FormButton } from "../../../components/Buttons";
 
 const PDFViewer = dynamic(() =>
