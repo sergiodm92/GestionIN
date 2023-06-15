@@ -15,6 +15,8 @@ const AddMetalBox = () => {
   const [date, setDate] = useState("");
   const [place, setPlace] = useState("");
   const [size, setSize] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
 
   const places = useAppSelector(getplace);
 
@@ -26,7 +28,7 @@ const AddMetalBox = () => {
     <div className={styles.container}>
       <div className={styles.title}>Nuevo Ingreso de Cajas Metálicas</div>
       <form
-        onSubmit={(e) => addMetalBoxHandleSubmit(e, date, place, size, add)}
+        onSubmit={(e) => addMetalBoxHandleSubmit(e, date, place, places, size, sizes, add, setIsLoading)}
         className={styles.formContainer}
       >
         <div className={styles.dateRow}>
@@ -55,7 +57,7 @@ const AddMetalBox = () => {
           >
             <option defaultValue={"-"}>-</option>
             {places?.map((p, i) => (
-              <option key={i} value={p.name}>
+              <option key={i} value={p.initials}>
                 {p.name}
               </option>
             ))}
@@ -74,7 +76,7 @@ const AddMetalBox = () => {
           >
             <option defaultValue={"-"}>-</option>
             {sizes.map((p, i) => (
-              <option key={i} value={p.name}>
+              <option key={i} value={p.initials}>
                 {p.name}
               </option>
             ))}
@@ -114,7 +116,7 @@ const AddMetalBox = () => {
           />
         </div>
         <div className={styles.buttonContainer}>
-          <FormButton title={"Guardar"} />
+          <FormButton title={isLoading? "Cargando..." :"Guardar"} loading={isLoading}/>
         </div>
       </form>
     </div>

@@ -13,6 +13,7 @@ const AddGeneral = () => {
   const [add, setAdd] = useState(addGeneralInicialState);
   const [date, setDate] = useState("");
   const [place, setPlace] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const places = useAppSelector(getplace);
 
@@ -24,7 +25,7 @@ const AddGeneral = () => {
     <div className={styles.container}>
       <div className={styles.title}>Nuevo Ingreso</div>
       <form
-        onSubmit={(e) => addGralHandleSubmit(e, date, place, add)}
+        onSubmit={(e) => addGralHandleSubmit(e, date, place, places, add, setIsLoading)}
         className={styles.formContainer}
       >
         <div className={styles.dateRow}>
@@ -53,7 +54,7 @@ const AddGeneral = () => {
           >
             <option defaultValue={"-"}>-</option>
             {places.map((p, i) => (
-              <option key={i} value={p.name}>
+              <option key={i} value={p.initials}>
                 {p.name}
               </option>
             ))}
@@ -104,7 +105,7 @@ const AddGeneral = () => {
           />
         </div>
         <div className={styles.buttonContainer}>
-          <FormButton title={"Guardar"} />
+          <FormButton title={isLoading? "Cargando..." :"Guardar"} loading={isLoading}/>
         </div>
       </form>
     </div>

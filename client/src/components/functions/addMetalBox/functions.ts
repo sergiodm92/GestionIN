@@ -3,6 +3,7 @@ import { generateRandomID } from "../../functions";
 import { postAddMetalBoxApi } from "../../../services/addMetalBoxApi";
 import { AddMetalBox } from "../../../types/addsInterfaces";
 import { validateAddMetalBox } from "../../Validations/addMetalBox";
+import { Place } from "../../../types/place";
 
 export const handleAddChange = (e: any, add: AddMetalBox, setAdd: any) => {
   e.preventDefault();
@@ -16,19 +17,24 @@ export const addMetalBoxHandleSubmit = async (
   e: any,
   date: string,
   place: string,
+  places: Place[],
   size: string,
-  add: AddMetalBox
+  sizes: { name: string; initials: string; }[],
+  add: AddMetalBox,
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   e.preventDefault();
 
-  add.id = generateRandomID(); //add id
+  setIsLoading(true)
+
+  add.id = place + size; //add id
 
   const dateString = `${date}T00:00`; //add.date
   const milliseconds = new Date(dateString).getTime();
   add.date = milliseconds;
 
-  add.place = place;
-  add.size = size;
+  add.place = places.find(p=>p.initials===place)?.name ?? "";
+  add.size = sizes.find(s=>s.initials===size)?.name ?? "";
 
   add.supplier = add.supplier.trim();
   add.responsible = add.responsible.trim();
@@ -57,4 +63,7 @@ export const addMetalBoxHandleSubmit = async (
     createToast("warning", "ocurrio un error, vuelva a intentar");
     console.error(error);
   }
+
+  setIsLoading(false)
+
 };

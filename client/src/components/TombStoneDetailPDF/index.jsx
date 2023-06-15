@@ -1,4 +1,5 @@
 import { Page, Text, View, Document, Image, StyleSheet } from '@react-pdf/renderer';
+import { ifError } from 'assert';
 
 const styles = StyleSheet.create({
   letterhead: {
@@ -26,10 +27,10 @@ const styles = StyleSheet.create({
     fontSize: '1.5vh',
     fontWeight: 'light',
     fontFamily: 'Times-Italic',
-    marginBottom: 7
+    marginBottom: 5
   },
   cards:{
-    marginBottom: 30
+    marginBottom: 15
   }
 });
 
@@ -48,28 +49,36 @@ const PDFTombstoneDetail = (deceaseds) => {
             <View style={styles.date}>
                 <Text>{date}</Text>
             </View>
-            <View>
-              <Text style={styles.title}>Lápidas Faltantes</Text>
-            </View>
-            <View>
-              {deceaseds?.deceaseds.tombstones.map((d, index) => (
-                <View key={index}>
-                  <Text style={styles.text}>- {d.name} . {new Date(d.dob).toLocaleDateString("es")} - {new Date(d.dod).toLocaleDateString("es")} . {d.pod}</Text>
-                  <Text style={styles.text}>Texto: {d.leyend}</Text>
-                </View>
-              ))}
-            </View>
-            <View>
-              <Text style={styles.title}>Placas Faltantes</Text>
-            </View>
-            <View>
-              {deceaseds?.deceaseds.plaques.map((d, index) => (
-                <View key={index} style={styles.cards}>
-                  <Text style={styles.text}>- {d.name} . {new Date(d.dob).toLocaleDateString("es")} - {new Date(d.dod).toLocaleDateString("es")} . {d.pod}</Text>
-                  <Text style={styles.text}>Texto: {d.leyend}</Text>
-                </View>
-              ))}
-            </View>
+            {deceaseds?.deceaseds.tombstones.length>0 ?
+            <>
+              <View>
+                <Text style={styles.title}>Lápidas Faltantes</Text>
+              </View>
+              <View>
+                {deceaseds?.deceaseds.tombstones.map((d, index) => (
+                  <View key={index} style={styles.cards}>
+                    <Text style={styles.text}>- {d.name} . {new Date(d.dob).toLocaleDateString("es")} - {new Date(d.dod).toLocaleDateString("es")} . {d.pod}</Text>
+                    <Text style={styles.text}>Texto: {d.leyend}</Text>
+                  </View>
+                ))}
+              </View>
+            </>
+            : null}
+            {deceaseds?.deceaseds.plaques.length>0 ?
+            <>
+              <View>
+                <Text style={styles.title}>Placas Faltantes</Text>
+              </View>
+              <View>
+                {deceaseds?.deceaseds.plaques.map((d, index) => (
+                  <View key={index} style={styles.cards}>
+                    <Text style={styles.text}>- {d.name} . {new Date(d.dob).toLocaleDateString("es")} - {new Date(d.dod).toLocaleDateString("es")} . {d.pod}</Text>
+                    <Text style={styles.text}>Texto: {d.leyend}</Text>
+                  </View>
+                ))}
+              </View>
+            </>
+            : null}
           </View>
         </View>
       </Page>

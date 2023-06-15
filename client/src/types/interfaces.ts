@@ -22,6 +22,7 @@ export interface Double {
 }
 export interface Button {
   title: string;
+  loading: boolean;
 }
 export interface SmallButton {
   title: string;

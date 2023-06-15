@@ -58,6 +58,7 @@ const NewRequest = () => {
           <div className={styles.buttonContainer}>
             <FormButton
               title={"Guardar"}
+              loading={false}
             />
           </div>
       </form>
