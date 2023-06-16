@@ -4,6 +4,8 @@ from models import MetalBoxStock
 db = get_database()
 
 # Traer metal_box_stock
+
+
 async def get_metal_box_stock():
     try:
         metal_box_stock = []
@@ -20,11 +22,14 @@ async def get_metal_box_stock():
         return {'error': 'Ocurrió un error inesperado: {}'.format(e)}
 
 # Traer metal_box_stock
+
+
 async def get_metal_box_stock_place(place):
     try:
         metal_box_stock = []
         # Obtiene todos los documentos de la colección "metal_box_stock"
-        docs = db.collection('metal_box_stock').where('place','==',place).get()
+        docs = db.collection('metal_box_stock').where(
+            'place', '==', place).get()
         for doc in docs:
             # Convierte los datos del documento a un diccionario
             product = doc.to_dict()
@@ -34,20 +39,25 @@ async def get_metal_box_stock_place(place):
     except Exception as e:
         print(e)
         return {'error': 'Ocurrió un error inesperado: {}'.format(e)}
-    
+
 # Get metal_box_stock by ID
+
+
 async def get_metal_box_stock_id_service(id):
     try:
         metal_box_stock = {}
         # Obtiene todos los documentos de la colección "compras"
-        metal_box_stock = db.collection('metal_box_stock').document(id).get().to_dict()
+        metal_box_stock = db.collection(
+            'metal_box_stock').document(id).get().to_dict()
         return metal_box_stock
     except Exception as e:
         print(e)
         return {'error': 'Ocurrió un error inesperado: {}'.format(e)}
 
 # Post new model
-async def post_metal_box_model(model:MetalBoxStock):
+
+
+async def post_metal_box_model(model: MetalBoxStock):
     try:
         # Crea el nuevo documento en Firestore con los datos de add
         doc_ref = db.collection('metal_box_stock').document(model.id)
@@ -61,16 +71,18 @@ async def post_metal_box_model(model:MetalBoxStock):
     except Exception as e:
         print(e)
         return False
-    
-async def put_metal_box_stock_id(place, size, operacion):
+
+
+async def put_metal_box_stock_id(id, operacion):
     try:
-        doc_ref = db.collection('metal_box_stock').where("place", "==", place).where("size", "==", size)
-        docs = doc_ref.get()
-        for doc in docs:
-            if doc.exists:
-                db.collection('metal_box_stock').document(doc.id).update({'units': doc.to_dict()['units'] + operacion})
-                return True
-        return False
+        doc_ref = db.collection('metal_box_stock').document(id)
+        doc = doc_ref.get()
+        if doc.exists:
+            db.collection('metal_box_stock').document(doc.id).update(
+                {'units': doc.to_dict()['units'] + operacion})
+            return True
+        else:
+            return False
     except Exception as e:
         print(e)
         return False

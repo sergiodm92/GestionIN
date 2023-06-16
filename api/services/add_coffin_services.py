@@ -14,15 +14,13 @@ async def post_add(add: AddCoffin):
         doc_ref_add.set(add.dict())
         doc_snapshot_add = doc_ref_add.get()
         if doc_snapshot_add.exists:
-            doc_ref_coffin_stock = db.collection('coffin_stock').document(add.id_coffin)
+            doc_ref_coffin_stock = db.collection(
+                'coffin_stock').document(add.id_coffin)
             doc_snapshot_coffin_stock = doc_ref_coffin_stock.get()
             if doc_snapshot_coffin_stock.exists:
                 put_coffin_stock = await put_coffin_stock_id(add.id_coffin, add.units)
             # si logra actualizar el coffin_stock verifica si se creo el add y si es correcto devuelve true
-                if (put_coffin_stock):
-                    return True
-                else:
-                    return False
+                return put_coffin_stock
             else:
                 post_new_model = await post_coffin_model(
                     CoffinStock(
@@ -31,10 +29,7 @@ async def post_add(add: AddCoffin):
                         units=add.units
                     )
                 )
-                if (post_new_model):
-                    return True
-                else:
-                    return False
+                return post_new_model
         else:
             return False
     except Exception as e:
@@ -42,6 +37,8 @@ async def post_add(add: AddCoffin):
         return False
 
 # Get added
+
+
 async def get_added():
     try:
         added = []
@@ -56,12 +53,15 @@ async def get_added():
     except Exception as e:
         print(e)
         return {'error': 'Ocurrió un error inesperado: {}'.format(e)}
-    
+
 # Obtener los últimos (limit) documentos
+
+
 async def get_latest_added(limit):
     try:
-        added = [] 
-        docs = db.collection('add_coffin').order_by('date').limit_to_last(limit).get()
+        added = []
+        docs = db.collection('add_coffin').order_by(
+            'date').limit_to_last(limit).get()
         for doc in docs:
             add = doc.to_dict()
             added.append(add)
@@ -81,12 +81,14 @@ async def get_add_id(id: str):
     except Exception as e:
         print(e)
         return {'error': 'Ocurrió un error inesperado: {}'.format(e)}
-    
+
 # Traer un add por lugar
+
+
 async def get_added_place(place):
     try:
         added = []
-        docs = db.collection('add_coffin').where("place","==",place).get()
+        docs = db.collection('add_coffin').where("place", "==", place).get()
         for doc in docs:
             add = doc.to_dict()
             added.append(add)

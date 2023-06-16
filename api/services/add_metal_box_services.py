@@ -10,17 +10,16 @@ db = get_database()
 async def post_add(add: AddMetalBox):
     try:
         # Crea el nuevo documento en Firestore con los datos de add
-        doc_ref_add = db.collection('add_metal_box').document(add.id)
+        doc_ref_add = db.collection('add_metal_box').document()
         doc_ref_add.set(add.dict())
         doc_snapshot_add = doc_ref_add.get()
         if doc_snapshot_add.exists:
-            doc_metal_box_stock = db.collection('metal_box_stock').where("place","==",add.place).where("size","==",add.size).get()
-            if doc_metal_box_stock:
-                put_metal_box_stock = put_metal_box_stock_id(add.place, add.size, add.units)
-                # Si logra actualizar el metal_box_stock verifica si se creó el add y si es correcto devuelve True
+            doc_metal_box_stock = db.collection('metal_box_stock').document(add.id).get()
+            if doc_metal_box_stock.exists:
+                put_metal_box_stock = await put_metal_box_stock_id(add.id, add.units)
                 return put_metal_box_stock
             else:
-                post_new_model = post_metal_box_model(
+                post_new_model = await post_metal_box_model(
                     MetalBoxStock(
                         id=add.id,
                         size=add.size,
