@@ -8,6 +8,7 @@ import { getDeceased } from "../../../store/Slices/deceasedSlice";
 import { SmallBtn } from "../../../components/Buttons";
 import Swal from "sweetalert2";
 import { createToast } from "../../../components/Notifications/Notifications";
+import { cementery_type1, tombstone_type1, tombstone_type2 } from "../../../utils/constants";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const { params } = context;
@@ -62,8 +63,8 @@ const DeceasedDetail = ({ id }: { id: string })=>{
 
     const setTombStone = ()=>{
       Swal.fire({
-        title: cementeryType==="Parque"?"Agregar Lápida":"Agregar Placa",
-        text: "¿Esta seguro que desea agregar " + (cementeryType==="Parque"?"Lápida":"Placa"),
+        title: cementeryType===cementery_type1?"Agregar " + tombstone_type1:"Agregar " + tombstone_type1,
+        text: "¿Esta seguro que desea agregar " + (cementeryType===cementery_type1?tombstone_type2:tombstone_type1),
         icon: "warning",
         showCancelButton: true,
         confirmButtonText: "Si",
@@ -126,10 +127,10 @@ const DeceasedDetail = ({ id }: { id: string })=>{
                 <div className={styles.subTitle}></div>
                 {updateData.tombstone?
                 (
-                  <div className={styles.text}>{cementeryType==="Parque"?"Lápida Lista":"Placa Lista"}</div>
+                  <div className={styles.text}>{cementeryType===cementery_type1?tombstone_type2 + " Lista":tombstone_type1 + " Lista"}</div>
                 )
                 :(
-                <div className={styles.withoutTombStone}>{cementeryType==="Parque"?"Sin Lápida":"Sin Placa"}</div>
+                <div className={styles.withoutTombStone}>{cementeryType===cementery_type1?"Sin " + tombstone_type2:"Sin " + tombstone_type1}</div>
                 )
                 }
               </div>
@@ -138,7 +139,7 @@ const DeceasedDetail = ({ id }: { id: string })=>{
                 :(
                   <div>
                     <SmallBtn
-                    title={"Agregar " + (cementeryType==="Parque"?"Lápida":"Placa")}
+                    title={"Agregar " + (cementeryType===cementery_type1?tombstone_type2:tombstone_type1)}
                     onClick={setTombStone}
                     />
                     </div>
