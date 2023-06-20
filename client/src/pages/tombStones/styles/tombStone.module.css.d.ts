@@ -10,6 +10,7 @@ declare const styles: {
     dateBox: string;
     dateInput: string;
     noDeceased: string;
+    cementeryTypeSelect: string;
   };
   
   export default styles;
