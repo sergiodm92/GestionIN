@@ -10,6 +10,7 @@ import { getAddsMetalBox } from "../../../store/Slices/addsMetalBoxSlice";
 const initialAddState = [
   {
     id: "",
+    id_doc: "",
     size: "",
     date: 0,
     responsible: "",
@@ -59,7 +60,7 @@ const AddsMetalBox = () => {
                   return (
                     <div className={styles.card} key={i}>
                       <Card1
-                        onClick={() => router.push(`/adds/metal_box/${add.id}`)}
+                        onClick={() => router.push(`/adds/metal_box/${add.id_doc}`)}
                         space1={new Date(add.date)
                           .toLocaleDateString("es")}
                         space2={add.size}

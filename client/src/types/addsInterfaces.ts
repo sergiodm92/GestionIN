@@ -9,6 +9,7 @@ export interface AddCoffin {
   }
   export interface AddMetalBox {
     id: string;
+    id_doc: string;
     size: string;
     date: number;
     responsible: string;
@@ -18,6 +19,7 @@ export interface AddCoffin {
   }
   export interface AddGeneral {
     id: string;
+    id_doc: string;
     product: string;
     date: number;
     responsible: string;

@@ -1,5 +1,5 @@
 import { AddCoffin } from "../../types/addsInterfaces";
-import Swal from "sweetalert2";
+import { createToast } from "../Notifications/Notifications";
 
 export const validateAddCoffin = (form: AddCoffin) => {
   const validationList = [
@@ -38,26 +38,9 @@ export const validateAddCoffin = (form: AddCoffin) => {
 
   for (const { field, message, condition } of validationList) {
     if (condition || !form[field as keyof AddCoffin]) {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener("mouseenter", Swal.stopTimer);
-          toast.addEventListener("mouseleave", Swal.resumeTimer);
-        },
-      });
-
-      Toast.fire({
-        icon: "error",
-        title: message,
-      });
-
+      createToast("error", message)
       return false;
     }
   }
-
   return true;
 };

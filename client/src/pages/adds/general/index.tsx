@@ -12,6 +12,7 @@ import { getAddsGeneral } from "../../../store/Slices/addsGeneralSlice";
 const initialAddState = [
   {
     id: "",
+    id_doc:"",
     product: "",
     date: 0,
     responsible: "",
@@ -63,7 +64,7 @@ const AddsGeneral = () => {
                   return (
                     <div className={styles.card} key={i}>
                       <Card1
-                        onClick={() => router.push(`/adds/general/${add.id}`)}
+                        onClick={() => router.push(`/adds/general/${add.id_doc}`)}
                         space1={new Date(add.date)
                           .toLocaleDateString("es")}
                         space2={add.product}

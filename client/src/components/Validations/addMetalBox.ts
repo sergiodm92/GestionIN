@@ -1,5 +1,5 @@
 import { AddMetalBox } from "../../types/addsInterfaces";
-import Swal from "sweetalert2";
+import { createToast } from "../Notifications/Notifications";
 
 export const validateAddMetalBox = (form: AddMetalBox) => {
   const validationList = [
@@ -39,23 +39,7 @@ export const validateAddMetalBox = (form: AddMetalBox) => {
 
   for (const { field, message, condition } of validationList) {
     if (condition || !form[field as keyof AddMetalBox]) {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener("mouseenter", Swal.stopTimer);
-          toast.addEventListener("mouseleave", Swal.resumeTimer);
-        },
-      });
-
-      Toast.fire({
-        icon: "error",
-        title: message,
-      });
-
+      createToast("error", message)
       return false;
     }
   }

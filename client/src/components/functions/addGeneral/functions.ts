@@ -3,6 +3,7 @@ import { generateRandomID } from "../../functions";
 import { postAddGeneralApi } from "../../../services/addGeneralApi";
 import { AddGeneral } from "../../../types/addsInterfaces";
 import { Place } from "../../../types/place";
+import { validateAddGeneral } from "../../Validations/addGeneral";
 
 export const handleAddChange = (e: any, add: AddGeneral, setAdd: any) => {
   e.preventDefault();
@@ -30,13 +31,14 @@ export const addGralHandleSubmit = async (e: any, date: string, place: string, p
 
   //send data
   try {
-    const response = await postAddGeneralApi(add);
-    console.log(response)
-    if (response && response.data.status == "ok") {
-      createToast("success", "Ingreso guardado con éxito");
-      (document.getElementById("amount") as HTMLInputElement).value = "0";
-    } else {
-      createToast("error", "Verifique que los datos ingresados sean correctos");
+    if(validateAddGeneral(add)){
+      const response = await postAddGeneralApi(add);
+      if (response && response.data.status == "ok") {
+        createToast("success", "Ingreso guardado con éxito");
+        (document.getElementById("amount") as HTMLInputElement).value = "0";
+      } else {
+        createToast("error", "Verifique que los datos ingresados sean correctos");
+      }
     }
   } catch (error) {
     createToast("warning", "ocurrio un error, vuelva a intentar");
