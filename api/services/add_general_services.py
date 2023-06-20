@@ -44,6 +44,7 @@ async def get_added():
         for doc in docs:
             # Convierte los datos del documento a un diccionario
             add = doc.to_dict()
+            add['id_doc'] = doc.id
             # Agrega el diccionario a la lista de compras
             added.append(add)
         return added
