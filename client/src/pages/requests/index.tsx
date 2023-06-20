@@ -6,6 +6,8 @@ import styles from './styles/requests.module.css'
 import { getRequests } from "../../store/Slices/requestsSlice"
 import { getAllRequests } from "../../components/functions/requests/functions"
 import Loading from "../../components/Loading/loading"
+import { getAllDeceased } from "../../components/functions/deceased/functions"
+import { getDeceaseds } from "../../store/Slices/deceasedSlice"
 
 const initialRequestState = [
   {
@@ -38,10 +40,12 @@ const Requests = () => {
 
   const [updateData, setUpdateData] = useState(initialRequestState);
   const requests = useAppSelector(getRequests);
+  const deceaseds = useAppSelector(getDeceaseds)
   const prevRequests = useRef(requests);
 
   useEffect(() => {
     getAllRequests(dispatch);
+    getAllDeceased(dispatch)
   }, []);
 
   useEffect(() => {
@@ -62,7 +66,7 @@ const Requests = () => {
           <div className={styles.title}>Solicitudes de Siniestro</div>
           <div className={styles.subTitle}>
             <div className={styles.smallSpace}>Fecha</div>
-            <div className={styles.bigSpace}>Lugar</div>
+            <div className={styles.bigSpace}>Nombre</div>
             <div className={styles.smallSpace}>N° Certificado</div>
           </div>
           <div className={styles.cardsContainer}>
@@ -75,7 +79,7 @@ const Requests = () => {
                         space1={new Date(request.date)
                           .toLocaleDateString("es")
                           .replaceAll("/", "-")}
-                        space2={request.place}
+                        space2 = {deceaseds?.find(deceased => deceased.id_request === request.id)?.name || ''}
                         space3={request.certificate_number}
                       />
                     </div>

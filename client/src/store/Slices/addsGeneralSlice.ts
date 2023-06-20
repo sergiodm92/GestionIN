@@ -6,6 +6,7 @@ const initialState: AddGeneralState = {
     addsGeneral: [],
     addGeneral:{
       id: "",
+      id_doc: "",
       product: "",
       date: 0,
       responsible: "",

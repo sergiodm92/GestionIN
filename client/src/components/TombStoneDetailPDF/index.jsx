@@ -1,5 +1,4 @@
 import { Page, Text, View, Document, Image, StyleSheet } from '@react-pdf/renderer';
-import { ifError } from 'assert';
 
 const styles = StyleSheet.create({
   letterhead: {

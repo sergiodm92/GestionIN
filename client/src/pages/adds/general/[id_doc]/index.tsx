@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from "react"
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks"
-import { getAddMetalBoxById } from "../../../../components/functions/adds/functions"
+import { getAddGeneralById } from "../../../../components/functions/adds/functions"
 import { GetServerSideProps } from "next";
 import styles from "../../styles/addDetail.module.css"
 import Loading from "../../../../components/Loading/loading";
 import { DeleteBtn} from "../../../../components/Buttons";
-import { handleDeleteAddMetalBox } from "../../../../components/functions/addCoffin/functions";
+import { handleDeleteAddGeneral } from "../../../../components/functions/addCoffin/functions";
 import { useRouter } from "next/router";
-import { getAddMetalBox } from "../../../../store/Slices/addsMetalBoxSlice";
+import { getAddGeneral } from "../../../../store/Slices/addsGeneralSlice";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const { params } = context;
@@ -18,25 +18,25 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       };
     }
   
-    const { id } = params;
+    const { id_doc } = params;
   
     return {
       props: {
-        id,
+        id_doc,
       },
     };
   };
 
-const AddGeneralDetail = ({ id }: { id: string })=>{
+const AddGeneralDetail = ({ id_doc }: { id_doc: string })=>{
     const [updateData, setUpdateData] = useState({});
     const dispatch = useAppDispatch()
-    const add = useAppSelector(getAddMetalBox)
+    const add = useAppSelector(getAddGeneral)
     const prevAdd = useRef(add);
 
     const router = useRouter()
 
     useEffect(()=>{
-        getAddMetalBoxById(dispatch, id)
+        getAddGeneralById(dispatch, id_doc)
     },[])
 
     useEffect(() => {
@@ -54,7 +54,7 @@ const AddGeneralDetail = ({ id }: { id: string })=>{
             <div className={styles.card}>
               <div className={styles.deleteBtn}>
                 <DeleteBtn
-                  onClick={()=>handleDeleteAddMetalBox(id, router)}
+                  onClick={()=>handleDeleteAddGeneral(id_doc, router)}
                 />
               </div>
               <div className={styles.title}>Detalle:</div>
@@ -64,15 +64,15 @@ const AddGeneralDetail = ({ id }: { id: string })=>{
               </div>
               <div className={styles.items}>
                 <div className={styles.subTitle}>Lugar:</div>
-                <div className={styles.text}>{add.place}</div>
+                <div className={styles.text}>{add?.place}</div>
               </div>
               <div className={styles.items}>
-                <div className={styles.subTitle}>Tamaño:</div>
-                <div className={styles.text}>{add.size}</div>
+                <div className={styles.subTitle}>Producto:</div>
+                <div className={styles.text}>{add.product}</div>
               </div>
               <div className={styles.items}>
-                <div className={styles.subTitle}>Unidades:</div>
-                <div className={styles.text}>{add.units}</div>
+                <div className={styles.subTitle}>Cantidad:</div>
+                <div className={styles.text}>{add.amount}</div>
               </div>
               <div className={styles.items}>
                 <div className={styles.subTitle}>Responsable:</div>

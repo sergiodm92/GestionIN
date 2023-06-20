@@ -6,6 +6,7 @@ const initialState: AddMetalBoxState = {
     addsMetalBox: [],
     addMetalBox:{
       id: "",
+      id_doc: "",
       size: "",
       date: 0,
       responsible: "",

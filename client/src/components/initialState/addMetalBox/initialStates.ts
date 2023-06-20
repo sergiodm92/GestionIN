@@ -1,5 +1,6 @@
 export const addMetalBoxInicialState = {
     id: "",
+    id_doc: "",
     size: "",
     date: 0,
     responsible: "",

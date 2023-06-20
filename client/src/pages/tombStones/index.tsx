@@ -4,9 +4,10 @@ import { getDeceaseds } from "../../store/Slices/deceasedSlice";
 import Loading from "../../components/Loading/loading";
 import { getDeceasedesWithoutTombStone } from "../../components/functions/tombStones/functions";
 import { useEffect, useState, useRef } from "react";
-import Card1 from "../../components/Cards/Card1";
 import styles from "./styles/tombStone.module.css";
 import { SmallBtn } from "../../components/Buttons";
+import Card2 from "../../components/Cards/Card2";
+import { cementery_type1, tombstone_type1, tombstone_type2 } from "../../utils/constants";
 
 const initialDeceasedState = [
   {
@@ -34,8 +35,6 @@ const TombStones = () => {
   const dispatch = useAppDispatch();
   const deceaseds = useAppSelector(getDeceaseds);
   const prevDeceaseds = useRef(deceaseds)
-
-  const array = "mi array"
 
   useEffect(() => {
     getDeceasedesWithoutTombStone(dispatch);
@@ -98,7 +97,7 @@ const TombStones = () => {
         <Loading />
       ) : (
         <>
-          <div className={styles.title}>Placas o Lápidas pendientes</div>
+          <div className={styles.title}>Placas y Lápidas pendientes</div>
           <div className={styles.filterContainer}>
             <input
               type="checkbox"
@@ -118,8 +117,9 @@ const TombStones = () => {
             </div>
           </div>
           <div className={styles.subTitle}>
-            <div className={styles.smallSpace}>Fecha de fallecimiento</div>
-            <div className={styles.bigSpace}>Apellido y Nombre</div>
+            <div className={styles.smallSpace}>Fecha</div>
+            <div className={styles.smallSpace}>Nombre</div>
+            <div className={styles.smallSpace}>Tipo</div>
             <div className={styles.smallSpace}>DNI</div>
           </div>
           <div className={styles.cardsContainer}>
@@ -137,13 +137,14 @@ const TombStones = () => {
                     checked={selectedCards.includes(deceased.id)}
                     onChange={() => handleCardSelection(deceased.id)}
                   />
-                  <Card1
+                  <Card2
                     onClick={() => router.push(`/deceased/${deceased.id}`)}
                     space1={new Date(deceased.dod)
                       .toLocaleDateString("es")
                       .replaceAll("/", "-")}
                     space2={deceased.name}
-                    space3={deceased.dni}
+                    space3={deceased.cementery_type === cementery_type1?tombstone_type2:tombstone_type1}
+                    space4={deceased.dni}
                   />
                 </div>
               ))}
