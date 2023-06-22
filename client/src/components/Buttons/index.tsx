@@ -2,10 +2,14 @@ import { Button, ButtonClick, DobleButton, SwitchButton, SmallButton, DeleteButt
 import styles from "./styles/buttons.module.css";
 
 export const FormButton = (data: Button) => {
-  const { title, loading } = data;
+  const { title, loading, disabled } = data;
   return (
     <div>
-      <button className={loading ? styles.btnLoading : styles.btn} type="submit">
+      <button
+        className={loading ? styles.btnLoading : styles.btn}
+        type="submit"
+        disabled={disabled}
+      >
         {title}
       </button>
     </div>

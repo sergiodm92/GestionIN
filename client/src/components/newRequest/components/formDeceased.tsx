@@ -90,7 +90,7 @@ const FormDeceased = (data: FormDeceased) => {
           onChange={(e) => handleDeceasedChange(e, deceased, setDeceased)}
         />
       </div>
-      <div>
+      {/* <div>
         <div>Texto de Placa: </div>
         <textarea
             className={styles.textArea}
@@ -99,7 +99,7 @@ const FormDeceased = (data: FormDeceased) => {
             value={deceased.leyend==="-"?"":deceased.leyend}
             onChange={(e) => handleDeceasedChange(e, deceased, setDeceased)}
           />
-      </div>
+      </div> */}
       <div>
         <div>Esquela (Diario): </div>
         <textarea
@@ -191,15 +191,61 @@ const FormDeceased = (data: FormDeceased) => {
               <option key={3} value={3}>3</option>
             </select>
           </div>
+          {deceased.level==2?(
+            <>
+              <div className={styles.formRow}>
+                <div>1° Nivel: </div>
+                <input
+                      className={styles.input}
+                      style={{ width: "calc(100% - 70px)" }}
+                      type="text"
+                      id="first_level_name"
+                      name="first_level_name"
+                      value={deceased.first_level_name}
+                      onChange={(e) => handleDeceasedChange(e, deceased, setDeceased)}
+                    />
+              </div>
+            </>
+          )
+          :deceased.level==3?
+          (
+            <>
+              <div className={styles.formRow}>
+                <div>1° Nivel: </div>
+                <input
+                      className={styles.input}
+                      style={{ width: "calc(100% - 70px)" }}
+                      type="text"
+                      id="first_level_name"
+                      name="first_level_name"
+                      value={deceased.first_level_name}
+                      onChange={(e) => handleDeceasedChange(e, deceased, setDeceased)}
+                    />
+              </div>
+              <div className={styles.formRow}>
+                <div>2° Nivel: </div>
+                <input
+                      className={styles.input}
+                      style={{ width: "calc(100% - 70px)" }}
+                      type="text"
+                      id="second_level_name"
+                      name="second_level_name"
+                      value={deceased.second_level_name}
+                      onChange={(e) => handleDeceasedChange(e, deceased, setDeceased)}
+                    />
+              </div>
+            </>
+          )
+          :null}
           <div className={styles.formRow}>
             <div>Simbolo de la Religion: </div>
             <input
                   className={styles.input}
                   style={{ width: "calc(100% - 160px)" }}
                   type="text"
-                  id="religionSymbol"
-                  name="religionSymbol"
-                  value={deceased.religionSymbol}
+                  id="religion_symbol"
+                  name="religion_symbol"
+                  value={deceased.religion_symbol}
                   onChange={(e) => handleDeceasedChange(e, deceased, setDeceased)}
                 />
           </div>

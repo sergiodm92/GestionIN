@@ -4,6 +4,7 @@ import { postNewUserApi } from "../../services/userApi"
 import { createToast } from "../../components/Notifications/Notifications"
 import { FormButton } from "../../components/Buttons";
 import styles from './styles/register.module.css'
+import Loading from "../../components/Loading/loading";
 
 const initialStateUser = {
     name: '',
@@ -19,6 +20,7 @@ const Register = ()=>{
     const [user, setUser] = useState(initialStateUser)
     const [p1, setP1]=useState('')
     const [p2, setP2]=useState('')
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleChangeP1 = (e: any) => {
         e.preventDefault();
@@ -40,6 +42,7 @@ const Register = ()=>{
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
+        setIsLoading(true)
         if(p1===p2){
             user.password=p1
             try {
@@ -59,6 +62,7 @@ const Register = ()=>{
         else{
             createToast("error","Las contaseñas no coinciden");
         }
+        setIsLoading(false)
       };
 
     return(
@@ -66,7 +70,7 @@ const Register = ()=>{
             <form onSubmit={handleSubmit} className={styles.form}>
                 <div className={styles.loginTitle}>Registrarse</div>
                 <div>
-                    <div className={styles.inputText}>Ingresar usuario:</div>
+                    <div className={styles.inputText}>Usuario:</div>
                     <input
                         className={styles.input}
                         type="text"
@@ -77,7 +81,7 @@ const Register = ()=>{
                     />
                 </div>
                 <div>
-                    <div className={styles.inputText}>Ingresar contraseña:</div>
+                    <div className={styles.inputText}>Contraseña:</div>
                     <input
                         className={styles.input}
                         type="password"
@@ -88,7 +92,7 @@ const Register = ()=>{
                     />
                 </div>
                 <div>
-                    <div className={styles.inputText}>Ingresar contraseña nuevamente:</div>
+                    <div className={styles.inputText}>Contraseña nuevamente:</div>
                     <input
                         className={styles.input}
                         type="password"
@@ -99,7 +103,7 @@ const Register = ()=>{
                     />
                 </div>
                 <div>
-                    <div className={styles.inputText}>Ingresar Lugar:</div>
+                    <div className={styles.inputText}>Lugar:</div>
                     <input
                         className={styles.input}
                         type="text"
@@ -110,8 +114,9 @@ const Register = ()=>{
                     />
                 </div>
                 <FormButton
-                    title={"Registrarse"}
-                    loading={false}
+                    title={isLoading? <Loading/> :"Registrarse"}
+                    loading={isLoading}
+                    disabled={isLoading}
                 />
             </form>
         </div>

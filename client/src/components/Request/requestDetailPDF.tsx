@@ -231,7 +231,7 @@ const PDFDetail = (data: PostRequest) => {
                         </View>
                         <View style={styles.items}>
                             <Text style={styles.itemTitle}>Símbolo de la Religión:</Text>
-                            <Text style={styles.itemText}> {deceased.religionSymbol}</Text>
+                            <Text style={styles.itemText}> {deceased.religion_symbol}</Text>
                         </View>
                     </View>
                 )
@@ -256,12 +256,12 @@ const PDFDetail = (data: PostRequest) => {
                         <Text style={styles.itemText}> {request.service_improvement}</Text>
                     </View>
                 </View>
-                <View style={styles.row}>
+                {/* <View style={styles.row}>
                     <View style={styles.items}>
                         <Text style={styles.itemTitle}>Texto de Placa:</Text>
                         <Text style={styles.itemText}> {deceased.leyend}</Text>
                     </View>
-                </View>
+                </View> */}
                 <View style={styles.row}>
                     <View style={styles.items}>
                         <Text style={styles.itemTitle}>Esquela:</Text>
