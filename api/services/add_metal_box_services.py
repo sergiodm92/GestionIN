@@ -1,5 +1,5 @@
 from db import get_database
-from models import AddMetalBox, MetalBoxStock
+from models import AddMetalBox, MetalBoxStock, DataAddDelete
 from services.metal_box_stock_services import put_metal_box_stock_id, post_metal_box_model
 
 db = get_database()
@@ -91,13 +91,13 @@ async def get_added_place(place):
         return {'error': 'Ocurrió un error inesperado: {}'.format(e)}
 
 
-async def delete_add_id(id: str):
+async def delete_add_id(dataAddDelete:DataAddDelete):
     try:
-        add_document_ref = db.collection('add_metal_box').document(id)
+        add_document_ref = db.collection('add_metal_box').document(dataAddDelete.id_doc)
         add_document_snapshot = add_document_ref.get()
         if add_document_snapshot.exists:
             add = add_document_snapshot.to_dict()
-            response = put_metal_box_stock_id(add['place'], add['size'], -add['units'])
+            response = put_metal_box_stock_id(dataAddDelete.id, -add['units'])
             if response:
                 add_document_ref.delete()
                 return True
