@@ -77,7 +77,12 @@ class Deceased(BaseModel):
     news_paper: Optional[str]
     news_paper_name: Optional[str]
     tombstone: bool
+    cementery: str
     cementery_type: str   #parque(Lápida) o municipal(Placa)
+    sector: Optional[str]
+    parcel: Optional[str]
+    level: Optional[int]
+    religion_symbol: Optional[int]
 
 class Material(BaseModel):
     id: str
@@ -132,7 +137,6 @@ class Request(BaseModel):
     additional: str # cargos adicionales
     wreath: bool #corona
     present: str # presente de funeral
-    cementery: str
     burial_place: str #lugar donde se entierra
     burial_time: str #hora de entierro
     cladding: str #revestimiento
