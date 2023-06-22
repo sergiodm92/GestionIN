@@ -18,7 +18,6 @@ export interface Request {
     additional: string;
     wreath: boolean;
     present: string;
-    cementery: string;
     burial_place: string;
     burial_time: string;
     cladding: string;
@@ -41,7 +40,12 @@ export interface Deceased {
   news_paper: string;
   news_paper_name: string;
   tombstone: boolean;
+  cementery: string;
   cementery_type: string;
+  sector: string;
+  parcel: string;
+  level: number;
+  religionSymbol: string;
 }
 export interface DeceasedState {
   deceaseds: Deceased[];

@@ -1,22 +1,17 @@
 import {
+  cementeryTypeSelect,
   handleDateChange,
   handleDeceasedChange,
+  levelSelect,
 } from "../../functions/newRequest/functions";
 import { FormDeceased } from "../../../types/requestsInterfaces";
 import styles from "../../../pages/newRequest/styles/newRequest.module.css";
 import { cementeryType } from "../../arrays";
+import { cementery_type1 } from "../../../utils/constants";
 
 const FormDeceased = (data: FormDeceased) => {
-  const { deceased, setDeceased, date, setDate, birthDate, setBirthDate } =
-    data;
-
-    const handleDeceasedSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-      e.preventDefault();
-      setDeceased({
-        ...deceased,
-        cementery_type: e.target.value,
-      });
-    };
+  
+  const { deceased, setDeceased, date, setDate, birthDate, setBirthDate } = data;
 
   return (
     <div className={styles.formContainer}>
@@ -123,7 +118,19 @@ const FormDeceased = (data: FormDeceased) => {
               type="text"
               id="news_paper_name"
               name="news_paper_name"
-              value={deceased.news_paper_name.trim()}
+              value={deceased.news_paper_name}
+              onChange={(e) => handleDeceasedChange(e, deceased, setDeceased)}
+            />
+      </div>
+      <div className={styles.formRow}>
+        <div>Cementerio: </div>
+        <input
+              className={styles.input}
+              style={{ width: "calc(100% - 91px)" }}
+              type="text"
+              id="cementery"
+              name="cementery"
+              value={deceased.cementery}
               onChange={(e) => handleDeceasedChange(e, deceased, setDeceased)}
             />
       </div>
@@ -132,7 +139,7 @@ const FormDeceased = (data: FormDeceased) => {
         <select
           id="cementery_type"
           className={styles.selects}
-          onChange={handleDeceasedSelect}
+          onChange={(e)=>cementeryTypeSelect(e, setDeceased, deceased)}
         >
           <option defaultValue="-">-</option>
           {cementeryType.length > 0
@@ -144,6 +151,63 @@ const FormDeceased = (data: FormDeceased) => {
             : null}
         </select>
       </div>
+      {deceased.cementery_type === cementery_type1?
+      (
+        <>
+          <div className={styles.formRow}>
+            <div>Sector: </div>
+            <input
+                  className={styles.input}
+                  style={{ width: "calc(100% - 62px)" }}
+                  type="text"
+                  id="sector"
+                  name="sector"
+                  value={deceased.sector}
+                  onChange={(e) => handleDeceasedChange(e, deceased, setDeceased)}
+                />
+          </div>
+          <div className={styles.formRow}>
+            <div>Parcela: </div>
+            <input
+                  className={styles.input}
+                  style={{ width: "calc(100% - 70px)" }}
+                  type="text"
+                  id="parcel"
+                  name="parcel"
+                  value={deceased.parcel}
+                  onChange={(e) => handleDeceasedChange(e, deceased, setDeceased)}
+                />
+          </div>
+          <div className={styles.formRow}>
+            <div>Nivel: </div>
+            <select
+              id="level"
+              className={styles.selects}
+              onChange={(e)=>levelSelect(e, setDeceased, deceased)}
+            >
+              <option key={0} defaultValue="-">-</option>
+              <option key={1} value={1}>1</option>
+              <option key={2} value={2}>2</option>
+              <option key={3} value={3}>3</option>
+            </select>
+          </div>
+          <div className={styles.formRow}>
+            <div>Simbolo de la Religion: </div>
+            <input
+                  className={styles.input}
+                  style={{ width: "calc(100% - 160px)" }}
+                  type="text"
+                  id="religionSymbol"
+                  name="religionSymbol"
+                  value={deceased.religionSymbol}
+                  onChange={(e) => handleDeceasedChange(e, deceased, setDeceased)}
+                />
+          </div>
+        </>
+      )
+      :null
+      }
+      
     </div>
   );
 };

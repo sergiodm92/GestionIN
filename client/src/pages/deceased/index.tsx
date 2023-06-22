@@ -20,7 +20,11 @@ const initialDeceasedState = [
         news_paper: "",
         news_paper_name: "",
         tombstone: true,
-        cementery_type: ""
+        cementery: "",
+        cementery_type: "",
+        sector: "",
+        parcel: "",
+        level: 0
     }
 ]
 

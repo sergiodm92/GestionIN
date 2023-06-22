@@ -10,6 +10,7 @@ import { DeleteBtn, SmallBtn } from "../../../components/Buttons";
 import { useRouter } from "next/router";
 import { getAllPlaces } from "../../../components/functions/places";
 import { getplace } from "../../../store/Slices/place";
+import { cementery_type1 } from "../../../utils/constants";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { params } = context;
@@ -42,10 +43,15 @@ const initialData = {
     dni: "",
     id_request: "",
     dob: 0,
+    cementery: "",
+    cementery_type: "",
+    sector:"",
+    parcel: "",
+    level: 0,
+    religionSymbol: ""
   },
   request: {
     cladding: "",
-    cementery: "",
     additional: "",
     id: "",
     agreement: "",
@@ -251,10 +257,48 @@ const RequestDetail = ({ id }: { id: string }) => {
               <div className={styles.subItems}>
                 <div className={styles.subTitle}>Cementerio:</div>
                 <div className={styles.text}>
-                  {updateData.request.cementery}
+                  {updateData.deceased.cementery}
                 </div>
               </div>
             </div>
+            {updateData.deceased.cementery_type=== cementery_type1?
+            (
+              <>
+                <div className={styles.items}>
+                  <div className={styles.subItems}>
+                    <div className={styles.subTitle}>Sector:</div>
+                    <div className={styles.text}>
+                      {updateData.deceased.sector}
+                    </div>
+                  </div>
+                </div>
+                <div className={styles.items}>
+                  <div className={styles.subItems}>
+                    <div className={styles.subTitle}>Parcela:</div>
+                    <div className={styles.text}>
+                      {updateData.deceased.parcel}
+                    </div>
+                  </div>
+                </div>
+                <div className={styles.items}>
+                  <div className={styles.subItems}>
+                    <div className={styles.subTitle}>Nivel:</div>
+                    <div className={styles.text}>
+                      {updateData.deceased.level}
+                    </div>
+                  </div>
+                </div>
+                <div className={styles.items}>
+                  <div className={styles.subItems}>
+                    <div className={styles.subTitle}>Símbolo de la Religión:</div>
+                    <div className={styles.text}>
+                      {updateData.deceased.religionSymbol}
+                    </div>
+                  </div>
+                </div>
+              </>
+            )
+            :null}
             <div className={styles.items}>
               <div className={styles.subItems}>
                 <div className={styles.subTitle}>Lugar de inhumación:</div>

@@ -1,4 +1,5 @@
 import { Deceased } from "../../types/requestsInterfaces";
+import { cementery_type1 } from "../../utils/constants";
 import { createToast } from "../Notifications/Notifications";
 
 export const validateDeceased = (form: Deceased) => {
@@ -44,14 +45,39 @@ export const validateDeceased = (form: Deceased) => {
       condition: !form.news_paper_name,
     },
     {
+      field: "cementery",
+      message: "Debe proporcionar el nombre del cementerio",
+      condition: !form.cementery,
+    },
+    {
       field: "cementery_type",
       message: "Debe proporcionar un tipo de cementerio",
       condition: !form.cementery_type,
     },
+    {
+      field: "sector",
+      message: "Debe proporcionar un sector",
+      condition: form.cementery_type === cementery_type1 && !form.sector,
+    },
+    {
+      field: "parcel",
+      message: "Debe proporcionar una parcela",
+      condition: form.cementery_type === cementery_type1 && !form.parcel,
+    },
+    {
+      field: "level",
+      message: "Debe proporcionar un nivel",
+      condition: form.cementery_type === cementery_type1 && ( !form.level || !/^[123]$/.test(String(form.level))),
+    }, 
+    {
+      field: "religionSymbol",
+      message: "Debe proporcionar el símbolo de la religión",
+      condition: form.cementery_type === cementery_type1 && !form.religionSymbol,
+    },    
   ];
 
-  for (const { field, message, condition } of validationList) {
-    if (condition || !form[field as keyof Deceased]) {
+  for (const { message, condition } of validationList) {
+    if (condition) {
       createToast("error", message)
       return false;
     }

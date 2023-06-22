@@ -14,7 +14,6 @@ export const initialRequest = {
     additional: "",
     wreath: false,
     present: "",
-    cementery: "",
     burial_place: "",
     burial_time: "",
     cladding: "",
@@ -32,7 +31,12 @@ export const initialDeceased = {
     news_paper: "-",
     news_paper_name: "",
     tombstone: false,
-    cementery_type:""
+    cementery: "",
+    cementery_type:"",
+    sector: "",
+    parcel: "",
+    level: 0,
+    religionSymbol: ""
 }
 export const initialDate={
     day:"",

@@ -16,7 +16,12 @@ const initialState: DeceasedState = {
 			dni: "",
 			id_request: "",
 			dob: 0,
-      cementery_type:""
+      cementery: "",
+      cementery_type:"",
+      sector: "",
+      parcel: "",
+      level: 0,
+      religionSymbol: ""
     },
     isAllowedExpand: true
 }

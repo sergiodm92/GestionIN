@@ -26,7 +26,6 @@ const initialRequestState = [
     additional: "",
     wreath: false,
     present: "",
-    cementery: "",
     burial_place: "",
     burial_time: "",
     cladding: "",

@@ -38,7 +38,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     pod: "",
     dni: "",
     id_request: "",
-    dob: 0
+    dob: 0,
+    cementery: "",
+    cementery_type: "",
+    sector: "",
+    parcel: "",
+    level: 0,
+    religionSymbol: ""
 }
 
 const DeceasedDetail = ({ id }: { id: string })=>{
@@ -109,6 +115,32 @@ const DeceasedDetail = ({ id }: { id: string })=>{
                     <div className={styles.subTitle}>Nombre del Diario:</div>
                     <div className={styles.text}>{updateData.news_paper_name}</div>
               </div>
+              <div className={styles.items}>
+                    <div className={styles.subTitle}>Cementerio:</div>
+                    <div className={styles.text}>{updateData.cementery}</div>
+              </div>
+              {cementeryType === cementery_type1?
+              (
+                <>
+                  <div className={styles.items}>
+                        <div className={styles.subTitle}>Sector:</div>
+                        <div className={styles.text}>{updateData.sector}</div>
+                  </div>
+                  <div className={styles.items}>
+                        <div className={styles.subTitle}>Parcela:</div>
+                        <div className={styles.text}>{updateData.parcel}</div>
+                  </div>
+                  <div className={styles.items}>
+                        <div className={styles.subTitle}>Nivel:</div>
+                        <div className={styles.text}>{updateData.level}</div>
+                  </div>
+                  <div className={styles.items}>
+                        <div className={styles.subTitle}>Símbolo de la Religión:</div>
+                        <div className={styles.text}>{updateData.religionSymbol}</div>
+                  </div>
+                </>
+              )
+              :null}
               <div className={styles.items}>
                 <div className={styles.subTitle}></div>
                 {updateData.tombstone?
