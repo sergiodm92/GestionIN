@@ -80,14 +80,18 @@ export const getAddsGeneralByPlaceApi = async (
 };
 
 // delete add
-export const deleteAddGeneralApi = async (id: string): Promise<AxiosResponse> => {
+export const deleteAddGeneralApi = async (id: string, id_doc: string): Promise<AxiosResponse> => {
   try {
-    const response = await apiClient.delete(`/add_general/${id}`, {
+    const response = await apiClient.delete("/add_general/", {
       headers: {
         "auth-token": token,
       },
+      data: {
+        id: id,
+        id_doc: id_doc
+      }
     });
-    return response.data;
+    return response;
   } catch (error) {
     throw error;
   }

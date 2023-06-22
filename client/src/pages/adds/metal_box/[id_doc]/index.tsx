@@ -55,7 +55,7 @@ const AddMetalBoxDetail = ({ id_doc }: { id_doc: string })=>{
             <div className={styles.card}>
               <div className={styles.deleteBtn}>
                 <DeleteBtn
-                  onClick={()=>handleDeleteAddMetalBox(id_doc, router)}
+                  onClick={()=>handleDeleteAddMetalBox(add.id, id_doc, router)}
                 />
               </div>
               <div className={styles.title}>Detalle:</div>

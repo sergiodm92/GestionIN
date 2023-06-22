@@ -16,7 +16,7 @@ export const handleLogOut = (dispatch: any, menuOpen: boolean, setMenuOpen: any)
     questionAlert(
         "Cerrar Sesion",
         "¿Esta seguro que desea cerrar sesion?",
-        alertLogOut(dispatch, menuOpen, setMenuOpen),
+        ()=>alertLogOut(dispatch, menuOpen, setMenuOpen),
         "No cerro sesion"
     )
 }

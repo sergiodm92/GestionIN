@@ -80,14 +80,18 @@ export const getAddsMetalBoxByPlaceApi = async (
 };
 
 // delete add
-export const deleteAddMetalBoxApi = async (id: string): Promise<AxiosResponse> => {
+export const deleteAddMetalBoxApi = async (id: string, id_doc: string): Promise<AxiosResponse> => {
   try {
-    const response = await apiClient.delete(`/add_metal_box/${id}`, {
+    const response = await apiClient.delete("/add_metal_box/", {
       headers: {
         "auth-token": token,
       },
+      data: {
+        id: id,
+        id_doc: id_doc
+      }
     });
-    return response.data;
+    return response;
   } catch (error) {
     throw error;
   }
