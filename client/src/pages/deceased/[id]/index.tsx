@@ -72,7 +72,7 @@ const DeceasedDetail = ({ id }: { id: string })=>{
       questionAlert(
         cementeryType===cementery_type1?"Agregar " + tombstone_type1:"Agregar " + tombstone_type1,
         "¿Esta seguro que desea agregar " + (cementeryType===cementery_type1?tombstone_type2:tombstone_type1),
-        putDeceasedTombstone(id),
+        ()=>putDeceasedTombstone(id),
         "No se agregó"
       )
     }

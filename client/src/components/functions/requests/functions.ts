@@ -48,7 +48,7 @@ export const handleDeleteRequest = (id:string, router: any)=>{
     questionAlert(
         "Eliminar Ingreso",
         "¿Esta seguro que desea eliminar el ingreso?",
-        alertDeleteRequest(id, router),
+        ()=>alertDeleteRequest(id, router),
         "No se elimino la solicitud"
     )
 }

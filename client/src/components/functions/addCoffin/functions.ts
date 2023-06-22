@@ -125,13 +125,13 @@ export const handleDeleteAddCoffin = (id:string, router: any)=>{
   questionAlert(
     "Eliminar Ingreso",
     "¿Esta seguro que desea eliminar el ingreso?",
-    alertDeleteAddCoffin(id, router),
+    ()=>alertDeleteAddCoffin(id, router),
     "No se elimino el ingreso"
   )
 }
 
-const alertDeleteAddGeneral = async (id: string, router: any)=>{
-    const response = await deleteAddGeneralApi(id);
+const alertDeleteAddGeneral = async (id: string, id_doc: string, router: any)=>{
+    const response = await deleteAddGeneralApi(id, id_doc);
     console.log(response)
     if (response.data) {
       createToast("success","Se elimino correctamente");
@@ -141,17 +141,17 @@ const alertDeleteAddGeneral = async (id: string, router: any)=>{
     }
 }
 
-  export const handleDeleteAddGeneral = (id:string, router: any)=>{
+  export const handleDeleteAddGeneral = (id:string, id_doc: string, router: any)=>{
     questionAlert(
       "Eliminar Ingreso",
       "¿Esta seguro que desea eliminar el ingreso?",
-      alertDeleteAddGeneral(id, router),
+      ()=>alertDeleteAddGeneral(id, id_doc, router),
       "No se elimino el ingreso"
     )
   }
 
-  const alertDeleteAddMB = async (id: string, router: any) => {
-    const response = await deleteAddMetalBoxApi(id);
+  const alertDeleteAddMB = async (id: string, id_doc:string, router: any) => {
+    const response = await deleteAddMetalBoxApi(id, id_doc);
               console.log(response)
               if (response.data) {
                 createToast("success","Se elimino correctamente");
@@ -161,11 +161,11 @@ const alertDeleteAddGeneral = async (id: string, router: any)=>{
               }
   }
 
-    export const handleDeleteAddMetalBox = (id:string, router: any)=>{
+    export const handleDeleteAddMetalBox = (id:string, id_doc: string, router: any)=>{
       questionAlert(
         "Eliminar Ingreso",
         "¿Esta seguro que desea eliminar el ingreso?",
-        alertDeleteAddMB(id, router),
+        ()=>alertDeleteAddMB(id, id_doc, router),
         "No se elimino el ingreso"
       )
     }
