@@ -48,7 +48,6 @@ export const getAllAddsGeneral = async (dispatch: any)=>{
 export const getAddMetalBoxById = async (dispatch: any, id:string)=>{
     try{
         const add = await getAddMetalBoxByIdApi(id)
-        console.log(add)
         dispatch(setAddMBData(add.data.data))
     }
     catch(err){

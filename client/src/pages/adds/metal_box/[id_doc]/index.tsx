@@ -31,7 +31,6 @@ const AddMetalBoxDetail = ({ id_doc }: { id_doc: string })=>{
     const [updateData, setUpdateData] = useState({});
     const dispatch = useAppDispatch()
     const add = useAppSelector(getAddMetalBox)
-    console.log(add)
     const prevAdd = useRef(add);
 
     const router = useRouter()
