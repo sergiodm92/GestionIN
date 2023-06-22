@@ -112,7 +112,6 @@ export const addHandleSubmit = async (e:any, coffin: Coffin, isOn: boolean, date
 
 const alertDeleteAddCoffin = async (id: string, router: any)=>{
     const response = await deleteAddCoffinApi(id);
-    console.log(response)
     if (response.data) {
       createToast("success","Se elimino correctamente");
       router.push('/adds/coffin')
@@ -132,7 +131,6 @@ export const handleDeleteAddCoffin = (id:string, router: any)=>{
 
 const alertDeleteAddGeneral = async (id: string, id_doc: string, router: any)=>{
     const response = await deleteAddGeneralApi(id, id_doc);
-    console.log(response)
     if (response.data) {
       createToast("success","Se elimino correctamente");
       router.push('/adds/general')
@@ -152,7 +150,6 @@ const alertDeleteAddGeneral = async (id: string, id_doc: string, router: any)=>{
 
   const alertDeleteAddMB = async (id: string, id_doc:string, router: any) => {
     const response = await deleteAddMetalBoxApi(id, id_doc);
-              console.log(response)
               if (response.data) {
                 createToast("success","Se elimino correctamente");
                 router.push('/adds/metal_box')
