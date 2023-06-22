@@ -29,11 +29,11 @@ export const validateDeceased = (form: Deceased) => {
       message: "Debe proporcionar un número de DNI válido",
       condition: !form.dni || !/^\d{7,9}$/.test(form.dni),
     },
-    {
-      field: "leyend",
-      message: "Debe proporcionar texto de placa",
-      condition: !form.leyend,
-    },
+    // {
+    //   field: "leyend",
+    //   message: "Debe proporcionar texto de placa",
+    //   condition: !form.leyend,
+    // },
     {
       field: "news_paper",
       message: "Debe proporcionar Esquela",
@@ -70,9 +70,19 @@ export const validateDeceased = (form: Deceased) => {
       condition: form.cementery_type === cementery_type1 && ( !form.level || !/^[123]$/.test(String(form.level))),
     }, 
     {
-      field: "religionSymbol",
+      field: "first_level_name",
+      message: "Debe proporcionar el nombre del difunto del primer nivel",
+      condition: form.level !== 1 && !form.first_level_name,
+    }, 
+    {
+      field: "second_level_name",
+      message: "Debe proporcionar el nombre del difunto del segundo nivel",
+      condition: form.level == 3 && !form.second_level_name,
+    },
+    {
+      field: "religion_symbol",
       message: "Debe proporcionar el símbolo de la religión",
-      condition: form.cementery_type === cementery_type1 && !form.religionSymbol,
+      condition: form.cementery_type === cementery_type1 && !form.religion_symbol,
     },    
   ];
 

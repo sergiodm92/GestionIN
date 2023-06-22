@@ -21,8 +21,9 @@ export interface Double {
   initials: string
 }
 export interface Button {
-  title: string;
+  title: any;
   loading: boolean;
+  disabled: boolean;
 }
 export interface SmallButton {
   title: string;

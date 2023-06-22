@@ -6,6 +6,7 @@ import { FormButton } from "../../../src/components/Buttons";
 import styles from './styles/login.module.css';
 import { useAppDispatch } from "../../store/hooks";
 import { setLoginData } from "../../store/Slices/userSlice";
+import Loading from "../../components/Loading/loading";
 
 const initialStateUser = {
     name: '',
@@ -18,6 +19,8 @@ const Login = ()=>{
 
 
     const [user, setUser] = useState(initialStateUser)
+    const [isLoading, setIsLoading] = useState(false);
+
     const dispatch = useAppDispatch()
     const handleChange = (e: any) => {
         e.preventDefault();
@@ -29,6 +32,7 @@ const Login = ()=>{
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
+        setIsLoading(true)
         try {
             const json = await LoginUserApi(user);
             const response = json.data
@@ -48,6 +52,7 @@ const Login = ()=>{
             createToast("warning","ocurrio un error, vuelva a intentar");
             console.error(error);
           }
+        setIsLoading(false)
       };
 
     return(
@@ -77,8 +82,9 @@ const Login = ()=>{
                     />
                 </div>
                 <FormButton
-                    title={"Ingresar"}
-                    loading={false}
+                    title={isLoading? <Loading/> :"Ingresar"}
+                    loading={isLoading}
+                    disabled={isLoading}
                 />
             </form>
         </div>

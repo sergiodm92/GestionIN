@@ -24,7 +24,10 @@ const initialDeceasedState = [
         cementery_type: "",
         sector: "",
         parcel: "",
-        level: 0
+        level: 0,
+        first_level_name:"",
+        second_level_name:"",
+        religion_symbol:""
     }
 ]
 

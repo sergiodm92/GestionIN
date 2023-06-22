@@ -7,6 +7,7 @@ import { getAllPlaces } from "../../../components/functions/places";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { getplace } from "../../../store/Slices/place";
 import styles from "../styles/newAdd.module.css";
+import Loading from "../../../components/Loading/loading";
 
 const AddCoffin = () => {
   
@@ -155,7 +156,7 @@ const AddCoffin = () => {
           />
         </div>
         <div className={styles.buttonContainer}>
-          <FormButton loading={isLoading} title={isLoading ? "Cargando..." : "Guardar"} />
+          <FormButton loading={isLoading} title={isLoading ? <Loading/> : "Guardar"} disabled={isLoading}/>
         </div>
       </form>
     </div>
