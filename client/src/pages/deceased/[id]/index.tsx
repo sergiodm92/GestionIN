@@ -136,6 +136,25 @@ const DeceasedDetail = ({ id }: { id: string })=>{
                         <div className={styles.subTitle}>Nivel:</div>
                         <div className={styles.text}>{updateData.level}</div>
                   </div>
+                  {updateData.level==2?
+                    (<>
+                      <div className={styles.items}>
+                        <div className={styles.subTitle}>1° Nivel:</div>
+                        <div className={styles.text}>{updateData.first_level_name}</div>
+                      </div>
+                    </>)
+                  :updateData.level==3?
+                    (<>
+                      <div className={styles.items}>
+                        <div className={styles.subTitle}>1° Nivel:</div>
+                        <div className={styles.text}>{updateData.first_level_name}</div>
+                      </div>
+                      <div className={styles.items}>
+                        <div className={styles.subTitle}>2° Nivel:</div>
+                        <div className={styles.text}>{updateData.second_level_name}</div>
+                      </div>                    
+                    </>)
+                  :null}
                   <div className={styles.items}>
                         <div className={styles.subTitle}>Símbolo de la Religión:</div>
                         <div className={styles.text}>{updateData.religion_symbol}</div>

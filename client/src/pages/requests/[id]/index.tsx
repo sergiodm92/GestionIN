@@ -290,6 +290,37 @@ const RequestDetail = ({ id }: { id: string }) => {
                     </div>
                   </div>
                 </div>
+                {updateData.deceased.level==2?
+                  (<>
+                    <div className={styles.items}>
+                      <div className={styles.subItems}>
+                        <div className={styles.subTitle}>1° Nivel:</div>
+                        <div className={styles.text}>
+                          {updateData.deceased.first_level_name}
+                        </div>
+                      </div>
+                    </div>
+                  </>)
+                :updateData.deceased.level==3?
+                  (<>
+                    <div className={styles.items}>
+                      <div className={styles.subItems}>
+                        <div className={styles.subTitle}>1° Nivel:</div>
+                        <div className={styles.text}>
+                          {updateData.deceased.first_level_name}
+                        </div>
+                      </div>
+                    </div>
+                    <div className={styles.items}>
+                      <div className={styles.subItems}>
+                        <div className={styles.subTitle}>2° Nivel:</div>
+                        <div className={styles.text}>
+                          {updateData.deceased.second_level_name}
+                        </div>
+                      </div>
+                    </div>
+                  </>)
+                :null}
                 <div className={styles.items}>
                   <div className={styles.subItems}>
                     <div className={styles.subTitle}>Símbolo de la Religión:</div>

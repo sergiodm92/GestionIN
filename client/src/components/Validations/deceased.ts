@@ -72,7 +72,7 @@ export const validateDeceased = (form: Deceased) => {
     {
       field: "first_level_name",
       message: "Debe proporcionar el nombre del difunto del primer nivel",
-      condition: form.level !== 1 && !form.first_level_name,
+      condition: form.level > 1 && !form.first_level_name,
     }, 
     {
       field: "second_level_name",
