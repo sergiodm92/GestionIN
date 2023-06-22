@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends
-from models import AddMetalBox
+from models import AddMetalBox, DataAddDelete
 from middlewares.response import custom_response_success, custom_response_error
 from middlewares.verify_token import verify_token
 from services.add_metal_box_services import (get_added, get_latest_added, get_add_id, get_added_place, post_add, delete_add_id)
@@ -58,15 +58,15 @@ async def get_added_by_place(place: str, token_data=Depends(verify_token)):
         return custom_response_error(message="Ocurrió un error inesperado ", status_code=400)
     
 
-@router.delete("/{id}")
-async def delete_add(id:str,token_data=Depends(verify_token)):
+@router.delete("/")
+async def delete_add(dataAddDelete:DataAddDelete,token_data=Depends(verify_token)):
     try:
-        response = await delete_add_id(id)
+        response = await delete_add_id(dataAddDelete)
         if response:
-            message = {"message": f"Se eliminó el gasto con id {id}"}
+            message = {"message": f"Se eliminó el gasto con id {dataAddDelete.id_doc}"}
             return custom_response_success(message)
         else:
-            return custom_response_error(message="No se pudo eliminar el gasto con id {id}", status_code=400)
+            return custom_response_error(message="No se pudo eliminar el gasto con id {dataAddDelete.id}", status_code=400)
     except Exception as e:
         print(e)
         return custom_response_error(message="Ocurrió un error inesperado", status_code=400)

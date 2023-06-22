@@ -1,5 +1,5 @@
 from db import get_database
-from models import AddGeneralStock, GeneralStock
+from models import AddGeneralStock, GeneralStock, DataAddDelete
 from services.general_stock_services import put_general_stock_id, post_general_model
 
 db = get_database()
@@ -95,16 +95,16 @@ async def get_added_place(place):
         print(e)
         return {'error': 'Ocurrió un error inesperado: {}'.format(e)}
 
+
 # Delete add by id
 
-
-async def delete_add_id(id: str):
+async def delete_add_id(dataAddDelete:DataAddDelete):
     try:
-        add_document_ref = db.collection('add_general').document(id)
+        add_document_ref = db.collection('add_general').document(dataAddDelete.id_doc)
         add_document_snapshot = add_document_ref.get()
         if add_document_snapshot.exists:
             add = add_document_snapshot.to_dict()
-            response = await put_general_stock_id(add['place'], add['product'], -add['amount'])
+            response = await put_general_stock_id(dataAddDelete.id, -add['amount'])
             if response:
                 add_document_ref.delete()
                 return True

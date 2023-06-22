@@ -159,3 +159,7 @@ class Transfer(BaseModel):
 class Places(BaseModel):
     initials: str
     name: str
+
+class DataAddDelete(BaseModel):
+    id:str
+    id_doc:str
