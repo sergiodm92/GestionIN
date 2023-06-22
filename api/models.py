@@ -82,7 +82,9 @@ class Deceased(BaseModel):
     sector: Optional[str]
     parcel: Optional[str]
     level: Optional[int]
-    religion_symbol: Optional[int]
+    first_level_name: Optional[str]
+    second_level_name: Optional[str]
+    religion_symbol: Optional[str]
 
 class Material(BaseModel):
     id: str
