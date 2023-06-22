@@ -10,6 +10,7 @@ import { getCoffinStock } from "../../store/Slices/coffinStockSlice";
 import { getAllCoffinStock } from "../../components/functions/stock";
 import { getAllPlaces } from "../../components/functions/places";
 import { getplace } from "../../store/Slices/place";
+import Loading from "../../components/Loading/loading";
 
 const NewRequest = () => {
 
@@ -20,6 +21,7 @@ const NewRequest = () => {
   const [currentDate, setCurrentDate] = useState("");
   const [coffin, setCoffin] = useState(initialCoffin);
   const [isOn, setIsOn] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const dispatch = useAppDispatch()
 
@@ -34,7 +36,7 @@ const NewRequest = () => {
   return (
     <div className={styles.container}>
       <div className={styles.title}>Nueva Solicitud de Siniestro</div>
-      <form onSubmit={(e) => handleSubmit(e, deceased, request, date, birthDate, currentDate, coffin, isOn)} className={styles.form}>
+      <form onSubmit={(e) => handleSubmit(e, deceased, request, date, birthDate, currentDate, coffin, isOn, setIsLoading)} className={styles.form}>
           <FormDeceased
             deceased={deceased}
             setDeceased={setDeceased}
@@ -57,8 +59,9 @@ const NewRequest = () => {
           />
           <div className={styles.buttonContainer}>
             <FormButton
-              title={"Guardar"}
-              loading={false}
+              title={isLoading? <Loading/> :"Guardar"}
+              loading={isLoading}
+              disabled={isLoading}
             />
           </div>
       </form>

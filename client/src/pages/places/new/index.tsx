@@ -4,6 +4,7 @@ import { getAllPlaces, handleSubmit } from "../../../components/functions/places
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { getplace } from "../../../store/Slices/place";
 import styles from "../styles/places.module.css";
+import Loading from "../../../components/Loading/loading";
 
 const initialPlaceState = {
   name: "",
@@ -12,6 +13,7 @@ const initialPlaceState = {
 
 const NewPlace = () => {
   const [place, setPlace] = useState(initialPlaceState);
+  const [isLoading, setIsLoading] = useState(false);
 
   const dispatch = useAppDispatch();
   const places = useAppSelector(getplace);
@@ -30,7 +32,7 @@ const NewPlace = () => {
 
   return (
     <div className={styles.container}>
-      <form onSubmit={(e)=>handleSubmit(e, places, place)} className={styles.form}>
+      <form onSubmit={(e)=>handleSubmit(e, places, place, setIsLoading)} className={styles.form}>
         <div className={styles.title}>Nuevo Depósito:</div>
         <div className={styles.formRow}>
           <div>Nombre del Lugar:</div>
@@ -58,7 +60,7 @@ const NewPlace = () => {
             style={{width: "100%"}}
           />
         </div>
-        <FormButton title="Guardar" loading={false} />
+        <FormButton title={isLoading? <Loading/> :"Guardar"} loading={isLoading} disabled={isLoading}/>
       </form>
     </div>
   );

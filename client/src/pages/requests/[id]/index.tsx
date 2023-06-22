@@ -48,7 +48,9 @@ const initialData = {
     sector:"",
     parcel: "",
     level: 0,
-    religionSymbol: ""
+    first_level_name: "",
+    second_level_name: "",
+    religion_symbol: ""
   },
   request: {
     cladding: "",
@@ -288,11 +290,42 @@ const RequestDetail = ({ id }: { id: string }) => {
                     </div>
                   </div>
                 </div>
+                {updateData.deceased.level==2?
+                  (<>
+                    <div className={styles.items}>
+                      <div className={styles.subItems}>
+                        <div className={styles.subTitle}>1° Nivel:</div>
+                        <div className={styles.text}>
+                          {updateData.deceased.first_level_name}
+                        </div>
+                      </div>
+                    </div>
+                  </>)
+                :updateData.deceased.level==3?
+                  (<>
+                    <div className={styles.items}>
+                      <div className={styles.subItems}>
+                        <div className={styles.subTitle}>1° Nivel:</div>
+                        <div className={styles.text}>
+                          {updateData.deceased.first_level_name}
+                        </div>
+                      </div>
+                    </div>
+                    <div className={styles.items}>
+                      <div className={styles.subItems}>
+                        <div className={styles.subTitle}>2° Nivel:</div>
+                        <div className={styles.text}>
+                          {updateData.deceased.second_level_name}
+                        </div>
+                      </div>
+                    </div>
+                  </>)
+                :null}
                 <div className={styles.items}>
                   <div className={styles.subItems}>
                     <div className={styles.subTitle}>Símbolo de la Religión:</div>
                     <div className={styles.text}>
-                      {updateData.deceased.religionSymbol}
+                      {updateData.deceased.religion_symbol}
                     </div>
                   </div>
                 </div>
@@ -329,12 +362,12 @@ const RequestDetail = ({ id }: { id: string }) => {
                 </div>
               </div>
             </div>
-            <div className={styles.items}>
+            {/* <div className={styles.items}>
               <div className={styles.subItems}>
                 <div className={styles.subTitle}>Texto Placa:</div>
                 <div className={styles.text}>{updateData.deceased.leyend}</div>
               </div>
-            </div>
+            </div> */}
             <div className={styles.items}>
               <div className={styles.subItems}>
                 <div className={styles.subTitle}>Esquela:</div>

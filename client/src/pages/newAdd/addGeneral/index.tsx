@@ -6,6 +6,7 @@ import styles from "../styles/newAdd.module.css";
 import { getAllPlaces } from "../../../components/functions/places";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { getplace } from "../../../store/Slices/place";
+import Loading from "../../../components/Loading/loading";
 
 const AddGeneral = () => {
   const dispatch = useAppDispatch();
@@ -105,7 +106,7 @@ const AddGeneral = () => {
           />
         </div>
         <div className={styles.buttonContainer}>
-          <FormButton title={isLoading? "Cargando..." :"Guardar"} loading={isLoading}/>
+          <FormButton title={isLoading ? <Loading /> : "Guardar"} loading={isLoading} disabled={isLoading} />
         </div>
       </form>
     </div>

@@ -25,8 +25,9 @@ export const capitalizeString = (str: string) => {
   return capitalizedString;
 };
 
-export const handleSubmit = async (e: any, places: Place[] , place: Place) => {
+export const handleSubmit = async (e: any, places: Place[] , place: Place, setIsLoading: any) => {
   e.preventDefault();
+  setIsLoading(true)
   if (!place.name) {
     createToast("warning", "Debe ingresar un nombre");
   } else if (!place.initials) {
@@ -65,4 +66,5 @@ export const handleSubmit = async (e: any, places: Place[] , place: Place) => {
       console.log(err);
     }
   }
+  setIsLoading(false)
 };

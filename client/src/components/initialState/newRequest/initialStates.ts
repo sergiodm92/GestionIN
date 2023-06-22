@@ -36,7 +36,9 @@ export const initialDeceased = {
     sector: "",
     parcel: "",
     level: 0,
-    religionSymbol: ""
+    first_level_name:"",
+    second_level_name:"",
+    religion_symbol: ""
 }
 export const initialDate={
     day:"",

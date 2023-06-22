@@ -45,7 +45,9 @@ export interface Deceased {
   sector: string;
   parcel: string;
   level: number;
-  religionSymbol: string;
+  first_level_name:string;
+  second_level_name:string;
+  religion_symbol: string;
 }
 export interface DeceasedState {
   deceaseds: Deceased[];

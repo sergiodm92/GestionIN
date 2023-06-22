@@ -69,9 +69,12 @@ export const handleSubmit = async (
   birthDate: string,
   currentDate: string,
   coffin: CoffinInitials,
-  isOn: boolean
+  isOn: boolean,
+  setIsLoading: any
 ) => {
   e.preventDefault();
+
+  setIsLoading(true)
 
   deceased.id = generateRandomID();
   request.id = generateRandomID();
@@ -113,4 +116,5 @@ export const handleSubmit = async (
       console.error(error);
     }
   }
+  setIsLoading(false)
 };
