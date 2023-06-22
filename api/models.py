@@ -84,7 +84,7 @@ class Deceased(BaseModel):
     level: Optional[int]
     first_level_name: Optional[str]
     second_level_name: Optional[str]
-    religion_symbol: Optional[int]
+    religion_symbol: Optional[str]
 
 class Material(BaseModel):
     id: str
