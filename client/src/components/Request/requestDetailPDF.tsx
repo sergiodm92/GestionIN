@@ -1,6 +1,7 @@
 import { Page, Text, View, Document, Image, StyleSheet } from '@react-pdf/renderer';
 import { PostRequest } from '../../types/requestsInterfaces';
 import { types, sizes, colors } from '../arrays';
+import { cementery_type1 } from '../../utils/constants';
 
 const styles = StyleSheet.create({
   letterhead: {
@@ -210,9 +211,31 @@ const PDFDetail = (data: PostRequest) => {
                 <View style={styles.row}>
                     <View style={styles.items}>
                         <Text style={styles.itemTitle}>Cementerio:</Text>
-                        <Text style={styles.itemText}> {request.cementery}</Text>
+                        <Text style={styles.itemText}> {deceased.cementery}</Text>
                     </View>
                 </View>
+                {deceased.cementery_type === cementery_type1?
+                (
+                    <View style={styles.row}>
+                        <View style={styles.items}>
+                            <Text style={styles.itemTitle}>Sector:</Text>
+                            <Text style={styles.itemText}> {deceased.sector}</Text>
+                        </View>
+                        <View style={styles.items}>
+                            <Text style={styles.itemTitle}>Parcela:</Text>
+                            <Text style={styles.itemText}> {deceased.parcel}</Text>
+                        </View>
+                        <View style={styles.items}>
+                            <Text style={styles.itemTitle}>Nivel:</Text>
+                            <Text style={styles.itemText}> {deceased.level}</Text>
+                        </View>
+                        <View style={styles.items}>
+                            <Text style={styles.itemTitle}>Símbolo de la Religión:</Text>
+                            <Text style={styles.itemText}> {deceased.religionSymbol}</Text>
+                        </View>
+                    </View>
+                )
+                :null}
                 <View style={styles.row}>
                     <View style={styles.items}>
                         <Text style={styles.itemTitle}>Lugar de inhumación:</Text>

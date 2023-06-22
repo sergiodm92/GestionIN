@@ -19,7 +19,7 @@ export const handleDeceasedChange = (
 };
 
 export const handleRequestChange = (
-  e: any,
+  e: React.ChangeEvent<HTMLInputElement>,
   request: Request,
   setRequest: any
 ) => {
@@ -30,11 +30,26 @@ export const handleRequestChange = (
   });
 };
 
-export const handleDateChange = (e: any, date: DateType, setDate: any) => {
+export const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>, date: DateType, setDate: any) => {
   e.preventDefault();
   setDate({
     ...date,
     [e.target.name]: e.target.value,
+  });
+};
+
+export const cementeryTypeSelect = (e: React.ChangeEvent<HTMLSelectElement>, setDeceased: any, deceased: Deceased) => {
+  e.preventDefault();
+  setDeceased({
+    ...deceased,
+    cementery_type: e.target.value,
+  });
+};
+export const levelSelect = (e: React.ChangeEvent<HTMLSelectElement>, setDeceased: any, deceased: Deceased) => {
+  e.preventDefault();
+  setDeceased({
+    ...deceased,
+    level: e.target.value,
   });
 };
 
@@ -47,7 +62,7 @@ export const handleToggleSwitch = (isOn: boolean, setIsOn: any) => {
 //-------------------------------------------------
 
 export const handleSubmit = async (
-  e: any,
+  e: React.FormEvent<HTMLFormElement>,
   deceased: Deceased,
   request: Request,
   date: DateType,

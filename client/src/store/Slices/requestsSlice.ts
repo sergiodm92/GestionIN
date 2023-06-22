@@ -8,7 +8,6 @@ const initialState: RequestState = {
     request:{
 		request: {
 			cladding: "",
-			cementery: "",
 			additional: "",
 			id: "",
 			agreement: "",
@@ -40,7 +39,12 @@ const initialState: RequestState = {
 			dni: "",
 			id_request: "",
 			dob: 0,
-			cementery_type:""
+			cementery: "",
+			cementery_type:"",
+			sector: "",
+			parcel: "",
+			level: 0,
+			religionSymbol: ""
 		}
     },
     isAllowedExpand: true

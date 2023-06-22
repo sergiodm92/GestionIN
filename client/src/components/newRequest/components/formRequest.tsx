@@ -146,18 +146,6 @@ const FormRequest = (data: FormRequest) => {
   return (
     <div className={styles.formContainer}>
       <div className={styles.formRow}>
-        <div>Nombre del Cementerio: </div>
-        <input
-          className={styles.input}
-          style={{ width: "calc(100% - 170px)" }}
-          type="text"
-          id="cementery"
-          name="cementery"
-          value={request.cementery}
-          onChange={(e) => handleRequestChange(e, request, setRequest)}
-        />
-      </div>
-      <div className={styles.formRow}>
         <div>Lugar de velatorio: </div>
         <input
           className={styles.input}

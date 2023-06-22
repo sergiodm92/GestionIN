@@ -4,11 +4,6 @@ import { createToast } from "../Notifications/Notifications";
 export const validateRequest = (form: Request) => {
   const validationList = [
     {
-      field: "cementery",
-      message: "Debe proporcionar un nombre de cementerio",
-      condition: !form.cementery,
-    },
-    {
       field: "funeral",
       message: "Debe proporcionar un Lugar de velatorio",
       condition: !form.funeral,
