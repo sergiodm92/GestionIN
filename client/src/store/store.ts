@@ -9,6 +9,7 @@ import { placeSlice } from './Slices/place'
 import {generalStockSlice} from './Slices/generalStockSlice'
 import {addsMetalBoxSlice} from './Slices/addsMetalBoxSlice'
 import {addsGeneralSlice} from './Slices/addsGeneralSlice'
+import { cementerySlice } from './Slices/cementery'
 
 
 export const store = configureStore({
@@ -22,7 +23,8 @@ export const store = configureStore({
       coffinStock: coffinStockSlice.reducer,
       metalBoxStock: metalBoxStockSlice.reducer,
       generalStock: generalStockSlice.reducer,
-      place: placeSlice.reducer
+      place: placeSlice.reducer,
+      cementery: cementerySlice.reducer
   }
 })
 
