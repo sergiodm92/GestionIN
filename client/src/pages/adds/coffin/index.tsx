@@ -51,7 +51,6 @@ const AddsCoffin = () => {
         <Loading />
       ) : (
         <>
-          <div></div>
           <div className={styles.title}>Ingresos</div>
           <div className={styles.subTitle}>
             <div className={styles.smallSpace}>Fecha</div>

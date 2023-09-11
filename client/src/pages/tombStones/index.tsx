@@ -119,12 +119,7 @@ const TombStones = () => {
         <>
           <div className={styles.title}>Placas y Lápidas pendientes</div>
           <div className={styles.filterContainer}>
-            <input
-              type="checkbox"
-              checked={selectAll}
-              onChange={selectAllDisplayedCards}
-            />
-            <label htmlFor="selectAll"></label>
+            
             <div className={styles.dateBox}>
               <div>Filtrar hasta</div>
               <input
@@ -148,6 +143,11 @@ const TombStones = () => {
             </div>
           </div>
           <div className={styles.subTitle}>
+          <input
+              type="checkbox"
+              checked={selectAll}
+              onChange={selectAllDisplayedCards}
+            />
             <div className={styles.smallSpace}>Fecha</div>
             <div className={styles.smallSpace}>Nombre</div>
             <div className={styles.smallSpace}>Tipo</div>
