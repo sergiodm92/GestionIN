@@ -122,18 +122,7 @@ const FormDeceased = (data: FormDeceased) => {
               onChange={(e) => handleDeceasedChange(e, deceased, setDeceased)}
             />
       </div>
-      <div className={styles.formRow}>
-        <div>Cementerio: </div>
-        <input
-              className={styles.input}
-              style={{ width: "calc(100% - 91px)" }}
-              type="text"
-              id="cementery"
-              name="cementery"
-              value={deceased.cementery}
-              onChange={(e) => handleDeceasedChange(e, deceased, setDeceased)}
-            />
-      </div>
+      
       <div className={styles.formRow}>
         <div>Tipo de cementerio: </div>
         <select
@@ -150,6 +139,18 @@ const FormDeceased = (data: FormDeceased) => {
               ))
             : null}
         </select>
+      </div>
+      <div className={styles.formRow}>
+        <div>Cementerio: </div>
+        <input
+              className={styles.input}
+              style={{ width: "calc(100% - 91px)" }}
+              type="text"
+              id="cementery"
+              name="cementery"
+              value={deceased.cementery}
+              onChange={(e) => handleDeceasedChange(e, deceased, setDeceased)}
+            />
       </div>
       {deceased.cementery_type === cementery_type1?
       (

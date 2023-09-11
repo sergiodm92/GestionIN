@@ -160,6 +160,11 @@ class Places(BaseModel):
     initials: str
     name: str
 
+class Cementery(BaseModel):
+    name: str
+    place: str
+    type: str
+
 class DataAddDelete(BaseModel):
     id:str
     id_doc:str
