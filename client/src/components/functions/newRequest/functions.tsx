@@ -5,6 +5,7 @@ import { postRequestApi } from "../../../services/requestApi";
 import { generateRandomID } from "../../functions";
 import { validateRequest } from "../../Validations/request";
 import { validateDeceased } from "../../Validations/deceased";
+import { Cementery } from "../../../types/cementery";
 
 export const handleDeceasedChange = (
   e: any,
@@ -35,6 +36,14 @@ export const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>, date: D
   setDate({
     ...date,
     [e.target.name]: e.target.value,
+  });
+};
+
+export const cementerySelect = (e: React.ChangeEvent<HTMLSelectElement>, setDeceased: any, deceased: Deceased) => {
+  e.preventDefault();
+  setDeceased({
+    ...deceased,
+    cementery: e.target.value,
   });
 };
 

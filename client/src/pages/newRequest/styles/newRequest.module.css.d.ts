@@ -13,6 +13,7 @@ declare const styles: {
     customSwitchInput: string;
     switch: string;
     dateInput: string;
+    newCementery: string;
   };
   
   export default styles;

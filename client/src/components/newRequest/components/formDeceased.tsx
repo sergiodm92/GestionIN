@@ -1,4 +1,5 @@
 import {
+  cementerySelect,
   cementeryTypeSelect,
   handleDateChange,
   handleDeceasedChange,
@@ -8,10 +9,13 @@ import { FormDeceased } from "../../../types/requestsInterfaces";
 import styles from "../../../pages/newRequest/styles/newRequest.module.css";
 import { cementeryType } from "../../arrays";
 import { cementery_type1 } from "../../../utils/constants";
+import { useRouter } from "next/Navigation";
 
 const FormDeceased = (data: FormDeceased) => {
   
-  const { deceased, setDeceased, date, setDate, birthDate, setBirthDate } = data;
+  const { deceased, setDeceased, date, setDate, birthDate, setBirthDate, cementeries } = data;
+
+  const router = useRouter()
 
   return (
     <div className={styles.formContainer}>
@@ -142,15 +146,21 @@ const FormDeceased = (data: FormDeceased) => {
       </div>
       <div className={styles.formRow}>
         <div>Cementerio: </div>
-        <input
-              className={styles.input}
-              style={{ width: "calc(100% - 91px)" }}
-              type="text"
-              id="cementery"
-              name="cementery"
-              value={deceased.cementery}
-              onChange={(e) => handleDeceasedChange(e, deceased, setDeceased)}
-            />
+        <select
+          id="cementery"
+          className={styles.selects}
+          onChange={(e)=>cementerySelect(e, setDeceased, deceased)}
+        >
+          <option defaultValue="-">-</option>
+          {cementeries.length > 0
+            ? cementeries.map((c, i) => (
+                <option key={i} value={c.name}>
+                  {c.name}
+                </option>
+              ))
+            : null}
+        </select>
+        <div  className={styles.newCementery} onClick={()=>router.push('/cementeries/new')}>Agregar cementerio</div>
       </div>
       {deceased.cementery_type === cementery_type1?
       (
