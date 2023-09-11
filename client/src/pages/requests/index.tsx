@@ -72,8 +72,8 @@ const Requests = () => {
             {requests.length > 0
               ? requests.map((request: any, i: any) => {
                   return (
-                    <div className={styles.card} key={i}>
                       <Card1
+                        key={i}
                         onClick={() => router.push(`/requests/${request.id}`)}
                         space1={new Date(request.date)
                           .toLocaleDateString("es")
@@ -81,7 +81,6 @@ const Requests = () => {
                         space2 = {deceaseds?.find(deceased => deceased.id_request === request.id)?.name || ''}
                         space3={request.certificate_number}
                       />
-                    </div>
                   );
                 })
               : null}

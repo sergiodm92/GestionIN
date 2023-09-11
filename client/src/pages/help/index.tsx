@@ -16,7 +16,7 @@ const Help = () => {
 
   return (
     <div className={styles.container}>
-      <div>
+      <div className={styles.tableCont}>
         <table className={styles.table}>
           <thead>
             <tr>
@@ -34,7 +34,7 @@ const Help = () => {
           </tbody>
         </table>
       </div>
-      <div>
+      <div className={styles.tableCont}>
         <table className={styles.table}>
           <thead>
             <tr>
@@ -52,7 +52,7 @@ const Help = () => {
           </tbody>
         </table>
       </div>
-      <div>
+      <div className={styles.tableCont}>
         <table className={styles.table}>
           <thead>
             <tr>
@@ -70,7 +70,7 @@ const Help = () => {
           </tbody>
         </table>
       </div>
-      <div>
+      <div className={styles.tableCont}>
         <table className={styles.table}>
           <thead>
             <tr>
@@ -88,7 +88,7 @@ const Help = () => {
           </tbody>
         </table>
       </div>
-      <div>
+      <div className={styles.tableCont}>
         <table className={styles.table}>
           <thead>
             <tr>

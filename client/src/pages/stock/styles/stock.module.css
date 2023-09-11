@@ -4,6 +4,7 @@
     align-items: center;
     width: 100%;
     min-height: 70vh;
+    height: 100%;
 }
 .title{
     font-size: 30px;
@@ -17,39 +18,28 @@
     font-weight: bold;
     margin: 10px;
 }
+.tableContainer{
+  padding: 0 5%;
+  width: 90%;
+  max-width: 600px;
+
+}
 .table {
-    border-collapse: collapse;
-  }
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  border-collapse: collapse;
+  border-collapse: collapse;
+    width: 100%;
+}
   
   .table th,
   .table td {
     border: 2px solid #43815a;
-    padding: 8px;
-  }
-  
-  .table th {
-    background-color: #43815a;
-    color: white;
-  }
-.tableContainer{
-    padding-left: 5%;
-    padding-right: 5%;
-
-}
-.table {
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    border-collapse: collapse;
-  }
-  
-  .table th,
-  .table td {
-    border: 2px solid #43815A;
     text-align: center;
     padding: 8px;
   }
   
   .table th {
-    background-color: #43815A;
+    background-color: #43815a;
     color: white;
   }
 .noStock{
@@ -64,19 +54,19 @@
     margin-bottom: 15px;
 }
 .search{
-    border: none;
+    border: 1px solid var(--primary-color);
     text-align: right;
     outline: none;
     width: 160px;
-}
-.search:focus{
-    border: none;
-    border-bottom: 1px solid var(--primary-color);
-    transition: border-bottom 0.3s ;
+    height: 20px;
 }
 
 @media screen and (max-width: 600px) {
-    .table{
+    .container{
+      min-height: none;
+      height: 100%;
+    }
+  .table{
         font-size: 11px;
     } 
     .table th,

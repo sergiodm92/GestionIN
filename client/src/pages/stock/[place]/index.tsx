@@ -2,7 +2,11 @@ import { GetServerSideProps } from "next";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { getCoffinStock } from "../../../store/Slices/coffinStockSlice";
 import React, { useEffect, useRef, useState } from "react";
-import { getCoffinStockByPlace, getGeneralStockByPlace, getMetalBoxStockByPlace } from "../../../components/functions/stock";
+import {
+  getCoffinStockByPlace,
+  getGeneralStockByPlace,
+  getMetalBoxStockByPlace,
+} from "../../../components/functions/stock";
 import styles from "../styles/stock.module.css";
 import Loading from "../../../components/Loading/loading";
 import { getGeneralStock } from "../../../store/Slices/generalStockSlice";
@@ -50,7 +54,7 @@ const Stock = ({ place }: { place: string }) => {
 
   const stock = useAppSelector(getCoffinStock);
   const generalStock = useAppSelector(getGeneralStock);
-  const MBStock = useAppSelector(getmetalBoxStock)
+  const MBStock = useAppSelector(getmetalBoxStock);
 
   const prevStock = useRef(stock);
 
@@ -86,19 +90,20 @@ const Stock = ({ place }: { place: string }) => {
       ) : (
         <>
           <div className={styles.title}>Stock total disponible</div>
-          {filteredData.length > 0 ? (
-            <>
-              <div className={styles.subTitle}>Ataúdes</div>
-              <div className={styles.tableContainer}>
-                <div className={styles.searchContaier}>
-                  <input
-                    type="text"
-                    placeholder="🔎"
-                    value={searchId}
-                    className={styles.search}
-                    onChange={(e) => setSearchId(e.target.value)}
-                  />
-                </div>          
+
+          <>
+            <div className={styles.subTitle}>Ataúdes</div>
+            <div className={styles.tableContainer}>
+              <div className={styles.searchContaier}>
+                <input
+                  type="text"
+                  placeholder="🔎"
+                  value={searchId}
+                  className={styles.search}
+                  onChange={(e) => setSearchId(e.target.value)}
+                />
+              </div>
+              {filteredData.length > 0 ? (
                 <table className={styles.table}>
                   <thead>
                     <tr>
@@ -123,23 +128,23 @@ const Stock = ({ place }: { place: string }) => {
                     ))}
                   </tbody>
                 </table>
-              </div>
-            </>
-          ) : (null)}
+              ) :  <p>No hay items disponibles</p>}
+            </div>
+          </>
 
-          {filteredMBData.length > 0 ? (
-            <>
-              <div className={styles.subTitle}>Cajas Metálicas</div>
-              <div className={styles.tableContainer}>
-                <div className={styles.searchContaier}>
-                  <input
-                    type="text"
-                    placeholder="🔎"
-                    value={searchSize}
-                    className={styles.search}
-                    onChange={(e) => setSearchSize(e.target.value)}
-                  />
-                </div>          
+          <>
+            <div className={styles.subTitle}>Cajas Metálicas</div>
+            <div className={styles.tableContainer}>
+              <div className={styles.searchContaier}>
+                <input
+                  type="text"
+                  placeholder="🔎"
+                  value={searchSize}
+                  className={styles.search}
+                  onChange={(e) => setSearchSize(e.target.value)}
+                />
+              </div>
+              {filteredMBData.length > 0 ? (
                 <table className={styles.table}>
                   <thead>
                     <tr>
@@ -158,23 +163,23 @@ const Stock = ({ place }: { place: string }) => {
                     ))}
                   </tbody>
                 </table>
-              </div>
-            </>
-          ) : (null)}
+              ) :  <p>No hay items disponibles</p>}
+            </div>
+          </>
 
-          {filteredGeneralData.length > 0 ? (
-            <>
-              <div className={styles.subTitle}>Otros</div>
-              <div className={styles.tableContainer}>
-                <div className={styles.searchContaier}>
-                  <input
-                    type="text"
-                    placeholder="🔎"
-                    value={searchProduct}
-                    className={styles.search}
-                    onChange={(e) => setSearchProduct(e.target.value)}
-                  />
-                </div>          
+          <>
+            <div className={styles.subTitle}>Otros</div>
+            <div className={styles.tableContainer}>
+              <div className={styles.searchContaier}>
+                <input
+                  type="text"
+                  placeholder="🔎"
+                  value={searchProduct}
+                  className={styles.search}
+                  onChange={(e) => setSearchProduct(e.target.value)}
+                />
+              </div>
+              {filteredGeneralData.length > 0 ? (
                 <table className={styles.table}>
                   <thead>
                     <tr>
@@ -193,9 +198,9 @@ const Stock = ({ place }: { place: string }) => {
                     ))}
                   </tbody>
                 </table>
-              </div>
-            </>
-          ) : (null)}
+              ) :  <p>No hay items disponibles</p>}
+            </div>
+          </>
         </>
       )}
     </div>

@@ -16,7 +16,17 @@ function MyApp(appProps: AppProps) {
         <title>Instituto del Norte Gestion</title>
       </Head>
       <Provider store={store}>
-        <div style={{minHeight: "100vh", width: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between"}}>
+        <div
+          style={{
+            width: "100%",
+            minHeight:"100vh",
+            margin:"0",
+            padding:"0",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between"
+          }}
+        >
           <Header />
           <Component {...pageProps} />
           <Footer />

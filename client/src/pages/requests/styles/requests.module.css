@@ -2,8 +2,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
     min-height: 70vh;
+    padding: 3rem;
+    margin: 0;
 }
 .title{
     font-size: 25px;
@@ -18,7 +19,8 @@
     padding-left: 15px;
     padding-right: 15px;
     padding-bottom: 10px;
-    width: 400px;
+    max-width: 400px;
+    width: 100%;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-size: 16px;
     color: var(--primary-color);
@@ -38,19 +40,21 @@
     text-align: center;
 }
 .cardsContainer{
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 10px;
 }
-
-.card {
-    position: relative;
-  }
   .noRequests{
     padding-top: 5%;
     font-size: 20px;
     font-weight: bold;
     color: var(--bringht-color);
+  }
+  @media (max-width:768px){
+    .container{
+        padding: 1rem;
+    }
   }

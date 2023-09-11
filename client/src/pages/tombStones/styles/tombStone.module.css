@@ -13,12 +13,13 @@
 }
 .subTitle{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
-    padding-left: 15px;
-    padding-right: 15px;
+    /* padding-left: 15px;
+    padding-right: 15px; */
     padding-bottom: 10px;
-    width: 400px;
+    max-width: 473px;
+    width: 100%;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-size: 16px;
     color: var(--primary-color);
@@ -38,6 +39,7 @@
     text-align: center;
 }
 .cardsContainer{
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -48,10 +50,14 @@
     position: relative;
     margin-right: 25px;
     display: flex;
+    justify-content: center;
+    align-items: center;
     gap: 10px;
+    width: 90%;
   }
   .filterContainer {
-    width: 480px;
+    max-width: 480px;
+    width: 100%;
     margin-top: 15px;
     margin-bottom: 20px;
     display: flex;
@@ -95,4 +101,15 @@
     outline: none;
     font-size: 15px;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+@media screen and (max-width:500px) {
+    .filterContainer{
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    .subTitle{
+        width: 95%;
+
+    }
 }
