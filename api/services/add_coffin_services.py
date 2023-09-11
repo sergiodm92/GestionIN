@@ -37,8 +37,6 @@ async def post_add(add: AddCoffin):
         return False
 
 # Get added
-
-
 async def get_added():
     try:
         added = []

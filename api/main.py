@@ -11,6 +11,7 @@ from routers.add_metal_box import router as add_metal_box_router
 from routers.add_general import router as add_general_router
 from routers.place import router as place_router
 from routers.cementeries import router as cementery_router
+from routers.transactions import router as transactions
 
 app = FastAPI(
     title= "Gestion IN",
@@ -60,4 +61,5 @@ app.include_router(add_metal_box_router, prefix="/add_metal_box", tags=["AddMeta
 app.include_router(add_general_router, prefix="/add_general", tags=["AddGeneral"])
 app.include_router(place_router, prefix="/place", tags=["Place"])
 app.include_router(cementery_router, prefix="/cementery", tags=["Cementery"])
+app.include_router(transactions, prefix="/transactions", tags=["Transactions"])
 
