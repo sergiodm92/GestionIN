@@ -11,6 +11,8 @@ import { getAllCoffinStock } from "../../components/functions/stock";
 import { getAllPlaces } from "../../components/functions/places";
 import { getplace } from "../../store/Slices/place";
 import Loading from "../../components/Loading/loading";
+import { getCementery } from "../../store/Slices/cementery";
+import { getCementeriesByType } from "../../components/functions/cementeries";
 
 const NewRequest = () => {
 
@@ -27,11 +29,16 @@ const NewRequest = () => {
 
   const stock = useAppSelector(getCoffinStock)
   const places = useAppSelector(getplace)
+  const cementeries = useAppSelector(getCementery)
 
   useEffect(()=>{
     getAllCoffinStock(dispatch)
     getAllPlaces(dispatch)
   },[])
+
+  useEffect(()=>{
+    getCementeriesByType( dispatch, deceased.cementery_type)
+  },[deceased.cementery_type])
 
   return (
     <div className={styles.container}>
@@ -44,6 +51,7 @@ const NewRequest = () => {
             setDate={setDate}
             birthDate={birthDate}
             setBirthDate={setBirthDate}
+            cementeries={cementeries}
           />
           <FormRequest
             isOn={isOn}

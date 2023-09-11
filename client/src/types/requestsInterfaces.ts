@@ -1,5 +1,6 @@
 import { CoffinInitials, DateType } from "../types/interfaces";
 import { GetCoffinStock } from "../types/stockInterfaces";
+import { Cementery } from "./cementery";
 import { Place } from "./place";
 
 export interface Request {
@@ -61,6 +62,7 @@ export interface  FormDeceased {
   setDate: any;
   birthDate: string;
   setBirthDate: any;
+  cementeries: Cementery[]
 }
 export interface  FormRequest {
   isOn: boolean;
