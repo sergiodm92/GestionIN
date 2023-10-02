@@ -1,31 +1,20 @@
 from db import get_database
 from services.coffin_stock_services import put_coffin_stock_id
-from services.deceased_services import (post_deceased, delete_deceased_id)
+# from services.deceased_services import (post_deceased, delete_deceased_id)
 
 db = get_database()
 
 
-# Post request
-async def post_request(new_request):
-    try:
-        request = new_request.request
-        id_coffin = request.id_coffin
-        deceased = new_request.deceased
-        doc_ref_request = db.collection('requests').document(request.id)
-        doc_ref_request.set(request.dict())
-        doc_snapshot_request = doc_ref_request.get()
-        if doc_snapshot_request.exists:
-            response_post_deceased = await post_deceased(deceased)
-            if response_post_deceased:
-                put_stock = await put_coffin_stock_id(id=id_coffin,operacion=-1)
-                if(put_stock):
-                    return True
-                else:
-                    return False
-        else: return False
-    except Exception as e:
-        print(e)
-        return {'error': 'Ocurrió un error inesperado: {}'.format(e)}
+# # Post request
+# async def post_request(new_request):
+#     try:
+#         # Crea el nuevo documento en Firestore con los datos de new_request
+#         # Crear una transaction type Request para que se pueda hacer rollback
+#         # Cambiar state del add a pending
+#         # si todo sale bien escribir la base de datos
+#     except Exception as e:
+#         print(e)
+#         return {'error': 'Ocurrió un error inesperado: {}'.format(e)}
 
 
 # get request

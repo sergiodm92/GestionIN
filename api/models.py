@@ -96,14 +96,30 @@ class Material(BaseModel):
     units: int
     color: str
 
+class AddDetail(BaseModel):
+    id: str
+    size: str
+    color: str
+    type: str
+    mbox: bool
+    place: str
+    transaction_id: str
+
 class AddCoffin(BaseModel):
     id: str
-    id_coffin: str 
     date: int
     responsible: str
     units: int
     supplier: str
     place: str
+    detail: list[AddDetail]
+    state: str 
+    @validator('state')
+    def validate_state(cls, value):
+        valid_states = ['new' ,'pending', 'deleted', 'done']
+        if value not in valid_states:
+            raise ValueError(f"'state' debe ser uno de {', '.join(valid_states)}")
+        return value
 
 class AddMetalBox(BaseModel):
     id: str

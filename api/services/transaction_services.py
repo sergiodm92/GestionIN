@@ -8,21 +8,22 @@ db = get_database()
 # Post transaction
 async def post_transaction(new_transaction):
     try:
-        transaction = new_transaction.transaction
-        id_coffin = transaction.id_coffin
-        deceased = new_request.deceased
-        doc_ref_request = db.collection('requests').document(request.id)
-        doc_ref_request.set(request.dict())
-        doc_snapshot_request = doc_ref_request.get()
-        if doc_snapshot_request.exists:
-            response_post_deceased = await post_deceased(deceased)
-            if response_post_deceased:
-                put_stock = await put_coffin_stock_id(id=id_coffin,operacion=-1)
-                if(put_stock):
-                    return True
-                else:
-                    return False
-        else: return False
+        # transaction = new_transaction.transaction
+        # id_coffin = transaction.id_coffin
+        # deceased = new_request.deceased
+        # doc_ref_request = db.collection('requests').document(request.id)
+        # doc_ref_request.set(request.dict())
+        # doc_snapshot_request = doc_ref_request.get()
+        # if doc_snapshot_request.exists:
+        #     response_post_deceased = await post_deceased(deceased)
+        #     if response_post_deceased:
+        #         put_stock = await put_coffin_stock_id(id=id_coffin,operacion=-1)
+        #         if(put_stock):
+        #             return True
+        #         else:
+        #             return False
+        # else: return False
+        return True
     except Exception as e:
         print(e)
         return {'error': 'Ocurrió un error inesperado: {}'.format(e)}
