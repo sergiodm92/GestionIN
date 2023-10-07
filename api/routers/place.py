@@ -8,7 +8,7 @@ router = APIRouter()
 
 # Ruta POST para agregar nueva place
 @router.post("/")
-async def post_new_place(place: Places, token_data = Depends(verify_token)):
+async def post_new_place(place: Places):
     try:
         response = await post_place(place)
         if response : return custom_response_success(place)
@@ -19,7 +19,7 @@ async def post_new_place(place: Places, token_data = Depends(verify_token)):
     
 # Ruta GET para obtener todas las places
 @router.get("/all")
-async def get__all_places(token_data=Depends(verify_token)):
+async def get__all_places():
     try:
         adds = await get_places()
         return custom_response_success(adds)

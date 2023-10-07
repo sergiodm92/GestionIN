@@ -184,3 +184,23 @@ class Cementery(BaseModel):
 class DataAddDelete(BaseModel):
     id:str
     id_doc:str
+
+class Transaction(BaseModel):
+    id: str
+    date: int
+    add_id: str
+    type_coffin: str
+    type: str
+    @validator('type')
+    def validate_type(cls, value):
+        valid_types = ['request' ,'transfer']
+        if value not in valid_types:
+            raise ValueError(f"'state' debe ser uno de {', '.join(valid_types)}")
+        return value
+    status: str
+    @validator('status')
+    def validate_type(cls, value):
+        valid_types = ['approved' ,'cancelled']
+        if value not in valid_types:
+            raise ValueError(f"'state' debe ser uno de {', '.join(valid_types)}")
+        return value
