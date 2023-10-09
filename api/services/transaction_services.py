@@ -1,16 +1,17 @@
 from db import get_database
 from services.coffin_stock_services import put_coffin_stock_id
 from services.deceased_services import (post_deceased, delete_deceased_id)
+from models import Transaction
 
 db = get_database()
 
 
 # Post transaction
-async def post_transaction(new_transaction):
+async def post_transaction(new_transaction: Transaction):
     try:
-        doc_ref = db.collection('transactions').document()
-        doc_ref.set(new_transaction.dict())
-        return True
+        doc_ref = db.collection('transactions').add(new_transaction.dict())
+
+        return doc_ref.id
     except Exception as e:
         print(e)
         return {'error': 'Ocurrió un error inesperado: {}'.format(e)}

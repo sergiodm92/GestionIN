@@ -18,6 +18,25 @@ async def post_add(add: AddCoffin):
         print(e)
         return False
 
+# Push transaction_id to add_coffin
+async def put_add_coffin_id(add_id, transaction_id, coffin_group_id):
+    try:
+        doc_ref = db.collection('add_coffin').document(add_id)
+        doc = doc_ref.get()
+        if doc.exists:
+            add = doc.to_dict()
+            coffins = add['coffins']  
+            for coffin in coffins:
+                if coffin['id'] == coffin_group_id:
+                    transaction_id_update = coffin['transaction_id'].append(transaction_id)
+            doc_ref.update({'transaction_id': transaction_id_update})
+            return True
+        else:
+            return False
+    except Exception as e:
+        print(e)
+        return False
+
 # Get added
 async def get_added():
     try:

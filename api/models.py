@@ -38,13 +38,6 @@ class User(BaseModel):
 class LoginResponse(BaseModel):
     token: str
     user: User
-class Coffin(BaseModel):
-    id: str
-    place: str
-    type: str
-    size: str
-    color: str
-    metal_box: bool
 
 #stock de cajones 
 class CoffinStock(BaseModel):
@@ -96,23 +89,22 @@ class Material(BaseModel):
     units: int
     color: str
 
-class AddDetail(BaseModel):
+class CoffinGroup(BaseModel):
     id: str
+    units: int
     size: str
     color: str
     type: str
     mbox: bool
-    place: str
-    transaction_id: str
+    supplier: str
+    transaction_id: list[str]
 
 class AddCoffin(BaseModel):
     id: str
     date: int
     responsible: str
-    units: int
-    supplier: str
     place: str
-    detail: list[AddDetail]
+    coffins: list[CoffinGroup]    
     state: str 
     @validator('state')
     def validate_state(cls, value):
