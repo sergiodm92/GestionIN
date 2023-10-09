@@ -1,12 +1,9 @@
 from db import get_database
-from models import AddCoffin, CoffinStock
-from services.coffin_stock_services import put_coffin_stock_id, post_coffin_model
+from models import AddCoffin
 
 db = get_database()
 
 # Post add
-
-
 async def post_add(add: AddCoffin):
     try:
         # Crea el nuevo documento en Firestore con los datos de add
@@ -14,22 +11,7 @@ async def post_add(add: AddCoffin):
         doc_ref_add.set(add.dict())
         doc_snapshot_add = doc_ref_add.get()
         if doc_snapshot_add.exists:
-            doc_ref_coffin_stock = db.collection(
-                'coffin_stock').document(add.id_coffin)
-            doc_snapshot_coffin_stock = doc_ref_coffin_stock.get()
-            if doc_snapshot_coffin_stock.exists:
-                put_coffin_stock = await put_coffin_stock_id(add.id_coffin, add.units)
-            # si logra actualizar el coffin_stock verifica si se creo el add y si es correcto devuelve true
-                return put_coffin_stock
-            else:
-                post_new_model = await post_coffin_model(
-                    CoffinStock(
-                        id_coffin=add.id_coffin,
-                        place=add.place,
-                        units=add.units
-                    )
-                )
-                return post_new_model
+            return True
         else:
             return False
     except Exception as e:
@@ -37,8 +19,6 @@ async def post_add(add: AddCoffin):
         return False
 
 # Get added
-
-
 async def get_added():
     try:
         added = []
@@ -48,22 +28,6 @@ async def get_added():
             # Convierte los datos del documento a un diccionario
             add = doc.to_dict()
             # Agrega el diccionario a la lista de compras
-            added.append(add)
-        return added
-    except Exception as e:
-        print(e)
-        return {'error': 'Ocurrió un error inesperado: {}'.format(e)}
-
-# Obtener los últimos (limit) documentos
-
-
-async def get_latest_added(limit):
-    try:
-        added = []
-        docs = db.collection('add_coffin').order_by(
-            'date').limit_to_last(limit).get()
-        for doc in docs:
-            add = doc.to_dict()
             added.append(add)
         return added
     except Exception as e:
@@ -83,8 +47,6 @@ async def get_add_id(id: str):
         return {'error': 'Ocurrió un error inesperado: {}'.format(e)}
 
 # Traer un add por lugar
-
-
 async def get_added_place(place):
     try:
         added = []
@@ -100,11 +62,124 @@ async def get_added_place(place):
 
 async def delete_add_id(id: str):
     try:
-        add_document_ref = db.collection('add_coffin').document(id)
+        add = db.collection('add_coffin').document(id).get()
+        if add.get().exists:
+            add.update({'state': 'deleted'})
+            return True
+        else:
+            return False
+    except Exception as e:
+        print(f'Ocurrió un error inesperado: {e}')
+        return False
+
+
+
+
+
+
+
+
+
+
+
+async def post_add(add: AddGeneralStock):
+    try:
+        # Crea el nuevo documento en Firestore con los datos de add
+        doc_ref_add = db.collection('add_general').document()
+        doc_ref_add.set(add.dict())
+        doc_snapshot_add = doc_ref_add.get()
+        if doc_snapshot_add.exists:
+            doc = db.collection('general_stock').document(add.id).get()
+            if doc.exists:
+                put_general_stock = await put_general_stock_id(id=add.id, operacion=add.amount)
+                return put_general_stock
+            else:
+                post_new_model = await post_general_model(
+                    GeneralStock(
+                        id=add.id,
+                        product=add.product,
+                        place=add.place,
+                        amount=add.amount
+                    )
+                )
+                return post_new_model
+        else:
+            return False
+    except Exception as e:
+        print(e)
+        return False
+
+
+# Get added
+async def get_added():
+    try:
+        added = []
+        # Obtiene todos los documentos de la colección "general_stock"
+        docs = db.collection('add_general').get()
+        for doc in docs:
+            # Convierte los datos del documento a un diccionario
+            add = doc.to_dict()
+            add['id_doc'] = doc.id
+            # Agrega el diccionario a la lista de compras
+            added.append(add)
+        return added
+    except Exception as e:
+        print(e)
+        return {'error': 'Ocurrió un error inesperado: {}'.format(e)}
+
+# Obtener los últimos (limit) documentos
+
+
+async def get_latest_added(limit):
+    try:
+        added = []
+        docs = db.collection('add_general').order_by(
+            'date').limit_to_last(limit).get()
+        for doc in docs:
+            add = doc.to_dict()
+            added.append(add)
+        return added
+    except Exception as e:
+        print(e)
+        return {'error': 'Ocurrió un error inesperado: {}'.format(e)}
+
+
+# Get add by ID
+async def get_add_id(id: str):
+    try:
+        add = {}
+        # Obtiene todos los documentos de la colección "compras"
+        add = db.collection('add_general').document(id).get().to_dict()
+        return add
+    except Exception as e:
+        print(e)
+        return {'error': 'Ocurrió un error inesperado: {}'.format(e)}
+
+# Traer un add por lugar
+
+
+async def get_added_place(place):
+    try:
+        added = []
+        docs = db.collection('add_general').where("place", "==", place).get()
+        for doc in docs:
+            add = doc.to_dict()
+            added.append(add)
+        return added
+    except Exception as e:
+        print(e)
+        return {'error': 'Ocurrió un error inesperado: {}'.format(e)}
+
+
+# Delete add by id
+
+async def delete_add_id(dataAddDelete:DataAddDelete):
+    try:
+        add_document_ref = db.collection('add_general').document(dataAddDelete.id_doc)
         add_document_snapshot = add_document_ref.get()
         if add_document_snapshot.exists:
             add = add_document_snapshot.to_dict()
-            response = await put_coffin_stock_id(add['id_coffin'], -add['units'])
+            response = await put_general_stock_id(dataAddDelete.id, -add['amount'])
             if response:
                 add_document_ref.delete()
                 return True

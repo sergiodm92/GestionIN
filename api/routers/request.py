@@ -3,23 +3,23 @@ from models import New_request
 from middlewares.response import custom_response_success, custom_response_error
 from middlewares.verify_token import verify_token
 from services.request_services import (
-    get_requests, get_latest_requests, post_request, get_request_id, delete_request_id, get_request_place)
+    get_requests, get_latest_requests, get_request_id, delete_request_id, get_request_place)
 
 router = APIRouter()
 
 
-@router.post("/")
-async def cargar_request(new_request: New_request, token_data=Depends(verify_token)):
-    try:
-        response = await post_request(new_request)
-        if response:
-            return custom_response_success(new_request)
-        else:
-            custom_response_error(
-                message="No se cargó correctamente ", status_code=300)
-    except Exception as e:
-        print(e)
-        return custom_response_error(message="Ocurrió un error inesperado ", status_code=400)
+# @router.post("/")
+# async def cargar_request(new_request: New_request, token_data=Depends(verify_token)):
+#     try:
+#         response = await post_request(new_request)
+#         if response:
+#             return custom_response_success(new_request)
+#         else:
+#             custom_response_error(
+#                 message="No se cargó correctamente ", status_code=300)
+#     except Exception as e:
+#         print(e)
+#         return custom_response_error(message="Ocurrió un error inesperado ", status_code=400)
 
 
 # Ruta GET para obtener todos los requests
