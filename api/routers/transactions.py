@@ -8,7 +8,7 @@ router = APIRouter()
 
 
 @router.post("/")
-async def post_transaction_route(new_transaction: Transaction):
+async def post_transaction_route(new_transaction: Transaction,token_data=Depends(verify_token)):
     try:
         response = await post_transaction(new_transaction)
         if response:
@@ -23,7 +23,7 @@ async def post_transaction_route(new_transaction: Transaction):
 
 # Ruta GET para obtener todos los requests
 @router.get("/all")
-async def get_all_transactions_route():
+async def get_all_transactions_route(token_data=Depends(verify_token)):
     try:
         transactions = await get_all_transactions()
         return custom_response_success(transactions)
@@ -35,7 +35,7 @@ async def get_all_transactions_route():
 
 # Ruta GET para obtener una transacción por ID
 @router.get("/id/{id}")
-async def get_transaction_by_id_route(id: str):
+async def get_transaction_by_id_route(id: str, token_data=Depends(verify_token)):
     try:
         transaction = await get_transaction_by_id(id)
         return custom_response_success(transaction)
@@ -45,7 +45,7 @@ async def get_transaction_by_id_route(id: str):
 
 # Ruta GET para obtener una transacción por Add_ID
 @router.get("/add_id/{id}")
-async def get_request(id: str):
+async def get_request(id: str, token_data=Depends(verify_token)):
     try:
         transactions = await get_transactions_add_id(id)
         return custom_response_success(transactions)
@@ -56,7 +56,7 @@ async def get_request(id: str):
 
 # Ruta delete para eliminar una transacción por ID
 @router.put("/cancel/{id}")
-async def cancel_transaction_by_id_route(id: str):
+async def cancel_transaction_by_id_route(id: str, token_data=Depends(verify_token)):
     try:
         response = await cancel_transaction_by_id(id)
         if response:
