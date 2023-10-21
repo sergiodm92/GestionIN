@@ -2,15 +2,16 @@ from fastapi import APIRouter, Depends, Query
 from models import Cementery
 from middlewares.response import custom_response_success, custom_response_error
 from middlewares.verify_token import verify_token
-from services.cementeries_services import (get_cementeries, post_cementery,get_cementeries_by_type,get_cementeries_by_place)
+from services.cementeries_services import CementeryService
 
 router = APIRouter()
+cementery_service = CementeryService()
 
 # Ruta POST para agregar nuevo cementerio
 @router.post("/")
 async def post_new_cementery(cementery: Cementery, token_data = Depends(verify_token)):
     try:
-        response = await post_cementery(cementery)
+        response = await cementery_service.post_cementery(cementery)
         if response : return custom_response_success(cementery)
         else: custom_response_error(message="Ocurrió un error inesperado ",status_code=400)
     except Exception as e:
@@ -21,7 +22,7 @@ async def post_new_cementery(cementery: Cementery, token_data = Depends(verify_t
 @router.get("/all")
 async def get__all_cementeries(token_data=Depends(verify_token)):
     try:
-        cementeries = await get_cementeries()
+        cementeries = await cementery_service.get_cementeries()
         return custom_response_success(cementeries)
     except Exception as e:
         print(e)
@@ -33,7 +34,7 @@ async def get_cementeries_by_type_route(
     type: str = Query(...), token_data=Depends(verify_token)
 ):
     try:
-        cementeries = await get_cementeries_by_type(type)
+        cementeries = await cementery_service.get_cementeries_by_type(type)
         return custom_response_success(cementeries)
     except Exception as e:
         print(e)
@@ -45,7 +46,7 @@ async def get_cementeries_by_place_route(
     place: str = Query(...), token_data=Depends(verify_token)
 ):
     try:
-        cementeries = await get_cementeries_by_place(place)
+        cementeries = await cementery_service.get_cementeries_by_place(place)
         return custom_response_success(cementeries)
     except Exception as e:
         print(e)
