@@ -9,7 +9,7 @@ router = APIRouter()
 add_coffin_services = AddCoffinServices()
 
 
-@router.post("/")
+@router.post("/", summary= "states = ['new', 'pending', 'deleted', 'done']")
 async def post_new_add(add: AddCoffin):
     try:
         response = await add_coffin_services.post_add(add)
@@ -49,15 +49,15 @@ async def get_added_by_place(place: str, token_data=Depends(verify_token)):
         return custom_response_error(message="Ocurrió un error inesperado ", status_code=400)
     
 
-@router.delete("/{id}")
+@router.put("/state/{id}")
 async def delete_add(id:str,token_data=Depends(verify_token)):
     try:
         response = await add_coffin_services.delete_add_id(id)
         if response:
-            message = {"message": f"Se eliminó el gasto con id {id}"}
+            message = {"message": f"Se eliminó el add con id {id}"}
             return custom_response_success(message)
         else:
-            return custom_response_error(message="No se pudo eliminar el gasto con id {id}", status_code=400)
+            return custom_response_error(message="No se pudo eliminar el add con id {id}", status_code=400)
     except Exception as e:
         print(e)
         return custom_response_error(message="Ocurrió un error inesperado", status_code=400)

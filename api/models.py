@@ -1,7 +1,6 @@
 from pydantic import BaseModel, validator, constr
 from typing import Optional
 
-
 class UserRegister(BaseModel):
     name: str
     password: str
@@ -141,7 +140,8 @@ class Request(BaseModel):
     date: int
     place: str
     funeral: str  # lugar de velatorio
-    id_coffin: str  # tipo de cajon
+    id_coffin_group: str  # tipo de cajon
+    id_add: str  # id del add_coffin
     id_deceased: str  # id del difunto
     holder_name: str  # titular que contrata el servicio
     holder_relationship: str  # parentezco del titular
@@ -183,10 +183,9 @@ class DataAddDelete(BaseModel):
     id_doc: str
 
 class Transaction(BaseModel):
-    id: str
     date: int
-    add_id: str
-    type_coffin: str
+    id_add: str
+    id_coffin_group: str
     type: str
 
     @validator('type')

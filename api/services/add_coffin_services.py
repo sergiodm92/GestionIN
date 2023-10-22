@@ -18,23 +18,31 @@ class AddCoffinServices:
             print(e)
             return False
 
-    async def put_add_coffin_id(self, add_id, transaction_id, coffin_group_id):
+    async def put_add_coffin_id(self, id_add, id_transaction, coffin_group_id):
         try:
-            doc_ref = self.db.collection('add_coffin').document(add_id)
+            doc_ref = self.db.collection('add_coffin').document(id_add)
             doc = doc_ref.get()
             if doc.exists:
                 add = doc.to_dict()
-                coffins = add['coffins']  
+                coffins = add['coffins']
+                updated_coffins = []
+                coffin_found = False
                 for coffin in coffins:
                     if coffin['id'] == coffin_group_id:
-                        transaction_id_update = coffin['transaction_id'].append(transaction_id)
-                doc_ref.update({'transaction_id': transaction_id_update})
-                return True
+                        coffin['transaction_id'].append(id_transaction)
+                        coffin_found = True
+                    updated_coffins.append(coffin)
+                if coffin_found:
+                    doc_ref.update({'coffins': updated_coffins})
+                    return True
+                else:
+                    raise Exception(f"El grupo de ataúdes con ID {coffin_group_id} no se encontró en el documento {id_add}")
             else:
-                return False
+                raise Exception(f"El documento con ID {id_add} no se encontró")
         except Exception as e:
             print(e)
             return False
+
 
     async def get_added(self):
         try:
@@ -59,7 +67,8 @@ class AddCoffinServices:
     async def get_added_place(self, place):
         try:
             added = []
-            docs = self.db.collection('add_coffin').where("place", "==", place).get()
+            docs = self.db.collection('add_coffin').where(
+                "place", "==", place).get()
             for doc in docs:
                 add = doc.to_dict()
                 added.append(add)
@@ -70,20 +79,9 @@ class AddCoffinServices:
 
     async def delete_add_id(self, id: str):
         try:
-            add = self.db.collection('add_coffin').document(id).get()
-            if add.get().exists:
-                add.update({'state': 'deleted'})
-                return True
-            else:
-                return False
+            add_ref = self.db.collection('add_coffin').document(id)
+            add_ref.update({'state': 'deleted'})
+            return True
         except Exception as e:
             print(f'Ocurrió un error inesperado: {e}')
             return False
-
-
-
-
-
-
-
-

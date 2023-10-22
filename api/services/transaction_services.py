@@ -7,7 +7,8 @@ class TransactionServices:
 
     async def post_transaction(self, new_transaction: Transaction):
         try:
-            doc_ref = self.db.collection('transactions').add(new_transaction.dict())
+            doc_ref = self.db.collection('transactions').document()
+            doc_ref.set(new_transaction.dict())
             return doc_ref.id
         except Exception as e:
             print(e)

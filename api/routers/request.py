@@ -13,7 +13,7 @@ async def cargar_request(new_request: New_Request, token_data=Depends(verify_tok
     try:
         response = await request_services.post_request(new_request)
         if response:
-            return custom_response_success(new_request)
+            return custom_response_success(response)
         else:
             custom_response_error(
                 message="No se cargó correctamente ", status_code=300)

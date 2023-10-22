@@ -1,11 +1,13 @@
 from db import get_database
 from services.coffin_stock_services import CoffinStockServices
-from models import Request
+from models import Request, Transaction, New_Request
 from services.add_coffin_services import AddCoffinServices
 from services.transaction_services import TransactionServices
 
 add_coffin_services = AddCoffinServices()
 transactions_services = TransactionServices()
+
+
 class RequestServices:
     def __init__(self):
         self.db = get_database()
@@ -15,21 +17,28 @@ class RequestServices:
             doc_ref = self.db.collection('requests').document()
             doc_ref.set(new_request.dict())
             doc_snapshot = doc_ref.get()
-            return doc_snapshot.exists
+            return doc_snapshot.exists  # return true if the request was created
         except Exception as e:
             print(e)
             return False
 
-    async def post_request(self, new_request, new_transaction, add_id, transaction_id, coffin_group_id):
+    async def post_request(self, new_request: New_Request):
         try:
-            with self.db.transaction():
-                await self.create_request(new_request)
-                transaction_id = await transactions_services.post_transaction(new_transaction)
-                await add_coffin_services.put_add_coffin_id(add_id, transaction_id, coffin_group_id)
-            return {'success': 'Operaciones completadas correctamente'}
+            new_transaction = Transaction(
+            date=new_request.request.date,
+            id_add=new_request.request.id_add,
+            id_coffin_group=new_request.request.id_coffin_group,
+            type="request",
+            status="approved"
+            )
+            with self.db.transaction():  # do a transaction to ensure that all the operations are done
+                await self.create_request(new_request)  # create the request
+                id_transaction = await transactions_services.post_transaction(new_transaction) # create a transaction and return the id
+                await add_coffin_services.put_add_coffin_id(new_request.request.id_add, id_transaction, new_request.request.id_coffin_group)# update the add_coffin with the transaction id
+            return {'success': 'the request was created successfully'}
         except Exception as e:
             print(e)
-            return {'error': 'Ocurrió un error inesperado: {}'.format(e)}
+            return {'error': 'an unexpected error occurred : {}'.format(e)}
 
     async def get_requests(self):
         try:
@@ -45,8 +54,9 @@ class RequestServices:
 
     async def get_latest_requests(self, limit):
         try:
-            requests = [] 
-            docs = self.db.collection('requests').order_by('date').limit_to_last(limit).get()
+            requests = []
+            docs = self.db.collection('requests').order_by(
+                'date').limit_to_last(limit).get()
             for doc in docs:
                 request = doc.to_dict()
                 requests.append(request)
@@ -55,23 +65,26 @@ class RequestServices:
             print(e)
             return {'error': 'Ocurrió un error inesperado: {}'.format(e)}
 
-    async def get_request_id(self, id:str):
+    async def get_request_id(self, id: str):
         try:
-            response ={}
-            request = self.db.collection('requests').document(id).get().to_dict()
+            response = {}
+            request = self.db.collection(
+                'requests').document(id).get().to_dict()
             id_deceased = request['id_deceased']
-            deceased = self.db.collection('deceased').document(id_deceased).get().to_dict()
+            deceased = self.db.collection('deceased').document(
+                id_deceased).get().to_dict()
             response['request'] = request
             response['deceased'] = deceased
             return response
         except Exception as e:
             print(e)
             return {'error': 'Ocurrió un error inesperado: {}'.format(e)}
-        
+
     async def get_request_place(self, place):
         try:
             requests = []
-            docs = self.db.collection('requests').where("place","==",place).get()
+            docs = self.db.collection('requests').where(
+                "place", "==", place).get()
             for doc in docs:
                 request = doc.to_dict()
                 requests.append(request)
