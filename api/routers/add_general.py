@@ -2,15 +2,16 @@ from fastapi import APIRouter, Depends
 from models import AddGeneralStock, DataAddDelete
 from middlewares.response import custom_response_success, custom_response_error
 from middlewares.verify_token import verify_token
-from services.add_general_services import (get_added, get_latest_added, get_add_id, get_added_place, post_add, delete_add_id)
+from services.add_general_services import GeneralStockServices
 
 
 router = APIRouter()
+general_stock_services = GeneralStockServices()
 
 @router.post("/")
 async def post_new_add(add: AddGeneralStock, token_data = Depends(verify_token)):
     try:
-        response = await post_add(add)
+        response = await general_stock_services.post_add(add)
         if response : return custom_response_success(add)
         else: custom_response_error(message="Ocurrió un error inesperado ",status_code=400)
     except Exception as e:
@@ -21,7 +22,7 @@ async def post_new_add(add: AddGeneralStock, token_data = Depends(verify_token))
 @router.get("/all")
 async def get_all_added(token_data=Depends(verify_token)):
     try:
-        adds = await get_added()
+        adds = await general_stock_services.get_added()
         return custom_response_success(adds)
     except Exception as e:
         print(e)
@@ -31,7 +32,7 @@ async def get_all_added(token_data=Depends(verify_token)):
 @router.get("/limit/{limit}")
 async def get_latest_added_route(limit:int, token_data=Depends(verify_token)):
     try:
-        added = await get_latest_added(limit)
+        added = await general_stock_services.get_latest_added(limit)
         return custom_response_success(added)
     except Exception as e:
         print(e)
@@ -41,7 +42,7 @@ async def get_latest_added_route(limit:int, token_data=Depends(verify_token)):
 @router.get("/id/{id}")
 async def get_add(id:str,token_data=Depends(verify_token)):
     try:
-        add = await get_add_id(id)
+        add = await general_stock_services.get_add_id(id)
         return custom_response_success(add)
     except Exception as e:
         print(e)
@@ -51,7 +52,7 @@ async def get_add(id:str,token_data=Depends(verify_token)):
 @router.get("/place/{place}")
 async def get_added_by_place(place: str, token_data=Depends(verify_token)):
     try:
-        added = await get_added_place(place)
+        added = await general_stock_services.get_added_place(place)
         return custom_response_success(added)
     except Exception as e:
         print(e)
@@ -61,7 +62,7 @@ async def get_added_by_place(place: str, token_data=Depends(verify_token)):
 @router.delete("/")
 async def delete_add(dataAddDelete:DataAddDelete,token_data=Depends(verify_token)):
     try:
-        response = await delete_add_id(dataAddDelete)
+        response = await general_stock_services.delete_add_id(dataAddDelete)
         if response:
             message = {"message": f"Se eliminó el gasto con id {dataAddDelete.id_doc}"}
             return custom_response_success(message)

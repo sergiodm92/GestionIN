@@ -1,14 +1,15 @@
 from fastapi import APIRouter
-from services.user_services import auth_login, auth_register
+from services.user_services import AuthService
 from middlewares.response import custom_response_error, custom_response_success
-from models import User_register, User_login
+from models import UserLogin, UserRegister
 
 router = APIRouter()
+auth_services = AuthService()
 
 @router.post('/register')
-async def register(user: User_register):
+async def register(user: UserRegister):
     try:
-        result = await auth_register(user)
+        result = await auth_services.auth_register(user)
         if isinstance(result, str):
             return custom_response_error(message="No ha podido registrarse reintente...", status_code=400)
         else:
@@ -19,9 +20,9 @@ async def register(user: User_register):
         return custom_response_error(message="Error del servidor...", status_code=500)
 
 @router.post('/login')
-async def login(user: User_login):
+async def login(user: UserLogin):
     try:
-        response = await auth_login(user)
+        response = await auth_services.auth_login(user)
         if len(response.token) > 100:
             return custom_response_success(response)
         else:

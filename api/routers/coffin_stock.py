@@ -2,10 +2,10 @@ from fastapi import APIRouter, Depends
 from models import Transfer
 from middlewares.response import custom_response_success, custom_response_error
 from middlewares.verify_token import verify_token
-from services.coffin_stock_services import (
-    get_coffin_stock, get_coffin_stock_place, get_coffin_stock_id_service, post_transfer)
+from services.coffin_stock_services import CoffinStockServices
 
 router = APIRouter()
+coffin_stock_services = CoffinStockServices()
 
 # Ruta GET para obtener todo el coffin_stock
 
@@ -13,7 +13,7 @@ router = APIRouter()
 @router.get("/all")
 async def get_all_coffin_stock(token_data=Depends(verify_token)):
     try:
-        coffin_stock = await get_coffin_stock()
+        coffin_stock = await coffin_stock_services.get_coffin_stock()
         return custom_response_success(coffin_stock)
     except Exception as e:
         print(e)
@@ -25,7 +25,7 @@ async def get_all_coffin_stock(token_data=Depends(verify_token)):
 @router.get("/place/{place}")
 async def get_all_coffin_stock_place(place: str, token_data=Depends(verify_token)):
     try:
-        coffin_stock = await get_coffin_stock_place(place)
+        coffin_stock = await coffin_stock_services.get_coffin_stock_place(place)
         return custom_response_success(coffin_stock)
     except Exception as e:
         print(e)
@@ -37,7 +37,7 @@ async def get_all_coffin_stock_place(place: str, token_data=Depends(verify_token
 @router.get("/id/{id}")
 async def get_coffin_stock_id(id: str, token_data=Depends(verify_token)):
     try:
-        coffin_stock = await get_coffin_stock_id_service(id)
+        coffin_stock = await coffin_stock_services.get_coffin_stock_id_service(id)
         return custom_response_success(coffin_stock)
     except Exception as e:
         print(e)
@@ -47,7 +47,7 @@ async def get_coffin_stock_id(id: str, token_data=Depends(verify_token)):
 @router.post("/transfer")
 async def post_new_model(transfer: Transfer, token_data=Depends(verify_token)):
     try:
-        response = await post_transfer(transfer)
+        response = await coffin_stock_services.post_transfer(transfer)
         if response:
             return custom_response_success(transfer)
 

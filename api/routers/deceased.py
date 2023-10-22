@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Depends
 from middlewares.response import custom_response_success, custom_response_error
 from middlewares.verify_token import verify_token
-from services.deceased_services import (get_deceaseds, get_deceased_name_service, get_deceased_tombstone,
-                                        put_tombstone_true, get_deceased_id_service, get_deceased_id_request_service)
+from services.deceased_services import DeceasedServices
 
 router = APIRouter()
+deceased_services = DeceasedServices()
 
 # Ruta GET para obtener todos los requests
 
@@ -12,7 +12,7 @@ router = APIRouter()
 @router.get("/all")
 async def get_all_deceaseds(token_data=Depends(verify_token)):
     try:
-        deceaseds = await get_deceaseds()
+        deceaseds = await deceased_services.get_deceaseds()
         return custom_response_success(deceaseds)
     except Exception as e:
         print(e)
@@ -22,7 +22,7 @@ async def get_all_deceaseds(token_data=Depends(verify_token)):
 @router.get("/name/{name}")
 async def get_deceaseds_name(name: str, token_data=Depends(verify_token)):
     try:
-        deceaseds = await get_deceased_name_service(name)
+        deceaseds = await deceased_services.get_deceased_name_service(name)
         return custom_response_success(deceaseds)
     except Exception as e:
         print(e)
@@ -32,7 +32,7 @@ async def get_deceaseds_name(name: str, token_data=Depends(verify_token)):
 @router.get("/id/{id}")
 async def get_deceaseds_name(id: str, token_data=Depends(verify_token)):
     try:
-        deceaseds = await get_deceased_id_service(id)
+        deceaseds = await deceased_services.get_deceased_id_service(id)
         if deceaseds:
             return custom_response_success(deceaseds)
         else:
@@ -45,7 +45,7 @@ async def get_deceaseds_name(id: str, token_data=Depends(verify_token)):
 @router.get("/id_request/{id}")
 async def get_deceaseds_name(id: str, token_data=Depends(verify_token)):
     try:
-        deceaseds = await get_deceased_id_request_service(id)
+        deceaseds = await deceased_services.get_deceased_id_request_service(id)
         if deceaseds:
             return custom_response_success(deceaseds)
         else:
@@ -58,7 +58,7 @@ async def get_deceaseds_name(id: str, token_data=Depends(verify_token)):
 @router.get("/without_tombstone")
 async def get_deceaseds_without_tombstone(token_data=Depends(verify_token)):
     try:
-        deceaseds = await get_deceased_tombstone()
+        deceaseds = await deceased_services.get_deceased_tombstone()
         return custom_response_success(deceaseds)
     except Exception as e:
         print(e)
@@ -68,7 +68,7 @@ async def get_deceaseds_without_tombstone(token_data=Depends(verify_token)):
 @router.put("/tombstone/{id}")
 async def put_tombstone(id: str, token_data=Depends(verify_token)):
     try:
-        response = await put_tombstone_true(id)
+        response = await deceased_services.put_tombstone_true(id)
         return custom_response_success(response)
     except Exception as e:
         print(e)
