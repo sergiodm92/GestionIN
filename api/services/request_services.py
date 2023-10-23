@@ -1,5 +1,4 @@
 from db import get_database
-from services.coffin_stock_services import CoffinStockServices
 from models import Request, Transaction, New_Request
 from services.add_coffin_services import AddCoffinServices
 from services.transaction_services import TransactionServices
@@ -24,17 +23,27 @@ class RequestServices:
 
     async def post_request(self, new_request: New_Request):
         try:
-            new_transaction = Transaction(
+            new_coffin_transaction = Transaction(
             date=new_request.request.date,
             id_add=new_request.request.id_add,
-            id_coffin_group=new_request.request.id_coffin_group,
-            type="request",
+            id_group=new_request.request.id_coffin_group,
+            type="request_coffin",
             status="approved"
             )
+            new_metal_box_transaction = {}
+           
             with self.db.transaction():  # do a transaction to ensure that all the operations are done
                 await self.create_request(new_request)  # create the request
-                id_transaction = await transactions_services.post_transaction(new_transaction) # create a transaction and return the id
-                await add_coffin_services.put_add_coffin_id(new_request.request.id_add, id_transaction, new_request.request.id_coffin_group)# update the add_coffin with the transaction id
+                await transactions_services.post_transaction(new_coffin_transaction) # create a transaction and return true if it was created
+                if new_request.request.aditional_metal_box:
+                    new_metal_box_transaction = Transaction(
+                    date=new_request.request.date,
+                    id_add=new_request.request.id_add_metal_box,
+                    id_group=new_request.request.id_metal_box_group,
+                    type="request_metal_box",
+                    status="approved"
+                    )
+                    await transactions_services.post_transaction(new_metal_box_transaction) # create a transaction and return true if it was created
             return {'success': 'the request was created successfully'}
         except Exception as e:
             print(e)
@@ -98,18 +107,6 @@ class RequestServices:
             request = self.db.collection('requests').document(id)
             request_get = request.get()
             id_deceased = request_get.to_dict()['id_deceased']
-            if request_get.exists:
-                requests = request_get.to_dict()
-                response = await CoffinStockServices.put_coffin_stock_id(requests['id_coffin'], 1)
-                if response:
-                    request.delete()
-                    response_delete_deceased = await add_coffin_services.delete_deceased_id(id_deceased)
-                    if response_delete_deceased:
-                        return True
-                else:
-                    return False
-            else:
-                return False
         except Exception as e:
             print(f'Ocurrió un error inesperado: {e}')
             return {'error': 'Ocurrió un error inesperado: {}'.format(e)}

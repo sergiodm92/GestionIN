@@ -9,7 +9,7 @@ class TransactionServices:
         try:
             doc_ref = self.db.collection('transactions').document()
             doc_ref.set(new_transaction.dict())
-            return doc_ref.id
+            return True
         except Exception as e:
             print(e)
             return {'error': 'Ocurrió un error inesperado: {}'.format(e)}

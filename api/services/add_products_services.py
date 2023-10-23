@@ -1,32 +1,14 @@
 from db import get_database
-from models import AddGeneralStock, GeneralStock, DataAddDelete
+from models import AddProducts, Product, DataAddDelete
 
-class GeneralStockServices:
+class ProductsServices:
     def __init__(self):
         self.db = get_database()
 
-    async def post_add(self, add: AddGeneralStock):
+    async def post_add(self, add: AddProducts):
         try:
-            doc_ref_add = self.db.collection('add_general').document()
+            doc_ref_add = self.db.collection('add_products').document()
             doc_ref_add.set(add.dict())
-            doc_snapshot_add = doc_ref_add.get()
-            if doc_snapshot_add.exists:
-                doc = self.db.collection('general_stock').document(add.id).get()
-                if doc.exists:
-                    put_general_stock = await self.put_general_stock_id(id=add.id, operacion=add.amount)
-                    return put_general_stock
-                else:
-                    post_new_model = await self.post_general_model(
-                        GeneralStock(
-                            id=add.id,
-                            product=add.product,
-                            place=add.place,
-                            amount=add.amount
-                        )
-                    )
-                    return post_new_model
-            else:
-                return False
         except Exception as e:
             print(e)
             return False
@@ -34,10 +16,9 @@ class GeneralStockServices:
     async def get_added(self):
         try:
             added = []
-            docs = self.db.collection('add_general').get()
+            docs = self.db.collection('add_producs').get()
             for doc in docs:
                 add = doc.to_dict()
-                add['id_doc'] = doc.id
                 added.append(add)
             return added
         except Exception as e:

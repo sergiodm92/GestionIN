@@ -1,37 +1,9 @@
 from db import get_database
-from models import DataAddDelete, AddMetalBox, MetalBoxStock
-from services.metal_box_stock_services import MetalBoxStockServices
+from models import DataAddDelete
 
 class AddMetalBoxServices:
     def __init__(self):
         self.db = get_database()
-
-    async def post_add(self, add: AddMetalBox):
-        try:
-            # Crea el nuevo documento en Firestore con los datos de add
-            doc_ref_add = self.db.collection('add_metal_box').document()
-            doc_ref_add.set(add.dict())
-            doc_snapshot_add = doc_ref_add.get()
-            if doc_snapshot_add.exists:
-                doc_metal_box_stock = self.db.collection('metal_box_stock').document(add.id).get()
-                if doc_metal_box_stock.exists:
-                    put_metal_box_stock = await MetalBoxStockServices().put_metal_box_stock_id(add.id, add.units)
-                    return put_metal_box_stock
-                else:
-                    post_new_model = await MetalBoxStockServices().post_metal_box_model(
-                        MetalBoxStock(
-                            id=add.id,
-                            size=add.size,
-                            place=add.place,
-                            units=add.units
-                        )
-                    )
-                    return post_new_model
-            else:
-                return False
-        except Exception as e:
-            print(e)
-            return False
 
     async def get_added(self):
         try:
@@ -86,16 +58,6 @@ class AddMetalBoxServices:
         try:
             add_document_ref = self.db.collection('add_metal_box').document(dataAddDelete.id_doc)
             add_document_snapshot = add_document_ref.get()
-            if add_document_snapshot.exists:
-                add = add_document_snapshot.to_dict()
-                response = MetalBoxStockServices().put_metal_box_stock_id(dataAddDelete.id, -add['units'])
-                if response:
-                    add_document_ref.delete()
-                    return True
-                else:
-                    return False
-            else:
-                return False
         except Exception as e:
             print(f'Ocurrió un error inesperado: {e}')
             return False

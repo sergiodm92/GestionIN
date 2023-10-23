@@ -49,8 +49,7 @@ class CoffinStock(BaseModel):
     units: int
     place: str
 
-class MetalBoxStock(BaseModel):
-    id: str
+class MetalBoxGroup(BaseModel):
     size: str
     units: int
     place: str
@@ -100,7 +99,6 @@ class CoffinGroup(BaseModel):
     type: str
     mbox: bool
     supplier: str
-    transaction_id: list[str]
 
 class AddCoffin(BaseModel):
     id: str
@@ -108,6 +106,7 @@ class AddCoffin(BaseModel):
     responsible: str
     place: str
     coffins: list[CoffinGroup]
+    metal_box: list[MetalBoxGroup]
     state: str
 
     @validator('state')
@@ -126,13 +125,17 @@ class AddMetalBox(BaseModel):
     supplier: str
     place: str
 
-class AddGeneralStock(BaseModel):
+class Product(BaseModel):
     id: str
-    product: str
+    name: str
+    expiration: int
+    
+class AddProducts(BaseModel):
+    id: str
+    products: list[Product]
     date: int
     responsible: str
     amount: int
-    supplier: str
     place: str
 
 class Request(BaseModel):
@@ -143,6 +146,9 @@ class Request(BaseModel):
     id_coffin_group: str  # tipo de cajon
     id_add: str  # id del add_coffin
     id_deceased: str  # id del difunto
+    aditional_metal_box: bool
+    id_add_metal_box: str  # id del add_metal_box
+    id_metal_box_group: str # id del metal_box_group
     holder_name: str  # titular que contrata el servicio
     holder_relationship: str  # parentezco del titular
     policy: str  # a,b,c,d,e...
@@ -185,7 +191,7 @@ class DataAddDelete(BaseModel):
 class Transaction(BaseModel):
     date: int
     id_add: str
-    id_coffin_group: str
+    id_group: str
     type: str
 
     @validator('type')
