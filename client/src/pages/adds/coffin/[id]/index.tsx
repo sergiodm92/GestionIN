@@ -4,10 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../../../store/hooks"
 import { getAddCoffinById } from "../../../../components/functions/adds/functions"
 import { GetServerSideProps } from "next";
 import styles from "../../styles/addDetail.module.css"
-import { decomposeId } from "../../../../components/functions";
 import Loading from "../../../../components/Loading/loading";
-import { getAllPlaces } from "../../../../components/functions/places";
-import { getplace } from "../../../../store/Slices/place";
 import { DeleteBtn} from "../../../../components/Buttons";
 import { handleDeleteAddCoffin } from "../../../../components/functions/addCoffin/functions";
 import { useRouter } from "next/router";
@@ -34,14 +31,12 @@ const AddCoffinDetail = ({ id }: { id: string })=>{
     const [updateData, setUpdateData] = useState({});
     const dispatch = useAppDispatch()
     const add = useAppSelector(getAddCoffin)
-    const places = useAppSelector(getplace)
     const prevAdd = useRef(add);
 
     const router = useRouter()
 
     useEffect(()=>{
         getAddCoffinById(dispatch, id)
-        getAllPlaces(dispatch)
     },[])
 
     useEffect(() => {
@@ -72,20 +67,41 @@ const AddCoffinDetail = ({ id }: { id: string })=>{
                 <div className={styles.text}>{add.place}</div>
               </div>
               <div className={styles.items}>
-                <div className={styles.subTitle}>Ataúd:</div>
-                <div className={styles.text}><pre style={{fontFamily: "Cambria, Cochin, Georgia, Times, 'Times New Roman', serif"}}>{decomposeId(add.id_coffin, places)}</pre></div>
-              </div>
-              <div className={styles.items}>
-                <div className={styles.subTitle}>Unidades:</div>
-                <div className={styles.text}>{add.units}</div>
-              </div>
-              <div className={styles.items}>
                 <div className={styles.subTitle}>Responsable:</div>
                 <div className={styles.text}>{add.responsible}</div>
               </div>
               <div className={styles.items}>
-                <div className={styles.subTitle}>Proveedor:</div>
-                <div className={styles.text}>{add.supplier}</div>
+                <div className={styles.subTitle}>Estado:</div>
+                <div className={styles.text}>{add.state==="new"? "Nuevo":add.state==="pending"?"Pendiente":"Completo"}</div>
+              </div>
+              <div className={add.coffins.length? styles.itemsGroups: styles.none}>
+                <div className={styles.subTitle}>Ataudes:</div>
+                <div className={styles.groups}>
+                  {add.coffins.map((c,i)=>{
+                    return(
+                      <div key={i}>
+                        <div>Tamaño: {c.size}</div>
+                        <div>Tipo: {c.type}</div>
+                        <div>Color: {c.color}</div>
+                        <div>Con caja metálica: {c.mbox===true?"Si":"No"}</div>
+                        <div>Cantidad: {c.units}</div>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+              <div className={add.metal_box.length? styles.itemsGroups: styles.none}>
+                <div className={styles.subTitle}>Cajas metálicas:</div>
+                <div className={styles.groups}>
+                  {add.metal_box.map((m,i)=>{
+                    return(
+                      <div key={i}>
+                        <div>Tamaño: {m.size}</div>
+                        <div>Cantidad: {m.units}</div>
+                      </div>
+                    )
+                  })}
+                </div>
               </div>
             </div>
           )}

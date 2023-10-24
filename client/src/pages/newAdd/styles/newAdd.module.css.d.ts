@@ -18,6 +18,7 @@ declare const styles: {
   switchBtnContainer: string;
   switchBox: string;
   dateInput: string;
+  coffinGroup: string;
 };
 
 export default styles;

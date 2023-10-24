@@ -1,12 +1,13 @@
 import { AddCoffin } from "../../../types/addsInterfaces";
-import { Coffin } from "../../../types/interfaces";
+import { Coffin, Double } from "../../../types/interfaces";
 import { createToast, questionAlert } from "../../Notifications/Notifications";
 import { deleteAddCoffinApi, postAddCoffinApi } from "../../../services/addCoffinApi";
 import { generateRandomID } from "../../functions";
 import { Place } from "../../../types/place";
-import { validateAddCoffin } from "../../Validations/addCoffin";
+import { validateAddCoffin, validateCoffin } from "../../Validations/addCoffin";
 import { deleteAddGeneralApi } from "../../../services/addGeneralApi";
 import { deleteAddMetalBoxApi } from "../../../services/addMetalBoxApi";
+import { addCoffinInicialState, initialCoffin } from "../../initialState/addCoffin/initialStates";
 
 export const handleAddChange = (e: any, add: AddCoffin, setAdd: any)=>{
     e.preventDefault();
@@ -15,16 +16,23 @@ export const handleAddChange = (e: any, add: AddCoffin, setAdd: any)=>{
       [e.target.name]: e.target.value.trim(),
     });
 }
+export const handlePlace = (e: any, add:AddCoffin , setAdd: any) => {
+  e.preventDefault();
+  setAdd({
+    ...add,
+    place: e.target.value,
+  });
+};
 
 //COFFIN ---------------------------------
-export const handleCoffinPlace = (e: any, coffin: Coffin, setCoffin: any) => {
+
+  export const handleCoffinChange = (e: any, coffin: Coffin, setCoffin: any)=>{
     e.preventDefault();
     setCoffin({
       ...coffin,
-      place: e.target.value,
+      [e.target.name]: e.target.value.trim(),
     });
-  };
-  
+}
   export const handleCoffinType = (e: any, coffin: Coffin, setCoffin: any) => {
     e.preventDefault();
     setCoffin({
@@ -50,17 +58,39 @@ export const handleCoffinPlace = (e: any, coffin: Coffin, setCoffin: any) => {
   export const switchMetalBox = ( switchMB: boolean, setSwitchMB: any, coffin: Coffin)=>{
     if(switchMB==false){
       setSwitchMB(true)
-      coffin.metal_box=true
+      coffin.mbox=true
     }
     else if(switchMB==true){
       setSwitchMB(false);
-      coffin.metal_box=false
+      coffin.mbox=false
 
     }
 }
+
+export const coffinGroupHandleSubmit = async (e:any, coffin: Coffin, add: AddCoffin, setCoffin: any, types: Double[], sizes: Double[], colors: Double[], places: Double[], setIsLoading: React.Dispatch<React.SetStateAction<boolean>>, isOn:boolean)=>{
+  e.preventDefault();
+  setIsLoading(true)
+  const typeId = types.find((type)=>type.name==coffin.type)?.initials
+  const sizeId = sizes.find((size)=>size.name==coffin.size)?.initials
+  const colorId = colors.find((color)=>color.name==coffin.color)?.initials
+  const placeId = places.find((place)=>place.name==add.place)?.initials
+  coffin.id =  placeId+typeId+sizeId+colorId+coffin.units.toString()
+  coffin.mbox 
+  
+  try {
+    if(validateCoffin(coffin)){
+      add.coffins.push(coffin)
+    }
+} catch (error) {
+    createToast("warning","ocurrio un error, vuelva a intentar");
+    console.error(error);
+}
+setCoffin(initialCoffin)
+setIsLoading(false)
+}
 //------------------------------------------------------------------------------------
 
-export const addHandleSubmit = async (e:any, coffin: Coffin, isOn: boolean, date: string, add: AddCoffin, places: Place[], setIsLoading: React.Dispatch<React.SetStateAction<boolean>>)=>{
+export const addHandleSubmit = async (e:any, isOn: boolean, date: string, add: AddCoffin, places: Place[], setIsLoading: React.Dispatch<React.SetStateAction<boolean>>)=>{
     e.preventDefault();
 
     setIsLoading(true)
@@ -71,20 +101,6 @@ export const addHandleSubmit = async (e:any, coffin: Coffin, isOn: boolean, date
     const milliseconds = new Date(dateString).getTime();
     add.date = milliseconds
 
-    var MB = ""  //add.id_coffin
-    if(isOn){
-      MB = "TR"
-    }
-    else{
-      MB = "FS"
-    }
-    var id = `${coffin.place}${coffin.type}${coffin.size}${coffin.color}${MB}`
-    add.id_coffin = id
-
-    let currentPlace = places.find(p=>p.initials==coffin.place) //add.place
-    if(currentPlace) add.place = currentPlace.name
-
-    add.supplier = add.supplier.trim()
     add.responsible = add.responsible.trim()
 
     //send data

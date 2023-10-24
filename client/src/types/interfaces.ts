@@ -3,11 +3,13 @@ export interface DateType {
   time: string;
 }
 export interface Coffin {
-  place: string;
+  id: string;
+  supplier: string;
+  units: number;
   type: string;
   size: string;
   color: string;
-  metal_box: boolean;
+  mbox: boolean;
 }
 export interface CoffinInitials {
   place: Double;
@@ -24,6 +26,12 @@ export interface Button {
   title: any;
   loading: boolean;
   disabled: boolean;
+}
+export interface AddButton {
+  title: any;
+  loading: boolean;
+  disabled: boolean;
+  onClick: any;
 }
 export interface SmallButton {
   title: string;
@@ -43,7 +51,7 @@ export interface Card1 {
   onClick: any;
   space1: string;
   space2: string;
-  space3: number;
+  space3: string;
 }
 export interface Card2 {
   onClick: any;

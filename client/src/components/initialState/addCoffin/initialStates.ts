@@ -1,16 +1,22 @@
 export const addCoffinInicialState = {
-    id: "",
-    id_coffin: "",
-    date: 0,
-    responsible: "",
-    units: 0,
-    supplier: "",
-    place: ""
+  id: "",
+  date: 0,
+  responsible: "",
+  place: "",
+  coffins: [],
+  metal_box: [],
+  state: ""
   }
 export const initialCoffin={
-    place:"",
+  id:"",
+    units:0,
     type:"",
     size:"",
     color:"",
-    metal_box: false
+    mbox: false,
+    supplier:""
+}
+export const initialMetalBox={
+  units:0,
+  size:"",
 }

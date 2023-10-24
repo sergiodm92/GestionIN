@@ -3,17 +3,17 @@ import type { RootState } from '../store';
 import { AddCoffin, AddCoffinState } from '../../types/addsInterfaces';
 
 const initialState: AddCoffinState = {
-    addsCoffin: [],
-    addCoffin:{
-      id: "",
-      id_coffin: "",
-      date: 0,
-      responsible: "",
-      units: 0,
-      supplier: "",
-      place: ""
-    },
-    isAllowedExpand: true
+  addsCoffin: [],
+  addCoffin: {
+    id: "",
+    date: 0,
+    responsible: "",
+    place: "",
+    coffins: [],
+    metal_box: [],
+    state: ""
+  },
+  isAllowedExpand: true
 }
 
 export const addsCoffinSlice = createSlice({

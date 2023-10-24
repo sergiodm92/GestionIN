@@ -8,17 +8,17 @@ import { getAllAddsCoffin } from "../../../components/functions/adds/functions";
 import { getAllPlaces } from "../../../components/functions/places";
 import Loading from "../../../components/Loading/loading";
 import Card1 from "../../../components/Cards/Card1";
-import { decomposeId } from "../../../components/functions";
+import { AddCoffin } from "../../../types/addsInterfaces";
 
-const initialAddState = [
+const initialAddState : AddCoffin[] = [
   {
     id: "",
-    id_coffin: "",
     date: 0,
     responsible: "",
-    units: 0,
-    supplier: "",
     place: "",
+    coffins: [],
+    metal_box: [],
+    state: ""
   },
 ];
 
@@ -29,11 +29,9 @@ const AddsCoffin = () => {
   const [updateData, setUpdateData] = useState(initialAddState);
   const adds = useAppSelector(getAddsCoffin);
   const prevAdds = useRef(adds);
-  const places = useAppSelector(getplace);
-
+console.log(adds)
   useEffect(() => {
     getAllAddsCoffin(dispatch);
-    getAllPlaces(dispatch);
   }, []);
 
   useEffect(() => {
@@ -54,8 +52,8 @@ const AddsCoffin = () => {
           <div className={styles.title}>Ingresos</div>
           <div className={styles.subTitle}>
             <div className={styles.smallSpace}>Fecha</div>
-            <div className={styles.bigSpace}>Ataud</div>
-            <div className={styles.smallSpace}>Cant</div>
+            <div className={styles.bigSpace}>Lugar</div>
+            <div className={styles.smallSpace}>Estado</div>
           </div>
           <div className={styles.cardsContainer}>
             {adds.length > 0
@@ -66,12 +64,9 @@ const AddsCoffin = () => {
                         onClick={() => router.push(`/adds/coffin/${add.id}`)}
                         space1={new Date(add.date)
                           .toLocaleDateString("es")}
-                        space2={add.id_coffin}
-                        space3={add.units}
+                        space2={add.place}
+                        space3={add.state==="new"? "Nuevo":add.state==="pending"?"Pendiente":"Completo"}
                       />
-                      <div className={styles.cardHover}>
-                        <pre>{decomposeId(add.id_coffin, places)}</pre>
-                      </div>
                     </div>
                   );
                 })

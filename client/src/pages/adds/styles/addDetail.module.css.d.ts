@@ -5,7 +5,10 @@ declare const styles: {
     subTitle: string;
     text: string;
     items: string;
+    itemsGroups: string;
     deleteBtn: string;
+    none: string;
+    groups: string;
   };
   
   export default styles;
