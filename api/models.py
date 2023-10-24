@@ -1,4 +1,4 @@
-from pydantic import BaseModel, validator, constr
+from pydantic import BaseModel, validator
 from typing import Optional
 
 class UserRegister(BaseModel):
@@ -204,7 +204,7 @@ class Transaction(BaseModel):
     status: str
 
     @validator('status')
-    def validate_type(cls, value):
+    def validate_status(cls, value):
         valid_types = ['approved', 'cancelled']
         if value not in valid_types:
             raise ValueError(f"'state' debe ser uno de {', '.join(valid_types)}")
