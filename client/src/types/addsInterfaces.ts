@@ -11,7 +11,7 @@ export interface Coffin {
 export interface MetalBox {
   size: string;
   units: number;
-  place: string;
+  supplier: string;
 }
 export interface AddCoffin {
   id: string;

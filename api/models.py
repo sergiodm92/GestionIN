@@ -52,7 +52,7 @@ class CoffinStock(BaseModel):
 class MetalBoxGroup(BaseModel):
     size: str
     units: int
-    place: str
+    supplier: str
 
 class GeneralStock(BaseModel):
     id: str

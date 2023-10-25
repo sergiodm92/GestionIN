@@ -11,6 +11,11 @@ export interface Coffin {
   color: string;
   mbox: boolean;
 }
+export interface Mbox {
+  supplier: string;
+  units: number;
+  size: string;
+}
 export interface CoffinInitials {
   place: Double;
   type: Double;

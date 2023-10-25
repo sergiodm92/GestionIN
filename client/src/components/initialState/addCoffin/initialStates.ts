@@ -19,4 +19,5 @@ export const initialCoffin={
 export const initialMetalBox={
   units:0,
   size:"",
+  supplier:""
 }

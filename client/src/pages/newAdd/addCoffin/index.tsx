@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { addCoffinInicialState, initialCoffin } from "../../../components/initialState/addCoffin/initialStates";
-import { addHandleSubmit, handleAddChange, handleCoffinColor, handlePlace, handleCoffinSize, handleCoffinType, handleCoffinChange, coffinGroupHandleSubmit } from "../../../components/functions/addCoffin/functions";
+import { addCoffinInicialState, initialCoffin, initialMetalBox } from "../../../components/initialState/addCoffin/initialStates";
+import { addHandleSubmit, handleAddChange, handleCoffinColor, handlePlace, handleCoffinSize, handleCoffinType, handleCoffinChange, coffinGroupHandleSubmit, handleMboxSize, handleMboxChange, mboxGroupHandleSubmit } from "../../../components/functions/addCoffin/functions";
 import { types, sizes, colors } from "../../../components/arrays";
 import { AddBtn, FormButton, SwitchBtn } from "../../../components/Buttons";
 import { getAllPlaces } from "../../../components/functions/places";
@@ -9,6 +9,7 @@ import { getplace } from "../../../store/Slices/place";
 import styles from "../styles/newAdd.module.css";
 import Loading from "../../../components/Loading/loading";
 import { Coffin } from "../../../types/addsInterfaces";
+import { Mbox } from "../../../types/interfaces";
 
 const AddCoffin = () => {
 
@@ -17,12 +18,10 @@ const AddCoffin = () => {
   const [add, setAdd] = useState(addCoffinInicialState);
   const [date, setDate] = useState("");
   const [coffin, setCoffin] = useState(initialCoffin);
+  const [mbox, setMbox] = useState(initialMetalBox);
   const [isOn, setIsOn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingGroup, setIsLoadingGroup] = useState(false);
-
-  console.log(coffin)
-  console.log(add)
 
   const places = useAppSelector(getplace);
 
@@ -38,7 +37,7 @@ const AddCoffin = () => {
     <div className={styles.container}>
       <div className={styles.title}>Nuevo Ingreso de Ataúd</div>
       <form
-        onSubmit={(e) => addHandleSubmit(e, isOn, date, add, places, setIsLoading)}
+        onSubmit={(e) => addHandleSubmit(e, date, add, setIsLoading)}
         className={styles.formContainer}
       >
         <div className={styles.dateRow}>
@@ -161,46 +160,118 @@ const AddCoffin = () => {
             />
           </div>
           <div className={styles.buttonContainer}>
-            <AddBtn 
+            <AddBtn
               title={isLoadingGroup ? <Loading /> : "Agregar"}
               loading={isLoadingGroup}
               disabled={isLoadingGroup}
-              onClick={(e: any) => coffinGroupHandleSubmit(e, coffin, add, setCoffin, types, sizes, colors, places, setIsLoadingGroup, isOn)}
+              onClick={(e: any) => {
+                coffinGroupHandleSubmit(e, coffin, add, setCoffin, types, sizes, colors, places, setIsLoadingGroup, isOn, setIsOn)
+              }}
             />
           </div>
           {
-            add.coffins.length?
-            add.coffins.map((c: Coffin,i)=>{
-              return(
-                <div key={i}>
-                  <div className={styles.formRow}>
-                    <div>Tipo: </div>
-                    <div>{c.type}</div>
+            add.coffins.length ?
+              add.coffins.map((c: Coffin, i) => {
+                return (
+                  <div key={i}>
+                    <div className={styles.formRow}>
+                      <div>Tipo: </div>
+                      <div>{c.type}</div>
+                    </div>
+                    <div className={styles.formRow}>
+                      <div>Tamaño: </div>
+                      <div>{c.size}</div>
+                    </div>
+                    <div className={styles.formRow}>
+                      <div>Color: </div>
+                      <div>{c.color}</div>
+                    </div>
+                    <div className={styles.formRow}>
+                      <div>Caja Metálica: </div>
+                      <div>{c.mbox ? "Si" : "No"}</div>
+                    </div>
+                    <div className={styles.formRow}>
+                      <div>Unidades: </div>
+                      <div>{c.units}</div>
+                    </div>
+                    <div className={styles.formRow}>
+                      <div>Proveedor: </div>
+                      <div>{c.supplier}</div>
+                    </div>
                   </div>
-                  <div className={styles.formRow}>
-                    <div>Tamaño: </div>
-                    <div>{c.size}</div>
+                )
+              })
+              : null
+          }
+        </div>
+        <div>Cajas metálicas:</div>
+        <div className={styles.coffinGroup}>
+          <div className={styles.formRow}>
+            <div>Tamaño:</div>
+            <select
+              id="mbsize"
+              className={styles.input}
+              onChange={(e) => handleMboxSize(e, mbox, setMbox)}
+            >
+              <option defaultValue={"-"}>-</option>
+              {sizes.map((s, i) => (
+                <option key={i} value={s.name}>
+                  {s.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className={styles.formRow}>
+            <div>Unidades:</div>
+            <input
+              className={styles.input}
+              type="number"
+              id="mbUnits"
+              name="units"
+              value={mbox.units ? mbox.units : ""}
+              onChange={(e) => handleMboxChange(e, mbox, setMbox)}
+            />
+          </div>
+          <div className={styles.formRow}>
+            <div>Proveedor:</div>
+            <input
+              className={styles.input}
+              type="text"
+              id="mbsupplier"
+              name="supplier"
+              value={mbox.supplier}
+              onChange={(e) => handleMboxChange(e, mbox, setMbox)}
+            />
+          </div>
+          <div className={styles.buttonContainer}>
+            <AddBtn
+              title={isLoadingGroup ? <Loading /> : "Agregar"}
+              loading={isLoadingGroup}
+              disabled={isLoadingGroup}
+              onClick={(e: any) => mboxGroupHandleSubmit(e, mbox, add, setMbox, setIsLoadingGroup)}
+            />
+          </div>
+          {
+            add.metal_box.length ?
+              add.metal_box.map((m: Mbox, i) => {
+                return (
+                  <div key={i}>
+                    <div className={styles.formRow}>
+                      <div>Tamaño: </div>
+                      <div>{m.size}</div>
+                    </div>
+                    <div className={styles.formRow}>
+                      <div>Unidades: </div>
+                      <div>{m.units}</div>
+                    </div>
+                    <div className={styles.formRow}>
+                      <div>Proveedor: </div>
+                      <div>{m.supplier}</div>
+                    </div>
                   </div>
-                  <div className={styles.formRow}>
-                    <div>Color: </div>
-                    <div>{c.color}</div>
-                  </div>
-                  <div className={styles.formRow}>
-                    <div>Caja Metálica: </div>
-                    <div>{c.mbox?"Si":"No"}</div>
-                  </div>
-                  <div className={styles.formRow}>
-                    <div>Unidades: </div>
-                    <div>{c.units}</div>
-                  </div>
-                  <div className={styles.formRow}>
-                    <div>Proveedor: </div>
-                    <div>{c.supplier}</div>
-                  </div>
-                </div>
-              )
-            })
-            :null
+                )
+              })
+              : null
           }
         </div>
         <div className={styles.buttonContainer}>

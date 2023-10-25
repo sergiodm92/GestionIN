@@ -1,4 +1,5 @@
 import { AddCoffin, Coffin } from "../../types/addsInterfaces";
+import { Mbox } from "../../types/interfaces";
 import { createToast } from "../Notifications/Notifications";
 
 export const validateCoffin = (form: Coffin) => {
@@ -24,9 +25,31 @@ export const validateCoffin = (form: Coffin) => {
       condition: !form.color,
     },
     {
-      field: "color",
-      message: "Debe proporcionar el color",
-      condition: !form.color,
+      field: "supplier",
+      message: "Debe proporcionar el proveedor",
+      condition: !form.supplier,
+    }
+  ];
+
+  for (const { field, message, condition } of validationList) {
+    if (condition || !form[field as keyof Coffin]) {
+      createToast("error", message)
+      return false;
+    }
+  }
+  return true;
+};
+export const validateMetalBox = (form: Mbox) => {
+  const validationList = [
+    {
+      field: "units",
+      message: "Debe proporcionar la cantidad",
+      condition: isNaN(form.units),
+    },
+    {
+      field: "size",
+      message: "Debe proporcionar el tamaño",
+      condition: !form.size,
     },
     {
       field: "supplier",
@@ -36,7 +59,7 @@ export const validateCoffin = (form: Coffin) => {
   ];
 
   for (const { field, message, condition } of validationList) {
-    if (condition || !form[field as keyof Coffin]) {
+    if (condition || !form[field as keyof Mbox]) {
       createToast("error", message)
       return false;
     }
