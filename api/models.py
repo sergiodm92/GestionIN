@@ -111,7 +111,7 @@ class AddCoffin(BaseModel):
 
     @validator('state')
     def validate_state(cls, value):
-        valid_states = ['new', 'pending', 'deleted', 'done']
+        valid_states = ['pending', 'deleted', 'done']
         if value not in valid_states:
             raise ValueError(f"'state' debe ser uno de {', '.join(valid_states)}")
         return value
