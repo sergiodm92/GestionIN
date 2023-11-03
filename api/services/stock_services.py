@@ -47,3 +47,44 @@ class stock_services:
             print(e)
             return False
 
+
+    def calculate_mbox_stock_by_place(self, place:str):
+        try:
+            adds = add_coffin_services.get_added_place_status_pending(place);
+            all_transactions = [];
+            all_mbox = [];
+            for add in adds:
+                if(add["metal_box"] is not None):
+                    all_mbox.extend(add["metal_box"])
+                    all_transactions.extend(transactions_services.get_transactions_add_id(add["id"]))
+            for transaction in all_transactions:
+                for index, mbox in enumerate(all_mbox):
+                    if(mbox["size"] == transaction["id_group"]):
+                        if(all_mbox[index]["units"]>0): 
+                            all_mbox[index]["units"] -= 1
+                            break
+            return all_mbox;
+        except Exception as e:
+            print(e)
+            return False
+
+
+    def calculate_mbox_stock(self):
+        try:
+            adds = add_coffin_services.get_added_status_pending();
+            all_transactions = [];
+            all_mbox = [];
+            for add in adds:
+                if(add["metal_box"] is not None):
+                    all_mbox.extend(add["metal_box"])
+                    all_transactions.extend(transactions_services.get_transactions_add_id(add["id"]))
+            for transaction in all_transactions:
+                for index, mbox in enumerate(all_mbox):
+                    if(mbox["size"] == transaction["id_group"]):
+                        if(all_mbox[index]["units"]>0): 
+                            all_mbox[index]["units"] -= 1
+                            break
+            return all_mbox
+        except Exception as e:
+            print(e)
+            return False
