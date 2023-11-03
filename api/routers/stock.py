@@ -7,7 +7,7 @@ router = APIRouter()
 stock_services = stock_services()
 
 
-@router.get("/coffins/{place}")
+@router.get("/coffins/place/{place}")
 def get_all_coffins_place(place, token_data=Depends(verify_token)):
     try:
         stock_coffins = stock_services.calculate_coffin_stock_by_place(place)
@@ -15,3 +15,13 @@ def get_all_coffins_place(place, token_data=Depends(verify_token)):
     except Exception as e:
         print(e)
         return custom_response_error(message="Ocurrió un error inesperado", status_code=400)
+
+@router.get("/coffins/all")
+def get_all_coffins_place(token_data=Depends(verify_token)):
+    try:
+        stock_coffins = stock_services.calculate_coffin_all_stock()
+        return custom_response_success(stock_coffins)
+    except Exception as e:
+        print(e)
+        return custom_response_error(message="Ocurrió un error inesperado", status_code=400)
+

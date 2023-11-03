@@ -11,7 +11,6 @@ from routers.cementeries import router as cementery_router
 from routers.transactions import router as transactions
 from routers.stock import router as stock_router
 
-
 app = FastAPI(
     title= "Gestion IN",
     description= "API REST para gestion de Instituto del Norte",
@@ -39,6 +38,7 @@ app = FastAPI(
 #     allow_headers=["*"],
 # )
 # Configurar CORS para permitir cualquier origen
+
 origins = ["*"]
 
 app.add_middleware(

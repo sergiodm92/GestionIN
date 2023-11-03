@@ -1,6 +1,5 @@
 import { GetServerSideProps } from "next";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
-import { getCoffinStock } from "../../../store/Slices/coffinStockSlice";
 import React, { useEffect, useRef, useState } from "react";
 import {
   getCoffinStockByPlace,
@@ -9,8 +8,9 @@ import {
 } from "../../../components/functions/stock";
 import styles from "../styles/stock.module.css";
 import Loading from "../../../components/Loading/loading";
-import { getGeneralStock } from "../../../store/Slices/generalStockSlice";
-import { getmetalBoxStock } from "../../../store/Slices/metalBoxStockSlice";
+import { getCoffinStock } from "../../../store/Slices/coffinStockSlice";
+// import { getGeneralStock } from "../../../store/Slices/generalStockSlice";
+// import { getmetalBoxStock } from "../../../store/Slices/metalBoxStockSlice";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { params } = context;
@@ -53,15 +53,15 @@ const Stock = ({ place }: { place: string }) => {
   const dispatch = useAppDispatch();
 
   const stock = useAppSelector(getCoffinStock);
-  const generalStock = useAppSelector(getGeneralStock);
-  const MBStock = useAppSelector(getmetalBoxStock);
+  // const generalStock = useAppSelector(getGeneralStock);
+  // const MBStock = useAppSelector(getmetalBoxStock);
 
   const prevStock = useRef(stock);
 
   useEffect(() => {
     getCoffinStockByPlace(dispatch, place);
-    getGeneralStockByPlace(dispatch, place);
-    getMetalBoxStockByPlace(dispatch, place);
+    // getGeneralStockByPlace(dispatch, place);
+    // getMetalBoxStockByPlace(dispatch, place);
   }, []);
 
   useEffect(() => {
@@ -70,16 +70,16 @@ const Stock = ({ place }: { place: string }) => {
       prevStock.current = stock;
     }
   }, [stock]);
-
-  const filteredData = updateData.filter((s) =>
-    s.id_coffin.toLowerCase().includes(searchId.toLowerCase())
-  );
-  const filteredGeneralData = generalStock.filter((s) =>
-    s.product.toLowerCase().includes(searchProduct.toLowerCase())
-  );
-  const filteredMBData = MBStock.filter((s) =>
-    s.size.toLowerCase().includes(searchSize.toLowerCase())
-  );
+  console.log(updateData)
+  // const filteredData = updateData.filter((s) =>
+  //   s.id_coffin.toLowerCase().includes(searchId.toLowerCase())
+  // );
+  // const filteredGeneralData = generalStock.filter((s) =>
+  //   s.product.toLowerCase().includes(searchProduct.toLowerCase())
+  // );
+  // const filteredMBData = MBStock.filter((s) =>
+  //   s.size.toLowerCase().includes(searchSize.toLowerCase())
+  // );
 
   return (
     <div className={styles.container}>
@@ -94,7 +94,7 @@ const Stock = ({ place }: { place: string }) => {
           <>
             <div className={styles.subTitle}>Ataúdes</div>
             <div className={styles.tableContainer}>
-              <div className={styles.searchContaier}>
+              {/* <div className={styles.searchContaier}>
                 <input
                   type="text"
                   placeholder="🔎"
@@ -102,8 +102,8 @@ const Stock = ({ place }: { place: string }) => {
                   className={styles.search}
                   onChange={(e) => setSearchId(e.target.value)}
                 />
-              </div>
-              {filteredData.length > 0 ? (
+              </div> */}
+              {/* {filteredData.length > 0 ? ( */}
                 <table className={styles.table}>
                   <thead>
                     <tr>
@@ -116,23 +116,23 @@ const Stock = ({ place }: { place: string }) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {filteredData.map((s, i) => (
+                    {updateData.map((d, i) => (
                       <tr key={i}>
-                        <td>{s.id_coffin}</td>
-                        <td>{s.coffin.type}</td>
-                        <td>{s.coffin.size}</td>
-                        <td>{s.coffin.color}</td>
-                        <td>{s.coffin.metal_box ? "Si" : "No"}</td>
-                        <td>{s.units}</td>
+                        <td>{d.id}</td>
+                        <td>{d.type}</td>
+                        <td>{d.size}</td>
+                        <td>{d.color}</td>
+                        <td>{d.mbox ? "Si" : "No"}</td>
+                        <td>{d.units}</td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
-              ) :  <p>No hay items disponibles</p>}
+              {/* ) :  <p>No hay items disponibles</p>} */}
             </div>
           </>
 
-          <>
+          {/* <>
             <div className={styles.subTitle}>Cajas Metálicas</div>
             <div className={styles.tableContainer}>
               <div className={styles.searchContaier}>
@@ -200,8 +200,8 @@ const Stock = ({ place }: { place: string }) => {
                 </table>
               ) :  <p>No hay items disponibles</p>}
             </div>
-          </>
-        </>
+          </>*/}
+        </> 
       )}
     </div>
   );

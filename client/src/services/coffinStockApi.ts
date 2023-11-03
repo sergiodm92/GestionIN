@@ -8,7 +8,7 @@ const token = getAuthToken()
 // get all coffin stock
 export const getAllCoffinStockApi = async (): Promise<AxiosResponse> => {
   try {
-    const response = await apiClient.get("/coffin_stock/all", {
+    const response = await apiClient.get("/coffins/all", {
       headers: {
         "auth-token": token,
       },
@@ -24,7 +24,7 @@ export const getCoffinStockByPlaceApi = async (
   place: string
 ): Promise<AxiosResponse> => {
   try {
-    const response = await apiClient.get(`/coffin_stock/place/${place}`, {
+    const response = await apiClient.get(`/stock/coffins/place/${place}`, {
       headers: {
         "auth-token": token,
       },

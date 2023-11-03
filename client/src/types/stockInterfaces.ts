@@ -18,10 +18,13 @@ export interface CoffinStock {
     units: number
   }
   export interface GetCoffinStock {
-    id_coffin: string;
-    place: string;
+    supplier: string;
+    type: string;
+    mbox: boolean;
+    size: string;
+    id: string;
     units: number;
-    coffin: Coffin
+    color: string
   }
   export interface GetMetalBoxStock {
     size: string;
