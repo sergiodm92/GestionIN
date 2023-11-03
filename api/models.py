@@ -107,9 +107,9 @@ class AddCoffin(BaseModel):
     place: str
     coffins: list[CoffinGroup]
     metal_box: list[MetalBoxGroup]
-    state: str
+    status: str
 
-    @validator('state')
+    @validator('status')
     def validate_state(cls, value):
         valid_states = ['pending', 'deleted', 'done']
         if value not in valid_states:
