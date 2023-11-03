@@ -35,10 +35,10 @@ class TransactionServices:
             print(e)
             return {'error': 'Ocurrió un error inesperado: {}'.format(e)}
 
-    async def get_transactions_add_id(self, id:str):
+    def get_transactions_add_id(self, id:str):
         try:
             transactions = []
-            docs = self.db.collection('transactions').where('add_id', '==', id).get()
+            docs = self.db.collection('transactions').where('id_add', '==', id).get()
             for doc in docs:
                 transaction = doc.to_dict()
                 transactions.append(transaction)

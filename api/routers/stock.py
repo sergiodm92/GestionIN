@@ -8,11 +8,10 @@ stock_services = stock_services()
 
 
 @router.get("/coffins/{place}")
-async def get_all_coffins_place(place, token_data=Depends(verify_token)):
+def get_all_coffins_place(place, token_data=Depends(verify_token)):
     try:
-        stock_coffins = await stock_services.calculate_coffin_stock_by_place(place)
+        stock_coffins = stock_services.calculate_coffin_stock_by_place(place)
         return custom_response_success(stock_coffins)
     except Exception as e:
         print(e)
         return custom_response_error(message="Ocurrió un error inesperado", status_code=400)
-    
