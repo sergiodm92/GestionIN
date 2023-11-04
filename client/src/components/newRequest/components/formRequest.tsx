@@ -18,7 +18,6 @@ const FormRequest = (data: FormRequest) => {
     coffin,
     setCoffin,
   } = data;
-
   let stockPlaces = stock?.map((s) => s.place);
   let placesArray = [...new Set(stockPlaces)];
 

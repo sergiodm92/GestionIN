@@ -82,3 +82,4 @@ class ProductsServices:
     async def post_general_model(self, general_model):
         # Lógica para agregar un nuevo modelo general
         pass
+
