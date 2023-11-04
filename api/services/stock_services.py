@@ -1,11 +1,11 @@
 from db import get_database
 from services.add_coffin_services import AddCoffinServices
 from services.transaction_services import TransactionServices
-from services.add_products_services import AddProducts
+from services.add_products_services import AddProductsServices
 
 add_coffin_services = AddCoffinServices()
 transactions_services = TransactionServices()
-add_products_services = AddProducts()
+add_products_services = AddProductsServices()
 
 class stock_services:
     def __init__(self):

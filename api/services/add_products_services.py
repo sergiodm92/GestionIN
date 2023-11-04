@@ -1,7 +1,7 @@
 from db import get_database
 from models import AddProducts, Product, DataAddDelete
 
-class ProductsServices:
+class AddProductsServices:
     def __init__(self):
         self.db = get_database()
 
@@ -75,11 +75,4 @@ class ProductsServices:
             print(f'Ocurrió un error inesperado: {e}')
             return False
 
-    async def put_general_stock_id(self, id, operacion):
-        # Lógica para actualizar el stock general
-        pass
-
-    async def post_general_model(self, general_model):
-        # Lógica para agregar un nuevo modelo general
-        pass
-
+   

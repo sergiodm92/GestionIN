@@ -2,11 +2,11 @@ from fastapi import APIRouter, Depends
 from models import AddProducts, DataAddDelete
 from middlewares.response import custom_response_success, custom_response_error
 from middlewares.verify_token import verify_token
-from services.add_products_services import ProductsServices
+from services.add_products_services import AddProductsServices
 
 
 router = APIRouter()
-products_services = ProductsServices()
+products_services = AddProductsServices()
 
 @router.post("/")
 async def post_new_add(add: AddProducts, token_data = Depends(verify_token)):

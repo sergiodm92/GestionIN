@@ -1,7 +1,7 @@
 from db import get_database
 from models import Product
 
-class Products_services:
+class ProductsServices:
     def __init__(self):
         self.db = get_database()
 

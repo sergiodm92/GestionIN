@@ -2,10 +2,10 @@ from fastapi import APIRouter, Depends
 from models import Product
 from middlewares.response import custom_response_success, custom_response_error
 from middlewares.verify_token import verify_token
-from services.products_services import Products_services
+from services.products_services import ProductsServices
 
 router = APIRouter()
-products_services = Products_services()
+products_services = ProductsServices()
 
 # Ruta POST para agregar nueva place
 @router.post("/")
