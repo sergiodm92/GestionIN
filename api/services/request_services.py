@@ -25,8 +25,8 @@ class RequestServices:
         try:
             new_coffin_transaction = Transaction(
             date=new_request.request.date,
-            id_add=new_request.request.id_add,
             id_group=new_request.request.id_coffin_group,
+            id_add = "",
             type="request_coffin",
             status="approved"
             )
@@ -35,11 +35,11 @@ class RequestServices:
             with self.db.transaction():  # do a transaction to ensure that all the operations are done
                 await self.create_request(new_request)  # create the request
                 await transactions_services.post_transaction(new_coffin_transaction) # create a transaction and return true if it was created
-                if new_request.request.aditional_metal_box:
+                if new_request.request.id_metal_box_group:
                     new_metal_box_transaction = Transaction(
                     date=new_request.request.date,
-                    id_add=new_request.request.id_add_metal_box,
                     id_group=new_request.request.id_metal_box_group,
+                    id_add = "",
                     type="request_metal_box",
                     status="approved"
                     )
