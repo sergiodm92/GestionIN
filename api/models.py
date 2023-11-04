@@ -126,28 +126,29 @@ class AddMetalBox(BaseModel):
     place: str
 
 class Product(BaseModel):
-    id: str
     name: str
-    expiration: int
     
 class AddProducts(BaseModel):
-    id: str
     products: list[Product]
     date: int
     responsible: str
     amount: int
     place: str
+    status: str
+    @validator('status')
+    def validate_state(cls, value):
+        valid_states = ['pending', 'deleted', 'done']
+        if value not in valid_states:
+            raise ValueError(f"'state' debe ser uno de {', '.join(valid_states)}")
+        return value
 
 class Request(BaseModel):
-    id: str
-    date: int
-    place: str
+    id: str # id de la solicitud
+    date: int # fecha de solicitud
+    place: str # lugar de solicitud
     funeral: str  # lugar de velatorio
     id_coffin_group: str  # tipo de cajon
-    id_add: str  # id del add_coffin
     id_deceased: str  # id del difunto
-    aditional_metal_box: bool
-    id_add_metal_box: str  # id del add_metal_box
     id_metal_box_group: str # id del metal_box_group
     holder_name: str  # titular que contrata el servicio
     holder_relationship: str  # parentezco del titular
@@ -158,7 +159,7 @@ class Request(BaseModel):
     additional: str  # cargos adicionales
     wreath: bool  # corona
     present: str  # presente de funeral
-    burial_place: str  # lugar donde se entierra
+    burial_place: str  # lugar de entierro
     burial_time: str  # hora de entierro
     cladding: str  # revestimiento
     service_improvement: str  # mejoramiento del servicio
@@ -193,16 +194,14 @@ class Transaction(BaseModel):
     id_add: str
     id_group: str
     type: str
-
     @validator('type')
     def validate_type(cls, value):
         valid_types = ['request', 'transfer']
         if value not in valid_types:
             raise ValueError(f"'state' debe ser uno de {', '.join(valid_types)}")
         return value
-
     status: str
-
+    
     @validator('status')
     def validate_status(cls, value):
         valid_types = ['approved', 'cancelled']

@@ -7,6 +7,7 @@ from routers.add_coffin import router as add_coffin_router
 from routers.add_metal_box import router as add_metal_box_router
 from routers.add_products import router as add_products_router
 from routers.place import router as place_router
+from routers.products import router as products_router
 from routers.cementeries import router as cementery_router
 from routers.transactions import router as transactions
 from routers.stock import router as stock_router
@@ -56,6 +57,7 @@ app.include_router(add_coffin_router, prefix="/add_coffin", tags=["AddCoffin"])
 app.include_router(add_metal_box_router, prefix="/add_metal_box", tags=["AddMetalBox"])
 app.include_router(add_products_router, prefix="/add_products", tags=["AddProducts"])
 app.include_router(place_router, prefix="/place", tags=["Place"])
+app.include_router(products_router, prefix="/products", tags=["Products"])
 app.include_router(cementery_router, prefix="/cementery", tags=["Cementery"])
 app.include_router(transactions, prefix="/transactions", tags=["Transactions"])
 app.include_router(stock_router, prefix="/stock", tags=["Stock"])

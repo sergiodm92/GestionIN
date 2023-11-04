@@ -42,3 +42,13 @@ def get_all_coffins_place(token_data=Depends(verify_token)):
     except Exception as e:
         print(e)
         return custom_response_error(message="Ocurrió un error inesperado", status_code=400)
+
+
+@router.get("/products/place/{place}")
+def get_all_products_place(place, token_data=Depends(verify_token)):
+    try:
+        stock_products = stock_services.calculate_mbox_stock_by_place(place)
+        return custom_response_success(stock_products)
+    except Exception as e:
+        print(e)
+        return custom_response_error(message="Ocurrió un error inesperado", status_code=400)
