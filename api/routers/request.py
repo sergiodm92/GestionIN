@@ -9,14 +9,17 @@ request_services = RequestServices()
 
 
 @router.post("/")
-async def cargar_request(new_request: New_Request, token_data=Depends(verify_token)):
+async def create_request(new_request: New_Request, token_data=Depends(verify_token)):
     try:
         response = await request_services.post_request(new_request)
-        if response:
+        if response["success"]:
             return custom_response_success(response)
         else:
-            custom_response_error(
-                message="No se cargó correctamente ", status_code=300)
+            if response["error"]:
+                return custom_response_error(message=response["error"], status_code=400)
+            else:
+                custom_response_error(
+                    message="No se cargó correctamente ", status_code=300)
     except Exception as e:
         print(e)
         return custom_response_error(message="Ocurrió un error inesperado ", status_code=400)

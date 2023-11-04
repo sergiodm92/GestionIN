@@ -196,7 +196,7 @@ class Transaction(BaseModel):
     type: str
     @validator('type')
     def validate_type(cls, value):
-        valid_types = ['request', 'transfer']
+        valid_types = ['request', 'transfer', 'add', 'delete', 'request_coffin', 'request_metal_box']
         if value not in valid_types:
             raise ValueError(f"'state' debe ser uno de {', '.join(valid_types)}")
         return value
