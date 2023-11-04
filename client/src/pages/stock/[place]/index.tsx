@@ -32,15 +32,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 const initialData = [
   {
-    id_coffin: "",
-    place: "",
+    id: "",
     units: 0,
-    coffin: {
-      type: "",
-      size: "",
-      color: "",
-      metal_box: false,
-    },
+    type: "",
+    size: "",
+    color: "",
+    mbox: false,
   },
 ];
 
@@ -70,7 +67,6 @@ const Stock = ({ place }: { place: string }) => {
       prevStock.current = stock;
     }
   }, [stock]);
-  console.log(updateData)
   // const filteredData = updateData.filter((s) =>
   //   s.id_coffin.toLowerCase().includes(searchId.toLowerCase())
   // );
@@ -85,7 +81,7 @@ const Stock = ({ place }: { place: string }) => {
     <div className={styles.container}>
       {updateData.length === 0 ? (
         <div className={styles.noStock}>No hay Stock disponible</div>
-      ) : updateData[0].id_coffin === "" ? (
+      ) : updateData[0].id === "" ? (
         <Loading />
       ) : (
         <>

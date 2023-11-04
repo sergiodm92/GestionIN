@@ -82,7 +82,6 @@ export const handleSubmit = async (
   setIsLoading: any
 ) => {
   e.preventDefault();
-
   setIsLoading(true)
 
   deceased.id = generateRandomID();
@@ -104,7 +103,8 @@ export const handleSubmit = async (
 
   request.wreath = isOn;
 
-  request.id_coffin = `${coffin.place.initials}${coffin.type.initials}${coffin.size.initials}${coffin.color.initials}${coffin.metal_box.initials}`;
+  request.id_coffin_group = `${coffin.place.initials}${coffin.type.initials}${coffin.size.initials}${coffin.color.initials}${coffin.metal_box.initials}`;
+  console.log(request)
   if (validateDeceased(deceased) && validateRequest(request)) {
     const json = {
       request: request,

@@ -9,7 +9,8 @@ export interface Request {
     date: number;
     place: string;
     funeral: string;
-    id_coffin: string;
+    id_coffin_group: string;
+    id_metal_box_group: string;
     holder_name: string;
     holder_relationship: string;
     policy: string;
@@ -68,7 +69,6 @@ export interface  FormRequest {
   isOn: boolean;
   setIsOn: any;
   places: Place[];
-  stock: GetCoffinStock[];
   request: Request;
   setRequest: any;
   currentDate: string;

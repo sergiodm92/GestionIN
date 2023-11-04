@@ -26,14 +26,10 @@ const NewRequest = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const dispatch = useAppDispatch()
-
-  const stock = useAppSelector(getCoffinStock)
-  console.log(stock)
   const places = useAppSelector(getplace)
   const cementeries = useAppSelector(getCementery)
 
   useEffect(()=>{
-    getAllCoffinStock(dispatch)
     getAllPlaces(dispatch)
   },[])
 
@@ -58,7 +54,6 @@ const NewRequest = () => {
             isOn={isOn}
             setIsOn={setIsOn}
             places={places}
-            stock={stock}
             request={request}
             setRequest={setRequest}
             currentDate={currentDate}

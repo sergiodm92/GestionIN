@@ -40,9 +40,9 @@ export const validateRequest = (form: Request) => {
       condition: !form.agreement,
     },
     {
-        field: "id_coffin",
+        field: "id_coffin_group",
         message: "Debe proporcionar todos los datos del ataúd",
-        condition: !form.id_coffin || form.id_coffin.length !== 10,
+        condition: !form.id_coffin_group || form.id_coffin_group.length !== 10,
       },
     {
       field: "additional",

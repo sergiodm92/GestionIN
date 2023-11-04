@@ -7,7 +7,7 @@ const token = getAuthToken()
 // get all MetalBox stock
 export const getAllMetalBoxStockApi = async (): Promise<AxiosResponse> => {
   try {
-    const response = await apiClient.get("/metal_box_stock/all", {
+    const response = await apiClient.get("/stock/mbox/all", {
       headers: {
         "auth-token": token,
       },
@@ -23,7 +23,7 @@ export const getMetalBoxStockByPlaceApi = async (
   place: string
 ): Promise<AxiosResponse> => {
   try {
-    const response = await apiClient.get(`/metal_box_stock/place/${place}`, {
+    const response = await apiClient.get(`/stock/mbox/place/${place}`, {
       headers: {
         "auth-token": token,
       },
