@@ -1,6 +1,6 @@
 import { useRouter } from "next/router"
 import { useEffect, useRef, useState } from "react"
-import  styles from "../styles/Adds.module.css" 
+import styles from "../styles/Adds.module.css"
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { getAddsCoffin } from "../../../store/Slices/addsCoffinSlice";
 import { getplace } from "../../../store/Slices/place";
@@ -10,7 +10,7 @@ import Loading from "../../../components/Loading/loading";
 import Card1 from "../../../components/Cards/Card1";
 import { AddCoffin } from "../../../types/addsInterfaces";
 
-const initialAddState : AddCoffin[] = [
+const initialAddState: AddCoffin[] = [
   {
     id: "",
     date: 0,
@@ -29,7 +29,6 @@ const AddsCoffin = () => {
   const [updateData, setUpdateData] = useState(initialAddState);
   const adds = useAppSelector(getAddsCoffin);
   const prevAdds = useRef(adds);
-console.log(adds)
   useEffect(() => {
     getAllAddsCoffin(dispatch);
   }, []);
@@ -58,18 +57,18 @@ console.log(adds)
           <div className={styles.cardsContainer}>
             {adds.length > 0
               ? adds.map((add: any, i: any) => {
-                  return (
-                    <div className={styles.card} key={i}>
-                      <Card1
-                        onClick={() => router.push(`/adds/coffin/${add.id}`)}
-                        space1={new Date(add.date)
-                          .toLocaleDateString("es")}
-                        space2={add.place}
-                        space3={add.state==="new"? "Nuevo":add.state==="pending"?"Pendiente":"Completo"}
-                      />
-                    </div>
-                  );
-                })
+                return (
+                  <div className={styles.card} key={i}>
+                    <Card1
+                      onClick={() => router.push(`/adds/coffin/${add.id}`)}
+                      space1={new Date(add.date)
+                        .toLocaleDateString("es")}
+                      space2={add.place}
+                      space3={add.state === "new" ? "Nuevo" : add.state === "pending" ? "Pendiente" : "Completo"}
+                    />
+                  </div>
+                );
+              })
               : null}
           </div>
         </>

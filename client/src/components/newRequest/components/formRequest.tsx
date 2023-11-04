@@ -1,16 +1,21 @@
+'use client'
+import { useEffect } from "react";
 import { FormRequest } from "../../../types/requestsInterfaces";
 import { handleRequestChange, handleToggleSwitch } from "../../functions/newRequest/functions";
 import styles from "../../../pages/newRequest/styles/newRequest.module.css";
 import { useState } from "react";
 import { types, sizes, colors } from "../../arrays";
 import { SwitchBtn } from "../../Buttons";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { getCoffinStock } from "../../../store/Slices/coffinStockSlice";
+import { getCoffinStockByPlace, getMetalBoxStockByPlace } from "../../functions/stock";
+import { getmetalBoxStock } from "../../../store/Slices/metalBoxStockSlice";
 
 const FormRequest = (data: FormRequest) => {
   const {
     isOn,
     setIsOn,
     places,
-    stock,
     request,
     setRequest,
     currentDate,
@@ -18,25 +23,50 @@ const FormRequest = (data: FormRequest) => {
     coffin,
     setCoffin,
   } = data;
-  let stockPlaces = stock?.map((s) => s.place);
-  let placesArray = [...new Set(stockPlaces)];
+
+  const [placeSelected, setPlaceSelected] = useState("");
+  const [isLoadingSelectPlace, setIsLoadingSelectPlace] = useState(false)
+  const [isMetalBox, setIsMetalBox] = useState(false)
+
+  const dispatch = useAppDispatch();
+
+  const stock = useAppSelector(getCoffinStock);
+  const mboxStock = useAppSelector(getmetalBoxStock);
+  // const generalStock = useAppSelector(getGeneralStock);
+
+
+  useEffect(() => {
+    getCoffinStockByPlace(dispatch, placeSelected);
+    getMetalBoxStockByPlace(dispatch, placeSelected)
+    // getMetalBoxStockByPlace(dispatch, place);
+  }, [placeSelected]);
+
+  useEffect(() => {
+    // Filtrar los tipos disponibles para el lugar seleccionados
+    const typesArray =
+      stock.map((s) => s.type) ?? [];
+    setFilteredTypes(typesArray);
+  }, [stock]);
+
+  useEffect(() => {
+    if (stock.length) {
+      setIsLoadingSelectPlace(false)
+    }
+    else {
+      if (placeSelected) {
+        setIsLoadingSelectPlace(true)
+      }
+    }
+  }, [placeSelected, stock])
 
   const [filteredTypes, setFilteredTypes] = useState<string[]>([]);
   const [filteredSizes, setFilteredSizes] = useState<string[]>([]);
   const [filteredColors, setFilteredColors] = useState<string[]>([]);
   const [filteredMetalBoxes, setFilteredMetalBoxes] = useState<string[]>([]);
-
   const handlePlaceChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedPlace = e.target.value;
+    setPlaceSelected(selectedPlace)
     const place_initial = places.find((s) => s.name == selectedPlace)?.initials;
-
-    // Filtrar los tipos disponibles para el lugar seleccionados
-    const typesArray =
-      stock
-        ?.filter((s) => s.place === selectedPlace)
-        .map((s) => s.coffin.type) ?? [];
-    setFilteredTypes([...new Set(typesArray)]);
-
     setCoffin({
       place: { name: selectedPlace, initials: place_initial },
       type: { name: "", initials: "" },
@@ -59,10 +89,9 @@ const FormRequest = (data: FormRequest) => {
       stock
         ?.filter(
           (s) =>
-            s.place === coffin.place.name &&
-            s.coffin.type === selectedType
+            s.type === selectedType
         )
-        .map((s) => s.coffin.size) ?? [];
+        .map((s) => s.size) ?? [];
     setFilteredSizes([...new Set(sizesArray)]);
 
     // Restablecer la selección de tamaño, color y metal_box
@@ -87,11 +116,10 @@ const FormRequest = (data: FormRequest) => {
       stock
         ?.filter(
           (s) =>
-            s.place === coffin.place.name &&
-            s.coffin.type === coffin.type.name &&
-            s.coffin.size === selectedSize
+            s.type === coffin.type.name &&
+            s.size === selectedSize
         )
-        .map((s) => s.coffin.color) ?? [];
+        .map((s) => s.color) ?? [];
     setFilteredColors([...new Set(colorsArray)]);
 
     // Restablecer la selección de color y metal_box
@@ -113,12 +141,11 @@ const FormRequest = (data: FormRequest) => {
       stock
         ?.filter(
           (s) =>
-            s.place === coffin.place.name &&
-            s.coffin.type === coffin.type.name &&
-            s.coffin.size === coffin.size.name &&
-            s.coffin.color === selectedColor
+            s.type === coffin.type.name &&
+            s.size === coffin.size.name &&
+            s.color === selectedColor
         )
-        .map((s) => s.coffin.metal_box.toString()) ?? [];
+        .map((s) => s.mbox.toString()) ?? [];
 
     setFilteredMetalBoxes([...new Set(metalBoxes)]);
 
@@ -132,14 +159,23 @@ const FormRequest = (data: FormRequest) => {
 
   const handleMetalBoxChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedMetalBox = e.target.value;
+    setIsMetalBox(e.target.value === "true")
     let metal_box_initial = "";
-    if (selectedMetalBox == "true") {
+    if (selectedMetalBox) {
       metal_box_initial = "TR";
-    } else if (selectedMetalBox == "false") {
+    } else {
       metal_box_initial = "FS";
     }
     // Actualizar la selección de metal_box
     coffin.metal_box = { name: selectedMetalBox, initials: metal_box_initial };
+  };
+
+  const handleNewMetalBoxChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    e.preventDefault()
+    setRequest({
+      ...request,
+      id_metal_box_group: e.target.value,
+    });
   };
 
   return (
@@ -190,7 +226,7 @@ const FormRequest = (data: FormRequest) => {
           type="text"
           id="certificate_number"
           name="certificate_number"
-          value={request.certificate_number?request.certificate_number:""}
+          value={request.certificate_number ? request.certificate_number : ""}
           onChange={(e) => handleRequestChange(e, request, setRequest)}
         />
         <div>Póliza: </div>
@@ -237,13 +273,18 @@ const FormRequest = (data: FormRequest) => {
           className={styles.selects}
           onChange={handlePlaceChange}
         >
-          <option defaultValue="-">-</option>
-          {placesArray.length > 0
-            ? placesArray.map((place, i) => (
-                <option key={i} value={place}>
-                  {place}
-                </option>
-              ))
+          {places.length == 0 ?
+            <option defaultValue="-">cargando...</option>
+
+            :
+            <option defaultValue="-">-</option>
+          }
+          {places.length > 0
+            ? places.map((place, i) => (
+              <option key={i} value={place.name}>
+                {place.name}
+              </option>
+            ))
             : null}
         </select>
         <div>Tipo:</div>
@@ -252,13 +293,18 @@ const FormRequest = (data: FormRequest) => {
           className={styles.selects}
           onChange={handleTypeChange}
         >
-          <option defaultValue="-">-</option>
+          {isLoadingSelectPlace ?
+            <option defaultValue="-">cargando...</option>
+
+            :
+            <option defaultValue="-">-</option>
+          }
           {filteredTypes.length > 0
             ? filteredTypes.map((type, i) => (
-                <option key={i} value={type}>
-                  {type}
-                </option>
-              ))
+              <option key={i} value={type}>
+                {type}
+              </option>
+            ))
             : null}
         </select>
         <div>Tamaño:</div>
@@ -270,10 +316,10 @@ const FormRequest = (data: FormRequest) => {
           <option defaultValue="-">-</option>
           {filteredSizes.length > 0
             ? filteredSizes.map((size, i) => (
-                <option key={i} value={size}>
-                  {size}
-                </option>
-              ))
+              <option key={i} value={size}>
+                {size}
+              </option>
+            ))
             : null}
         </select>
         <div>Color:</div>
@@ -285,13 +331,13 @@ const FormRequest = (data: FormRequest) => {
           <option defaultValue="-">-</option>
           {filteredColors.length > 0
             ? filteredColors.map((color, i) => (
-                <option key={i} value={color}>
-                  {color}
-                </option>
-              ))
+              <option key={i} value={color}>
+                {color}
+              </option>
+            ))
             : null}
         </select>
-        <div>Caja de Metal:</div>
+        <div>Caja Metálica:</div>
         <select
           id="metal_box"
           className={styles.selects}
@@ -300,8 +346,25 @@ const FormRequest = (data: FormRequest) => {
           <option defaultValue="">-</option>
           {filteredMetalBoxes.length > 0 &&
             filteredMetalBoxes.map((metalBox, i) => (
-              <option key={i} value={metalBox == "true" ? "true" : "false"}>
-                {metalBox == "true" ? "Si" : "No"}
+              <option key={i} value={metalBox === "true" ? metalBox : "false"}>
+                {metalBox === "true" ? "Si" : "No"}
+              </option>
+            ))}
+        </select>
+      </div>
+      <div className={styles.formRow}>
+        <div>Agregar Caja metálica</div>
+        <select
+          id="id_metal_box_group"
+          className={styles.selects}
+          onChange={handleNewMetalBoxChange}
+          disabled={isMetalBox}
+        >
+          <option defaultValue="">-</option>
+          {mboxStock.length > 0 &&
+            mboxStock.map((metalBox, i) => (
+              <option key={i} value={metalBox.size}>
+                {metalBox.size}
               </option>
             ))}
         </select>
@@ -323,7 +386,7 @@ const FormRequest = (data: FormRequest) => {
         <div className={styles.switch}>
           <div>No</div>
           <div>
-            <SwitchBtn isOn={isOn} onClick={()=>handleToggleSwitch(isOn, setIsOn)} />
+            <SwitchBtn isOn={isOn} onClick={() => handleToggleSwitch(isOn, setIsOn)} />
           </div>
           <div>Si</div>
         </div>
