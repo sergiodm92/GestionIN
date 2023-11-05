@@ -68,18 +68,18 @@ class Deceased(BaseModel):
     dod: int  # fecha de fallecimiento  date of death
     pod: str  # place of death
     dni: str
-    leyend: Optional[str]
-    news_paper: Optional[str]
-    news_paper_name: Optional[str]
+    leyend: Optional[str] = None
+    news_paper: Optional[str] = None
+    news_paper_name: Optional[str] = None
     tombstone: bool
     cementery: str
     cementery_type: str  # parque(Lápida) o municipal(Placa)
-    sector: Optional[str]
-    parcel: Optional[str]
-    level: Optional[int]
-    first_level_name: Optional[str]
-    second_level_name: Optional[str]
-    religion_symbol: Optional[str]
+    sector: Optional[str] = None
+    parcel: Optional[str] = None
+    level: Optional[int] = None
+    first_level_name: Optional[str] = None
+    second_level_name: Optional[str] = None
+    religion_symbol: Optional[str] = None
 
 class Material(BaseModel):
     id: str
@@ -148,8 +148,10 @@ class Request(BaseModel):
     place: str # lugar de solicitud
     funeral: str  # lugar de velatorio
     id_coffin_group: str  # tipo de cajon
+    id_add: str  # id de la solicitud de cajon
     id_deceased: str  # id del difunto
-    id_metal_box_group: str # id del metal_box_group
+    id_add_metal_box: Optional[str] = None  # id de la solicitud de metal_box
+    id_metal_box_group: Optional[str] = None # id del metal_box_group
     holder_name: str  # titular que contrata el servicio
     holder_relationship: str  # parentezco del titular
     policy: str  # a,b,c,d,e...
@@ -163,6 +165,7 @@ class Request(BaseModel):
     burial_time: str  # hora de entierro
     cladding: str  # revestimiento
     service_improvement: str  # mejoramiento del servicio
+    products: list[Product]  # productos
 
 class New_Request(BaseModel):
     request: Request
@@ -191,12 +194,15 @@ class DataAddDelete(BaseModel):
 
 class Transaction(BaseModel):
     date: int
-    id_add: str
-    id_group: str
+    id_add: Optional[str] = None
+    id_add_metal_box: Optional[str]= None
+    id_group: Optional[str] = None
     type: str
+    place: str
+    products: Optional[list[Product]] = None
     @validator('type')
     def validate_type(cls, value):
-        valid_types = ['request', 'transfer', 'add', 'delete', 'request_coffin', 'request_metal_box']
+        valid_types = ['transfer', 'delete', 'request_coffin','request_products', 'request_metal_box']
         if value not in valid_types:
             raise ValueError(f"'state' debe ser uno de {', '.join(valid_types)}")
         return value

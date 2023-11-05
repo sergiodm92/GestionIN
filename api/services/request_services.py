@@ -26,7 +26,7 @@ class RequestServices:
             new_coffin_transaction = Transaction(
             date=new_request.request.date,
             id_group=new_request.request.id_coffin_group,
-            id_add = "",
+            id_add = new_request.request.id_add,
             type="request_coffin",
             status="approved"
             )
@@ -38,12 +38,22 @@ class RequestServices:
                 if new_request.request.id_metal_box_group:
                     new_metal_box_transaction = Transaction(
                     date=new_request.request.date,
+                    place=new_request.request.place,
                     id_group=new_request.request.id_metal_box_group,
-                    id_add = "",
+                    id_add_metal_box = new_request.request.id_add_metal_box,
                     type="request_metal_box",
                     status="approved"
                     )
                     await transactions_services.post_transaction(new_metal_box_transaction) # create a transaction and return true if it was created
+                if new_request.request.products.__len__() > 0:
+                    new_product_transaction = Transaction(
+                    date=new_request.request.date,
+                    place=new_request.request.place,
+                    products = new_request.request.products,
+                    type="request_products",
+                    status="approved"
+                    )
+                    await transactions_services.post_transaction(new_product_transaction)
             return {'success': 'the request was created successfully'}
         except Exception as e:
             print(e)
