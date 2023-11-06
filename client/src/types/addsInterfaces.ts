@@ -34,15 +34,25 @@ export interface AddMetalBox {
 }
 export interface AddGeneral {
   id: string;
-  id_doc: string;
-  product: string;
+  products: Products[];
   date: number;
   responsible: string;
-  amount: number;
-  supplier: string;
   place: string;
+  status: string;
 }
-
+export interface Product {
+  id: string;
+  name: string;
+}
+export interface Products {
+  id: string;
+  name: string;
+  units: number;
+}
+export interface ProductsState {
+  products: Products[];
+  isAllowedExpand: boolean;
+}
 export interface AddCoffinState {
   addsCoffin: AddCoffin[];
   addCoffin: AddCoffin;

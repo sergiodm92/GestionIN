@@ -10,6 +10,7 @@ import {generalStockSlice} from './Slices/generalStockSlice'
 import {addsMetalBoxSlice} from './Slices/addsMetalBoxSlice'
 import {addsGeneralSlice} from './Slices/addsGeneralSlice'
 import { cementerySlice } from './Slices/cementery'
+import { productsSlice } from './Slices/products'
 
 
 export const store = configureStore({
@@ -24,6 +25,7 @@ export const store = configureStore({
       metalBoxStock: metalBoxStockSlice.reducer,
       generalStock: generalStockSlice.reducer,
       place: placeSlice.reducer,
+      products: productsSlice.reducer,
       cementery: cementerySlice.reducer
   }
 })

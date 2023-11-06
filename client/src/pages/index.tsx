@@ -19,6 +19,12 @@ const Home = () => {
         onClick1={() => router.push("/adds")}
         onClick2={() => router.push("/newAdd")}
       />
+      <DoubleButton
+        title1={"Productos"}
+        title2={"+"}
+        onClick1={() => router.push("/products")}
+        onClick2={() => router.push("/products/new")}
+      />
       <LargeButton
         title={"Lápidas"}
         onClick={() => router.push("/tombStones")}

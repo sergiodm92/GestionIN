@@ -6,13 +6,11 @@ const initialState: AddGeneralState = {
     addsGeneral: [],
     addGeneral:{
       id: "",
-      id_doc: "",
-      product: "",
+      products: [],
       date: 0,
       responsible: "",
-      amount: 0,
-      supplier: "",
-      place: ""
+      place: "",
+      status:""
     },
     isAllowedExpand: true
 }

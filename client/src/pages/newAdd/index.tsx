@@ -14,10 +14,6 @@ const NewAdds = ()=>{
                 onClick={()=>router.push('/newAdd/addCoffin')}
             />
             <LargeButton
-                title='Caja Metálica'
-                onClick={()=>router.push('/newAdd/addMetalBox')}
-            />
-            <LargeButton
                 title='Otros'
                 onClick={()=>router.push('/newAdd/addGeneral')}
             />
