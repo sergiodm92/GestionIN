@@ -126,13 +126,17 @@ class AddMetalBox(BaseModel):
     place: str
 
 class Product(BaseModel):
+    id:str
     name: str
-    
+
+class GroupProduct(BaseModel):
+    product: Product
+    units: int
+
 class AddProducts(BaseModel):
-    products: list[Product]
+    products: list[GroupProduct]
     date: int
     responsible: str
-    amount: int
     place: str
     status: str
     @validator('status')

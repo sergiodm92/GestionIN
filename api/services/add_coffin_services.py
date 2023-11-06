@@ -125,10 +125,10 @@ class AddCoffinServices:
             return {'error': 'Ocurrió un error inesperado: {}'.format(e)}
 
 
-    def get_added_products_status_pending (self, place):
+    def get_added_products_place_status_pending (self, place):
         try:
             added = []
-            docs = self.db.collection('add_products').where("status","==","pending").get()
+            docs = self.db.collection('add_products').where("status","==","pending").where("place","==",place).get()
             for doc in docs:
                 add = doc.to_dict()
                 added.append(add)
@@ -136,3 +136,15 @@ class AddCoffinServices:
         except Exception as e:
             print(e)
             return {'error': 'Ocurrió un error inesperado: {}'.format(e)}
+
+    def get_added_products_status_pending (self, place):
+            try:
+                added = []
+                docs = self.db.collection('add_products').where("status","==","pending").get()
+                for doc in docs:
+                    add = doc.to_dict()
+                    added.append(add)
+                return added
+            except Exception as e:
+                print(e)
+                return {'error': 'Ocurrió un error inesperado: {}'.format(e)}

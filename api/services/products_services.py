@@ -5,10 +5,10 @@ class ProductsServices:
     def __init__(self):
         self.db = get_database()
 
-    async def post_product(self, model: Product):
+    async def post_product(self, product: Product):
         try:
             doc_ref = self.db.collection('products').document()
-            doc_ref.set(model.dict())
+            doc_ref.set(product.dict())
             doc_snapshot = doc_ref.get()
             return doc_snapshot.exists
         except Exception as e:

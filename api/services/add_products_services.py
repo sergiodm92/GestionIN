@@ -45,17 +45,29 @@ class AddProductsServices:
             print(e)
             return {'error': 'Ocurrió un error inesperado: {}'.format(e)}
 
-    async def get_added_place(self, place):
+    async def get_adds_place_status_pending(self, place):
         try:
-            added = []
-            docs = self.db.collection('add_general').where("place", "==", place).get()
+            adds = []
+            docs = self.db.collection('add_products').where("place", "==", place).where("status", "==", "pending").get()
             for doc in docs:
                 add = doc.to_dict()
-                added.append(add)
-            return added
+                adds.append(add)
+            return adds
         except Exception as e:
             print(e)
             return {'error': 'Ocurrió un error inesperado: {}'.format(e)}
+
+    async def get_added_place(self, place):
+            try:
+                added = []
+                docs = self.db.collection('add_general').where("place", "==", place).get()
+                for doc in docs:
+                    add = doc.to_dict()
+                    added.append(add)
+                return added
+            except Exception as e:
+                print(e)
+                return {'error': 'Ocurrió un error inesperado: {}'.format(e)}
 
     async def delete_add_id(self, dataAddDelete: DataAddDelete):
         try:

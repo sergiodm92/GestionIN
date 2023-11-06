@@ -47,6 +47,18 @@ class TransactionServices:
             print(e)
             return {'error': 'Ocurrió un error inesperado: {}'.format(e)}
 
+    def get_transactions_products_place(self, place:str):
+            try:
+                transactions = []
+                docs = self.db.collection('transactions').where('place', '==', place).where('type','==','request_products').get()
+                for doc in docs:
+                    transaction = doc.to_dict()
+                    transactions.append(transaction)
+                return transactions
+            except Exception as e:
+                print(e)
+                return {'error': 'Ocurrió un error inesperado: {}'.format(e)}
+
     async def cancel_transaction_by_id(self, transaction_id):
         try:
             transaction_ref = self.db.collection('transactions').document(transaction_id)
