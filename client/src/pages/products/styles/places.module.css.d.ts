@@ -6,6 +6,8 @@ declare const styles: {
     input: staring;
     formRow: string;
     form: string;
+    listContainer: string;
+    products:string;
 };
   
 export default styles;

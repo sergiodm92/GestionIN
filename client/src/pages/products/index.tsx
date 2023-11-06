@@ -5,8 +5,13 @@ import { getProducts } from "../../store/Slices/products"
 import styles from "./styles/places.module.css"
 import Loading from "../../components/Loading/loading"
 
+const initialState =[{
+    id:"",
+    name: "sin datos",
+}]
+
 const Products = () => {
-    const [initialList, setInitialList]=useState(["sin datos"])
+    const [initialList, setInitialList]=useState(initialState)
     const dispatch = useAppDispatch()
     const products = useAppSelector(getProducts)
 
@@ -17,16 +22,19 @@ const Products = () => {
 
     return (
         <div className={styles.container}>
-            {initialList[0]==="sin datos"?
+            <h1 className={styles.title}>Productos disponibles</h1>
+            <div className={styles.listContainer}>
+            {initialList[0]?.name==="sin datos"?
             <Loading/>
             :products.length ?
                 (products.map((p, i) => {
                     return (
-                        <div key={i}>
+                        <div key={i} className={styles.products}>
                             <p>{p.name}</p>
                         </div>
                     )
-                })) : <p>No hay productos cargados aún</p>}
+                })) : <p className={styles.title}>No hay productos cargados aún</p>}
+        </div>
         </div>
     )
 }
