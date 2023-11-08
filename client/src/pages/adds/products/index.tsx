@@ -2,34 +2,32 @@ import { useRouter } from "next/router"
 import { useEffect, useRef, useState } from "react"
 import  styles from "../styles/Adds.module.css" 
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
-import { getAllAddsMetalBox } from "../../../components/functions/adds/functions";
+import { getAllAddsProducts } from "../../../components/functions/adds/functions";
 import Loading from "../../../components/Loading/loading";
 import Card1 from "../../../components/Cards/Card1";
-import { getAddsMetalBox } from "../../../store/Slices/addsMetalBoxSlice";
+import { getAddsProducts } from "../../../store/Slices/addsProductsSlice";
 
 const initialAddState = [
   {
     id: "",
-    id_doc: "",
-    size: "",
+    products: [{id:"", name:"", units:0}],
     date: 0,
     responsible: "",
-    units: 0,
-    supplier: "",
     place: "",
+    status:""
   },
 ];
 
-const AddsMetalBox = () => {
+const AddsGeneral = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
 
   const [updateData, setUpdateData] = useState(initialAddState);
-  const adds = useAppSelector(getAddsMetalBox);
+  const adds = useAppSelector(getAddsProducts);
   const prevAdds = useRef(adds);
 
   useEffect(() => {
-    getAllAddsMetalBox(dispatch);
+    getAllAddsProducts(dispatch);
   }, []);
 
   useEffect(() => {
@@ -48,11 +46,11 @@ const AddsMetalBox = () => {
       ) : (
         <>
           <div></div>
-          <div className={styles.title}>Ingresos: Cajas Metálicas</div>
+          <div className={styles.title}>Ingresos: Productos</div>
           <div className={styles.subTitle}>
             <div className={styles.smallSpace}>Fecha</div>
-            <div className={styles.bigSpace}>Tamaño</div>
-            <div className={styles.smallSpace}>Cant</div>
+            <div className={styles.bigSpace}>Responsable</div>
+            <div className={styles.smallSpace}>Estado</div>
           </div>
           <div className={styles.cardsContainer}>
             {adds.length > 0
@@ -60,11 +58,11 @@ const AddsMetalBox = () => {
                   return (
                     <div className={styles.card} key={i}>
                       <Card1
-                        onClick={() => router.push(`/adds/metal_box/${add.id_doc}`)}
+                        onClick={() => router.push(`/adds/products/${add.id_doc}`)}
                         space1={new Date(add.date)
                           .toLocaleDateString("es")}
-                        space2={add.size}
-                        space3={add.units}
+                        space2={add.responsible}
+                        space3={add.status}
                       />
                     </div>
                   );
@@ -76,4 +74,4 @@ const AddsMetalBox = () => {
     </div>
   );
 };
-export default AddsMetalBox;
+export default AddsGeneral;

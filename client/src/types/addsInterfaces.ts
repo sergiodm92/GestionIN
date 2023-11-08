@@ -32,7 +32,7 @@ export interface AddMetalBox {
   supplier: string;
   place: string;
 }
-export interface AddGeneral {
+export interface AddProducts {
   id: string;
   products: Products[];
   date: number;
@@ -64,8 +64,8 @@ export interface AddMetalBoxState {
   addMetalBox: AddMetalBox;
   isAllowedExpand: boolean;
 }
-export interface AddGeneralState {
-  addsGeneral: AddGeneral[];
-  addGeneral: AddGeneral;
+export interface AddProductsState {
+  addsProducts: Products[];
+  addProducts: Products;
   isAllowedExpand: boolean;
 }

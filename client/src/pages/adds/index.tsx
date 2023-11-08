@@ -14,12 +14,8 @@ const Adds = ()=>{
                 onClick={()=>router.push('/adds/coffin')}
             />
             <LargeButton
-                title='Cajas Metálicas'
-                onClick={()=>router.push('/adds/metal_box')}
-            />
-            <LargeButton
-                title='Otros'
-                onClick={()=>router.push('/adds/general')}
+                title='Productos'
+                onClick={()=>router.push('/adds/products')}
             />
         </div>
     )

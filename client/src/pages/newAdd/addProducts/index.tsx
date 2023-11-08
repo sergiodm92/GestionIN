@@ -1,24 +1,26 @@
 import React, { useState, useEffect } from "react";
-import { addGeneralInicialState, productsInicialState } from "../../../components/initialState/addGeneral/initialStates";
-import { addGralHandleSubmit, handleAddChange, handleProductsChange } from "../../../components/functions/addGeneral/functions";
-import { FormButton } from "../../../components/Buttons";
-import styles from "../styles/newAdd.module.css";
+import { addGeneralInicialState, productsInicialState, productInicialState } from "../../../components/initialState/addGeneral/initialStates";
+import { addProdHandleSubmit, handleAddChange, handleProductChange, productsGroupHandleSubmit } from "../../../components/functions/addProducts/functions";
+import { AddBtn, FormButton } from "../../../components/Buttons";
 import { getAllPlaces } from "../../../components/functions/places";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { getplace } from "../../../store/Slices/place";
 import Loading from "../../../components/Loading/loading";
 import { getAllProducts } from "../../../components/functions/products";
 import { getProducts } from "../../../store/Slices/products";
+import styles from "../styles/newAdd.module.css";
+import { Products } from "../../../types/addsInterfaces";
 
-const AddGeneral = () => {
+const AddProducts = () => {
   const dispatch = useAppDispatch();
 
   const [add, setAdd] = useState(addGeneralInicialState);
   const [productsGroup, setProductsGroup] = useState(productsInicialState);
   const [date, setDate] = useState("");
   const [place, setPlace] = useState("");
-  const [product, setProduct] = useState("");
+  const [product, setProduct] = useState(productInicialState);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingGroup, setIsLoadingGroup] = useState(false);
 
   const places = useAppSelector(getplace);
   const products = useAppSelector(getProducts);
@@ -32,7 +34,7 @@ const AddGeneral = () => {
     <div className={styles.container}>
       <div className={styles.title}>Nuevo Ingreso</div>
       <form
-        onSubmit={(e) => addGralHandleSubmit(e, date, place, places, add, setIsLoading)}
+        onSubmit={(e) => addProdHandleSubmit(e, date, place, places, add, setAdd, setIsLoading)}
         className={styles.formContainer}
       >
         <div className={styles.dateRow}>
@@ -69,18 +71,20 @@ const AddGeneral = () => {
         </div>
         <div className={styles.formRow}>
           <div>Productos:</div>
-          <div>Nombre:</div>
           <select
             id="product"
             className={styles.input}
-            onChange={(e) => {
-              e.preventDefault()
-              setProduct(e.target.value)
-            }}
+            onChange={(e)=>{
+              setProduct({
+                ...product,
+                name: e.target.value,
+              });
+            }
+            }
           >
             <option defaultValue={"-"}>-</option>
             {products?.map((p, i) => (
-              <option key={i} value={p.id}>
+              <option key={i} value={p.name}>
                 {p.name}
               </option>
             ))}
@@ -91,11 +95,37 @@ const AddGeneral = () => {
             type="number"
             id="units"
             name="units"
-            value={productsGroup.units ? productsGroup.units : ""}
-            onChange={(e) => handleProductsChange(e, productsGroup, setProductsGroup)}
+            value={product.units ? product.units : ""}
+            onChange={(e) => handleProductChange(e, product, setProduct)}
           />
         </div>
-        
+        <div className={styles.buttonContainer}>
+            <AddBtn
+              title={isLoadingGroup ? <Loading /> : "Agregar"}
+              loading={isLoadingGroup}
+              disabled={isLoadingGroup}
+              onClick={(e: any) => productsGroupHandleSubmit(e, product, products, add, setProduct, setIsLoadingGroup)}
+            />
+          </div>
+          {
+            add.products.length ?
+              add.products.map((p: Products, i) => {
+                return (
+                  <div key={i}>
+                    <div className={styles.formRow}>
+                      <div>Nombre: </div>
+                      <div>{p.name}</div>
+                    </div>
+                    <div className={styles.formRow}>
+                      <div>Unidades: </div>
+                      <div>{p.units}</div>
+                    </div>
+                  </div>
+                )
+              })
+              : null
+          }
+
         <div className={styles.formRow}>
           <div>Responsable:</div>
           <input
@@ -107,7 +137,6 @@ const AddGeneral = () => {
             onChange={(e) => handleAddChange(e, add, setAdd)}
           />
         </div>
-
         <div className={styles.buttonContainer}>
           <FormButton title={isLoading ? <Loading /> : "Guardar"} loading={isLoading} disabled={isLoading} />
         </div>
@@ -115,4 +144,4 @@ const AddGeneral = () => {
     </div>
   );
 };
-export default AddGeneral;
+export default AddProducts;

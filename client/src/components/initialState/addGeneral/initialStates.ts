@@ -6,8 +6,15 @@ export const addGeneralInicialState = {
   place: "",
   status: ""
 }
-export const productsInicialState = {
+export const productInicialState = {
   id: "",
   name: "",
   units: 0
 }
+export const productsInicialState = [
+  {
+    id: "",
+    name: "",
+    units: 0
+  }
+]

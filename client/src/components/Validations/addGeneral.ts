@@ -1,7 +1,7 @@
-import { AddGeneral } from "../../types/addsInterfaces";
+import { AddProducts } from "../../types/addsInterfaces";
 import { createToast } from "../Notifications/Notifications";
 
-export const validateAddGeneral = (form: AddGeneral) => {
+export const validateAddGeneral = (form: AddProducts) => {
   const validationList = [
     {
       field: "date",
@@ -14,31 +14,20 @@ export const validateAddGeneral = (form: AddGeneral) => {
         condition: !form.place,
       },
       {
-        field: "product",
-        message: "Debe proporcionar un producto",
-        condition: !form.product,
+        field: "products",
+        message: "Debe proporcionar al menos un producto y su cantidad",
+        condition: !form.products.length,
       },
-    {
-      field: "amount",
-      message: "Debe proporcionar la cantidad",
-      condition: isNaN(form.amount),
-    },
     {
       field: "responsible",
       message: "Debe proporcionar un responsable",
       condition: !form.responsible,
     },
 
-    {
-      field: "supplier",
-      message: "Debe proporcionar un proveedor",
-      condition: !form.supplier,
-    },
-
   ];
 
   for (const { field, message, condition } of validationList) {
-    if (condition || !form[field as keyof AddGeneral]) {
+    if (condition || !form[field as keyof AddProducts]) {
       createToast("error", message)
       return false;
     }

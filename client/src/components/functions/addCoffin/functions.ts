@@ -5,9 +5,8 @@ import { deleteAddCoffinApi, postAddCoffinApi } from "../../../services/addCoffi
 import { generateRandomID } from "../../functions";
 import { Place } from "../../../types/place";
 import { validateAddCoffin, validateCoffin, validateMetalBox } from "../../Validations/addCoffin";
-import { deleteAddGeneralApi } from "../../../services/addGeneralApi";
-import { deleteAddMetalBoxApi } from "../../../services/addMetalBoxApi";
 import { addCoffinInicialState, initialCoffin, initialMetalBox } from "../../initialState/addCoffin/initialStates";
+import { deleteAddProductsApi } from "../../../services/addProductsApi";
 
 export const handleAddChange = (e: any, add: AddCoffin, setAdd: any)=>{
     e.preventDefault();
@@ -95,42 +94,6 @@ export const coffinGroupHandleSubmit = async (e:any, coffin: Coffin, add: AddCof
   setIsOn(false)
   setIsLoading(false)
 }
-//-----------------METAL BOX----------------------------------------------------------
-
-export const handleMboxSize = (e: any, mbox: Mbox, setMbox: any) => {
-  e.preventDefault();
-  setMbox({
-    ...mbox,
-    size: e.target.value,
-  });
-};
-
-export const handleMboxChange = (e: any, mbox: Mbox, setMbox: any)=>{
-  e.preventDefault();
-  setMbox({
-    ...mbox,
-    [e.target.name]: e.target.value.trim(),
-  });
-}
-
-export const mboxGroupHandleSubmit = async (e:any, mbox: Mbox, add: AddCoffin, setMbox: any, setIsLoading: React.Dispatch<React.SetStateAction<boolean>>)=>{
-  e.preventDefault();
-  setIsLoading(true)
-  try {
-    if(validateMetalBox(mbox)){
-      add.metal_box.push(mbox)
-    }
-} catch (error) {
-    createToast("warning","ocurrio un error, vuelva a intentar");
-    console.error(error);
-}
-setMbox(initialMetalBox)
-const selectElement = document.getElementById("mbsize") as HTMLSelectElement;
-selectElement.selectedIndex = 0;
-setIsLoading(false)
-}
-
-//------------------------------------------------------------------------------------
 
 export const addHandleSubmit = async (e:any, date: string, add: AddCoffin, setIsLoading: React.Dispatch<React.SetStateAction<boolean>>)=>{
     e.preventDefault();
@@ -185,8 +148,8 @@ export const handleDeleteAddCoffin = (id:string, router: any)=>{
   )
 }
 
-const alertDeleteAddGeneral = async (id: string, id_doc: string, router: any)=>{
-    const response = await deleteAddGeneralApi(id, id_doc);
+const alertDeleteAddProducts = async (id: string, id_doc: string, router: any)=>{
+    const response = await deleteAddProductsApi(id, id_doc);
     if (response.data) {
       createToast("success","Se elimino correctamente");
       router.push('/adds/general')
@@ -195,30 +158,11 @@ const alertDeleteAddGeneral = async (id: string, id_doc: string, router: any)=>{
     }
 }
 
-  export const handleDeleteAddGeneral = (id:string, id_doc: string, router: any)=>{
+  export const handleDeleteAddProducts = (id:string, id_doc: string, router: any)=>{
     questionAlert(
       "Eliminar Ingreso",
       "¿Esta seguro que desea eliminar el ingreso?",
-      ()=>alertDeleteAddGeneral(id, id_doc, router),
+      ()=>alertDeleteAddProducts(id, id_doc, router),
       "No se elimino el ingreso"
     )
   }
-
-  const alertDeleteAddMB = async (id: string, id_doc:string, router: any) => {
-    const response = await deleteAddMetalBoxApi(id, id_doc);
-              if (response.data) {
-                createToast("success","Se elimino correctamente");
-                router.push('/adds/metal_box')
-              } else {
-              createToast("warning","No se pudo eliminar, intentente nuevamente");
-              }
-  }
-
-    export const handleDeleteAddMetalBox = (id:string, id_doc: string, router: any)=>{
-      questionAlert(
-        "Eliminar Ingreso",
-        "¿Esta seguro que desea eliminar el ingreso?",
-        ()=>alertDeleteAddMB(id, id_doc, router),
-        "No se elimino el ingreso"
-      )
-    }

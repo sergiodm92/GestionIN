@@ -1,9 +1,7 @@
 import { getAddCoffinByIdApi, getAllAddsCoffinApi } from "../../../services/addCoffinApi"
-import { getAddGeneralByIdApi, getAllAddsGeneralApi } from "../../../services/addGeneralApi";
-import { getAddMetalBoxByIdApi, getAllAddsMetalBoxApi } from "../../../services/addMetalBoxApi";
+import { getAddProductsByIdApi, getAllAddsProductsApi } from "../../../services/addProductsApi";
 import { setAddsData, setAddData } from "../../../store/Slices/addsCoffinSlice"
-import { setAddGralData, setAddsGralData } from "../../../store/Slices/addsGeneralSlice";
-import { setAddMBData, setAddsMBData } from "../../../store/Slices/addsMetalBoxSlice";
+import { setAddProdData, setAddsProdData } from "../../../store/Slices/addsProductsSlice";
 
 export const getAddCoffinById = async (dispatch: any, id:string)=>{
     try{
@@ -25,40 +23,20 @@ export const getAllAddsCoffin = async (dispatch: any)=>{
     }
 }
 
-export const getAddGeneralById = async (dispatch: any, id:string)=>{
+export const getAddProductsById = async (dispatch: any, id:string)=>{
     try{
-        const add = await getAddGeneralByIdApi(id)
-        dispatch(setAddGralData(add.data.data))
+        const add = await getAddProductsByIdApi(id)
+        dispatch(setAddProdData(add.data.data))
     }
     catch(err){
         console.log(err)
     }
 }
 
-export const getAllAddsGeneral = async (dispatch: any)=>{
+export const getAllAddsProducts = async (dispatch: any)=>{
     try{
-        const allAdds = await getAllAddsGeneralApi()
-        dispatch(setAddsGralData(allAdds.data))
-    }
-    catch(err){
-        console.log(err)
-    }
-}
-
-export const getAddMetalBoxById = async (dispatch: any, id:string)=>{
-    try{
-        const add = await getAddMetalBoxByIdApi(id)
-        dispatch(setAddMBData(add.data.data))
-    }
-    catch(err){
-        console.log(err)
-    }
-}
-
-export const getAllAddsMetalBox = async (dispatch: any)=>{
-    try{
-        const allAdds = await getAllAddsMetalBoxApi()
-        dispatch(setAddsMBData(allAdds.data))
+        const allAdds = await getAllAddsProductsApi()
+        dispatch(setAddsProdData(allAdds.data))
     }
     catch(err){
         console.log(err)

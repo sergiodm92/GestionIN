@@ -1,3 +1,4 @@
+import { AddProducts, Products } from "./addsInterfaces";
 import { Coffin } from "./interfaces";
 
 export interface CoffinStock {
@@ -27,16 +28,14 @@ export interface CoffinStock {
     color: string
   }
   export interface GetMetalBoxStock {
+    id_add:string;
     size: string;
     place: string;
     units: number;
-    coffin: Coffin
   }
-  export interface GetGeneralStock {
-    product: string;
+  export interface GetProductsStock {
+    products: AddProducts[];
     place: string;
-    amount: number;
-    coffin: Coffin
   }
   
 
@@ -49,7 +48,7 @@ export interface CoffinStock {
     metalBoxStock: GetMetalBoxStock[];
     isAllowedExpand: boolean;
   }
-  export interface GeneralStockState {
-    generalStock: GetGeneralStock[];
+  export interface ProductsStockState {
+    productsStock: Products[];
     isAllowedExpand: boolean;
   }

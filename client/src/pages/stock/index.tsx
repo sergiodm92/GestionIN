@@ -1,27 +1,21 @@
-import { useEffect, useRef, useState } from "react";
+import { GetServerSideProps } from "next";
+import React, { useEffect, useRef, useState } from "react";
+import styles from "./styles/stock.module.css";
+import { getAllCoffinStock, getAllMboxStock, getAllProductsStock } from "../../components/functions/stock";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { getCoffinStock } from "../../store/Slices/coffinStockSlice";
-import { getGeneralStock } from "../../store/Slices/generalStockSlice";
+import { getProductsStock } from "../../store/Slices/productsStockSlice";
 import { getmetalBoxStock } from "../../store/Slices/metalBoxStockSlice";
-import {
-  getAllCoffinStock,
-  getAllGeneralStock,
-  getAllMetalBoxStock,
-} from "../../components/functions/stock";
 import Loading from "../../components/Loading/loading";
-import styles from "./styles/stock.module.css";
 
 const initialData = [
   {
-    id_coffin: "",
-    place: "",
+    id: "",
     units: 0,
-    coffin: {
-      type: "",
-      size: "",
-      color: "",
-      metal_box: false,
-    },
+    type: "",
+    size: "",
+    color: "",
+    mbox: false,
   },
 ];
 
@@ -34,15 +28,15 @@ const AllStock = () => {
   const dispatch = useAppDispatch();
 
   const stock = useAppSelector(getCoffinStock);
-  const generalStock = useAppSelector(getGeneralStock);
+  const productsStock = useAppSelector(getProductsStock);
   const MBStock = useAppSelector(getmetalBoxStock);
 
   const prevStock = useRef(stock);
 
   useEffect(() => {
     getAllCoffinStock(dispatch);
-    getAllGeneralStock(dispatch);
-    getAllMetalBoxStock(dispatch);
+    getAllProductsStock(dispatch);
+    getAllMboxStock(dispatch);
   }, []);
 
   useEffect(() => {
@@ -51,40 +45,25 @@ const AllStock = () => {
       prevStock.current = stock;
     }
   }, [stock]);
-
-  useEffect(() => {
-    if (prevStock.current !== stock) {
-      setUpdateData(stock);
-      prevStock.current = stock;
-    }
-  }, [stock]);
-
-  let filteredData = updateData.filter((s) =>
-    s.id_coffin.toLowerCase().includes(searchId.toLowerCase())
+  const filteredData = updateData.filter((s) =>
+    s.id.toLowerCase().includes(searchId.toLowerCase())
   );
-  const filteredGeneralData = generalStock.filter((s) =>
-    s.product.toLowerCase().includes(searchProduct.toLowerCase())
+  const filteredProductsData = productsStock.filter((s) =>
+    s.name.toLowerCase().includes(searchProduct.toLowerCase())
   );
   const filteredMBData = MBStock.filter((s) =>
     s.size.toLowerCase().includes(searchSize.toLowerCase())
   );
-  const handleChangeTableOne = (e: any) => {
-    e.preventDefault();
-    setSearchId(e.target.value);
-    filteredData = updateData.filter((s) =>
-      s.id_coffin.toLowerCase().includes(searchId.toLowerCase())
-    );
-  };
 
   return (
     <div className={styles.container}>
       {updateData.length === 0 ? (
         <div className={styles.noStock}>No hay Stock disponible</div>
-      ) : updateData[0].id_coffin === "" ? (
+      ) : updateData[0].id === "" ? (
         <Loading />
       ) : (
         <>
-          <div className={styles.title}>Stock total disponible</div>
+          <div className={styles.title}>Stock Total Disponible</div>
 
           <>
             <div className={styles.subTitle}>Ataúdes</div>
@@ -95,37 +74,35 @@ const AllStock = () => {
                   placeholder="🔎"
                   value={searchId}
                   className={styles.search}
-                  onChange={handleChangeTableOne}
+                  onChange={(e) => setSearchId(e.target.value)}
                 />
               </div>
               {filteredData.length > 0 ? (
-                <table className={styles.table}>
-                  <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>Tipo</th>
-                      <th>Tamaño</th>
-                      <th>Color</th>
-                      <th>Caja Metálica</th>
-                      <th>Unidades</th>
+              <table className={styles.table}>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Tipo</th>
+                    <th>Tamaño</th>
+                    <th>Color</th>
+                    <th>Caja Metálica</th>
+                    <th>Unidades</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredData.map((d, i) => (
+                    <tr key={i}>
+                      <td>{d.id}</td>
+                      <td>{d.type}</td>
+                      <td>{d.size}</td>
+                      <td>{d.color}</td>
+                      <td>{d.mbox ? "Si" : "No"}</td>
+                      <td>{d.units}</td>
                     </tr>
-                  </thead>
-                  <tbody>
-                    {filteredData.map((s, i) => (
-                      <tr key={i}>
-                        <td>{s.id_coffin}</td>
-                        <td>{s.coffin.type}</td>
-                        <td>{s.coffin.size}</td>
-                        <td>{s.coffin.color}</td>
-                        <td>{s.coffin.metal_box ? "Si" : "No"}</td>
-                        <td>{s.units}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              ) : (
-                <p>No hay items disponibles</p>
-              )}
+                  ))}
+                </tbody>
+              </table>
+              ) :  <p>No hay items disponibles</p>}
             </div>
           </>
 
@@ -160,14 +137,12 @@ const AllStock = () => {
                     ))}
                   </tbody>
                 </table>
-              ) : (
-                <p>No hay items disponibles</p>
-              )}
+              ) :  <p>No hay items disponibles</p>}
             </div>
           </>
-
+          
           <>
-            <div className={styles.subTitle}>Otros</div>
+            <div className={styles.subTitle}>Productos</div>
             <div className={styles.tableContainer}>
               <div className={styles.searchContaier}>
                 <input
@@ -178,28 +153,26 @@ const AllStock = () => {
                   onChange={(e) => setSearchProduct(e.target.value)}
                 />
               </div>
-              {filteredGeneralData.length > 0 ? (
+              {filteredProductsData.length > 0 ? (
                 <table className={styles.table}>
                   <thead>
                     <tr>
-                      <th>Lugar</th>
-                      <th>Tamaño</th>
+                      <th>id</th>
+                      <th>Nombre</th>
                       <th>Cant</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {filteredGeneralData.map((s, i) => (
+                    {filteredProductsData.map((s, i) => (
                       <tr key={i}>
-                        <td>{s.place}</td>
-                        <td>{s.product}</td>
-                        <td>{s.amount}</td>
+                        <td>{s.id}</td>
+                        <td>{s.name}</td>
+                        <td>{s.units}</td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
-              ) : (
-                <p>No hay items disponibles</p>
-              )}
+              ) : <p>No hay items disponibles</p>}
             </div>
           </>
         </>
@@ -207,5 +180,4 @@ const AllStock = () => {
     </div>
   );
 };
-
 export default AllStock;

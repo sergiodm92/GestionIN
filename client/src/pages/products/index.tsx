@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useAppDispatch, useAppSelector } from "../../store/hooks"
 import { getAllProducts } from "../../components/functions/products"
 import { getProducts } from "../../store/Slices/products"
-import styles from "./styles/places.module.css"
+import styles from "./styles/products.module.css"
 import Loading from "../../components/Loading/loading"
 
 const initialState =[{

@@ -6,9 +6,9 @@ import {coffinStockSlice} from './Slices/coffinStockSlice'
 import {metalBoxStockSlice} from './Slices/metalBoxStockSlice'
 import {deceasedsSlice} from './Slices/deceasedSlice'
 import { placeSlice } from './Slices/place'
-import {generalStockSlice} from './Slices/generalStockSlice'
+import {productsStockSlice} from './Slices/productsStockSlice'
 import {addsMetalBoxSlice} from './Slices/addsMetalBoxSlice'
-import {addsGeneralSlice} from './Slices/addsGeneralSlice'
+import {addsProductsSlice} from './Slices/addsProductsSlice'
 import { cementerySlice } from './Slices/cementery'
 import { productsSlice } from './Slices/products'
 
@@ -18,12 +18,12 @@ export const store = configureStore({
       user: userSlice.reducer,
       addsCoffin: addsCoffinSlice.reducer,
       addsMetalBox: addsMetalBoxSlice.reducer,
-      addsGeneral: addsGeneralSlice.reducer,
+      addsProducts: addsProductsSlice.reducer,
       requests: requestsSlice.reducer,
       deceaseds: deceasedsSlice.reducer,
       coffinStock: coffinStockSlice.reducer,
       metalBoxStock: metalBoxStockSlice.reducer,
-      generalStock: generalStockSlice.reducer,
+      productsStock: productsStockSlice.reducer,
       place: placeSlice.reducer,
       products: productsSlice.reducer,
       cementery: cementerySlice.reducer

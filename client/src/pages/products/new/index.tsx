@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { FormButton } from "../../../components/Buttons";
 import { handleSubmit } from "../../../components/functions/products";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
-import styles from "../styles/places.module.css";
+import styles from "../styles/products.module.css";
 import Loading from "../../../components/Loading/loading";
 import { getAllProducts } from "../../../components/functions/products";
 import { getProducts } from "../../../store/Slices/products";
