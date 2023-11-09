@@ -72,7 +72,7 @@ const AddCoffinDetail = ({ id }: { id: string })=>{
               </div>
               <div className={styles.items}>
                 <div className={styles.subTitle}>Estado:</div>
-                <div className={styles.text}>{add.state==="new"? "Nuevo":add.state==="pending"?"Pendiente":"Completo"}</div>
+                <div className={styles.text}>{add.status==="pending"?"Pendiente":"Completo"}</div>
               </div>
               <div className={add.coffins.length? styles.itemsGroups: styles.none}>
                 <div className={styles.subTitle}>Ataudes:</div>

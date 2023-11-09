@@ -18,11 +18,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
 
-  const { id_doc } = params;
+  const { id } = params;
 
   return {
     props: {
-      id_doc,
+      id,
     },
   };
 };
