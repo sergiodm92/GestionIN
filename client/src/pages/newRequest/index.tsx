@@ -6,8 +6,6 @@ import FormRequest from "../../components/newRequest/components/formRequest";
 import { FormButton } from "../../components/Buttons";
 import styles from "./styles/newRequest.module.css"
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { getCoffinStock } from "../../store/Slices/coffinStockSlice";
-import { getAllCoffinStock } from "../../components/functions/stock";
 import { getAllPlaces } from "../../components/functions/places";
 import { getplace } from "../../store/Slices/place";
 import Loading from "../../components/Loading/loading";

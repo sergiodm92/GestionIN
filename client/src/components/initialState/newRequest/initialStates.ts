@@ -4,7 +4,9 @@ export const initialRequest = {
     date: 0,
     place: "",
     funeral: "",
+    id_add: "",
     id_coffin_group: "",
+    id_add_metal_box: "",
     id_metal_box_group: "",
     holder_name: "",
     holder_relationship: "",
@@ -15,6 +17,7 @@ export const initialRequest = {
     additional: "",
     wreath: false,
     present: "",
+    products: [],
     burial_place: "",
     burial_time: "",
     cladding: "",
@@ -46,6 +49,7 @@ export const initialDate={
     time:""
 }
 export const initialCoffin={
+    id_add: "",
     place:{name: "", initials: ""},
     type:{name: "", initials: ""},
     size:{name: "", initials: ""},

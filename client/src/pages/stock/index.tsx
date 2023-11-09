@@ -1,12 +1,11 @@
-import { GetServerSideProps } from "next";
 import React, { useEffect, useRef, useState } from "react";
-import styles from "./styles/stock.module.css";
 import { getAllCoffinStock, getAllMboxStock, getAllProductsStock } from "../../components/functions/stock";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { getCoffinStock } from "../../store/Slices/coffinStockSlice";
 import { getProductsStock } from "../../store/Slices/productsStockSlice";
 import { getmetalBoxStock } from "../../store/Slices/metalBoxStockSlice";
 import Loading from "../../components/Loading/loading";
+import styles from "./styles/stock.module.css";
 
 const initialData = [
   {

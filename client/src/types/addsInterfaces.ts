@@ -20,7 +20,7 @@ export interface AddCoffin {
   place: string;
   coffins: Coffin[],
   metal_box: MetalBox[],
-  state: string;
+  status: string;
 }
 export interface AddMetalBox {
   id: string;

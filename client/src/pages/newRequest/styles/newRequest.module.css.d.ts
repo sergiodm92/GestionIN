@@ -14,6 +14,7 @@ declare const styles: {
     switch: string;
     dateInput: string;
     newCementery: string;
+    productsGroup: string;
   };
   
   export default styles;

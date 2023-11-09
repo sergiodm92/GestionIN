@@ -4,32 +4,36 @@ import { PostRequest, RequestState, Request } from '../../types/requestsInterfac
 
 
 const initialState: RequestState = {
-    requests: [],
-    request:{
+	requests: [],
+	request: {
 		request: {
-			cladding: "",
-			additional: "",
 			id: "",
-			agreement: "",
-			burial_time: "",
-			wreath: false,
 			id_deceased: "",
-			way_to_pay: "",
-			policy: "",
-			id_coffin: "",
-			burial_place: "",
-			service_improvement: "",
-			holder_relationship: "",
-			certificate_number: 0,
 			date: 0,
-			present: "",
-			funeral: "",
 			place: "",
-			holder_name: ""
+			funeral: "",
+			id_add: "",
+			id_coffin_group: "",
+			id_add_metal_box: "",
+			id_metal_box_group: "",
+			holder_name: "",
+			holder_relationship: "",
+			policy: "",
+			certificate_number: 0,
+			way_to_pay: "",
+			agreement: "",
+			additional: "",
+			wreath: false,
+			present: "",
+			products: [],
+			burial_place: "",
+			burial_time: "",
+			cladding: "",
+			service_improvement: "",
 		},
 		deceased: {
 			name: "",
-			dod:0,
+			dod: 0,
 			tombstone: false,
 			leyend: "",
 			id: "",
@@ -40,32 +44,32 @@ const initialState: RequestState = {
 			id_request: "",
 			dob: 0,
 			cementery: "",
-			cementery_type:"",
+			cementery_type: "",
 			sector: "",
 			parcel: "",
 			level: 0,
 			first_level_name: "",
-  			second_level_name: "",
+			second_level_name: "",
 			religion_symbol: ""
 		}
-    },
-    isAllowedExpand: true
+	},
+	isAllowedExpand: true
 }
 
 export const requestsSlice = createSlice({
-  name: 'requests',
-  initialState,
-  reducers: {
-    setRequestsData: (state, action: PayloadAction<Array<Request>>) => {
-      state.requests = action.payload;
-    },
-    setRequestData: (state, action: PayloadAction<PostRequest>) => {
-      state.request = action.payload;
-    },
-    setIsAllowedExpand: (state, action: PayloadAction<boolean>) => {
-      state.isAllowedExpand = action.payload;
-    }
-  }
+	name: 'requests',
+	initialState,
+	reducers: {
+		setRequestsData: (state, action: PayloadAction<Array<Request>>) => {
+			state.requests = action.payload;
+		},
+		setRequestData: (state, action: PayloadAction<PostRequest>) => {
+			state.request = action.payload;
+		},
+		setIsAllowedExpand: (state, action: PayloadAction<boolean>) => {
+			state.isAllowedExpand = action.payload;
+		}
+	}
 });
 
 export const { setRequestsData, setRequestData, setIsAllowedExpand } = requestsSlice.actions;

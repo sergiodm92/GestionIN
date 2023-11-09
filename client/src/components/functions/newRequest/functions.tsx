@@ -83,11 +83,13 @@ export const handleSubmit = async (
 ) => {
   e.preventDefault();
   setIsLoading(true)
-
+  console.log(request)
   deceased.id = generateRandomID();
   request.id = generateRandomID();
   deceased.id_request = request.id;
   request.id_deceased = deceased.id;
+  request.id_add=coffin.id_add
+  deceased.level=+deceased.level
 
   const dateString = `${date.day}T${date.time}:00`;
   const milliseconds = new Date(dateString).getTime();
@@ -102,9 +104,8 @@ export const handleSubmit = async (
   request.date = milliseconds3;
 
   request.wreath = isOn;
-
+console.log(coffin)
   request.id_coffin_group = `${coffin.place.initials}${coffin.type.initials}${coffin.size.initials}${coffin.color.initials}${coffin.metal_box.initials}`;
-  
   if (validateDeceased(deceased) && validateRequest(request)) {
     const json = {
       request: request,

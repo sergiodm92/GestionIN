@@ -5,7 +5,7 @@ export const addCoffinInicialState = {
   place: "",
   coffins: [],
   metal_box: [],
-  state: ""
+  status: ""
   }
 export const initialCoffin={
   id:"",

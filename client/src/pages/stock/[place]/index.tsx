@@ -2,11 +2,11 @@ import { GetServerSideProps } from "next";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import React, { useEffect, useRef, useState } from "react";
 import { getCoffinStockByPlace, getMboxStockByPlace, getProductsStockByPlace } from "../../../components/functions/stock";
-import styles from "../styles/stock.module.css";
 import Loading from "../../../components/Loading/loading";
 import { getCoffinStock } from "../../../store/Slices/coffinStockSlice";
 import { getProductsStock } from "../../../store/Slices/productsStockSlice";
 import { getmetalBoxStock } from "../../../store/Slices/metalBoxStockSlice";
+import styles from "../styles/stock.module.css";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { params } = context;
@@ -159,7 +159,7 @@ const Stock = ({ place }: { place: string }) => {
               ) :  <p>No hay items disponibles</p>}
             </div>
           </>
-          
+
           <>
             <div className={styles.subTitle}>Productos</div>
             <div className={styles.tableContainer}>

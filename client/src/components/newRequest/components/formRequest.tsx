@@ -1,15 +1,26 @@
 'use client'
 import { useEffect } from "react";
-import { FormRequest } from "../../../types/requestsInterfaces";
+import { FormRequest, Request } from "../../../types/requestsInterfaces";
 import { handleRequestChange, handleToggleSwitch } from "../../functions/newRequest/functions";
 import styles from "../../../pages/newRequest/styles/newRequest.module.css";
 import { useState } from "react";
 import { types, sizes, colors } from "../../arrays";
-import { SwitchBtn } from "../../Buttons";
+import { AddBtn, SwitchBtn } from "../../Buttons";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { getCoffinStock } from "../../../store/Slices/coffinStockSlice";
-import { getCoffinStockByPlace, getMetalBoxStockByPlace } from "../../functions/stock";
+import { getCoffinStockByPlace, getMboxStockByPlace, getProductsStockByPlace } from "../../functions/stock";
 import { getmetalBoxStock } from "../../../store/Slices/metalBoxStockSlice";
+import { getProductsStock } from "../../../store/Slices/productsStockSlice";
+import Loading from "../../Loading/loading";
+import { Products } from "../../../types/addsInterfaces";
+import { createToast } from "../../Notifications/Notifications";
+import { validateProduct } from "../../Validations/addCoffin";
+
+const initialState = {
+  id:"",
+  name:"",
+  units:0
+}
 
 const FormRequest = (data: FormRequest) => {
   const {
@@ -27,18 +38,21 @@ const FormRequest = (data: FormRequest) => {
   const [placeSelected, setPlaceSelected] = useState("");
   const [isLoadingSelectPlace, setIsLoadingSelectPlace] = useState(false)
   const [isMetalBox, setIsMetalBox] = useState(false)
+  const [isLoadingProducts, setIsLoadingProducts] = useState(false)
+  const [product, setProduct] = useState(initialState)
+  const [productSelectedUnits, setProductSelectedUnits] = useState("")
 
   const dispatch = useAppDispatch();
 
   const stock = useAppSelector(getCoffinStock);
   const mboxStock = useAppSelector(getmetalBoxStock);
-  // const generalStock = useAppSelector(getGeneralStock);
+  const productsStock = useAppSelector(getProductsStock);
 
 
   useEffect(() => {
     getCoffinStockByPlace(dispatch, placeSelected);
-    getMetalBoxStockByPlace(dispatch, placeSelected)
-    // getMetalBoxStockByPlace(dispatch, place);
+    getMboxStockByPlace(dispatch, placeSelected)
+    getProductsStockByPlace(dispatch, placeSelected)
   }, [placeSelected]);
 
   useEffect(() => {
@@ -109,6 +123,7 @@ const FormRequest = (data: FormRequest) => {
 
   const handleSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedSize = e.target.value;
+    console.log(selectedSize, sizes)
     const size_initial = sizes.find((s) => s.name == selectedSize)?.initials;
 
     // Filtrar los colores disponibles para el tipo y tamaño seleccionados
@@ -159,24 +174,81 @@ const FormRequest = (data: FormRequest) => {
 
   const handleMetalBoxChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedMetalBox = e.target.value;
+    const coffinSelected = stock?.filter(
+        (s) =>
+          s.type === coffin.type.name &&
+          s.size === coffin.size.name &&
+          s.color === coffin.color.name &&
+          s.mbox.toString() == selectedMetalBox
+      ) ?? [];
+    setCoffin({
+      ...coffin,
+      id_add: coffinSelected[0]?.id_add,
+    });
     setIsMetalBox(e.target.value === "true")
     let metal_box_initial = "";
-    if (selectedMetalBox) {
+    if (selectedMetalBox=="true") {
       metal_box_initial = "TR";
     } else {
       metal_box_initial = "FS";
     }
     // Actualizar la selección de metal_box
-    coffin.metal_box = { name: selectedMetalBox, initials: metal_box_initial };
+    setCoffin((prevCoffin: any) => ({
+      ...prevCoffin,
+      metal_box: { name: selectedMetalBox, initials: metal_box_initial },
+    }));
   };
 
   const handleNewMetalBoxChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault()
+    const array = e.target.value.split(",")
     setRequest({
       ...request,
-      id_metal_box_group: e.target.value,
+      id_metal_box_group: array[0],
+      id_add_metal_box: array[1]
     });
   };
+
+  const handleProductNameChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    e.preventDefault()
+    const array = e.target.value.split(",")
+    setProductSelectedUnits(array[2])
+    setProduct({
+      ...product,
+      name: array[0],
+      id: array[1]
+    });
+  };
+  const handleProductChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault()
+    setProduct({
+      ...product,
+      [e.target.name]: +e.target.value
+    });
+  };
+
+  const productGroupHandleSubmit = async (e: any, product: Products, request: Request, setProduct: any, productSelectedUnits:number, setIsLoading: React.Dispatch<React.SetStateAction<boolean>>) => {
+    e.preventDefault();
+    setIsLoading(true)
+    console.log(product)
+    try {
+      if(!product.units || product.units > productSelectedUnits){
+        createToast("warning", "no hay stock suficiente")
+        setIsLoading(false)
+        return
+      }
+      else if (validateProduct(product)) {
+        request.products.push(product)
+      }
+    } catch (error) {
+      createToast("warning", "ocurrio un error, vuelva a intentar");
+      console.error(error);
+    }
+    setProduct(initialState)
+    const selectElement = document.getElementById("mbsize") as HTMLSelectElement;
+    selectElement.selectedIndex = 0;
+    setIsLoading(false)
+  }
 
   return (
     <div className={styles.formContainer}>
@@ -363,7 +435,7 @@ const FormRequest = (data: FormRequest) => {
           <option defaultValue="">-</option>
           {mboxStock.length > 0 &&
             mboxStock.map((metalBox, i) => (
-              <option key={i} value={metalBox.size}>
+              <option key={i} value={[metalBox.size, metalBox.id_add]}>
                 {metalBox.size}
               </option>
             ))}
@@ -403,6 +475,64 @@ const FormRequest = (data: FormRequest) => {
           onChange={(e) => handleRequestChange(e, request, setRequest)}
         />
       </div>
+        <div>Agregar Productos:</div>
+        <div className={styles.productsGroup}>
+          <div className={styles.formRow}>
+            <div>Producto:</div>
+            <select
+              id="mbsize"
+              className={styles.input}
+              onChange={(e) => handleProductNameChange(e)}
+            >
+              <option defaultValue={"-"}>-</option>
+              {productsStock.map((p, i) => (
+                <option key={i} value={[p.name, p.id, p.units.toString()]}>
+                  {p.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className={styles.formRow}>
+            <div>Unidades:</div>
+            <input
+              className={styles.input}
+              type="number"
+              id="pUnits"
+              name="units"
+              value={product.units ? product.units : ""}
+              onChange={(e) => handleProductChange(e)}
+            />
+            {product.units && product.units > +productSelectedUnits?
+            <p>No hay stock suficiente, solo hay {productSelectedUnits} disponibles</p>
+          : null}
+          </div>
+          <div className={styles.buttonContainer}>
+            <AddBtn
+              title={isLoadingProducts ? <Loading /> : "Agregar"}
+              loading={isLoadingProducts}
+              disabled={isLoadingProducts}
+              onClick={(e: any) => productGroupHandleSubmit(e, product, request, setProduct, +productSelectedUnits, setIsLoadingProducts)}
+            />
+          </div>
+        </div>
+        {
+            request.products.length ?
+              request.products.map((p, i) => {
+                return (
+                  <div key={i}>
+                    <div className={styles.formRow}>
+                      <div>Producto: </div>
+                      <div>{p.name}</div>
+                    </div>
+                    <div className={styles.formRow}>
+                      <div>Unidades: </div>
+                      <div>{p.units}</div>
+                    </div>
+                  </div>
+                )
+              })
+              : null
+          }
       <div className={styles.formRow}>
         <div>Lugar de inhumación: </div>
         <input

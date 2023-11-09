@@ -61,6 +61,7 @@ export const getRequestsByIdApi = async (
         "auth-token": token,
       },
     });
+    console.log(response)
     return response.data;
   } catch (error) {
     throw error;

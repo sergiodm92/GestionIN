@@ -1,5 +1,6 @@
 import { CoffinInitials, DateType } from "../types/interfaces";
 import { GetCoffinStock } from "../types/stockInterfaces";
+import { Products } from "./addsInterfaces";
 import { Cementery } from "./cementery";
 import { Place } from "./place";
 
@@ -9,7 +10,9 @@ export interface Request {
     date: number;
     place: string;
     funeral: string;
+    id_add: string;
     id_coffin_group: string;
+    id_add_metal_box: string;
     id_metal_box_group: string;
     holder_name: string;
     holder_relationship: string;
@@ -20,6 +23,7 @@ export interface Request {
     additional: string;
     wreath: boolean;
     present: string;
+    products: Products[];
     burial_place: string;
     burial_time: string;
     cladding: string;
@@ -77,6 +81,11 @@ export interface  FormRequest {
   setCoffin: any;
 }
 export interface PostRequest{
+  request: Request;
+  deceased: Deceased
+}
+export interface GetRequest{
+  id: string;
   request: Request;
   deceased: Deceased
 }

@@ -58,7 +58,7 @@ const AddsGeneral = () => {
                   return (
                     <div className={styles.card} key={i}>
                       <Card1
-                        onClick={() => router.push(`/adds/products/${add.id_doc}`)}
+                        onClick={() => router.push(`/adds/products/${add.id}`)}
                         space1={new Date(add.date)
                           .toLocaleDateString("es")}
                         space2={add.responsible}

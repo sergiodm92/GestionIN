@@ -54,7 +54,7 @@ const Requests = () => {
       prevRequests.current = requests;
     }
   }, [requests]);
-
+  console.log(requests)
   return (
     <div className={styles.container}>
       {updateData.length === 0 ? (
@@ -76,11 +76,11 @@ const Requests = () => {
                       <Card1
                         key={i}
                         onClick={() => router.push(`/requests/${request.id}`)}
-                        space1={new Date(request.date)
+                        space1={new Date(request.request.date)
                           .toLocaleDateString("es")
                           .replaceAll("/", "-")}
-                        space2 = {deceaseds?.find(deceased => deceased.id_request === request.id)?.name || ''}
-                        space3={request.certificate_number}
+                        space2 = {request.deceased.name }
+                        space3={request.request.certificate_number}
                       />
                   );
                 })

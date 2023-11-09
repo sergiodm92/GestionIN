@@ -25,7 +25,8 @@ export interface CoffinStock {
     size: string;
     id: string;
     units: number;
-    color: string
+    color: string;
+    id_add: string;
   }
   export interface GetMetalBoxStock {
     id_add:string;

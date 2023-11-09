@@ -17,6 +17,7 @@ export interface Mbox {
   size: string;
 }
 export interface CoffinInitials {
+  id_add: string;
   place: Double;
   type: Double;
   size: Double;
