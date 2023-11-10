@@ -6,6 +6,7 @@ import { PostRequest, RequestState, Request } from '../../types/requestsInterfac
 const initialState: RequestState = {
 	requests: [],
 	request: {
+		id_doc: "",
 		request: {
 			id: "",
 			id_deceased: "",
@@ -32,6 +33,7 @@ const initialState: RequestState = {
 			service_improvement: "",
 		},
 		deceased: {
+			id_doc:"",
 			name: "",
 			dod: 0,
 			tombstone: false,

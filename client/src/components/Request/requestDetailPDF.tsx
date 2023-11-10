@@ -1,5 +1,5 @@
 import { Page, Text, View, Document, Image, StyleSheet } from '@react-pdf/renderer';
-import { PostRequest } from '../../types/requestsInterfaces';
+import { PDFRequest } from '../../types/requestsInterfaces';
 import { types, sizes, colors } from '../arrays';
 import { cementery_type1 } from '../../utils/constants';
 
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const PDFDetail = (data: PostRequest) => {
+const PDFDetail = (data: PDFRequest) => {
     const { request, deceased } = data;
 
     const date = new Date(request.date)
@@ -191,7 +191,7 @@ const PDFDetail = (data: PostRequest) => {
                 <View style={styles.row}>
                     <View style={styles.items}>
                         <Text style={styles.itemTitle}>Ataúd:</Text>
-                        <Text style={styles.itemText}> {decomposeId(request.id_coffin)}</Text>
+                        <Text style={styles.itemText}> {decomposeId(request.id_coffin_group)}</Text>
                     </View>
                 </View>
                 <View style={styles.row}>
@@ -256,12 +256,6 @@ const PDFDetail = (data: PostRequest) => {
                         <Text style={styles.itemText}> {request.service_improvement}</Text>
                     </View>
                 </View>
-                {/* <View style={styles.row}>
-                    <View style={styles.items}>
-                        <Text style={styles.itemTitle}>Texto de Placa:</Text>
-                        <Text style={styles.itemText}> {deceased.leyend}</Text>
-                    </View>
-                </View> */}
                 <View style={styles.row}>
                     <View style={styles.items}>
                         <Text style={styles.itemTitle}>Esquela:</Text>

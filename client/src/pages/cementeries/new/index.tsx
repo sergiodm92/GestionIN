@@ -11,7 +11,6 @@ import {
   handleSubmit,
 } from "../../../components/functions/cementeries";
 import { getAllPlaces } from "../../../components/functions/places";
-import { cementery_type1, cementery_type2 } from "../../../utils/constants";
 import { getplace } from "../../../store/Slices/place";
 import { cementeryType } from "../../../components/arrays";
 

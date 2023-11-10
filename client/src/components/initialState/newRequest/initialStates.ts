@@ -25,6 +25,7 @@ export const initialRequest = {
 }
 export const initialDeceased = {
     id: "",
+    id_doc:"",
     id_request:"",
     name: "",
     dob: 0,

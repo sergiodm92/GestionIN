@@ -31,7 +31,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 const initialData = {
-  id: "",
+  id_doc: "",
   deceased: {
     name: "",
     dod: 0,

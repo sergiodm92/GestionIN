@@ -82,6 +82,11 @@ export interface  FormRequest {
   setCoffin: any;
 }
 export interface PostRequest{
+  id_doc: string;
+  request: Request;
+  deceased: Deceased
+}
+export interface PDFRequest{
   request: Request;
   deceased: Deceased
 }

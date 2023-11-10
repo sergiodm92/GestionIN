@@ -18,7 +18,7 @@ const initialAddState: AddCoffin[] = [
     place: "",
     coffins: [],
     metal_box: [],
-    state: ""
+    status: ""
   },
 ];
 

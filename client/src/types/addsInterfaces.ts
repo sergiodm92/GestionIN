@@ -65,7 +65,7 @@ export interface AddMetalBoxState {
   isAllowedExpand: boolean;
 }
 export interface AddProductsState {
-  addsProducts: Products[];
-  addProducts: Products;
+  addsProducts: AddProducts[];
+  addProducts: AddProducts;
   isAllowedExpand: boolean;
 }
