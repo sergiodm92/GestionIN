@@ -1,17 +1,19 @@
-.container{
+.container {
     display: flex;
     flex-direction: column;
     align-items: center;
     min-height: 70vh;
     padding: 1rem;
 }
-.title{
+
+.title {
     font-size: 25px;
     color: var(--title-color);
     font-weight: bold;
     margin: 10px;
 }
-.subTitle{
+
+.subTitle {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -25,20 +27,23 @@
     color: var(--primary-color);
     font-weight: bold;
 }
-.bigSpace{
+
+.bigSpace {
     width: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.smallSpace{
+
+.smallSpace {
     width: 25%;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
 }
-.cardsContainer{
+
+.cardsContainer {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -46,16 +51,35 @@
     gap: 10px;
     width: 100%;
 }
+
 .card {
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
     width: 100%;
-  }
-.noDeceased{
+}
+
+.noDeceased {
     padding-top: 5%;
     font-size: 20px;
     font-weight: bold;
     color: var(--bringht-color);
-  }
+}
+
+.searchContaier {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 15px;
+}
+
+.search {
+    border: 1px solid var(--primary-color);
+    text-align: right;
+    outline: none;
+    width: 160px;
+    height: 20px;
+}

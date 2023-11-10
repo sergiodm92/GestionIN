@@ -35,6 +35,7 @@ export interface RequestState {
   isAllowedExpand: boolean;
 }
 export interface Deceased {
+  id_doc: string;
   id: string;
   id_request: string;
   name: string;

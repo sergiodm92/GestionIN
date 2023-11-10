@@ -7,6 +7,7 @@ import { getmetalBoxStock } from "../../store/Slices/metalBoxStockSlice";
 import Loading from "../../components/Loading/loading";
 import styles from "./styles/stock.module.css";
 
+
 const initialData = [
   {
     id: "",

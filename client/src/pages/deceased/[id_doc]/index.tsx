@@ -18,16 +18,17 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       };
     }
   
-    const { id } = params;
+    const { id_doc } = params;
   
     return {
       props: {
-        id,
+        id_doc,
       },
     };
   };
 
   const initialData={
+    id_doc:"",
     name: "",
     dod: 0,
     tombstone: false,
@@ -49,7 +50,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     religion_symbol: ""
 }
 
-const DeceasedDetail = ({ id }: { id: string })=>{
+const DeceasedDetail = ({ id_doc }: { id_doc: string })=>{
     const [updateData, setUpdateData] = useState(initialData);
     const [cementeryType, setCementeryType] = useState("");
     const dispatch = useAppDispatch()
@@ -57,11 +58,11 @@ const DeceasedDetail = ({ id }: { id: string })=>{
     const prevDeceased = useRef(deceased);
 
     useEffect(()=>{
-        getDeceasedById(dispatch, id)
+        getDeceasedById(dispatch, id_doc)
     },[])
 
     useEffect(() => {
-      if (prevDeceased.current.id === id || prevDeceased.current !== deceased) {
+      if (prevDeceased.current.id_doc === id_doc || prevDeceased.current !== deceased) {
         setUpdateData(deceased);
         setCementeryType(deceased.cementery_type)
         prevDeceased.current = deceased;
@@ -72,7 +73,7 @@ const DeceasedDetail = ({ id }: { id: string })=>{
       questionAlert(
         cementeryType===cementery_type1?"Agregar " + tombstone_type1:"Agregar " + tombstone_type1,
         "¿Esta seguro que desea agregar " + (cementeryType===cementery_type1?tombstone_type2:tombstone_type1),
-        ()=>putDeceasedTombstone(id),
+        ()=>putDeceasedTombstone(id_doc),
         "No se agregó"
       )
     }
@@ -105,10 +106,6 @@ const DeceasedDetail = ({ id }: { id: string })=>{
                 <div className={styles.subTitle}>Fecha de Nacimiento:</div>
                 <div className={styles.text}>{(new Date(updateData.dob)).toLocaleDateString('es')}</div>
               </div>
-              {/* <div className={styles.items}>
-                <div className={styles.subTitle}>Texto de placa:</div>
-                <div className={styles.text}>{updateData.leyend}</div>
-              </div> */}
               <div className={styles.items}>
                     <div className={styles.subTitle}>Esquela:</div>
                     <div className={styles.text}>{updateData.news_paper}</div>

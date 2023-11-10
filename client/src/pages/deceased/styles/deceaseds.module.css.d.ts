@@ -7,6 +7,8 @@ declare const styles: {
     cardsContainer: string;
     card: string;
     noDeceased: string;
+    searchContaier: string;
+    search: string;
   };
   
   export default styles;

@@ -6,8 +6,6 @@ import styles from './styles/requests.module.css'
 import { getRequests } from "../../store/Slices/requestsSlice"
 import { getAllRequests } from "../../components/functions/requests/functions"
 import Loading from "../../components/Loading/loading"
-import { getAllDeceased } from "../../components/functions/deceased/functions"
-import { getDeceaseds } from "../../store/Slices/deceasedSlice"
 
 const initialRequestState = [
   {
@@ -40,12 +38,11 @@ const Requests = () => {
 
   const [updateData, setUpdateData] = useState(initialRequestState);
   const requests = useAppSelector(getRequests);
-  const deceaseds = useAppSelector(getDeceaseds)
+  console.log(requests)
   const prevRequests = useRef(requests);
 
   useEffect(() => {
     getAllRequests(dispatch);
-    getAllDeceased(dispatch)
   }, []);
 
   useEffect(() => {
@@ -54,7 +51,6 @@ const Requests = () => {
       prevRequests.current = requests;
     }
   }, [requests]);
-  console.log(requests)
   return (
     <div className={styles.container}>
       {updateData.length === 0 ? (

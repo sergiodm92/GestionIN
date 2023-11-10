@@ -25,63 +25,77 @@ const initialDeceasedState = [
         sector: "",
         parcel: "",
         level: 0,
-        first_level_name:"",
-        second_level_name:"",
-        religion_symbol:""
+        first_level_name: "",
+        second_level_name: "",
+        religion_symbol: ""
     }
 ]
 
-const Deceased = ()=>{
+const Deceased = () => {
 
     const router = useRouter()
     const dispatch = useAppDispatch()
 
     const [updateData, setUpdateData] = useState(initialDeceasedState);
+    const [searchDeceased, setSearchDeceased] = useState("");
     const deceaseds = useAppSelector(getDeceaseds)
     const prevDeceaseds = useRef(deceaseds)
 
 
-    useEffect(()=>{
+    useEffect(() => {
         getAllDeceased(dispatch)
-    },[])
+    }, [])
 
     useEffect(() => {
         if (prevDeceaseds.current !== deceaseds) {
-          setUpdateData(deceaseds);
-          prevDeceaseds.current = deceaseds;
+            setUpdateData(deceaseds);
+            prevDeceaseds.current = deceaseds;
         }
-      }, [deceaseds]);
+    }, [deceaseds]);
 
-    return(
+    const filteredData = updateData.filter((s) =>
+        s.name.toLowerCase().includes(searchDeceased.toLowerCase())
+    );
+
+    return (
         <div className={styles.container}>
-      {updateData.length === 0 ? (
-        <div className={styles.noDeceased}>No hay datos para mostrar</div>
-      ) : updateData[0].id === "" ? 
-            (<Loading/>)
-            :(<>
-                <div className={styles.title}>Difuntos</div>
-                <div className={styles.subTitle}>
-                    <div className={styles.smallSpace}>Fecha de fallecimiento</div>
-                    <div className={styles.bigSpace}>Nombre y Apellido</div>
-                    <div className={styles.smallSpace}>DNI</div>
-                </div>
-                <div className={styles.cardsContainer}>
-                    {deceaseds.length>0?deceaseds.map((deceased: any, i: any)=>{
-                        return(
-                            <div className={styles.card} key={i}>
-                            <Card1
-                                onClick={() => router.push(`/deceased/${deceased.id}`)}
-                                space1={(new Date(deceased.dod)).toLocaleDateString('es').replaceAll("/", "-")}
-                                space2={deceased.name}
-                                space3={deceased.dni}
-                            />
-                            </div>
-                        )
-                    })
-                :null}
-                </div>
-            </>)}
-        </div> 
-    )    
+            {updateData.length === 0 ? (
+                <div className={styles.noDeceased}>No hay datos para mostrar</div>
+            ) : updateData[0].id === "" ?
+                (<Loading />)
+                : (<>
+                    <div className={styles.title}>Difuntos</div>
+                    <div className={styles.searchContaier}>
+                        <input
+                            type="text"
+                            placeholder="🔎"
+                            value={searchDeceased}
+                            className={styles.search}
+                            onChange={(e) => setSearchDeceased(e.target.value)}
+                        />
+                    </div>
+                    <div className={styles.subTitle}>
+                        <div className={styles.smallSpace}>Fecha de fallecimiento</div>
+                        <div className={styles.bigSpace}>Nombre y Apellido</div>
+                        <div className={styles.smallSpace}>DNI</div>
+                    </div>
+                    <div className={styles.cardsContainer}>
+                        {filteredData.length > 0 ? filteredData.map((deceased: any, i: any) => {
+                            return (
+                                <div className={styles.card} key={i}>
+                                    <Card1
+                                        onClick={() => router.push(`/deceased/${deceased.id_doc}`)}
+                                        space1={(new Date(deceased.dod)).toLocaleDateString('es').replaceAll("/", "-")}
+                                        space2={deceased.name}
+                                        space3={deceased.dni}
+                                    />
+                                </div>
+                            )
+                        })
+                            : <p className={styles.noDeceased}>No hay datos para mostrar</p>}
+                    </div>
+                </>)}
+        </div>
+    )
 }
 export default Deceased

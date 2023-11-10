@@ -166,11 +166,11 @@ const TombStones = () => {
                 <div className={styles.card} key={i}>
                   <input
                     type="checkbox"
-                    checked={selectedCards.includes(deceased.id)}
+                    checked={selectedCards.includes(deceased.id_doc)}
                     onChange={() => handleCardSelection(deceased.id)}
                   />
                   <Card2
-                    onClick={() => router.push(`/deceased/${deceased.id}`)}
+                    onClick={() => router.push(`/deceased/${deceased.id_doc}`)}
                     space1={new Date(deceased.dod)
                       .toLocaleDateString("es")
                       .replaceAll("/", "-")}

@@ -5,6 +5,7 @@ import { Deceased, DeceasedState } from '../../types/requestsInterfaces';
 const initialState: DeceasedState = {
     deceaseds: [],
     deceased: {
+      id_doc: "",
       name: "",
 			dod: 0,
 			tombstone: false,

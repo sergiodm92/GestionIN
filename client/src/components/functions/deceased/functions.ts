@@ -6,16 +6,25 @@ import { createToast } from '../../Notifications/Notifications';
 export const getAllDeceased = async (dispatch: any)=>{
     try{
         const allDeceased = await getAllDeceasedApi()
-        dispatch(setDeceasedsData(allDeceased.data))
+        const orderDeceased = allDeceased.data.sort((a: any, b: any) => {
+            if (a.name > b.name) {
+              return 1;
+            }
+            if (a.name < b.name) {
+              return -1;
+            }
+            return 0;
+        })
+        dispatch(setDeceasedsData(orderDeceased))
     }
     catch(err){
         console.log(err)
     }
 }
 
-export const getDeceasedById = async (dispatch: any, id: string)=>{
+export const getDeceasedById = async (dispatch: any, id_doc: string)=>{
     try{
-        const deceased = await getDeceasedByIdApi(id)
+        const deceased = await getDeceasedByIdApi(id_doc)
         dispatch(setDeceasedData(deceased.data))
     }
     catch(err){
