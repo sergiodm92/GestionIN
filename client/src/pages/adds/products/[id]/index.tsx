@@ -74,7 +74,7 @@ const AddProductsDetail = ({ id }: { id: string }) => {
               <div className={styles.subTitle}>Productos:</div>
               {add.products.map((product: any, i: any) => {
                 return (
-                  <div>
+                  <div key={i}>
                     <div className={styles.text} key={i}>{product.name}</div>
                     <div className={styles.text} key={i}>{product.units}</div>
                   </div>

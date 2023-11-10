@@ -7,10 +7,10 @@ export const getAllDeceased = async (dispatch: any)=>{
     try{
         const allDeceased = await getAllDeceasedApi()
         const orderDeceased = allDeceased.data.sort((a: any, b: any) => {
-            if (a.name > b.name) {
+            if (a.date > b.date) {
               return 1;
             }
-            if (a.name < b.name) {
+            if (a.date < b.date) {
               return -1;
             }
             return 0;

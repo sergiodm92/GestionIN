@@ -16,7 +16,16 @@ export const getAddCoffinById = async (dispatch: any, id:string)=>{
 export const getAllAddsCoffin = async (dispatch: any)=>{
     try{
         const allAdds = await getAllAddsCoffinApi()
-        dispatch(setAddsData(allAdds.data))
+        const orderAdds = allAdds.data.sort((a: any, b: any) => {
+            if (a.date > b.date) {
+              return 1;
+            }
+            if (a.date < b.date) {
+              return -1;
+            }
+            return 0;
+        })
+        dispatch(setAddsData(orderAdds))
     }
     catch(err){
         console.log(err)
@@ -36,7 +45,16 @@ export const getAddProductsById = async (dispatch: any, id:string)=>{
 export const getAllAddsProducts = async (dispatch: any)=>{
     try{
         const allAdds = await getAllAddsProductsApi()
-        dispatch(setAddsProdData(allAdds.data))
+        const orderAdds = allAdds.data.sort((a: any, b: any) => {
+            if (a.date > b.date) {
+              return 1;
+            }
+            if (a.date < b.date) {
+              return -1;
+            }
+            return 0;
+        })
+        dispatch(setAddsData(orderAdds))
     }
     catch(err){
         console.log(err)

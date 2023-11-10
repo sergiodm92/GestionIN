@@ -6,10 +6,10 @@ export const getDeceasedesWithoutTombStone = async (dispatch: any)=>{
         const data = await getAllDeceasedApi()
         const deceaseds = data.data.filter((deceased: any) => !deceased.tombstone)
         const orderDeceased = deceaseds.sort((a: any, b: any) => {
-            if (a.name > b.name) {
+            if (a.date > b.date) {
               return 1;
             }
-            if (a.name < b.name) {
+            if (a.date < b.date) {
               return -1;
             }
             return 0;

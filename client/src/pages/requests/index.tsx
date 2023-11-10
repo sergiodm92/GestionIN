@@ -38,7 +38,6 @@ const Requests = () => {
 
   const [updateData, setUpdateData] = useState(initialRequestState);
   const requests = useAppSelector(getRequests);
-  console.log(requests)
   const prevRequests = useRef(requests);
 
   useEffect(() => {

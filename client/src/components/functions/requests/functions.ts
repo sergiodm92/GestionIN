@@ -5,7 +5,16 @@ import { createToast, questionAlert } from "../../Notifications/Notifications"
 export const getAllRequests = async (dispatch: any)=>{
     try{
         const allRequests = await getAllRequestsApi()
-        dispatch(setRequestsData(allRequests.data? allRequests.data :[]))
+        const orderRequests = allRequests.data.sort((a: any, b: any) => {
+            if (a.date > b.date) {
+              return 1;
+            }
+            if (a.date < b.date) {
+              return -1;
+            }
+            return 0;
+        })
+        dispatch(setRequestsData(orderRequests))
     }
     catch(err){
         console.log(err)

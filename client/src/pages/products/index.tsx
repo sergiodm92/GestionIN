@@ -18,22 +18,24 @@ const Products = () => {
     useEffect(() => {
         getAllProducts(dispatch)
         setInitialList(products)
-    }, [])
+    }, [products])
 
     return (
         <div className={styles.container}>
             <h1 className={styles.title}>Productos disponibles</h1>
             <div className={styles.listContainer}>
-            {initialList[0]?.name==="sin datos"?
+            {initialList[0]?.name=="sin datos"?
             <Loading/>
-            :products.length ?
-                (products.map((p, i) => {
+            :initialList.length==0?
+            <p className={styles.title}>No hay productos cargados aún</p>
+            :initialList.length ?
+                (initialList.map((p, i) => {
                     return (
                         <div key={i} className={styles.products}>
                             <p>{p.name}</p>
                         </div>
                     )
-                })) : <p className={styles.title}>No hay productos cargados aún</p>}
+                })) :null }
         </div>
         </div>
     )

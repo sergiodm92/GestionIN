@@ -267,7 +267,7 @@ const RequestDetail = ({ id }: { id: string }) => {
               <div className={styles.subItems}>
                 {updateData.request?.products.map((p, i) => {
                   return (
-                    <div className={styles.text}>{`- ${p.units} ${p.name}`}</div>
+                    <div className={styles.text} key={i}>{`- ${p.units} ${p.name}`}</div>
                   )
                 })}
               </div>
