@@ -104,7 +104,6 @@ export const handleSubmit = async (
   request.date = milliseconds3;
 
   request.wreath = isOn;
-console.log(coffin)
   request.id_coffin_group = `${coffin.place.initials}${coffin.type.initials}${coffin.size.initials}${coffin.color.initials}${coffin.metal_box.initials}`;
   if (validateDeceased(deceased) && validateRequest(request)) {
     const json = {

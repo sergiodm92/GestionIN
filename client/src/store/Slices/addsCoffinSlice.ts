@@ -11,7 +11,7 @@ const initialState: AddCoffinState = {
     place: "",
     coffins: [],
     metal_box: [],
-    state: ""
+    status: ""
   },
   isAllowedExpand: true
 }

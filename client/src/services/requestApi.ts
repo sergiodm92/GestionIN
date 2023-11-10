@@ -1,13 +1,13 @@
 import { AxiosResponse } from "axios";
 import { apiClient } from "../utils/constants";
-import { PostRequest } from "../types/requestsInterfaces";
+import { PDFRequest } from "../types/requestsInterfaces";
 import { getAuthToken } from "./authService";
 
 const token = getAuthToken()
 
 // Post request
 export const postRequestApi = async (
-  data: PostRequest
+  data: PDFRequest
 ): Promise<AxiosResponse> => {
   try {
     const response = await apiClient.post("/request", data, {
