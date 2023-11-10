@@ -9,7 +9,7 @@ import { FormDeceased } from "../../../types/requestsInterfaces";
 import styles from "../../../pages/newRequest/styles/newRequest.module.css";
 import { cementeryType } from "../../arrays";
 import { cementery_type1 } from "../../../utils/constants";
-import { useRouter } from "next/Navigation";
+import { useRouter } from "next/router";
 
 const FormDeceased = (data: FormDeceased) => {
   
