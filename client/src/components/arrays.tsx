@@ -5,7 +5,9 @@ export const types = [
     {name:"Ondeado", initials: "ON" },
     {name:"Dos Paneles", initials: "DP" },
     {name:"Tres Paneles", initials: "TP" },
-    {name:"Paris Arito", initials: "PA" }
+    {name:"Paris Arito", initials: "PA" },
+    {name:"Urna", initials: "UR" },
+
 ]
 export const sizes = [
     {name:"Angelito 60cm", initials: "A6" },
