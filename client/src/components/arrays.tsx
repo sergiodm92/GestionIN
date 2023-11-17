@@ -18,7 +18,10 @@ export const sizes = [
     {name:"Semi-Extraordinario", initials: "SM" },
     {name:"Extraordinario", initials: "EX" },
     {name:"Super Extraordinario", initials: "SU" },
-    {name:"Super Super Extraordinario", initials: "SE" }
+    {name:"Urna 1 Resto", initials: "U1" },
+    {name:"Urna 2 Resto", initials: "U2" },
+    {name:"Urna cineraria", initials: "UC" }
+
 ]
 export const colors = [
     {name:"Roble", initials: "RO" },
@@ -26,7 +29,8 @@ export const colors = [
     {name:"Cedro", initials: "CE" },
     {name:"Caoba", initials: "CA" },
     {name:"Almendra", initials: "AL" },
-    {name:"Blanco", initials: "BL" }
+    {name:"Blanco", initials: "BL" },
+    {name:"-", initials: "--" }
 ]
 export const metalBox = [
     {name:"SI" , initials: "TR"},
