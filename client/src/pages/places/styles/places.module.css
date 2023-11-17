@@ -20,8 +20,8 @@
 }
 .newPlace{
   position: absolute;
-  right: 2%;
-  top: 105px;
+  right: 5%;
+  top: 9rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -51,6 +51,6 @@
 }
 @media (max-width: 600px){
   .newPlace{
-    top: 75px;
+    top: 5rem;
   }
 }
