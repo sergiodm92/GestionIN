@@ -54,6 +54,9 @@ const AllStock = () => {
   const filteredMBData = MBStock.filter((s) =>
     s.size.toLowerCase().includes(searchSize.toLowerCase())
   );
+  let totalFilterData = filteredData.reduce((a, b) => a + b.units, 0);
+  let totalFilterMBData = filteredMBData.reduce((a, b) => a + b.units, 0);
+  let totalFilterProductsData = filteredProductsData.reduce((a, b) => a + b.units, 0);
 
   return (
     <div className={styles.container}>
@@ -100,6 +103,14 @@ const AllStock = () => {
                       <td>{d.units}</td>
                     </tr>
                   ))}
+                    <tr key={"total"}>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Total</td>
+                        <td>{totalFilterData || 0}</td>
+                      </tr>
                 </tbody>
               </table>
               ) :  <p>No hay items disponibles</p>}
@@ -135,6 +146,11 @@ const AllStock = () => {
                         <td>{s.units}</td>
                       </tr>
                     ))}
+                      <tr key={"total"}>
+                        <td></td>
+                        <td>Total</td>
+                        <td>{totalFilterMBData || 0}</td>
+                      </tr>
                   </tbody>
                 </table>
               ) :  <p>No hay items disponibles</p>}
@@ -170,6 +186,11 @@ const AllStock = () => {
                         <td>{s.units}</td>
                       </tr>
                     ))}
+                      <tr key={"total"}>
+                        <td></td>
+                        <td>Total</td>
+                        <td>{totalFilterProductsData || 0}</td>
+                      </tr>
                   </tbody>
                 </table>
               ) : <p>No hay items disponibles</p>}

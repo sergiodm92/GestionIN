@@ -42,6 +42,7 @@ const Stock = ({ place }: { place: string }) => {
   const [searchId, setSearchId] = useState("");
   const [searchProduct, setSearchProduct] = useState("");
   const [searchSize, setSearchSize] = useState("");
+  const [total, setTotal] = useState(0);
 
   const dispatch = useAppDispatch();
 
@@ -73,6 +74,22 @@ const Stock = ({ place }: { place: string }) => {
   const filteredMBData = MBStock.filter((s) =>
     s.size.toLowerCase().includes(searchSize.toLowerCase())
   );
+  let totalFilterData = 0
+  filteredData.forEach((d) => {
+    totalFilterData+=d.units
+  }
+  );
+  let totalFilterMBData = 0
+  filteredMBData.forEach((d) => {
+    totalFilterMBData+=d.units
+  }
+  )
+  let totalFilterProductsData = 0
+  filteredProductsData.forEach((d) => {
+    totalFilterProductsData+=d.units
+  }
+  )
+  
 
   return (
     <div className={styles.container}>
@@ -119,6 +136,14 @@ const Stock = ({ place }: { place: string }) => {
                       <td>{d.units}</td>
                     </tr>
                   ))}
+                   <tr key={"total"}>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Total</td>
+                        <td>{totalFilterData || 0}</td>
+                      </tr>
                 </tbody>
               </table>
               ) :  <p>No hay items disponibles</p>}
@@ -154,6 +179,11 @@ const Stock = ({ place }: { place: string }) => {
                         <td>{s.units}</td>
                       </tr>
                     ))}
+                     <tr key={"total"}>
+                        <td></td>
+                        <td>Total</td>
+                        <td>{totalFilterMBData || 0}</td>
+                      </tr>
                   </tbody>
                 </table>
               ) :  <p>No hay items disponibles</p>}
@@ -189,6 +219,11 @@ const Stock = ({ place }: { place: string }) => {
                         <td>{s.units}</td>
                       </tr>
                     ))}
+                    <tr key={"total"}>
+                        <td></td>
+                        <td>Total</td>
+                        <td>{totalFilterProductsData || 0}</td>
+                      </tr>
                   </tbody>
                 </table>
               ) : <p>No hay items disponibles</p>}
