@@ -95,7 +95,7 @@ export const coffinGroupHandleSubmit = async (e: any, coffin: Coffin, add: AddCo
   setIsLoading(false)
 }
 
-export const addHandleSubmit = async (e: any, date: string, add: AddCoffin, setIsLoading: React.Dispatch<React.SetStateAction<boolean>>) => {
+export const addHandleSubmit = async (e: any, date: string, add: AddCoffin, setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,setCleanForm:any) => {
   e.preventDefault();
 
   setIsLoading(true)
@@ -115,7 +115,7 @@ export const addHandleSubmit = async (e: any, date: string, add: AddCoffin, setI
       const response = await postAddCoffinApi(add);
       if (response.data.status === "ok") {
         createToast("success", "Deposito guardado con éxito");
-        (document.getElementById("place") as HTMLSelectElement).selectedIndex = 0;
+        setCleanForm(true)
       } else {
         createToast("error", "Verifique que los datos ingresados sean correctos");
       }

@@ -22,6 +22,7 @@ const AddCoffin = () => {
   const [isOn, setIsOn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingGroup, setIsLoadingGroup] = useState(false);
+  const [cleanForm, setCleanForm] = useState(false);
 
   const places = useAppSelector(getplace);
 
@@ -33,11 +34,17 @@ const AddCoffin = () => {
     getAllPlaces(dispatch);
   }, []);
 
+  useEffect(() => {
+    // (document.getElementById("place") as HTMLSelectElement).selectedIndex = 0;
+    setAdd(addCoffinInicialState)
+  },[cleanForm])
+
+
   return (
     <div className={styles.container}>
       <div className={styles.title}>Nuevo Ingreso de Ataúd</div>
       <form
-        onSubmit={(e) => addHandleSubmit(e, date, add, setIsLoading)}
+        onSubmit={(e) => addHandleSubmit(e, date, add, setIsLoading, setCleanForm)}
         className={styles.formContainer}
       >
         <div className={styles.dateRow}>
@@ -173,7 +180,7 @@ const AddCoffin = () => {
             add.coffins.length ?
               add.coffins.map((c: Coffin, i) => {
                 return (
-                  <div key={i}>
+                  <div className={styles.card} key={i}>
                     <div className={styles.formRow}>
                       <div>Tipo: </div>
                       <div>{c.type}</div>
@@ -255,7 +262,7 @@ const AddCoffin = () => {
             add.metal_box.length ?
               add.metal_box.map((m: Mbox, i) => {
                 return (
-                  <div key={i}>
+                  <div className={styles.card} key={i}>
                     <div className={styles.formRow}>
                       <div>Tamaño: </div>
                       <div>{m.size}</div>

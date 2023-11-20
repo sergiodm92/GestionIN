@@ -19,6 +19,8 @@ declare const styles: {
   switchBox: string;
   dateInput: string;
   coffinGroup: string;
+  error: string;
+  card: string
 };
 
 export default styles;
