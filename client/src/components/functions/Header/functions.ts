@@ -27,8 +27,8 @@ export const handleHelp = (router: any, menuOpen: boolean, setMenuOpen: any)=>{
         setMenuOpen(!menuOpen);
     }
 }
-export const handleAbout = (router: any, menuOpen: boolean, setMenuOpen: any)=>{
-    router.push('/about')
+export const handleRegister = (router: any, menuOpen: boolean, setMenuOpen: any)=>{
+    router.push('/register')
     if(menuOpen){
         setMenuOpen(!menuOpen);
     }
