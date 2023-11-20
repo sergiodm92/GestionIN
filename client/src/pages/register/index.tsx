@@ -9,9 +9,10 @@ import Loading from "../../components/Loading/loading";
 const initialStateUser = {
     name: '',
     password: '',
-    admin: true,
+    admin: false,
     place: ''
 }
+
 
 const Register = ()=>{
 
@@ -40,6 +41,14 @@ const Register = ()=>{
         })
     }
 
+    const handleSelectChange = (e: any) => {
+        e.preventDefault();
+        setUser({
+            ...user,
+            admin: e.target.value==="true"?true:false
+        })
+    }
+
     const handleSubmit = async (e: any) => {
         e.preventDefault();
         setIsLoading(true)
@@ -58,6 +67,9 @@ const Register = ()=>{
                     createToast("warning","ocurrio un error, vuelva a intentar");
                     console.error(error);
               }
+            setUser(initialStateUser)
+            setP1('')
+            setP2('')
         }
         else{
             createToast("error","Las contaseñas no coinciden");
@@ -92,7 +104,7 @@ const Register = ()=>{
                     />
                 </div>
                 <div>
-                    <div className={styles.inputText}>Contraseña nuevamente:</div>
+                    <div className={styles.inputText}>Confirmar contraseña:</div>
                     <input
                         className={styles.input}
                         type="password"
@@ -112,6 +124,19 @@ const Register = ()=>{
                         value={user.place}
                         onChange={handleChange}
                     />
+                </div>
+                <div>
+                    <div className={styles.inputText}>¿Administrador?:</div>
+                    <select
+                        className={styles.select}
+                        id="admin"
+                        name="admin"
+                        value={user.admin.toString()}
+                        onChange={handleSelectChange}
+                    >
+                    <option value="false">No</option>
+                    <option value="true">Si</option>
+                    </select>
                 </div>
                 <FormButton
                     title={isLoading? <Loading/> :"Registrarse"}
