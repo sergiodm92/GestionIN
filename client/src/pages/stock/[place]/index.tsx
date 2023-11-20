@@ -66,7 +66,7 @@ const Stock = ({ place }: { place: string }) => {
     }
   }, [stock]);
   const filteredData = updateData.filter((s) =>
-    s.type.toLowerCase().includes(searchId.toLowerCase())
+    s.id.toLowerCase().includes(searchId.toLowerCase())
   );
   const filteredProductsData = productsStock.filter((s) =>
     s.name.toLowerCase().includes(searchProduct.toLowerCase())
