@@ -43,7 +43,7 @@ const Header = ()=>{
                 </div>
             </div>
             <div className={styles.rightDiv}>
-                <div onClick={()=>handleHelp(router, menuOpen, setMenuOpen)} className={styles.session}>Ayuda</div>
+                {user.name && <div onClick={()=>handleHelp(router, menuOpen, setMenuOpen)} className={styles.session}>Ayuda</div>}
                 {user.admin && <div onClick={()=>handleRegister(router, menuOpen, setMenuOpen)} className={styles.session}>Agregar Usuario</div>}
                 {user.name?
                 (<div className={styles.sessionDiv}>
