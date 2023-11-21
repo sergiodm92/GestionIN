@@ -67,6 +67,12 @@ const TombStones = () => {
     localStorage.setItem("deceaseds", arrayString);
     router.push("/tombStones/detail");
   };
+  const changeState = () => {
+    const selecteds = deceaseds.filter((deceased) =>
+      selectedCards.includes(deceased.id)
+    );
+    console.log(selecteds);
+  }
 
   const selectAllDisplayedCards = () => {
     if (selectAll) {
@@ -181,6 +187,7 @@ const TombStones = () => {
                 </div>
               ))}
             <SmallBtn title={"Generar detalle"} onClick={generateDetail} />
+            <SmallBtn title={"Cambiar Estado"} onClick={changeState} />
           </div>
         </>
       )}
