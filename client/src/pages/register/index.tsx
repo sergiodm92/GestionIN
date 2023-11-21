@@ -1,22 +1,25 @@
-import { useState } from "react"
+import { use, useEffect, useState } from "react"
 import { useRouter } from 'next/router';
 import { postNewUserApi } from "../../services/userApi"
 import { createToast } from "../../components/Notifications/Notifications"
 import { FormButton } from "../../components/Buttons";
 import styles from './styles/register.module.css'
 import Loading from "../../components/Loading/loading";
+import { getUser, setLoginData } from '../../store/Slices/userSlice'
+import { useAppDispatch, useAppSelector } from '../../store/hooks'
 
 const initialStateUser = {
     name: '',
     password: '',
-    admin: true,
+    admin: false,
     place: ''
 }
+
 
 const Register = ()=>{
 
     const router = useRouter()
-
+    const userGlobal = useAppSelector(getUser)
     const [user, setUser] = useState(initialStateUser)
     const [p1, setP1]=useState('')
     const [p2, setP2]=useState('')
@@ -40,30 +43,49 @@ const Register = ()=>{
         })
     }
 
+    const handleSelectChange = (e: any) => {
+        e.preventDefault();
+        setUser({
+            ...user,
+            admin: e.target.value==="true"?true:false
+        })
+    }
+
     const handleSubmit = async (e: any) => {
         e.preventDefault();
         setIsLoading(true)
-        if(p1===p2){
             user.password=p1
-            try {
-                const response = await postNewUserApi(user);
-                if(response.data.status === "ok"){
-                    createToast("success","Usuario creado correctamente");
-                    router.push('/login');
-                }
-                else{
-                    createToast("error","Verifique que los datos ingresados sean correctos");
-                }
-              } catch (error) {
-                    createToast("warning","ocurrio un error, vuelva a intentar");
-                    console.error(error);
-              }
-        }
-        else{
-            createToast("error","Las contaseñas no coinciden");
-        }
+        // if(p1===p2){
+        //     try {
+        //         const response = await postNewUserApi(user);
+        //         if(response.data.status === "ok"){
+        //             createToast("success","Usuario creado correctamente");
+        //             router.push('/login');
+        //         }
+        //         else{
+        //             createToast("error","Verifique que los datos ingresados sean correctos");
+        //         }
+        //       } catch (error) {
+        //             createToast("warning","ocurrio un error, vuelva a intentar");
+        //             console.error(error);
+        //       }
+        //     setUser(initialStateUser)
+        //     setP1('')
+        //     setP2('')
+        // }
+        // else{
+        //     createToast("error","Las contaseñas no coinciden");
+        // }
+        console.log(user)
         setIsLoading(false)
       };
+      useEffect(() => {
+        // userGlobal.admin? null:router.push('/')
+        console.log(userGlobal)
+        if(userGlobal.admin===false){
+            router.push('/')
+        }
+      }, []);
 
     return(
         <div className={styles.loginContainer}>
@@ -92,7 +114,7 @@ const Register = ()=>{
                     />
                 </div>
                 <div>
-                    <div className={styles.inputText}>Contraseña nuevamente:</div>
+                    <div className={styles.inputText}>Confirmar contraseña:</div>
                     <input
                         className={styles.input}
                         type="password"
@@ -112,6 +134,19 @@ const Register = ()=>{
                         value={user.place}
                         onChange={handleChange}
                     />
+                </div>
+                <div>
+                    <div className={styles.inputText}>¿Administrador?:</div>
+                    <select
+                        className={styles.select}
+                        id="admin"
+                        name="admin"
+                        value={user.admin.toString()}
+                        onChange={handleSelectChange}
+                    >
+                    <option value="false">No</option>
+                    <option value="true">Si</option>
+                    </select>
                 </div>
                 <FormButton
                     title={isLoading? <Loading/> :"Registrarse"}

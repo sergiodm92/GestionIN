@@ -5,7 +5,7 @@ import { User } from '../../types/userInterfaces';
 const initialState: 
 User = {
   name: '',
-  admin: true,
+  admin: false,
   place: ''
   }
 
@@ -15,7 +15,7 @@ export const userSlice = createSlice({
   reducers: {
     setLoginData: (state) => {
       state.name = localStorage.getItem("userName") as string;
-      state.admin = Boolean(localStorage.getItem("userAdmin"));
+      state.admin = localStorage.getItem("userAdmin")==="true"?true:false;
       state.place = localStorage.getItem("userPlace") as string;
     },
     setLogoutData: (state) => {

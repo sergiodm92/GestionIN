@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { getUser, setLoginData } from '../../store/Slices/userSlice'
 import { useEffect, useState, useRef } from 'react'
 import styles from './styles/header.module.css'
-import { handleAbout, handleHelp, handleHome, handleLogIn, handleLogOut, toggleMenu } from '../functions/Header/functions'
+import { handleRegister, handleHelp, handleHome, handleLogIn, handleLogOut, toggleMenu } from '../functions/Header/functions'
 
 const Header = ()=>{
 
@@ -44,7 +44,7 @@ const Header = ()=>{
             </div>
             <div className={styles.rightDiv}>
                 <div onClick={()=>handleHelp(router, menuOpen, setMenuOpen)} className={styles.session}>Ayuda</div>
-                <div onClick={()=>handleAbout(router, menuOpen, setMenuOpen)} className={styles.session}>Sobre Nosotros</div>
+                {user.admin && <div onClick={()=>handleRegister(router, menuOpen, setMenuOpen)} className={styles.session}>Agregar Usuario</div>}
                 {user.name?
                 (<div className={styles.sessionDiv}>
                     <div>{user.name}</div>
@@ -62,12 +62,11 @@ const Header = ()=>{
                 <div className={styles.line}></div>
             </div>
             <div ref={menuRef} className={menuOpen? styles.menu : styles.menuNone}>
-                <div className={styles.menuItems} onClick={()=>handleAbout(router, menuOpen, setMenuOpen)}>Sobre Nosotros</div>
+            {user.admin && <div className={styles.menuItems} onClick={()=>handleRegister(router, menuOpen, setMenuOpen)}>Agregar Usuario</div>}
                 <div className={styles.menuItems} onClick={()=>handleHelp(router, menuOpen, setMenuOpen)}>Ayuda</div>
                 <div className={styles.menuItems} onClick={user.name ? ()=>handleLogOut(dispatch, menuOpen, setMenuOpen) : ()=>handleLogIn(router, menuOpen, setMenuOpen)}>{user.name? "Cerrar Sesion":"Iniciar Sesion"}</div>
             </div>
         </div>
     )
-    
 }
 export default Header

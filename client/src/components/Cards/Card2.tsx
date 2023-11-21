@@ -6,7 +6,7 @@ const Card2 = (data: Card2)=>{
     return(
         <div className={styles.cardContainer} onClick={onClick}>
             <div className={styles.smallSpace}>{space1}</div>
-            <div className={styles.smallSpace}>{space2}</div>
+            <div className={styles.smallSpace}>{space2.length>13?space2.slice(0,13)+"..":space2}</div>
             <div className={styles.smallSpace}>{space3}</div>
             <div className={styles.smallSpace}>{space4}</div>
         </div>
