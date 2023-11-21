@@ -1,4 +1,5 @@
 import { Page, Text, View, Document, Image, StyleSheet } from '@react-pdf/renderer';
+import {Table, TableHeader,TableCell, TableBody, DataTableCell} from 'react-pdf-table-fork'
 
 const styles = StyleSheet.create({
   letterhead: {
@@ -22,6 +23,13 @@ const styles = StyleSheet.create({
     fontFamily: 'Times-BoldItalic',
     marginBottom: 10
   },
+  cardsTitleContainer: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
   text: {
     fontSize: '1.5vh',
     fontWeight: 'light',
@@ -31,6 +39,7 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: '1.5vh',
+    color: '#2E4C36',
     fontWeight: 'bold',
     fontFamily: 'Times-BoldItalic',
     marginBottom: 5
@@ -42,15 +51,31 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   cards: {
-    width: '48%',
+    width: '100%',
     backgroundColor: '#bdd0b95b',
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
     borderRadius: 5,
     padding: 5,
     marginBottom: 15
-  }
+  },
+tableText: {
+    margin:"0.5vh",
+    borderColor:"white",
+    fontSize:"1.25vh",
+    fontFamily: 'Times-Italic',
+},
+tableTitle : {
+  fontSize:"1.25vh",
+  margin:"0.5vh",
+  borderColor:"white",
+  fontFamily: 'Times-Bold',
+},
+border:{
+    borderColor:"white"
+}
 });
 
 const PDFTombstoneDetail = (deceaseds) => {
@@ -71,43 +96,63 @@ const PDFTombstoneDetail = (deceaseds) => {
             {deceaseds?.deceaseds.tombstones.length > 0 && (
               <>
                 <View>
-                  <Text style={styles.title}>Lápidas Faltantes</Text>
+                  <Text style={styles.title}>Pedido de Lápidas</Text>
                 </View>
-                <View style={styles.cardsContainer}>
-                  {deceaseds?.deceaseds.tombstones.map((d, index) => (
-                    <View key={index} style={styles.cards}>
-                      <Text style={styles.name}>{d.name}</Text>
-                      <Text style={styles.text}>
-                        {new Date(d.dob).toLocaleDateString('es')} - {new Date(d.dod).toLocaleDateString('es')}
-                      </Text>
-                      <Text style={styles.text}>Cementerio: {d.cementery}El Salvador</Text>
-                      <Text style={styles.text}>
-                        Sector: 25A{d.sector} . Parcela: 34{d.parcel} . Nivel: 2{d.level}
-                      </Text>
-                      <Text style={styles.text}>Símbolo de la Religión: {d.religion_symbol}</Text>
-                      <Text style={styles.text}>Texto: {d.news_paper}</Text>
-                    </View>
-                  ))}
-                </View>
+                <Table data={deceaseds?.deceaseds.tombstones}>
+                  <TableHeader includeBottomBorder={false}
+                    includeLeftBorder={false}
+                    includeRightBorder={false}
+                    includeTopBorder={false}>
+                    <TableCell style={styles.border}><Text style={styles.tableTitle}>Nombre</Text></TableCell>
+                    <TableCell style={styles.border}><Text style={styles.tableTitle}>F.nac.</Text></TableCell>
+                    <TableCell style={styles.border}><Text style={styles.tableTitle}>F.fall.</Text></TableCell>
+                    <TableCell style={styles.border}><Text style={styles.tableTitle}>Cementerio</Text></TableCell>
+                    <TableCell style={styles.border}><Text style={styles.tableTitle}>Sector</Text></TableCell>
+                    <TableCell style={styles.border}><Text style={styles.tableTitle}>Parcela</Text></TableCell>
+                    <TableCell style={styles.border} weighting={0.4}><Text style={styles.tableTitle}>Nivel</Text></TableCell>
+                    <TableCell style={styles.border} weighting={0.4}><Text style={styles.tableTitle}>Religión</Text></TableCell>
+                  </TableHeader>
+                  <TableBody includeBottomBorder={false}
+                    includeLeftBorder={false}
+                    includeRightBorder={false}
+                    includeTopBorder={false}>
+                    <DataTableCell getContent={(e) => e.name} style={styles.tableText} />
+                    <DataTableCell getContent={(e) => new Date(e.dob).toLocaleDateString('es')} style={styles.tableText} />
+                    <DataTableCell getContent={(e) => new Date(e.dod).toLocaleDateString('es')} style={styles.tableText} />
+                    <DataTableCell getContent={(e) => e.cementery} style={styles.tableText} />
+                    <DataTableCell getContent={(e) => e.sector} style={styles.tableText} />
+                    <DataTableCell getContent={(e) => e.parcel} style={styles.tableText}/>
+                    <DataTableCell getContent={(e) => e.level} style={styles.tableText}  weighting={0.6}/>
+                    <DataTableCell getContent={(e) => e.religion_symbol} style={styles.tableText} />
+                  </TableBody>
+                </Table>
               </>
             )}
             {deceaseds?.deceaseds.plaques.length > 0 && (
               <>
                 <View>
-                  <Text style={styles.title}>Placas Faltantes</Text>
+                  <Text style={styles.title}>Pedido de Placas</Text>
                 </View>
-                <View style={styles.cardsContainer}>
-                  {deceaseds?.deceaseds.plaques.map((d, index) => (
-                    <View key={index} style={styles.cards}>
-                      <Text style={styles.name}>{d.name}</Text>
-                      <Text style={styles.text}>
-                        {new Date(d.dob).toLocaleDateString('es')} - {new Date(d.dod).toLocaleDateString('es')}
-                      </Text>
-                      <Text style={styles.text}>Cementerio: {d.cementery}El Salvador</Text>
-                      <Text style={styles.text}>Texto: {d.news_paper}</Text>
-                    </View>
-                  ))}
-                </View>
+                <Table data={deceaseds?.deceaseds.plaques}>
+                  <TableHeader includeBottomBorder={false}
+                    includeLeftBorder={false}
+                    includeRightBorder={false}
+                    includeTopBorder={false}>
+                    <TableCell style={styles.border}><Text style={styles.tableTitle}>Nombre</Text></TableCell>
+                    <TableCell style={styles.border}><Text style={styles.tableTitle}>Nacimiento</Text></TableCell>
+                    <TableCell style={styles.border}><Text style={styles.tableTitle}>Fallecimiento</Text></TableCell>
+                    <TableCell style={styles.border}><Text style={styles.tableTitle}>Cementerio</Text></TableCell>
+                  </TableHeader>
+                  <TableBody includeBottomBorder={false}
+                    includeLeftBorder={false}
+                    includeRightBorder={false}
+                    includeTopBorder={false}>
+                    <DataTableCell getContent={(e) => e.name} style={styles.tableText} />
+                    <DataTableCell getContent={(e) => new Date(e.dob).toLocaleDateString('es')} style={styles.tableText} />
+                    <DataTableCell getContent={(e) => new Date(e.dod).toLocaleDateString('es')} style={styles.tableText} />
+                    <DataTableCell getContent={(e) => e.cementery} style={styles.tableText} />
+                  </TableBody>
+                </Table>
               </>
             )}
           </View>

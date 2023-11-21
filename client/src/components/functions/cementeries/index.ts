@@ -71,7 +71,7 @@ export const handleSubmit = async (e: any, cementeries: Cementery[] , cementery:
     try {
       const response = await postCementeryApi(cementery);
       if (response?.data.status === "ok") {
-        createToast("success", "Ceenterio agregado con éxito");
+        createToast("success", "Cementerio agregado con éxito");
       } else {
         createToast(
           "error",

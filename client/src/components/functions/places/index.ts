@@ -28,10 +28,15 @@ export const capitalizeString = (str: string) => {
 export const handleSubmit = async (e: any, places: Place[] , place: Place, setIsLoading: any) => {
   e.preventDefault();
   setIsLoading(true)
+  const initialsRegex = /^[A-Za-z]+$/;
   if (!place.name) {
     createToast("warning", "Debe ingresar un nombre");
+  } else if (!initialsRegex.test(place.initials)) {
+    createToast("warning", "Las iniciales solo pueden contener letras");
   } else if (!place.initials) {
     createToast("warning", "Debe ingresar las iniciales");
+  }else if (place.initials.length !== 2) {
+    createToast("warning", "Debe ingresar dos iniciales");
   } else if (
     places.find((p) => p.name.toLowerCase() === place.name.toLowerCase())
   ) {

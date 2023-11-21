@@ -19,6 +19,7 @@
     "react-datepicker": "^4.12.0",
     "react-dom": "18.2.0",
     "react-pdf": "^7.0.0-beta.4",
+    "react-pdf-table-fork": "^0.4.3",
     "react-redux": "^8.0.5",
     "react-toastify": "^9.1.3",
     "sweetalert2": "^11.7.5",
