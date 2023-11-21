@@ -1,12 +1,18 @@
 import { useRouter } from "next/router";
 import styles from "../styles/home.module.css";
 import { DoubleButton, LargeButton } from "../components/Buttons";
+import { useAppDispatch, useAppSelector } from '../store/hooks'
+import { getUser, setLoginData } from '../store/Slices/userSlice'
 
 const Home = () => {
   const router = useRouter();
+  const user = useAppSelector(getUser)
+
 
   return (
     <div className={styles.container}>
+      {user.name&&
+      <>
       <DoubleButton
         title1={"Solicitudes"}
         title2={"+"}
@@ -34,7 +40,10 @@ const Home = () => {
         onClick={() => router.push("/deceased")}
       />
       <LargeButton title={"Stock"} onClick={() => router.push("/places")} />
+      </>
+  }
     </div>
+   
   );
 };
 
