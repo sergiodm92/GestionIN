@@ -49,6 +49,14 @@
   align-items: center;
   gap: 10px;
 }
+.error{
+  color: red;
+  font-size: 12px;
+  font-weight: bold;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
 @media (max-width: 600px){
   .newPlace{
     top: 5rem;

@@ -6,6 +6,7 @@ declare const styles: {
     input: staring;
     formRow: string;
     form: string;
+    error: string;
 };
   
 export default styles;
