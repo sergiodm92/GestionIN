@@ -10,6 +10,8 @@ import styles from "../styles/newAdd.module.css";
 import Loading from "../../../components/Loading/loading";
 import { Coffin } from "../../../types/addsInterfaces";
 import { Mbox } from "../../../types/interfaces";
+import { getUser, setLoginData } from '../../../store/Slices/userSlice'
+import { useRouter } from 'next/navigation'
 
 const AddCoffin = () => {
 
@@ -23,8 +25,10 @@ const AddCoffin = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingGroup, setIsLoadingGroup] = useState(false);
   const [cleanForm, setCleanForm] = useState(false);
+  const router = useRouter()
 
   const places = useAppSelector(getplace);
+  const user = useAppSelector(getUser)
 
   const handleToggleSwitch = () => {
     setIsOn(!isOn);
@@ -32,6 +36,7 @@ const AddCoffin = () => {
 
   useEffect(() => {
     getAllPlaces(dispatch);
+    if(!user.admin)router.push("/")
   }, []);
 
   useEffect(() => {

@@ -55,28 +55,27 @@ const Register = ()=>{
         e.preventDefault();
         setIsLoading(true)
             user.password=p1
-        // if(p1===p2){
-        //     try {
-        //         const response = await postNewUserApi(user);
-        //         if(response.data.status === "ok"){
-        //             createToast("success","Usuario creado correctamente");
-        //             router.push('/login');
-        //         }
-        //         else{
-        //             createToast("error","Verifique que los datos ingresados sean correctos");
-        //         }
-        //       } catch (error) {
-        //             createToast("warning","ocurrio un error, vuelva a intentar");
-        //             console.error(error);
-        //       }
-        //     setUser(initialStateUser)
-        //     setP1('')
-        //     setP2('')
-        // }
-        // else{
-        //     createToast("error","Las contaseñas no coinciden");
-        // }
-        console.log(user)
+        if(p1===p2){
+            try {
+                const response = await postNewUserApi(user);
+                if(response.data.status === "ok"){
+                    createToast("success","Usuario creado correctamente");
+                    router.push('/login');
+                }
+                else{
+                    createToast("error","Verifique que los datos ingresados sean correctos");
+                }
+              } catch (error) {
+                    createToast("warning","ocurrio un error, vuelva a intentar");
+                    console.error(error);
+              }
+            setUser(initialStateUser)
+            setP1('')
+            setP2('')
+        }
+        else{
+            createToast("error","Las contaseñas no coinciden");
+        }
         setIsLoading(false)
       };
       useEffect(() => {
@@ -90,7 +89,7 @@ const Register = ()=>{
     return(
         <div className={styles.loginContainer}>
             <form onSubmit={handleSubmit} className={styles.form}>
-                <div className={styles.loginTitle}>Registrarse</div>
+                <div className={styles.loginTitle}>Nueva cuenta</div>
                 <div>
                     <div className={styles.inputText}>Usuario:</div>
                     <input
@@ -149,7 +148,7 @@ const Register = ()=>{
                     </select>
                 </div>
                 <FormButton
-                    title={isLoading? <Loading/> :"Registrarse"}
+                    title={isLoading? <Loading/> :"Crear"}
                     loading={isLoading}
                     disabled={isLoading}
                 />
