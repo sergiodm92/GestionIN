@@ -6,6 +6,7 @@ import { generateRandomID } from "../../functions";
 import { validateRequest } from "../../Validations/request";
 import { validateDeceased } from "../../Validations/deceased";
 import { Cementery } from "../../../types/cementery";
+import { initialDeceased, initialRequest } from "../../initialState/newRequest/initialStates";
 
 export const handleDeceasedChange = (
   e: any,
@@ -73,7 +74,9 @@ export const handleToggleSwitch = (isOn: boolean, setIsOn: any) => {
 export const handleSubmit = async (
   e: React.FormEvent<HTMLFormElement>,
   deceased: Deceased,
+  setDeceased: any,
   request: Request,
+  setRequest: any,
   date: DateType,
   birthDate: string,
   currentDate: string,
@@ -114,6 +117,8 @@ export const handleSubmit = async (
       const response = await postRequestApi(json);
       if (response?.data.status === "ok") {
         createToast("success", "Solicitud creada con éxito");
+        setDeceased(initialDeceased)
+        setRequest(initialRequest)
       } else {
         createToast(
           "error",

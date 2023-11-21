@@ -49,7 +49,7 @@ const AddCoffin = () => {
     <div className={styles.container}>
       <div className={styles.title}>Nuevo Ingreso de Ataúd</div>
       <form
-        onSubmit={(e) => addHandleSubmit(e, date, add, setIsLoading, setCleanForm)}
+        onSubmit={(e) => addHandleSubmit(e, date, add, setAdd, setIsLoading, setCleanForm)}
         className={styles.formContainer}
       >
         <div className={styles.dateRow}>

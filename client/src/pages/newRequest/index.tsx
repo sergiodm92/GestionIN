@@ -38,7 +38,7 @@ const NewRequest = () => {
   return (
     <div className={styles.container}>
       <div className={styles.title}>Nueva Solicitud de Siniestro</div>
-      <form onSubmit={(e) => handleSubmit(e, deceased, request, date, birthDate, currentDate, coffin, isOn, setIsLoading)} className={styles.form}>
+      <form onSubmit={(e) => handleSubmit(e, deceased, setDeceased, request, setRequest, date, birthDate, currentDate, coffin, isOn, setIsLoading)} className={styles.form}>
           <FormDeceased
             deceased={deceased}
             setDeceased={setDeceased}
