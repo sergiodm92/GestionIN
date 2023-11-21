@@ -10,6 +10,7 @@ import { getAllProducts } from "../../../components/functions/products";
 import { getProducts } from "../../../store/Slices/products";
 import styles from "../styles/newAdd.module.css";
 import { Products } from "../../../types/addsInterfaces";
+import { getUser, setLoginData } from '../../../store/Slices/userSlice'
 
 const AddProducts = () => {
   const dispatch = useAppDispatch();
@@ -24,6 +25,9 @@ const AddProducts = () => {
 
   const places = useAppSelector(getplace);
   const products = useAppSelector(getProducts);
+  const user = useAppSelector(getUser)
+
+  add.responsible = user?.name
 
   useEffect(() => {
     getAllPlaces(dispatch);
@@ -126,7 +130,7 @@ const AddProducts = () => {
               : null
           }
 
-        <div className={styles.formRow}>
+        {/* <div className={styles.formRow}>
           <div>Responsable:</div>
           <input
             className={styles.input}
@@ -136,7 +140,7 @@ const AddProducts = () => {
             value={add.responsible}
             onChange={(e) => handleAddChange(e, add, setAdd)}
           />
-        </div>
+        </div> */}
         <div className={styles.buttonContainer}>
           <FormButton title={isLoading ? <Loading /> : "Guardar"} loading={isLoading} disabled={isLoading} />
         </div>
