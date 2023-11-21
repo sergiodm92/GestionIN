@@ -5,6 +5,7 @@ import styles from "./styles/places.module.css"
 import { getAllPlaces } from "../../components/functions/places"
 import { useAppDispatch, useAppSelector } from "../../store/hooks"
 import { getplace } from "../../store/Slices/place"
+import Loading from "../../components/Loading/loading"
 
 const Places = () => {
 
@@ -24,20 +25,23 @@ const Places = () => {
                 onClick={() => router.push('/places/new')}
             /></div>
             {places.length ?
-                (places.map((p, i) => {
-                    return (
-                        <div key={i}>
-                            <LargeButton
-                                title={p.name}
-                                onClick={() => router.push(`/stock/${p.name}`)}
-                            />
-                        </div>
-                    )
-                })) : null}
-            <LargeButton
-                title={"Stock Total"}
-                onClick={() => router.push('/stock')}
-            />
+                (<>
+                    {places.map((p, i) => {
+                        return (
+                            <div key={i}>
+                                <LargeButton
+                                    title={p.name}
+                                    onClick={() => router.push(`/stock/${p.name}`)}
+                                />
+                            </div>
+                        )
+                    }
+                    )}
+                    <LargeButton
+                        title={"Stock Total"}
+                        onClick={() => router.push('/stock')}
+                    />
+                </>) : <Loading />}
         </div>
     )
 }
