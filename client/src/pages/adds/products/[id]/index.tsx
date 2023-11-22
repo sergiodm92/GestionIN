@@ -4,8 +4,6 @@ import { getAddProductsById } from "../../../../components/functions/adds/functi
 import { GetServerSideProps } from "next";
 import styles from "../../styles/addDetail.module.css"
 import Loading from "../../../../components/Loading/loading";
-import { DeleteBtn } from "../../../../components/Buttons";
-import { handleDeleteAddProducts } from "../../../../components/functions/addCoffin/functions";
 import { useRouter } from "next/router";
 import { getAddProducts } from "../../../../store/Slices/addsProductsSlice";
 
@@ -75,8 +73,8 @@ const AddProductsDetail = ({ id }: { id: string }) => {
               {add.products.map((product: any, i: any) => {
                 return (
                   <div key={i}>
-                    <div className={styles.text} key={i}>{product.name}</div>
-                    <div className={styles.text} key={i}>{product.units}</div>
+                    <div className={styles.text}>{product.name}</div>
+                    <div className={styles.text}>{product.units}</div>
                   </div>
                 )
               })}

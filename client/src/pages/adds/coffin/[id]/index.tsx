@@ -52,11 +52,11 @@ const AddCoffinDetail = ({ id }: { id: string })=>{
           (<Loading/>)
           :(
             <div className={styles.card}>
-              <div className={styles.deleteBtn}>
+              {/* <div className={styles.deleteBtn}>
                 <DeleteBtn
                   onClick={()=>handleDeleteAddCoffin(id, router)}
                 />
-              </div>
+              </div> */}
               <div className={styles.title}>Detalle:</div>
               <div className={styles.items}>
                 <div className={styles.subTitle}>Fecha:</div>

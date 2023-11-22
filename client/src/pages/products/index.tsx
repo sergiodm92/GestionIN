@@ -26,8 +26,6 @@ const Products = () => {
             <div className={styles.listContainer}>
             {initialList[0]?.name=="sin datos"?
             <Loading/>
-            :initialList.length==0?
-            <p className={styles.title}>No hay productos cargados aún</p>
             :initialList.length ?
                 (initialList.map((p, i) => {
                     return (
@@ -35,7 +33,8 @@ const Products = () => {
                             <p>{p.name}</p>
                         </div>
                     )
-                })) :null }
+                }))
+            :<p className={styles.title}>No hay productos cargados aún</p> }
         </div>
         </div>
     )

@@ -54,7 +54,7 @@ export const getAllAddsProducts = async (dispatch: any)=>{
             }
             return 0;
         })
-        dispatch(setAddsData(orderAdds))
+        dispatch(setAddsProdData(orderAdds))
     }
     catch(err){
         console.log(err)

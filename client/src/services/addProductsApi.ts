@@ -27,7 +27,6 @@ export const getAllAddsProductsApi = async (): Promise<AxiosResponse> => {
         "auth-token": token,
       },
     });
-    console.log(response)
     return response.data;
   } catch (error) {
     throw error;
