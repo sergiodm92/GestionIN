@@ -6,7 +6,10 @@ import { generateRandomID } from "../../functions";
 import { validateRequest } from "../../Validations/request";
 import { validateDeceased } from "../../Validations/deceased";
 import { Cementery } from "../../../types/cementery";
-import { initialDeceased, initialRequest } from "../../initialState/newRequest/initialStates";
+import {
+  initialDeceased,
+  initialRequest,
+} from "../../initialState/newRequest/initialStates";
 
 export const handleDeceasedChange = (
   e: any,
@@ -32,7 +35,11 @@ export const handleRequestChange = (
   });
 };
 
-export const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>, date: DateType, setDate: any) => {
+export const handleDateChange = (
+  e: React.ChangeEvent<HTMLInputElement>,
+  date: DateType,
+  setDate: any
+) => {
   e.preventDefault();
   setDate({
     ...date,
@@ -40,7 +47,11 @@ export const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>, date: D
   });
 };
 
-export const cementerySelect = (e: React.ChangeEvent<HTMLSelectElement>, setDeceased: any, deceased: Deceased) => {
+export const cementerySelect = (
+  e: React.ChangeEvent<HTMLSelectElement>,
+  setDeceased: any,
+  deceased: Deceased
+) => {
   e.preventDefault();
   setDeceased({
     ...deceased,
@@ -48,14 +59,22 @@ export const cementerySelect = (e: React.ChangeEvent<HTMLSelectElement>, setDece
   });
 };
 
-export const cementeryTypeSelect = (e: React.ChangeEvent<HTMLSelectElement>, setDeceased: any, deceased: Deceased) => {
+export const cementeryTypeSelect = (
+  e: React.ChangeEvent<HTMLSelectElement>,
+  setDeceased: any,
+  deceased: Deceased
+) => {
   e.preventDefault();
   setDeceased({
     ...deceased,
     cementery_type: e.target.value,
   });
 };
-export const levelSelect = (e: React.ChangeEvent<HTMLSelectElement>, setDeceased: any, deceased: Deceased) => {
+export const levelSelect = (
+  e: React.ChangeEvent<HTMLSelectElement>,
+  setDeceased: any,
+  deceased: Deceased
+) => {
   e.preventDefault();
   setDeceased({
     ...deceased,
@@ -85,14 +104,14 @@ export const handleSubmit = async (
   setIsLoading: any
 ) => {
   e.preventDefault();
-  setIsLoading(true)
-  console.log(request)
+  setIsLoading(true);
+  console.log(request);
   deceased.id = generateRandomID();
   request.id = generateRandomID();
   deceased.id_request = request.id;
   request.id_deceased = deceased.id;
-  request.id_add=coffin.id_add
-  deceased.level=+deceased.level
+  request.id_add = coffin.id_add;
+  deceased.level = +deceased.level;
 
   const dateString = `${date.day}T${date.time}:00`;
   const milliseconds = new Date(dateString).getTime();
@@ -117,8 +136,8 @@ export const handleSubmit = async (
       const response = await postRequestApi(json);
       if (response?.data.status === "ok") {
         createToast("success", "Solicitud creada con éxito");
-        setDeceased(initialDeceased)
-        setRequest(initialRequest)
+        setDeceased(initialDeceased);
+        setRequest(initialRequest);
       } else {
         createToast(
           "error",
@@ -130,5 +149,7 @@ export const handleSubmit = async (
       console.error(error);
     }
   }
-  setIsLoading(false)
+  setTimeout(() => {
+    setIsLoading(false);
+  }, 5000);
 };
