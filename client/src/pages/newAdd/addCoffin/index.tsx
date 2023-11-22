@@ -56,7 +56,7 @@ const AddCoffin = () => {
           <div>Fecha: </div>
           <input
             type="date"
-            id="date"
+            id="date1"
             name="date"
             value={date}
             className={styles.dateInput}
@@ -69,7 +69,7 @@ const AddCoffin = () => {
         <div className={styles.formRow}>
           <div>Lugar de Depósito:</div>
           <select
-            id="place"
+            id="place1"
             className={styles.input}
             onChange={(e) => handlePlace(e, add, setAdd)}
           >

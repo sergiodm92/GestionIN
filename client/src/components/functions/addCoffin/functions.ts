@@ -116,6 +116,9 @@ export const addHandleSubmit = async (e: any, date: string, add: AddCoffin, setA
       if (response.data.status === "ok") {
         createToast("success", "Deposito guardado con éxito");
         setAdd(addCoffinInicialState)
+        add.coffins = []
+        const selectElement4 = document.getElementById("place1") as HTMLSelectElement;
+        selectElement4.selectedIndex = 0;
         setCleanForm(true)
       } else {
         createToast("error", "Verifique que los datos ingresados sean correctos");
@@ -125,7 +128,9 @@ export const addHandleSubmit = async (e: any, date: string, add: AddCoffin, setA
     createToast("warning", "ocurrio un error, vuelva a intentar");
     console.error(error);
   }
-  setIsLoading(false)
+  setTimeout(() => {
+    setIsLoading(false)
+  }, 5000)
 }
 
 //-----------------METAL BOX----------------------------------------------------------
