@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { initialRequest, initialDate, initialCoffin, initialDeceased} from "../../components/initialState/newRequest/initialStates";
 import { handleSubmit } from "../../components/functions/newRequest/functions";
 import FormDeceased from "../../components/newRequest/components/formDeceased";
 import FormRequest from "../../components/newRequest/components/formRequest";
@@ -98,7 +97,7 @@ const initialCoffin={
   return (
     <div className={styles.container}>
       <div className={styles.title}>Nueva Solicitud de Siniestro</div>
-      <form onSubmit={(e) => handleSubmit(e, deceased, setDeceased, request, setRequest, date, birthDate, currentDate, coffin, isOn, setIsLoading)} className={styles.form}>
+      <form onSubmit={(e) => handleSubmit(e, deceased, setDeceased, initialDeceased, request, setRequest, initialRequest, date, birthDate, currentDate, setBirthDate, setDate, setCurrentDate,  initialDate, coffin, isOn, setIsLoading)} className={styles.form}>
           <FormDeceased
             deceased={deceased}
             setDeceased={setDeceased}

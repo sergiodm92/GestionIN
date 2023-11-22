@@ -5,11 +5,6 @@ import { postRequestApi } from "../../../services/requestApi";
 import { generateRandomID } from "../../functions";
 import { validateRequest } from "../../Validations/request";
 import { validateDeceased } from "../../Validations/deceased";
-import { Cementery } from "../../../types/cementery";
-import {
-  initialDeceased,
-  initialRequest,
-} from "../../initialState/newRequest/initialStates";
 
 export const handleDeceasedChange = (
   e: any,
@@ -94,11 +89,17 @@ export const handleSubmit = async (
   e: React.FormEvent<HTMLFormElement>,
   deceased: Deceased,
   setDeceased: any,
+  initialDeceased: Deceased,
   request: Request,
   setRequest: any,
+  initialRequest: Request,
   date: DateType,
   birthDate: string,
   currentDate: string,
+  setBirthDate: any,
+  setDate: any,
+  setCurrentDate: any,
+  initialDate: DateType,
   coffin: CoffinInitials,
   isOn: boolean,
   setIsLoading: any
@@ -137,7 +138,24 @@ export const handleSubmit = async (
       if (response?.data.status === "ok") {
         createToast("success", "Solicitud creada con éxito");
         setDeceased(initialDeceased);
+        setBirthDate(initialDate);
+        setDate(initialDate);
+        setCurrentDate(initialDate);
+        const selectElement = document.getElementById("cementery_type") as HTMLSelectElement;
+        selectElement.selectedIndex = 0;
         setRequest(initialRequest);
+        const selectElement1 = document.getElementById("place") as HTMLSelectElement;
+        selectElement1.selectedIndex = 0;
+        const selectElement2 = document.getElementById("type") as HTMLSelectElement;
+        selectElement2.selectedIndex = 0;
+        const selectElement3 = document.getElementById("size") as HTMLSelectElement;
+        selectElement3.selectedIndex = 0;
+        const selectElement4 = document.getElementById("color") as HTMLSelectElement;
+        selectElement4.selectedIndex = 0;
+        const selectElement5 = document.getElementById("metal_box") as HTMLSelectElement;
+        selectElement5.selectedIndex = 0;
+        const selectElement6 = document.getElementById("id_metal_box_group") as HTMLSelectElement;
+        selectElement6.selectedIndex = 0;
       } else {
         createToast(
           "error",
