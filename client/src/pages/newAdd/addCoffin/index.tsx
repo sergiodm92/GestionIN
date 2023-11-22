@@ -1,6 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { addCoffinInicialState, initialCoffin, initialMetalBox } from "../../../components/initialState/addCoffin/initialStates";
-import { addHandleSubmit, handleAddChange, handleCoffinColor, handlePlace, handleCoffinSize, handleCoffinType, handleCoffinChange, coffinGroupHandleSubmit, handleMboxSize, handleMboxChange, mboxGroupHandleSubmit } from "../../../components/functions/addCoffin/functions";
+import {
+  addHandleSubmit,
+  handleAddChange,
+  handleCoffinColor,
+  handlePlace,
+  handleCoffinSize,
+  handleCoffinType,
+  handleCoffinChange,
+  coffinGroupHandleSubmit,
+  handleMboxSize,
+  handleMboxChange,
+  mboxGroupHandleSubmit,
+} from "../../../components/functions/addCoffin/functions";
 import { types, sizes, colors } from "../../../components/arrays";
 import { AddBtn, FormButton, SwitchBtn } from "../../../components/Buttons";
 import { getAllPlaces } from "../../../components/functions/places";
@@ -10,12 +21,35 @@ import styles from "../styles/newAdd.module.css";
 import Loading from "../../../components/Loading/loading";
 import { Coffin } from "../../../types/addsInterfaces";
 import { Mbox } from "../../../types/interfaces";
-import { getUser, setLoginData } from '../../../store/Slices/userSlice'
-import { useRouter } from 'next/navigation'
+import { getUser, setLoginData } from "../../../store/Slices/userSlice";
+import { useRouter } from "next/navigation";
 
 const AddCoffin = () => {
-
   const dispatch = useAppDispatch();
+
+  const addCoffinInicialState = {
+    id: "",
+    date: 0,
+    responsible: "",
+    place: "",
+    coffins: [],
+    metal_box: [],
+    status: "",
+  };
+  const initialCoffin = {
+    id: "",
+    units: 0,
+    type: "",
+    size: "",
+    color: "",
+    mbox: false,
+    supplier: "",
+  };
+  const initialMetalBox = {
+    units: 0,
+    size: "",
+    supplier: "",
+  };
 
   const [add, setAdd] = useState(addCoffinInicialState);
   const [date, setDate] = useState("");
@@ -25,10 +59,10 @@ const AddCoffin = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingGroup, setIsLoadingGroup] = useState(false);
   const [cleanForm, setCleanForm] = useState(false);
-  const router = useRouter()
+  const router = useRouter();
 
   const places = useAppSelector(getplace);
-  const user = useAppSelector(getUser)
+  const user = useAppSelector(getUser);
 
   const handleToggleSwitch = () => {
     setIsOn(!isOn);
@@ -36,20 +70,21 @@ const AddCoffin = () => {
 
   useEffect(() => {
     getAllPlaces(dispatch);
-    if(!user.admin)router.push("/")
+    if (!user.admin) router.push("/");
   }, []);
 
   useEffect(() => {
     // (document.getElementById("place") as HTMLSelectElement).selectedIndex = 0;
-    setAdd(addCoffinInicialState)
-  },[cleanForm])
-
+    setAdd(addCoffinInicialState);
+  }, [cleanForm]);
 
   return (
     <div className={styles.container}>
       <div className={styles.title}>Nuevo Ingreso de Ataúd</div>
       <form
-        onSubmit={(e) => addHandleSubmit(e, date, add, setAdd, setIsLoading, setCleanForm)}
+        onSubmit={(e) =>
+          addHandleSubmit(e, date, add, setAdd, setIsLoading, setCleanForm)
+        }
         className={styles.formContainer}
       >
         <div className={styles.dateRow}>
@@ -61,8 +96,8 @@ const AddCoffin = () => {
             value={date}
             className={styles.dateInput}
             onChange={(e) => {
-              e.preventDefault()
-              setDate(e.target.value)
+              e.preventDefault();
+              setDate(e.target.value);
             }}
           />
         </div>
@@ -177,13 +212,24 @@ const AddCoffin = () => {
               loading={isLoadingGroup}
               disabled={isLoadingGroup}
               onClick={(e: any) => {
-                coffinGroupHandleSubmit(e, coffin, add, setCoffin, types, sizes, colors, places, setIsLoadingGroup, isOn, setIsOn)
+                coffinGroupHandleSubmit(
+                  e,
+                  coffin,
+                  add,
+                  setCoffin,
+                  types,
+                  sizes,
+                  colors,
+                  places,
+                  setIsLoadingGroup,
+                  isOn,
+                  setIsOn
+                );
               }}
             />
           </div>
-          {
-            add.coffins.length ?
-              add.coffins.map((c: Coffin, i) => {
+          {add.coffins.length
+            ? add.coffins.map((c: Coffin, i) => {
                 return (
                   <div className={styles.card} key={i}>
                     <div className={styles.formRow}>
@@ -211,10 +257,9 @@ const AddCoffin = () => {
                       <div>{c.supplier}</div>
                     </div>
                   </div>
-                )
+                );
               })
-              : null
-          }
+            : null}
         </div>
         <div>Cajas metálicas:</div>
         <div className={styles.coffinGroup}>
@@ -260,12 +305,13 @@ const AddCoffin = () => {
               title={isLoadingGroup ? <Loading /> : "Agregar"}
               loading={isLoadingGroup}
               disabled={isLoadingGroup}
-              onClick={(e: any) => mboxGroupHandleSubmit(e, mbox, add, setMbox, setIsLoadingGroup)}
+              onClick={(e: any) =>
+                mboxGroupHandleSubmit(e, mbox, add, setMbox, setIsLoadingGroup)
+              }
             />
           </div>
-          {
-            add.metal_box.length ?
-              add.metal_box.map((m: Mbox, i) => {
+          {add.metal_box.length
+            ? add.metal_box.map((m: Mbox, i) => {
                 return (
                   <div className={styles.card} key={i}>
                     <div className={styles.formRow}>
@@ -281,13 +327,16 @@ const AddCoffin = () => {
                       <div>{m.supplier}</div>
                     </div>
                   </div>
-                )
+                );
               })
-              : null
-          }
+            : null}
         </div>
         <div className={styles.buttonContainer}>
-          <FormButton loading={isLoading} title={isLoading ? <Loading /> : "Guardar"} disabled={isLoading} />
+          <FormButton
+            loading={isLoading}
+            title={isLoading ? <Loading /> : "Guardar"}
+            disabled={isLoading}
+          />
         </div>
       </form>
     </div>
