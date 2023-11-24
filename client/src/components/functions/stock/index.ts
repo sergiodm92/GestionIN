@@ -5,9 +5,12 @@ import { setCoffinStockData } from "../../../store/Slices/coffinStockSlice";
 import { setMetalBoxStockData } from "../../../store/Slices/metalBoxStockSlice";
 import { setProductsStockData } from "../../../store/Slices/productsStockSlice";
 
-export const getCoffinStockByPlace = async (dispatch: any, place: string)=>{
+export const getCoffinStockByPlace = async (dispatch: any, place: string, setIsStock: any)=>{
   try{
       const stock = await getCoffinStockByPlaceApi(place)
+      if(!stock.data.length){
+          setIsStock(false)
+      }
       dispatch(setCoffinStockData(stock.data))
   }
   catch(err){

@@ -51,10 +51,12 @@ const FormRequest = (data: FormRequest) => {
   const stock = useAppSelector(getCoffinStock);
   const mboxStock = useAppSelector(getmetalBoxStock);
   const productsStock = useAppSelector(getProductsStock);
+  const [isStock, setIsStock] = useState(true)
 
 
   useEffect(() => {
-    getCoffinStockByPlace(dispatch, placeSelected);
+    setIsStock(true)
+    getCoffinStockByPlace(dispatch, placeSelected,setIsStock);
     getMboxStockByPlace(dispatch, placeSelected)
     getProductsStockByPlace(dispatch, placeSelected)
   }, [placeSelected]);
@@ -366,9 +368,8 @@ const FormRequest = (data: FormRequest) => {
           className={styles.selects}
           onChange={handleTypeChange}
         >
-          {isLoadingSelectPlace ?
+          {isLoadingSelectPlace && isStock?
             <option defaultValue="-">cargando...</option>
-
             :
             <option defaultValue="-">-</option>
           }
