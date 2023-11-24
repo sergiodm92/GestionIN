@@ -43,6 +43,7 @@ const Stock = ({ place }: { place: string }) => {
   const [searchProduct, setSearchProduct] = useState("");
   const [searchSize, setSearchSize] = useState("");
   const [total, setTotal] = useState(0);
+  const [isStock, setIsStock] = useState(true);
 
   const dispatch = useAppDispatch();
 
@@ -54,7 +55,7 @@ const Stock = ({ place }: { place: string }) => {
   const prevStock = useRef(stock);
 
   useEffect(() => {
-    getCoffinStockByPlace(dispatch, place);
+    getCoffinStockByPlace(dispatch, place, setIsStock);
     getProductsStockByPlace(dispatch, place);
     getMboxStockByPlace(dispatch, place);
   }, []);
