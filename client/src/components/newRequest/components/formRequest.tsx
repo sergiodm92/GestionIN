@@ -41,6 +41,10 @@ const FormRequest = (data: FormRequest) => {
   const [isLoadingProducts, setIsLoadingProducts] = useState(false)
   const [product, setProduct] = useState(initialState)
   const [productSelectedUnits, setProductSelectedUnits] = useState("")
+  const [filteredTypes, setFilteredTypes] = useState<string[]>([]);
+  const [filteredSizes, setFilteredSizes] = useState<string[]>([]);
+  const [filteredColors, setFilteredColors] = useState<string[]>([]);
+  const [filteredMetalBoxes, setFilteredMetalBoxes] = useState<string[]>([]);
 
   const dispatch = useAppDispatch();
 
@@ -56,10 +60,10 @@ const FormRequest = (data: FormRequest) => {
   }, [placeSelected]);
 
   useEffect(() => {
-    // Filtrar los tipos disponibles para el lugar seleccionados
-    const typesArray =
-      stock.map((s) => s.type) ?? [];
-    setFilteredTypes(typesArray);
+    // Filtrar los tipos disponibles para el lugar seleccionado
+    const typesArray = stock.map((s) => s.type) ?? [];
+    const uniqueTypes = [...new Set(typesArray)];
+    setFilteredTypes(uniqueTypes);
   }, [stock]);
 
   useEffect(() => {
@@ -73,10 +77,7 @@ const FormRequest = (data: FormRequest) => {
     }
   }, [placeSelected, stock])
 
-  const [filteredTypes, setFilteredTypes] = useState<string[]>([]);
-  const [filteredSizes, setFilteredSizes] = useState<string[]>([]);
-  const [filteredColors, setFilteredColors] = useState<string[]>([]);
-  const [filteredMetalBoxes, setFilteredMetalBoxes] = useState<string[]>([]);
+  
   const handlePlaceChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedPlace = e.target.value;
     setPlaceSelected(selectedPlace)
