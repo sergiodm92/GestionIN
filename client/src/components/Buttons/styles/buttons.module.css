@@ -1,40 +1,39 @@
 /* Small Button */
 .btn {
-    background-color: var(--primary-color);
-    border: 1px solid var(--title-color);
-    border-radius: 4px;
-    color: var(--alternative-color);
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 17px;
-    padding: 7px;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out; /* Animación de transición */
-  }
+  background-color: var(--primary-color);
+  border: 1px solid var(--title-color);
+  border-radius: 4px;
+  color: var(--alternative-color);
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  font-size: 1.25rem;
+  padding: 7px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out; /* Animación de transición */
+}
 .btn:hover {
-    background-color: var(--secondary-color);
-    color: var(--subtitle-color);
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  background-color: var(--secondary-color);
+  color: var(--subtitle-color);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 .btnLoading {
   background-color: rgb(255, 255, 255);
   border: 1px solid var(--title-color);
   border-radius: 4px;
   color: var(--alternative-color);
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  font-size: 15px;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  font-size: 1.25rem;
   width: 80px;
   height: 35px;
 }
 
-
 /* Double Button */
-.cont{
+.cont {
   display: flex;
   position: relative;
   justify-content: center;
 }
-.button1{
-  width: 120px;
+.button1 {
+  width: 10rem;
   height: 50px;
   background-color: var(--primary-color);
   border-top-left-radius: 10px;
@@ -44,17 +43,17 @@
   margin: 0;
   padding: 0;
   color: var(--alternative-color);
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  font-size: 20px;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  font-size: 1.25rem;
   font-style: initial;
   cursor: pointer;
 }
-.button1:hover{
+.button1:hover {
   background-color: var(--secondary-color);
   color: var(--title-color);
 }
-.button2{
-  width: 120px;
+.button2 {
+  width: 10rem;
   height: 50px;
   background-color: var(--primary-color);
   border-top-right-radius: 10px;
@@ -63,20 +62,19 @@
   margin: 0;
   padding: 0;
   color: var(--alternative-color);
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   font-size: 25px;
   font-style: initial;
   cursor: pointer;
 }
-.button2:hover{
+.button2:hover {
   background-color: var(--secondary-color);
   color: var(--title-color);
 }
 
-
 /* Large Button */
-.largeButton{
-  width: 240px;
+.largeButton {
+  width: 20rem;
   height: 50px;
   background-color: var(--primary-color);
   border-radius: 10px;
@@ -84,16 +82,15 @@
   margin: 0;
   padding: 0;
   color: var(--alternative-color);
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  font-size: 20px;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  font-size: 1.25rem;
   font-style: initial;
   cursor: pointer;
 }
-.largeButton:hover{
+.largeButton:hover {
   background-color: var(--secondary-color);
-  color: var(--title-color);  
+  color: var(--title-color);
 }
-
 
 /* Switch Button */
 
@@ -136,7 +133,7 @@
   transform: translateX(0);
 }
 
-.deleteButton{
+.deleteButton {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -144,21 +141,21 @@
   width: 20px;
   height: 16px;
   padding-bottom: 5px;
-  font-size: 20px;
+  font-size: 1.25rem;
   text-align: center;
   border-radius: 5px;
   color: var(--alternative-color);
   cursor: pointer;
 }
-.deleteButton:hover{
+.deleteButton:hover {
   background-color: darkred;
 }
 
-@media screen and (max-width: 450px){
+@media screen and (max-width: 450px) {
   .btn {
-    font-size: 14px;
+    font-size: 1.25rem;
   }
-  .largeButton{
-    font-size: 16px;
+  .largeButton {
+    font-size: 1.25rem;
   }
 }

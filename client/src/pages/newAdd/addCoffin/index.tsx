@@ -74,7 +74,6 @@ const AddCoffin = () => {
   }, []);
 
   useEffect(() => {
-    // (document.getElementById("place") as HTMLSelectElement).selectedIndex = 0;
     setAdd(addCoffinInicialState);
   }, [cleanForm]);
 

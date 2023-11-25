@@ -26,11 +26,23 @@ const Home = () => {
         onClick2={() => router.push("/newAdd")}
       />
       <DoubleButton
+        title1={"Servicios"}
+        title2={"+"}
+        onClick1={() => router.push("/services")}
+        onClick2={() => router.push("/services/new")}
+      />
+      <DoubleButton
+        title1={"Transferencias"}
+        title2={"+"}
+        onClick1={() => router.push("/transfer")}
+        onClick2={() => router.push("/transfer/new")}
+      />
+      {/* <DoubleButton
         title1={"Productos"}
         title2={"+"}
         onClick1={() => router.push("/products")}
         onClick2={() => router.push("/products/new")}
-      />
+      /> */}
       <LargeButton
         title={"Lápidas"}
         onClick={() => router.push("/tombStones")}
@@ -40,6 +52,7 @@ const Home = () => {
         onClick={() => router.push("/deceased")}
       />
       <LargeButton title={"Stock"} onClick={() => router.push("/places")} />
+      <LargeButton title={"Configuración"} onClick={() => router.push("/settings")} />
       </>
   }
     </div>
