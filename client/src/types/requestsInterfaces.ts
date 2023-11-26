@@ -46,7 +46,7 @@ export interface Deceased {
   leyend: string;
   news_paper: string;
   news_paper_name: string;
-  tombstone: boolean;
+  tombstone: string;
   cementery: string;
   cementery_type: string;
   sector: string;

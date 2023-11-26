@@ -31,7 +31,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     id_doc:"",
     name: "",
     dod: 0,
-    tombstone: false,
+    tombstone: "pending",
     leyend: "",
     id: "",
     news_paper: "",

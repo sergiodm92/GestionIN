@@ -21,7 +21,7 @@ const initialDeceasedState = [
     leyend: "",
     news_paper: "",
     news_paper_name: "",
-    tombstone: true,
+    tombstone: "pending",
     cementery_type: ""
   }
 ];

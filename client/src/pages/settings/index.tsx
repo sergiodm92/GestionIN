@@ -14,7 +14,7 @@ const Settings = () => {
         <>
           <LargeButton
             title={"Productos"}
-            onClick={() => router.push("/tombStones")}
+            onClick={() => router.push("/products")}
           />
           <LargeButton
             title={"Ataúdes"}
@@ -34,7 +34,7 @@ const Settings = () => {
           />
           <LargeButton
             title={"Cementerios"}
-            onClick={() => router.push("/settings")}
+            onClick={() => router.push("/cementeries/new")}
           />
         </>
       )}

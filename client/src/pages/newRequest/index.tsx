@@ -50,7 +50,7 @@ const NewRequest = () => {
     leyend: "-",
     news_paper: "-",
     news_paper_name: "",
-    tombstone: false,
+    tombstone: "pending",
     cementery: "",
     cementery_type:"",
     sector: "",

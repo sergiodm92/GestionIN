@@ -35,7 +35,7 @@ const initialData = {
   deceased: {
     name: "",
     dod: 0,
-    tombstone: false,
+    tombstone: "pending",
     leyend: "",
     id: "",
     news_paper: "",
