@@ -4,9 +4,9 @@ import { User } from '../../types/userInterfaces';
 
 const initialState: 
 User = {
-  name: '',
+  name: "",
   admin: false,
-  place: ''
+  place: ""
   }
 
 export const userSlice = createSlice({
