@@ -14,6 +14,12 @@ const Home = () => {
     <div className={styles.container}>
       {user.name && (
         <>
+            <DoubleButton
+              title1={"Ingresos"}
+              title2={"+"}
+              onClick1={() => router.push("/adds")}
+              onClick2={() => router.push("/newAdd")}
+            />
           <DoubleButton
             title1={"Solicitudes"}
             title2={"+"}
@@ -21,10 +27,10 @@ const Home = () => {
             onClick2={() => router.push("/newRequest")}
           />
           <DoubleButton
-            title1={"Ingresos"}
+            title1={"Cremaciones"}
             title2={"+"}
-            onClick1={() => router.push("/adds")}
-            onClick2={() => router.push("/newAdd")}
+            onClick1={() => router.push("/services")}
+            onClick2={() => router.push("/services/new")}
           />
           <DoubleButton
             title1={"Servicios"}
@@ -38,12 +44,6 @@ const Home = () => {
             onClick1={() => router.push("/transfer")}
             onClick2={() => router.push("/transfer/new")}
           />
-          {/* <DoubleButton
-        title1={"Productos"}
-        title2={"+"}
-        onClick1={() => router.push("/products")}
-        onClick2={() => router.push("/products/new")}
-      /> */}
           <LargeButton
             title={"Lápidas"}
             onClick={() => router.push("/tombStones")}
