@@ -11,6 +11,8 @@ declare const styles: {
     dateInput: string;
     noDeceased: string;
     cementeryTypeSelect: string;
+    dateColumn: string;
+    cementeryFilter: string;
   };
   
   export default styles;

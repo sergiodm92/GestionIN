@@ -33,7 +33,8 @@ const initialDeceasedState = [
 
 const TombStones = () => {
   const [selectedCards, setSelectedCards] = useState<string[]>([]);
-  const [filterDate, setFilterDate] = useState<string | null>(null);
+  const [startDate, setStartDate] = useState<string | null>(null);
+  const [endDate, setEndDate] = useState<string | null>(null);
   const [filterCementeryType, setFilterCementeryType] = useState<string | null>(null);
   const [selectAll, setSelectAll] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -73,7 +74,7 @@ const TombStones = () => {
     localStorage.setItem("deceaseds", arrayString);
     router.push("/tombStones/detail");
   };
-  
+
   const changeState = () => {
     const selecteds = deceaseds.filter((deceased) =>
       selectedCards.includes(deceased.id)
@@ -92,7 +93,7 @@ const TombStones = () => {
           if (value === null) {
             resolve('Debes seleccionar una opción');
           }
-            resolve('');
+          resolve('');
         });
       },
       showCancelButton: true
@@ -102,12 +103,12 @@ const TombStones = () => {
         selecteds.forEach((d) => {
           array.push({ doc_id: d.id_doc, status: result.value })
         })
-        const json = {data_put_status: array}
+        const json = { data_put_status: array }
         putDeceasedTombstone(json, setIsLoading)
         setSelectedCards([])
       }
     });
-    
+
   }
 
   const selectAllDisplayedCards = () => {
@@ -119,16 +120,16 @@ const TombStones = () => {
         displayedCardIds = deceaseds
           .filter(
             (deceased) =>
-            (filterDate === null ||
-              new Date(deceased.dod).toISOString().slice(0, 10) <= filterDate)
+              (startDate === null || new Date(deceased.dod) >= new Date(startDate)) &&
+              (endDate === null || new Date(deceased.dod) <= new Date(endDate))
           )
           .map((deceased) => deceased.id);
       } else {
         displayedCardIds = deceaseds
           .filter(
             (deceased) =>
-              (filterDate === null ||
-                new Date(deceased.dod).toISOString().slice(0, 10) <= filterDate) &&
+              (startDate === null || new Date(deceased.dod) >= new Date(startDate)) &&
+              (endDate === null || new Date(deceased.dod) <= new Date(endDate)) &&
               (filterCementeryType === null ||
                 deceased.cementery_type === filterCementeryType)
           )
@@ -141,10 +142,16 @@ const TombStones = () => {
   };
 
 
-  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedDate = e.target.value;
-    setFilterDate(selectedDate);
+  const handleStartDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedStartDate = e.target.value;
+    setStartDate(selectedStartDate);
   };
+
+  const handleEndDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedEndDate = e.target.value;
+    setEndDate(selectedEndDate);
+  };
+
 
   const handleCementeryTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedCementeryType = e.target.value;
@@ -161,17 +168,28 @@ const TombStones = () => {
         <>
           <div className={styles.title}>Placas y Lápidas pendientes</div>
           <div className={styles.filterContainer}>
-
+            <div>Filtrar</div>
             <div className={styles.dateBox}>
-              <div>Filtrar hasta</div>
-              <input
-                type="date"
-                value={filterDate || ""}
-                onChange={handleDateChange}
-                className={styles.dateInput}
-              />
+              <div className={styles.dateColumn}>
+                <div>Desde</div>
+                <input
+                  type="date"
+                  value={startDate || ""}
+                  onChange={handleStartDateChange}
+                  className={styles.dateInput}
+                />
+              </div>
+              <div className={styles.dateColumn}>
+                <div>Hasta</div>
+                <input
+                  type="date"
+                  value={endDate || ""}
+                  onChange={handleEndDateChange}
+                  className={styles.dateInput}
+                />
+              </div>
             </div>
-            <div className={styles.dateBox}>
+            <div className={styles.cementeryFilter}>
               <div>Tipo de cementerio</div>
               <select
                 value={filterCementeryType || ""}
@@ -199,8 +217,10 @@ const TombStones = () => {
             {deceaseds
               .filter(
                 (deceased) =>
-                  (filterDate === null ||
-                    new Date(deceased.dod).toISOString().slice(0, 10) <= filterDate) &&
+                  (startDate === null ||
+                    new Date(deceased.dod).toISOString().slice(0, 10) >= startDate) &&
+                  (endDate === null ||
+                    new Date(deceased.dod).toISOString().slice(0, 10) <= endDate) &&
                   (filterCementeryType === null ||
                     deceased.cementery_type === filterCementeryType)
               )
@@ -217,14 +237,27 @@ const TombStones = () => {
                       .toLocaleDateString("es")
                       .replaceAll("/", "-")}
                     space2={deceased.name}
-                    space3={deceased.cementery_type === cementery_type1 ? tombstone_type2 : tombstone_type1}
-                    space4={deceased.tombstone == 'pending' ? "Pendiente" : deceased.tombstone == 'sent' ? "Enviada" : deceased.tombstone == 'approved' ? "Aprobada" : "Despachadas"}
+                    space3={
+                      deceased.cementery_type === cementery_type1
+                        ? tombstone_type2
+                        : tombstone_type1
+                    }
+                    space4={
+                      deceased.tombstone === "pending"
+                        ? "Pendiente"
+                        : deceased.tombstone === "sent"
+                          ? "Enviada"
+                          : deceased.tombstone === "approved"
+                            ? "Aprobada"
+                            : "Despachadas"
+                    }
                   />
                 </div>
               ))}
             <SmallBtn title={"Generar detalle"} onClick={generateDetail} />
             <SmallBtn title={"Cambiar Estado"} onClick={changeState} />
           </div>
+
         </>
       )}
     </div>
