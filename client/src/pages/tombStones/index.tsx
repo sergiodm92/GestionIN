@@ -8,6 +8,11 @@ import styles from "./styles/tombStone.module.css";
 import { SmallBtn } from "../../components/Buttons";
 import Card2 from "../../components/Cards/Card2";
 import { cementery_type1, cementery_type2, tombstone_type1, tombstone_type2 } from "../../utils/constants";
+import Card3 from "../../components/Cards/Card3";
+import { tombstoneState } from "../../types/interfaces";
+import Swal from "sweetalert2";
+import { putDeceasedTombstone } from "../../components/functions/deceased/functions";
+import { TombstoneStatus } from "../../types/requestsInterfaces";
 
 const initialDeceasedState = [
   {
@@ -31,6 +36,7 @@ const TombStones = () => {
   const [filterDate, setFilterDate] = useState<string | null>(null);
   const [filterCementeryType, setFilterCementeryType] = useState<string | null>(null);
   const [selectAll, setSelectAll] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [updateData, setUpdateData] = useState(initialDeceasedState);
   const router = useRouter();
   const dispatch = useAppDispatch();
@@ -39,7 +45,7 @@ const TombStones = () => {
 
   useEffect(() => {
     getDeceasedesWithoutTombStone(dispatch);
-  }, []);
+  }, [isLoading]);
 
   useEffect(() => {
     if (prevDeceaseds.current !== deceaseds) {
@@ -67,11 +73,41 @@ const TombStones = () => {
     localStorage.setItem("deceaseds", arrayString);
     router.push("/tombStones/detail");
   };
+  
   const changeState = () => {
     const selecteds = deceaseds.filter((deceased) =>
       selectedCards.includes(deceased.id)
     );
-    console.log(selecteds);
+    Swal.fire({
+      title: 'Selecciona una opción',
+      input: 'radio',
+      inputOptions: {
+        'pending': 'Pendiente',
+        'sent': 'Enviada',
+        'approved': 'Aprobada',
+        'dispatched': 'Despachada'
+      },
+      inputValidator: (value) => {
+        return new Promise((resolve) => {
+          if (value === null) {
+            resolve('Debes seleccionar una opción');
+          }
+            resolve('');
+        });
+      },
+      showCancelButton: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const array: TombstoneStatus[] = []
+        selecteds.forEach((d) => {
+          array.push({ doc_id: d.id_doc, status: result.value })
+        })
+        const json = {data_put_status: array}
+        putDeceasedTombstone(json, setIsLoading)
+        setSelectedCards([])
+      }
+    });
+    
   }
 
   const selectAllDisplayedCards = () => {
@@ -83,8 +119,8 @@ const TombStones = () => {
         displayedCardIds = deceaseds
           .filter(
             (deceased) =>
-              (filterDate === null ||
-                new Date(deceased.dod).toISOString().slice(0, 10) <= filterDate)
+            (filterDate === null ||
+              new Date(deceased.dod).toISOString().slice(0, 10) <= filterDate)
           )
           .map((deceased) => deceased.id);
       } else {
@@ -98,12 +134,12 @@ const TombStones = () => {
           )
           .map((deceased) => deceased.id);
       }
-  
+
       setSelectedCards(displayedCardIds);
     }
     setSelectAll(!selectAll);
   };
-  
+
 
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedDate = e.target.value;
@@ -119,13 +155,13 @@ const TombStones = () => {
     <div className={styles.container}>
       {updateData.length === 0 ? (
         <div className={styles.noDeceased}>No hay Placas o Lápidas pendientes</div>
-      ) : updateData[0].id === "" ? (
+      ) : updateData[0].id === "" || isLoading ? (
         <Loading />
       ) : (
         <>
           <div className={styles.title}>Placas y Lápidas pendientes</div>
           <div className={styles.filterContainer}>
-            
+
             <div className={styles.dateBox}>
               <div>Filtrar hasta</div>
               <input
@@ -149,7 +185,7 @@ const TombStones = () => {
             </div>
           </div>
           <div className={styles.subTitle}>
-          <input
+            <input
               type="checkbox"
               checked={selectAll}
               onChange={selectAllDisplayedCards}
@@ -157,7 +193,7 @@ const TombStones = () => {
             <div className={styles.smallSpace}>Fecha</div>
             <div className={styles.smallSpace}>Nombre</div>
             <div className={styles.smallSpace}>Tipo</div>
-            <div className={styles.smallSpace}>DNI</div>
+            <div className={styles.smallSpace}>Estado</div>
           </div>
           <div className={styles.cardsContainer}>
             {deceaseds
@@ -172,17 +208,17 @@ const TombStones = () => {
                 <div className={styles.card} key={i}>
                   <input
                     type="checkbox"
-                    checked={selectedCards.includes(deceased.id_doc)}
+                    checked={selectedCards.includes(deceased.id)}
                     onChange={() => handleCardSelection(deceased.id)}
                   />
-                  <Card2
+                  <Card3
                     onClick={() => router.push(`/deceased/${deceased.id_doc}`)}
                     space1={new Date(deceased.dod)
                       .toLocaleDateString("es")
                       .replaceAll("/", "-")}
                     space2={deceased.name}
                     space3={deceased.cementery_type === cementery_type1 ? tombstone_type2 : tombstone_type1}
-                    space4={deceased.dni}
+                    space4={deceased.tombstone == 'pending' ? "Pendiente" : deceased.tombstone == 'sent' ? "Enviada" : deceased.tombstone == 'approved' ? "Aprobada" : "Despachadas"}
                   />
                 </div>
               ))}

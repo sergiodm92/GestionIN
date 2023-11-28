@@ -4,7 +4,7 @@ import { setDeceasedsData } from "../../../store/Slices/deceasedSlice"
 export const getDeceasedesWithoutTombStone = async (dispatch: any)=>{
     try{
         const data = await getAllDeceasedApi()
-        const deceaseds = data.data.filter((deceased: any) => !deceased.tombstone)
+        const deceaseds = data.data.filter((deceased: any) => deceased.tombstone!=="dispatched")
         const orderDeceased = deceaseds.sort((a: any, b: any) => {
             if (a.date > b.date) {
               return 1;

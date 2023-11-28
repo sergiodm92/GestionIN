@@ -1,3 +1,5 @@
+import { string } from "yup";
+
 export interface DateType {
   day: string;
   time: string;
@@ -66,9 +68,20 @@ export interface Card2 {
   space3: string;
   space4: number;
 }
+export interface Card3 {
+  onClick: any;
+  space1: string;
+  space2: string;
+  space3: string;
+  space4: string;
+}
 export interface SwitchButton{
   isOn: boolean;
   onClick: any
+}
+export interface tombstoneState{
+  doc_id: string;
+  state: string;
 }
 export interface DeleteButton{
   onClick: any

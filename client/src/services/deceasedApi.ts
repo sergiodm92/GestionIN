@@ -1,6 +1,7 @@
 import { AxiosResponse } from "axios";
 import { apiClient } from "../utils/constants";
 import { getAuthToken } from "./authService";
+import { PutTombstoneStatus } from "../types/requestsInterfaces";
 
 const token = getAuthToken()
 
@@ -50,9 +51,9 @@ export const getAllDeceasedApi = async (): Promise<AxiosResponse> => {
 //   };
 
 // put deceased tombstone true
-export const putDeceasedTombstoneApi = async (id: string): Promise<AxiosResponse> => {
+export const putDeceasedTombstoneApi = async (json: PutTombstoneStatus): Promise<AxiosResponse> => {
   try {
-    const response = await apiClient.put(`/deceased/tombstone/${id}`, {}, {
+    const response = await apiClient.put(`/deceased/tombstone`, json, {
       headers: {
         "auth-token": token,
       },

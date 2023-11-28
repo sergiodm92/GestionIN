@@ -95,3 +95,10 @@ export interface GetRequest{
   request: Request;
   deceased: Deceased
 }
+export interface TombstoneStatus{
+  doc_id: string;
+  status: string;
+}
+export interface PutTombstoneStatus{
+  data_put_status: TombstoneStatus[];
+}

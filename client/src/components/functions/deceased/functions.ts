@@ -1,6 +1,7 @@
 import { getDeceasedByIdApi, putDeceasedTombstoneApi } from '../../../services/deceasedApi';
 import { getAllDeceasedApi } from "../../../services/deceasedApi"
 import { setDeceasedData, setDeceasedsData } from "../../../store/Slices/deceasedSlice"
+import { PutTombstoneStatus } from '../../../types/requestsInterfaces';
 import { createToast } from '../../Notifications/Notifications';
 
 export const getAllDeceased = async (dispatch: any)=>{
@@ -32,17 +33,21 @@ export const getDeceasedById = async (dispatch: any, id_doc: string)=>{
     }
 }
 
-export const putDeceasedTombstone = async (id: string)=>{
+export const putDeceasedTombstone = async (json: PutTombstoneStatus, setIsLoading: any)=>{
+    setIsLoading(true)
     try{
-        const response = await putDeceasedTombstoneApi(id)
+        
+        const response = await putDeceasedTombstoneApi(json)
         if (response.data) {
-            createToast("success","Se agregado correctamente");
+            createToast("success","Se ha actualizado el estado de la lapida/placa correctamente");
           } else {
             createToast("error","Verifique que los datos ingresados sean correctos");
           }
+          
     }
     catch(err){
         createToast("warning","ocurrio un error, vuelva a intentar");
         console.log(err)
     }
+    setIsLoading(false)
 }
