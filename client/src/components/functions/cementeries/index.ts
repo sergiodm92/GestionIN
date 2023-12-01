@@ -34,42 +34,20 @@ export const getCementeriesByPlace = async (dispatch: any, place: string)=>{
   }
 }
 
-export const handleCementeryPlace = (e: any, cementery: Cementery, setCementery: any) => {
-    e.preventDefault();
-    setCementery({
-      ...cementery,
-      place: e.target.value,
-    });
-  };
-
-  export const handleCementeryType = (e: any, cementery: Cementery, setCementery: any) => {
-    e.preventDefault();
-    setCementery({
-      ...cementery,
-      type: e.target.value,
-    });
-  };
-
-export const handleSubmit = async (e: any, cementeries: Cementery[] , cementery: Cementery, setIsLoading: any) => {
-  e.preventDefault();
+export const handleSubmit = async (cementeries: Cementery[] , values: Cementery, setSubmitting: any, setIsLoading: any) => {
   setIsLoading(true)
-  if (!cementery.name) {
-    createToast("warning", "Debe ingresar un nombre");
-  } else if (!cementery.type) {
-    createToast("warning", "Debe ingresar un tipo");
-} else if (!cementery.place) {
-    createToast("warning", "Debe ingresar un lugar");
-  } else if (
-    cementeries.find((c) => c.name.toLowerCase() === cementery.name.toLowerCase())
+  setSubmitting(true)
+  if (
+    cementeries.find((c) => c.name.toLowerCase() === values.name.toLowerCase())
   ) {
     createToast(
       "warning",
       "El nombre ingresado ya existe. Por favor ingrese otro nombre"
     );
   }  else {
-    cementery.name = capitalizeString(cementery.name).trim()
+    values.name = capitalizeString(values.name).trim()
     try {
-      const response = await postCementeryApi(cementery);
+      const response = await postCementeryApi(values);
       if (response?.data.status === "ok") {
         createToast("success", "Cementerio agregado con éxito");
       } else {
@@ -83,5 +61,8 @@ export const handleSubmit = async (e: any, cementeries: Cementery[] , cementery:
       console.log(err);
     }
   }
-  setIsLoading(false)
+  setSubmitting(false)
+  setTimeout(() => {
+    setIsLoading(false)
+  }, 5000);
 };

@@ -72,6 +72,11 @@
   background-color: #43815a;
   color: white;
 }
+.error{
+  color: red;
+  font-size: 12px;
+  margin: 0;
+}
 @media (max-width: 600px){
   .newPlace{
     top: 75px;

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FormButton, LargeButton } from "../../../components/Buttons";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import styles from "../styles/settings.module.css";
@@ -6,33 +6,23 @@ import Loading from "../../../components/Loading/loading";
 import { getCementery } from "../../../store/Slices/cementery";
 import {
   getAllCementeries,
-  handleCementeryPlace,
-  handleCementeryType,
   handleSubmit,
 } from "../../../components/functions/cementeries";
 import { cementery_type1, cementery_type2 } from "../../../utils/constants";
 import { getAllPlaces } from "../../../components/functions/places";
 import { getplace } from "../../../store/Slices/place";
-
-import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required('Este campo es obligatorio'),
   place: Yup.string().required('Este campo es obligatorio'),
-  cementeryType: Yup.string().required('Este campo es obligatorio'),
+  type: Yup.string().required('Este campo es obligatorio'),
 });
 
-const initialCementeryState = {
-  name: "",
-  place: "",
-  type: "",
-};
 const cementeryType = [cementery_type1, cementery_type2];
 
 const NewCementery = () => {
-  const [cementery, setCementery] = useState(initialCementeryState);
   const [isLoading, setIsLoading] = useState(false);
   const [newCementery, setNewCementery] = useState(false);
 
@@ -44,14 +34,6 @@ const NewCementery = () => {
     getAllCementeries(dispatch);
     getAllPlaces(dispatch);
   }, []);
-
-  const handleChange = (e: any) => {
-    e.preventDefault();
-    setCementery({
-      ...cementery,
-      [e.target.name]: e.target.value,
-    });
-  };
 
   return (
     <div className={styles.container}>
@@ -83,62 +65,72 @@ const NewCementery = () => {
         onClick={() => setNewCementery(!newCementery)}
       />
       {!newCementery ? null : (
-        <form
-          onSubmit={(e) =>
-            handleSubmit(e, cementeries, cementery, setIsLoading)
-          }
-          className={styles.form}
-        >
+        <Formik
+        initialValues={{
+          name: '',
+          place: '-',
+          type: '-',
+        }}
+        validationSchema={validationSchema}
+        onSubmit={(values, { setSubmitting }) => {
+          handleSubmit(cementeries, values, setSubmitting, setIsLoading);
+        }}
+      >
+        <Form>
           <div className={styles.title}>Nuevo Cementerio:</div>
           <div className={styles.formRow}>
             <div>Nombre del Cementerio:</div>
-            <input
+            <Field
               type="text"
               id="name"
               name="name"
-              value={cementery.name}
-              onChange={handleChange}
               placeholder="El Salvador"
               className={styles.input}
               style={{ width: "calc(100% - 146px)" }}
             />
+            <ErrorMessage name="name" component="div" className={styles.error} />
           </div>
           <div className={styles.formRow}>
             <div>Lugar:</div>
-            <select
+            <Field
+              as="select"
               id="place"
+              name="place"
               className={styles.input}
-              onChange={(e) => handleCementeryPlace(e, cementery, setCementery)}
             >
-              <option defaultValue={"-"}>-</option>
+              <option value="-">-</option>
               {places.map((t, i) => (
                 <option key={i} value={t.name}>
                   {t.name}
                 </option>
               ))}
-            </select>
+            </Field>
+            <ErrorMessage name="place" component="div" className={styles.error} />
           </div>
           <div className={styles.formRow}>
             <div>Tipo de Cementerio:</div>
-            <select
-              id="cementeryType"
+            <Field
+              as="select"
+              id="type"
+              name="type"
               className={styles.input}
-              onChange={(e) => handleCementeryType(e, cementery, setCementery)}
             >
-              <option defaultValue={"-"}>-</option>
+              <option value="-">-</option>
               {cementeryType.map((t, i) => (
                 <option key={i} value={t}>
                   {t}
                 </option>
               ))}
-            </select>
+            </Field>
+            <ErrorMessage name="type" component="div" className={styles.error} />
           </div>
           <FormButton
             title={isLoading ? <Loading /> : "Guardar"}
             loading={isLoading}
             disabled={isLoading}
           />
-        </form>
+        </Form>
+      </Formik>
       )}
     </div>
   );
