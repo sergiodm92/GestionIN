@@ -11,6 +11,8 @@ import {addsMetalBoxSlice} from './Slices/addsMetalBoxSlice'
 import {addsProductsSlice} from './Slices/addsProductsSlice'
 import { cementerySlice } from './Slices/cementery'
 import { productsSlice } from './Slices/products'
+import { companySlice } from './Slices/companies'
+import { supplierSlice } from './Slices/suppliers'
 
 
 export const store = configureStore({
@@ -26,7 +28,9 @@ export const store = configureStore({
       productsStock: productsStockSlice.reducer,
       place: placeSlice.reducer,
       products: productsSlice.reducer,
-      cementery: cementerySlice.reducer
+      cementery: cementerySlice.reducer,
+      companies: companySlice.reducer,
+      suppliers: supplierSlice.reducer,
   }
 })
 
