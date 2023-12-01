@@ -22,7 +22,7 @@ const Places = () => {
         <div className={styles.container}>
             <div className={styles.newPlace} ><SmallBtn
                 title={"Agregar deposito"}
-                onClick={() => router.push('/places/new')}
+                onClick={() => router.push('/settings/places')}
             /></div>
             {places.length ?
                 (<>

@@ -7,7 +7,7 @@ import { getCementery } from "../../../store/Slices/cementery";
 import {
   getAllCementeries,
   handleSubmit,
-} from "../../../components/functions/cementeries";
+} from "../../../components/functions/settings/cementeries";
 import { cementery_type1, cementery_type2 } from "../../../utils/constants";
 import { getAllPlaces } from "../../../components/functions/places";
 import { getplace } from "../../../store/Slices/place";
@@ -32,9 +32,12 @@ const NewCementery = () => {
   const places = useAppSelector(getplace);
 
   useEffect(() => {
-    getAllCementeries(dispatch);
     getAllPlaces(dispatch);
   }, []);
+
+  useEffect(() => {
+    getAllCementeries(dispatch);
+  }, [isLoading]);
 
   const filteredData = cementeries.filter((c) =>
     c.name.toLowerCase().includes(searchName.toLowerCase())
@@ -52,7 +55,7 @@ const NewCementery = () => {
           onChange={(e) => setSearchName(e.target.value)}
         />
       </div>
-      {filteredData.length > 0 && (
+      {filteredData.length > 0 ? (
         <div className={styles.tableContainer}>
           <table className={styles.table}>
             <thead>
@@ -73,7 +76,7 @@ const NewCementery = () => {
             </tbody>
           </table>
         </div>
-      )}
+      ): <Loading />}
       <LargeButton
         title="Agregar Cementerio"
         onClick={() => setNewCementery(!newCementery)}
@@ -86,8 +89,8 @@ const NewCementery = () => {
             type: "-",
           }}
           validationSchema={validationSchema}
-          onSubmit={(values, { setSubmitting }) => {
-            handleSubmit(cementeries, values, setSubmitting, setIsLoading);
+          onSubmit={(values, { setSubmitting, setValues }) => {
+            handleSubmit(cementeries, values, setValues, setSubmitting, setIsLoading);
           }}
         >
           <Form className={styles.formContainer}>

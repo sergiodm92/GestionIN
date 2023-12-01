@@ -1,8 +1,19 @@
-import { getAllCementeriesApi, getCementeriesByPlaceApi, getCementeriesByTypeApi, postCementeryApi } from './../../../services/cementeriesApi';
-import { createToast } from "../../../components/Notifications/Notifications";
-import { setCementeryData } from '../../../store/Slices/cementery';
-import { Cementery } from '../../../types/cementery';
-import { capitalizeString } from '../places';
+import { getAllCementeriesApi, getCementeriesByPlaceApi, getCementeriesByTypeApi, postCementeryApi } from '../../../../services/cementeriesApi';
+import { createToast } from "../../../Notifications/Notifications";
+import { setCementeryData } from '../../../../store/Slices/cementery';
+import { Cementery } from '../../../../types/cementery';
+
+export const capitalizeString = (str: string) => {
+  str = str.toLowerCase();
+  var words = str.split(" ");
+  for (var i = 0; i < words.length; i++) {
+    var firstLetter = words[i].charAt(0).toUpperCase();
+    var restOfWord = words[i].slice(1);
+    words[i] = firstLetter + restOfWord;
+  }
+  var capitalizedString = words.join(" ");
+  return capitalizedString;
+};
 
 export const getAllCementeries = async (dispatch: any)=>{
   try{
@@ -34,7 +45,7 @@ export const getCementeriesByPlace = async (dispatch: any, place: string)=>{
   }
 }
 
-export const handleSubmit = async (cementeries: Cementery[] , values: Cementery, setSubmitting: any, setIsLoading: any) => {
+export const handleSubmit = async (cementeries: Cementery[] , values: Cementery, setValues:any, setSubmitting: any, setIsLoading: any) => {
   setIsLoading(true)
   setSubmitting(true)
   if (
@@ -50,6 +61,11 @@ export const handleSubmit = async (cementeries: Cementery[] , values: Cementery,
       const response = await postCementeryApi(values);
       if (response?.data.status === "ok") {
         createToast("success", "Cementerio agregado con éxito");
+        setValues({
+          name:'',
+          place:'',
+          type:''
+        })
       } else {
         createToast(
           "error",
