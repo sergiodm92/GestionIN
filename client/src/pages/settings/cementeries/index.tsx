@@ -15,9 +15,9 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 const validationSchema = Yup.object().shape({
-  name: Yup.string().required("Este campo es obligatorio"),
-  place: Yup.string().required("Este campo es obligatorio"),
-  type: Yup.string().required("Este campo es obligatorio"),
+  name: Yup.string().required("Nombre del Cementerio es requerido").max(20, "Máximo 20 caracteres"),
+  place: Yup.string().required("Lugar es requerido"),
+  type: Yup.string().required("Tipo de Cementerio es requerido"),
 });
 
 const cementeryType = [cementery_type1, cementery_type2];
@@ -39,7 +39,8 @@ const NewCementery = () => {
     getAllCementeries(dispatch);
   }, [isLoading]);
 
-  const filteredData = cementeries.filter((c) =>
+  var filteredData =[{name:"sin datos",place:"", type:"" }]
+  filteredData = cementeries.filter((c) =>
     c.name.toLowerCase().includes(searchName.toLowerCase())
   );
 
@@ -76,7 +77,9 @@ const NewCementery = () => {
             </tbody>
           </table>
         </div>
-      ): <Loading />}
+      ): filteredData[0]?.name == "sin datos" ? (
+        <Loading />
+      ) : null}
       <LargeButton
         title="Agregar Cementerio"
         onClick={() => setNewCementery(!newCementery)}

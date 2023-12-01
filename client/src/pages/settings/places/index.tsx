@@ -26,7 +26,8 @@ const NewPlace = () => {
     getAllPlaces(dispatch);
   }, [isLoading]);
 
-  const filteredData = places.filter((c) =>
+  var filteredData =[{name:"sin datos",initials:"" }]
+  filteredData = places.filter((c) =>
     c.name.toLowerCase().includes(searchName.toLowerCase())
   );
 
@@ -61,7 +62,9 @@ const NewPlace = () => {
             </tbody>
           </table>
         </div>
-      ): <Loading />}
+      ): filteredData[0]?.name == "sin datos" ? (
+        <Loading />
+      ) : null}
       <LargeButton
         title="Agregar Depósito"
         onClick={() => setNewPlace(!newPlace)}
@@ -95,7 +98,7 @@ const NewPlace = () => {
               />
             </div>
             <div className={styles.form}>
-            <div>Nombre del Depósito:</div>
+            <div>Iniciales:</div>
               <Field
                 type="text"
                 id="initials"
@@ -104,7 +107,7 @@ const NewPlace = () => {
                 className={styles.input}
               />
               <ErrorMessage
-                name="name"
+                name="initials"
                 component="div"
                 className={styles.error}
               />
