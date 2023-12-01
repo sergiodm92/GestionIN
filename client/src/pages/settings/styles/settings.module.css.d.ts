@@ -8,6 +8,7 @@ declare const styles: {
     form: string;
     tableContainer: string;
     table: string;
+    error: string;
 };
   
 export default styles;
