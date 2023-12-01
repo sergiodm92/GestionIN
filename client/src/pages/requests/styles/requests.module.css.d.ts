@@ -7,7 +7,6 @@ declare const styles: {
     cardsContainer: string ;
     card: string ;
     noRequests: string;
-    containerII: string;
   };
   
   export default styles;

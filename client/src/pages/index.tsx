@@ -26,13 +26,19 @@ const Home = () => {
             onClick2={() => router.push("/newRequest")}
           />
           <DoubleButton
+            title1={"Servicios"}
+            title2={"+"}
+            onClick1={() => router.push("/services")}
+            onClick2={() => router.push("/services/new")}
+          />
+          <DoubleButton
             title1={"Transferencias"}
             title2={"+"}
             onClick1={() => router.push("/transfer")}
             onClick2={() => router.push("/transfer/new")}
           />
           <LargeButton
-            title={"Lápidas y Placas"}
+            title={"Lápidas"}
             onClick={() => router.push("/tombStones")}
           />
           <LargeButton
