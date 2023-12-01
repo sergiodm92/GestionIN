@@ -1,0 +1,30 @@
+.list{
+    display: flex;
+    flex-direction: column;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 1rem;
+}
+
+.btn {
+    width: 10rem;
+    height: 2.2rem;
+    background-color: var(--primary-color);
+    border-radius: 10px;
+    border: 1px solid var(--title-color);
+    margin: 0;
+    padding: 0;
+    color: var(--alternative-color);
+    font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+    font-size: 1.25rem;
+    font-style: initial;
+    cursor: pointer;
+  }
+  .btn:hover {
+    background-color: var(--secondary-color);
+    color: var(--title-color);
+  }

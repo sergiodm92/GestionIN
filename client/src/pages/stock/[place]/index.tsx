@@ -50,7 +50,6 @@ const Stock = ({ place }: { place: string }) => {
   const stock = useAppSelector(getCoffinStock);
   const productsStock = useAppSelector(getProductsStock);
   const MBStock = useAppSelector(getmetalBoxStock);
-  console.log(MBStock);
 
   const prevStock = useRef(stock);
 

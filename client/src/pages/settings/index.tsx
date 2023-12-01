@@ -14,27 +14,27 @@ const Settings = () => {
         <>
           <LargeButton
             title={"Productos"}
-            onClick={() => router.push("/products")}
+            onClick={() => router.push("/settings/products")}
           />
           <LargeButton
             title={"Ataúdes"}
-            onClick={() => router.push("/deceased")}
+            onClick={() => router.push("/settings/coffins")}
           />
           <LargeButton
             title={"Depósitos"}
-            onClick={() => router.push("/deceased")}
+            onClick={() => router.push("/settings/places")}
           />
           <LargeButton
             title={"Proveedores"}
-            onClick={() => router.push("/places")}
+            onClick={() => router.push("/settings/suppliers")}
           />
           <LargeButton
             title={"Empresas"}
-            onClick={() => router.push("/places")}
+            onClick={() => router.push("/settings/companies")}
           />
           <LargeButton
             title={"Cementerios"}
-            onClick={() => router.push("/cementeries/new")}
+            onClick={() => router.push("/settings/cementeries")}
           />
         </>
       )}

@@ -1,9 +1,10 @@
+
+
 const Transfer = () => {
-    return(
-        <section>
+  return(
+    <section>
 
-        </section>
-    )
+    </section>
+)
 }
-
-export default Transfer
+export default Transfer;

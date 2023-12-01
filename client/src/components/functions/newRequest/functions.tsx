@@ -106,7 +106,6 @@ export const handleSubmit = async (
 ) => {
   e.preventDefault();
   setIsLoading(true);
-  console.log(request);
   deceased.id = generateRandomID();
   request.id = generateRandomID();
   deceased.id_request = request.id;

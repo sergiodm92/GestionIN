@@ -44,7 +44,6 @@ const Login = ()=>{
                 localStorage.setItem("userPlace", response.data.user.place)
                 dispatch(setLoginData())
                 router.push('/');
-                console.log(response.data)
             }
             else{
                 createToast("error","Usuario o contraseña incorrectos, vuelva a intentar");
