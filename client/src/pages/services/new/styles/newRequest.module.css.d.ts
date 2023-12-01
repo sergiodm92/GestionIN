@@ -1,0 +1,22 @@
+declare const styles: {
+    container: string;
+    title: string;
+    form: string;
+    formContainer: string;
+    inputDate: string;
+    dateRow: string;
+    input: string;
+    textArea: string;
+    formRow: string;
+    selects: string;
+    buttonContainer: string;
+    customSwitchInput: string;
+    switch: string;
+    dateInput: string;
+    newCementery: string;
+    productsGroup: string;
+  };
+  
+  export default styles;
+  
+  
