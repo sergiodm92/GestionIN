@@ -9,7 +9,6 @@ const Home = () => {
   const router = useRouter();
   const user = useAppSelector(getUser);
 
-
   return (
     <div className={styles.container}>
       {user.name && (
@@ -25,12 +24,6 @@ const Home = () => {
             title2={"+"}
             onClick1={() => router.push("/requests")}
             onClick2={() => router.push("/newRequest")}
-          />
-          <DoubleButton
-            title1={"Cremaciones"}
-            title2={"+"}
-            onClick1={() => router.push("/services")}
-            onClick2={() => router.push("/services/new")}
           />
           <DoubleButton
             title1={"Servicios"}
