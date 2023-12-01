@@ -126,7 +126,6 @@ const FormRequest = (data: FormRequest) => {
 
   const handleSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedSize = e.target.value;
-    console.log(selectedSize, sizes)
     const size_initial = sizes.find((s) => s.name == selectedSize)?.initials;
 
     // Filtrar los colores disponibles para el tipo y tamaño seleccionados
@@ -233,7 +232,6 @@ const FormRequest = (data: FormRequest) => {
   const productGroupHandleSubmit = async (e: any, product: Products, request: Request, setProduct: any, productSelectedUnits:number, setIsLoading: React.Dispatch<React.SetStateAction<boolean>>) => {
     e.preventDefault();
     setIsLoading(true)
-    console.log(product)
     try {
       if(!product.units || product.units > productSelectedUnits){
         createToast("warning", "no hay stock suficiente")

@@ -80,7 +80,6 @@ const Register = ()=>{
       };
       useEffect(() => {
         // userGlobal.admin? null:router.push('/')
-        console.log(userGlobal)
         if(userGlobal.admin===false){
             router.push('/')
         }
