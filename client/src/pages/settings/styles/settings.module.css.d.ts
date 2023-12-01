@@ -1,14 +1,15 @@
 declare const styles: {
     container: string;
     title: string;
-    dropdownList: string;
-    newPlace: staring;
     input: staring;
-    formRow: string;
+    formContainer: string;
     form: string;
     tableContainer: string;
     table: string;
     error: string;
+    searchContaier: string;
+    search: string;
+    btnContainer: string;
 };
   
 export default styles;

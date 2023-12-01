@@ -90,9 +90,9 @@ const NewCementery = () => {
             handleSubmit(cementeries, values, setSubmitting, setIsLoading);
           }}
         >
-          <Form>
+          <Form className={styles.formContainer}>
             <div className={styles.title}>Nuevo Cementerio:</div>
-            <div className={styles.formRow}>
+            <div className={styles.form}>
               <div>Nombre del Cementerio:</div>
               <Field
                 type="text"
@@ -107,7 +107,7 @@ const NewCementery = () => {
                 className={styles.error}
               />
             </div>
-            <div className={styles.formRow}>
+            <div className={styles.form}>
               <div>Lugar:</div>
               <Field
                 as="select"
@@ -128,7 +128,7 @@ const NewCementery = () => {
                 className={styles.error}
               />
             </div>
-            <div className={styles.formRow}>
+            <div className={styles.form}>
               <div>Tipo de Cementerio:</div>
               <Field as="select" id="type" name="type" className={styles.input}>
                 <option value="-">-</option>
@@ -144,11 +144,13 @@ const NewCementery = () => {
                 className={styles.error}
               />
             </div>
-            <FormButton
-              title={isLoading ? <Loading /> : "Guardar"}
-              loading={isLoading}
-              disabled={isLoading}
-            />
+            <div className={styles.btnContainer}>
+              <FormButton
+                title={isLoading ? <Loading /> : "Guardar"}
+                loading={isLoading}
+                disabled={isLoading}
+              />
+            </div>
           </Form>
         </Formik>
       )}
