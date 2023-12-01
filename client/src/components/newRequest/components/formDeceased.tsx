@@ -160,7 +160,7 @@ const FormDeceased = (data: FormDeceased) => {
               ))
             : null}
         </select>
-        <div  className={styles.newCementery} onClick={()=>router.push('/cementeries/new')}>Agregar cementerio</div>
+        <div  className={styles.newCementery} onClick={()=>router.push('/settings/cementeries')}>Agregar cementerio</div>
       </div>
       {deceased.cementery_type === cementery_type1?
       (

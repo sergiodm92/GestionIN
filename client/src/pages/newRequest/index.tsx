@@ -9,7 +9,7 @@ import { getAllPlaces } from "../../components/functions/places";
 import { getplace } from "../../store/Slices/place";
 import Loading from "../../components/Loading/loading";
 import { getCementery } from "../../store/Slices/cementery";
-import { getCementeriesByType } from "../../components/functions/cementeries";
+import { getCementeriesByType } from "../../components/functions/settings/cementeries";
 
 const NewRequest = () => {
 
