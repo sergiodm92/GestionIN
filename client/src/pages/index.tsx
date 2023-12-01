@@ -38,7 +38,7 @@ const Home = () => {
             onClick2={() => router.push("/transfer/new")}
           />
           <LargeButton
-            title={"Lápidas"}
+            title={"Lápidas y Placas"}
             onClick={() => router.push("/tombStones")}
           />
           <LargeButton
