@@ -110,9 +110,7 @@ const NewTransferStepOne = () => {
       createToast("warning", "ocurrio un error, vuelva a intentar");
       console.error(error);
     }
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 5000)
+    setIsLoading(false)
   };
 
   return (
