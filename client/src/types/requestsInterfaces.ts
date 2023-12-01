@@ -29,6 +29,26 @@ export interface Request {
     cladding: string;
     service_improvement: string;
 }
+
+export interface RequestService {
+  id: string;
+  id_deceased: string;
+  date: number;
+  place: string;
+  funeral: string;
+  id_add: string;
+  id_coffin_group: string;
+  id_add_metal_box: string;
+  id_metal_box_group: string;
+  additional: string;
+  wreath: boolean;
+  present: string;
+  products: Products[];
+  burial_place: string;
+  burial_time: string;
+  cladding: string;
+  service_improvement: string;
+}
 export interface RequestState {
   requests: Request[];
   request: PostRequest;
@@ -75,6 +95,17 @@ export interface  FormRequest {
   setIsOn: any;
   places: Place[];
   request: Request;
+  setRequest: any;
+  currentDate: string;
+  setCurrentDate: any;
+  coffin: CoffinInitials;
+  setCoffin: any;
+}
+export interface  FormRequestService {
+  isOn: boolean;
+  setIsOn: any;
+  places: Place[];
+  request: RequestService;
   setRequest: any;
   currentDate: string;
   setCurrentDate: any;

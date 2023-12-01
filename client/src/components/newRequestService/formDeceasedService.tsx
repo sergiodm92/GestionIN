@@ -14,11 +14,28 @@ import { FormDeceased } from "../../types/requestsInterfaces";
 const FormDeceasedService = (data: FormDeceased) => {
   
   const { deceased, setDeceased, date, setDate, birthDate, setBirthDate, cementeries } = data;
-
   const router = useRouter()
-
+  const companies = ["Caruso", "Particular"]
+  
   return (
     <div className={styles.formContainer}>
+      <div className={styles.formRow}>
+        <div>Cliente: </div>
+        <select
+          id="cementery_type"
+          className={styles.selects}
+          onChange={(e)=>cementeryTypeSelect(e, setDeceased, deceased)}
+        >
+          <option defaultValue="-">-</option>
+          {companies.length > 0
+            ? companies.map((c, i) => (
+                <option key={i} value={c}>
+                  {c}
+                </option>
+              ))
+            : null}
+        </select>
+      </div>
       <div className={styles.formRow}>
         <div>Apellido y Nombre:</div>
         <input
@@ -94,16 +111,6 @@ const FormDeceasedService = (data: FormDeceased) => {
           onChange={(e) => handleDeceasedChange(e, deceased, setDeceased)}
         />
       </div>
-      {/* <div>
-        <div>Texto de Placa: </div>
-        <textarea
-            className={styles.textArea}
-            id="leyend"
-            name="leyend"
-            value={deceased.leyend==="-"?"":deceased.leyend}
-            onChange={(e) => handleDeceasedChange(e, deceased, setDeceased)}
-          />
-      </div> */}
       <div>
         <div>Esquela (Diario): </div>
         <textarea
