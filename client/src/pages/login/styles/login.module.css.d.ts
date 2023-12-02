@@ -4,6 +4,9 @@ declare const styles: {
     form: string;
     inputText: string;
     input: string;
+    select: string;
+    selects: string;
+    errorText:string;
   };
   
   export default styles;
