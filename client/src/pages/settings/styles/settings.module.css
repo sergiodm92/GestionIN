@@ -16,6 +16,12 @@
   font-weight: bold;
   margin-top: 20px;
 }
+.subTitle{
+  font-size: 18px;
+  color: var(--title-color);
+  font-weight: bold;
+  margin-left: 20px;
+}
 .formContainer{
   width: 100%;
   max-width: 600px;
@@ -83,6 +89,18 @@
   outline: none;
   width: 160px;
   height: 20px;
+}
+.propertyContainer{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 10px;
+}
+.property{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 @media (max-width: 600px){
   .table {
