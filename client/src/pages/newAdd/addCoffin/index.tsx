@@ -26,11 +26,12 @@ import { useRouter } from "next/navigation";
 
 const AddCoffin = () => {
   const dispatch = useAppDispatch();
+  const user = useAppSelector(getUser);
 
   const addCoffinInicialState = {
     id: "",
     date: 0,
-    responsible: "",
+    responsible: user.name || "",
     place: "",
     coffins: [],
     metal_box: [],
@@ -62,7 +63,7 @@ const AddCoffin = () => {
   const router = useRouter();
 
   const places = useAppSelector(getplace);
-  const user = useAppSelector(getUser);
+
 
   const handleToggleSwitch = () => {
     setIsOn(!isOn);
@@ -114,17 +115,6 @@ const AddCoffin = () => {
               </option>
             ))}
           </select>
-        </div>
-        <div className={styles.formRow}>
-          <div>Responsable:</div>
-          <input
-            className={styles.input}
-            type="text"
-            id="responsible"
-            name="responsible"
-            value={add.responsible}
-            onChange={(e) => handleAddChange(e, add, setAdd)}
-          />
         </div>
         <div>Ataúd:</div>
         <div className={styles.coffinGroup}>
