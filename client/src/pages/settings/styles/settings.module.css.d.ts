@@ -10,6 +10,9 @@ declare const styles: {
     searchContaier: string;
     search: string;
     btnContainer: string;
+    propertyContainer: string;
+    property: string;
+    subTitle: string;
 };
   
 export default styles;
