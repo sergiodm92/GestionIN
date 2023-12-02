@@ -1,9 +1,13 @@
 import { CoffinInitials, DateType } from "../../../types/interfaces";
-import { Deceased, RequestService, Request } from "../../../types/requestsInterfaces";
+import {
+  Deceased,
+  RequestService,
+  Request,
+} from "../../../types/requestsInterfaces";
 import { createToast } from "../../Notifications/Notifications";
-import { postRequestApi } from "../../../services/requestApi";
+import { postRequestApi, postRequestServiceApi } from "../../../services/requestApi";
 import { generateRandomID } from "../../functions";
-import { validateRequest } from "../../Validations/request";
+import { validateRequest, validateRequestService } from "../../Validations/request";
 import { validateDeceased } from "../../Validations/deceased";
 
 export const handleDeceasedChange = (
@@ -152,20 +156,34 @@ export const handleSubmit = async (
         setBirthDate(initialDate);
         setDate(initialDate);
         setCurrentDate(initialDate);
-        const selectElement = document.getElementById("cementery_type") as HTMLSelectElement;
+        const selectElement = document.getElementById(
+          "cementery_type"
+        ) as HTMLSelectElement;
         selectElement.selectedIndex = 0;
         setRequest(initialRequest);
-        const selectElement1 = document.getElementById("place") as HTMLSelectElement;
+        const selectElement1 = document.getElementById(
+          "place"
+        ) as HTMLSelectElement;
         selectElement1.selectedIndex = 0;
-        const selectElement2 = document.getElementById("type") as HTMLSelectElement;
+        const selectElement2 = document.getElementById(
+          "type"
+        ) as HTMLSelectElement;
         selectElement2.selectedIndex = 0;
-        const selectElement3 = document.getElementById("size") as HTMLSelectElement;
+        const selectElement3 = document.getElementById(
+          "size"
+        ) as HTMLSelectElement;
         selectElement3.selectedIndex = 0;
-        const selectElement4 = document.getElementById("color") as HTMLSelectElement;
+        const selectElement4 = document.getElementById(
+          "color"
+        ) as HTMLSelectElement;
         selectElement4.selectedIndex = 0;
-        const selectElement5 = document.getElementById("metal_box") as HTMLSelectElement;
+        const selectElement5 = document.getElementById(
+          "metal_box"
+        ) as HTMLSelectElement;
         selectElement5.selectedIndex = 0;
-        const selectElement6 = document.getElementById("id_metal_box_group") as HTMLSelectElement;
+        const selectElement6 = document.getElementById(
+          "id_metal_box_group"
+        ) as HTMLSelectElement;
         selectElement6.selectedIndex = 0;
       } else {
         createToast(
@@ -225,33 +243,47 @@ export const handleSubmitServices = async (
 
   request.wreath = isOn;
   request.id_coffin_group = `${coffin.place.initials}${coffin.type.initials}${coffin.size.initials}${coffin.color.initials}${coffin.metal_box.initials}`;
-  if (validateDeceased(deceased) && validateRequest(request)) {
+  if (validateDeceased(deceased) && validateRequestService(request)) {
     const json = {
       request: request,
       deceased: deceased,
     };
     try {
-      const response = await postRequestApi(json);
+      const response = await postRequestServiceApi(json);
       if (response?.data.status === "ok") {
         createToast("success", "Solicitud creada con éxito");
         setDeceased(initialDeceased);
         setBirthDate(initialDate);
         setDate(initialDate);
         setCurrentDate(initialDate);
-        const selectElement = document.getElementById("cementery_type") as HTMLSelectElement;
+        const selectElement = document.getElementById(
+          "cementery_type"
+        ) as HTMLSelectElement;
         selectElement.selectedIndex = 0;
         setRequest(initialRequest);
-        const selectElement1 = document.getElementById("place") as HTMLSelectElement;
+        const selectElement1 = document.getElementById(
+          "place"
+        ) as HTMLSelectElement;
         selectElement1.selectedIndex = 0;
-        const selectElement2 = document.getElementById("type") as HTMLSelectElement;
+        const selectElement2 = document.getElementById(
+          "type"
+        ) as HTMLSelectElement;
         selectElement2.selectedIndex = 0;
-        const selectElement3 = document.getElementById("size") as HTMLSelectElement;
+        const selectElement3 = document.getElementById(
+          "size"
+        ) as HTMLSelectElement;
         selectElement3.selectedIndex = 0;
-        const selectElement4 = document.getElementById("color") as HTMLSelectElement;
+        const selectElement4 = document.getElementById(
+          "color"
+        ) as HTMLSelectElement;
         selectElement4.selectedIndex = 0;
-        const selectElement5 = document.getElementById("metal_box") as HTMLSelectElement;
+        const selectElement5 = document.getElementById(
+          "metal_box"
+        ) as HTMLSelectElement;
         selectElement5.selectedIndex = 0;
-        const selectElement6 = document.getElementById("id_metal_box_group") as HTMLSelectElement;
+        const selectElement6 = document.getElementById(
+          "id_metal_box_group"
+        ) as HTMLSelectElement;
         selectElement6.selectedIndex = 0;
       } else {
         createToast(

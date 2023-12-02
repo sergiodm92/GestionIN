@@ -121,6 +121,10 @@ export interface PDFRequest{
   request: Request;
   deceased: Deceased
 }
+export interface PDFRequestService{
+  request: RequestService;
+  deceased: Deceased
+}
 export interface GetRequest{
   id: string;
   request: Request;

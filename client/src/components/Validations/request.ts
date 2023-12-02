@@ -1,4 +1,4 @@
-import { Request } from "../../types/requestsInterfaces";
+import { Request, RequestService } from "../../types/requestsInterfaces";
 import { createToast } from "../Notifications/Notifications";
 
 export const validateRequest = (form: Request) => {
@@ -88,6 +88,70 @@ export const validateRequest = (form: Request) => {
 
   for (const { field, message, condition } of validationList) {
     if (condition || !form[field as keyof Request]) {
+      createToast("error", message)
+      return false;
+    }
+  }
+
+  return true;
+};
+
+export const validateRequestService = (form: RequestService) => {
+  const validationList = [
+    {
+      field: "funeral",
+      message: "Debe proporcionar un Lugar de velatorio",
+      condition: !form.funeral,
+    },
+    {
+        field: "id_coffin_group",
+        message: "Debe proporcionar todos los datos del ataúd",
+        condition: !form.id_coffin_group || form.id_coffin_group.length !== 10,
+      },
+    {
+      field: "additional",
+      message: "Debe proporcionar Adicional",
+      condition: !form.additional,
+    },
+    {
+      field: "present",
+      message: "Debe proporcionar Presente de funeral",
+      condition: !form.present,
+    },
+    {
+      field: "burial_place",
+      message: "Debe proporcionar un Lugar de inhumación",
+      condition: !form.burial_place,
+    },
+    {
+      field: "burial_time",
+      message: "Debe proporcionar una hora de inhumación válida",
+      condition: !form.burial_time || !/^([01]\d|2[0-3]):([0-5]\d)$/.test(form.burial_time),
+    },
+    {
+      field: "cladding",
+      message: "Debe proporcionar un revestimiento",
+      condition: !form.cladding,
+    },
+    {
+      field: "service_improvement",
+      message: "Debe proporcionar mejoramiento del servicio",
+      condition: !form.service_improvement,
+    },
+    {
+        field: "date",
+        message: "Debe proporcionar una fecha",
+        condition: isNaN(form.date),
+      },
+    {
+      field: "place",
+      message: "Debe proporcionar un lugar",
+      condition: !form.place,
+    },
+  ];
+
+  for (const { field, message, condition } of validationList) {
+    if (condition || !form[field as keyof RequestService]) {
       createToast("error", message)
       return false;
     }

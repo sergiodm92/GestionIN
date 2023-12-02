@@ -26,7 +26,7 @@ const NewPlace = () => {
     getAllPlaces(dispatch);
   }, [isLoading]);
 
-  var filteredData =[{name:"sin datos",initials:"" }]
+  let filteredData =[{name:"sin datos",initials:"" }]
   filteredData = places.filter((c) =>
     c.name.toLowerCase().includes(searchName.toLowerCase())
   );

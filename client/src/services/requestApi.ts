@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios";
 import { apiClient } from "../utils/constants";
-import { PDFRequest } from "../types/requestsInterfaces";
+import { PDFRequest, PDFRequestService } from "../types/requestsInterfaces";
 import { getAuthToken } from "./authService";
 
 const token = getAuthToken()
@@ -8,6 +8,22 @@ const token = getAuthToken()
 // Post request
 export const postRequestApi = async (
   data: PDFRequest
+): Promise<AxiosResponse> => {
+  try {
+    const response = await apiClient.post("/request", data, {
+      headers: {
+        "auth-token": token,
+      },
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Post request
+export const postRequestServiceApi = async (
+  data: PDFRequestService
 ): Promise<AxiosResponse> => {
   try {
     const response = await apiClient.post("/request", data, {
