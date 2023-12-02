@@ -2,7 +2,6 @@ import { Place } from "./../../../../types/place";
 import { postPlaceApi } from "../../../../services/placesApi";
 import { createToast } from "../../../Notifications/Notifications";
 import { capitalizeString } from "../cementeries";
-import { getAllPlaces } from "../../places";
 
 export const handleSubmit = async (
   places: Place[],
