@@ -5,6 +5,8 @@ declare const styles: {
     inputText: string;
     input: string;
     select: string;
+    selects: string;
+    errorText:string;
   };
   
   export default styles;
