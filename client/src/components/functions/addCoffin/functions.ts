@@ -32,27 +32,6 @@ export const handleCoffinChange = (e: any, coffin: Coffin, setCoffin: any) => {
     [e.target.name]: e.target.value.trim(),
   });
 }
-export const handleCoffinType = (e: any, coffin: Coffin, setCoffin: any) => {
-  e.preventDefault();
-  setCoffin({
-    ...coffin,
-    type: e.target.value,
-  });
-};
-export const handleCoffinSize = (e: any, coffin: Coffin, setCoffin: any) => {
-  e.preventDefault();
-  setCoffin({
-    ...coffin,
-    size: e.target.value,
-  });
-};
-export const handleCoffinColor = (e: any, coffin: Coffin, setCoffin: any) => {
-  e.preventDefault();
-  setCoffin({
-    ...coffin,
-    color: e.target.value,
-  });
-};
 
 export const switchMetalBox = (switchMB: boolean, setSwitchMB: any, coffin: Coffin) => {
   if (switchMB == false) {
@@ -91,6 +70,8 @@ export const coffinGroupHandleSubmit = async (e: any, coffin: Coffin, add: AddCo
   selectElement2.selectedIndex = 0;
   const selectElement3 = document.getElementById("color") as HTMLSelectElement;
   selectElement3.selectedIndex = 0;
+  const selectElement4 = document.getElementById("supplier1") as HTMLSelectElement;
+  selectElement4.selectedIndex = 0;
   setIsOn(false)
   setIsLoading(false)
 }
@@ -134,13 +115,6 @@ export const addHandleSubmit = async (e: any, date: string, add: AddCoffin, setA
 }
 
 //-----------------METAL BOX----------------------------------------------------------
-export const handleMboxSize = (e: any, mbox: Mbox, setMbox: any) => {
-  e.preventDefault();
-  setMbox({
-    ...mbox,
-    size: e.target.value,
-  });
-};
 export const handleMboxChange = (e: any, mbox: Mbox, setMbox: any) => {
   e.preventDefault();
   setMbox({
@@ -162,6 +136,8 @@ export const mboxGroupHandleSubmit = async (e: any, mbox: Mbox, add: AddCoffin, 
   setMbox(initialMetalBox)
   const selectElement = document.getElementById("mbsize") as HTMLSelectElement;
   selectElement.selectedIndex = 0;
+  const selectElement2 = document.getElementById("supplier2") as HTMLSelectElement;
+  selectElement2.selectedIndex = 0;
   setIsLoading(false)
 }
 //------------------------------------------------------------------------------------

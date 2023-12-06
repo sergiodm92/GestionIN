@@ -1,18 +1,12 @@
 import React, { useState, useEffect } from "react";
 import {
   addHandleSubmit,
-  handleAddChange,
-  handleCoffinColor,
   handlePlace,
-  handleCoffinSize,
-  handleCoffinType,
   handleCoffinChange,
   coffinGroupHandleSubmit,
-  handleMboxSize,
   handleMboxChange,
   mboxGroupHandleSubmit,
 } from "../../../components/functions/addCoffin/functions";
-import { types, sizes, colors } from "../../../components/arrays";
 import { AddBtn, FormButton, SwitchBtn } from "../../../components/Buttons";
 import { getAllPlaces } from "../../../components/functions/places";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
@@ -21,8 +15,12 @@ import styles from "../styles/newAdd.module.css";
 import Loading from "../../../components/Loading/loading";
 import { Coffin } from "../../../types/addsInterfaces";
 import { Mbox } from "../../../types/interfaces";
-import { getUser, setLoginData } from "../../../store/Slices/userSlice";
+import { getUser } from "../../../store/Slices/userSlice";
 import { useRouter } from "next/navigation";
+import { getAllColors, getAllSizes, getAllTypes } from "../../../components/functions/settings/coffinProperty";
+import { getColors, getSizes, getTypes } from "../../../store/Slices/coffinProperty";
+import { getAllSuppliers } from "../../../components/functions/settings/suppliers";
+import { getSuppliers } from "../../../store/Slices/suppliers";
 
 const AddCoffin = () => {
   const dispatch = useAppDispatch();
@@ -63,6 +61,10 @@ const AddCoffin = () => {
   const router = useRouter();
 
   const places = useAppSelector(getplace);
+  const types = useAppSelector(getTypes);
+  const sizes = useAppSelector(getSizes);
+  const colors = useAppSelector(getColors);
+  const suppliers = useAppSelector(getSuppliers);
 
 
   const handleToggleSwitch = () => {
@@ -71,6 +73,10 @@ const AddCoffin = () => {
 
   useEffect(() => {
     getAllPlaces(dispatch);
+    getAllTypes(dispatch);
+    getAllSizes(dispatch);
+    getAllColors(dispatch);
+    getAllSuppliers(dispatch);
     if (!user.admin) router.push("/");
   }, []);
 
@@ -122,8 +128,9 @@ const AddCoffin = () => {
             <div>Tipo:</div>
             <select
               id="type"
+              name="type"
               className={styles.input}
-              onChange={(e) => handleCoffinType(e, coffin, setCoffin)}
+              onChange={(e) => handleCoffinChange(e, coffin, setCoffin)}
             >
               <option defaultValue={"-"}>-</option>
               {types.map((t, i) => (
@@ -137,8 +144,9 @@ const AddCoffin = () => {
             <div>Tamaño:</div>
             <select
               id="size"
+              name="size"
               className={styles.input}
-              onChange={(e) => handleCoffinSize(e, coffin, setCoffin)}
+              onChange={(e) => handleCoffinChange(e, coffin, setCoffin)}
             >
               <option defaultValue={"-"}>-</option>
               {sizes.map((s, i) => (
@@ -152,8 +160,9 @@ const AddCoffin = () => {
             <div>Color:</div>
             <select
               id="color"
+              name="color"
               className={styles.input}
-              onChange={(e) => handleCoffinColor(e, coffin, setCoffin)}
+              onChange={(e) => handleCoffinChange(e, coffin, setCoffin)}
             >
               <option defaultValue={"-"}>-</option>
               {colors.map((c, i) => (
@@ -186,14 +195,19 @@ const AddCoffin = () => {
           </div>
           <div className={styles.formRow}>
             <div>Proveedor:</div>
-            <input
-              className={styles.input}
-              type="text"
-              id="supplier"
+            <select
+              id="supplier1"
               name="supplier"
-              value={coffin.supplier}
+              className={styles.input}
               onChange={(e) => handleCoffinChange(e, coffin, setCoffin)}
-            />
+            >
+              <option defaultValue={"-"}>-</option>
+              {suppliers.map((s, i) => (
+                <option key={i} value={s.name}>
+                  {s.name}
+                </option>
+              ))}
+            </select>
           </div>
           <div className={styles.buttonContainer}>
             <AddBtn
@@ -219,35 +233,35 @@ const AddCoffin = () => {
           </div>
           {add.coffins.length
             ? add.coffins.map((c: Coffin, i) => {
-                return (
-                  <div className={styles.card} key={i}>
-                    <div className={styles.formRow}>
-                      <div>Tipo: </div>
-                      <div>{c.type}</div>
-                    </div>
-                    <div className={styles.formRow}>
-                      <div>Tamaño: </div>
-                      <div>{c.size}</div>
-                    </div>
-                    <div className={styles.formRow}>
-                      <div>Color: </div>
-                      <div>{c.color}</div>
-                    </div>
-                    <div className={styles.formRow}>
-                      <div>Caja Metálica: </div>
-                      <div>{c.mbox ? "Si" : "No"}</div>
-                    </div>
-                    <div className={styles.formRow}>
-                      <div>Unidades: </div>
-                      <div>{c.units}</div>
-                    </div>
-                    <div className={styles.formRow}>
-                      <div>Proveedor: </div>
-                      <div>{c.supplier}</div>
-                    </div>
+              return (
+                <div className={styles.card} key={i}>
+                  <div className={styles.formRow}>
+                    <div>Tipo: </div>
+                    <div>{c.type}</div>
                   </div>
-                );
-              })
+                  <div className={styles.formRow}>
+                    <div>Tamaño: </div>
+                    <div>{c.size}</div>
+                  </div>
+                  <div className={styles.formRow}>
+                    <div>Color: </div>
+                    <div>{c.color}</div>
+                  </div>
+                  <div className={styles.formRow}>
+                    <div>Caja Metálica: </div>
+                    <div>{c.mbox ? "Si" : "No"}</div>
+                  </div>
+                  <div className={styles.formRow}>
+                    <div>Unidades: </div>
+                    <div>{c.units}</div>
+                  </div>
+                  <div className={styles.formRow}>
+                    <div>Proveedor: </div>
+                    <div>{c.supplier}</div>
+                  </div>
+                </div>
+              );
+            })
             : null}
         </div>
         <div>Cajas metálicas:</div>
@@ -256,8 +270,9 @@ const AddCoffin = () => {
             <div>Tamaño:</div>
             <select
               id="mbsize"
+              name="size"
               className={styles.input}
-              onChange={(e) => handleMboxSize(e, mbox, setMbox)}
+              onChange={(e) => handleMboxChange(e, mbox, setMbox)}
             >
               <option defaultValue={"-"}>-</option>
               {sizes.map((s, i) => (
@@ -280,14 +295,19 @@ const AddCoffin = () => {
           </div>
           <div className={styles.formRow}>
             <div>Proveedor:</div>
-            <input
-              className={styles.input}
-              type="text"
-              id="mbsupplier"
+            <select
+              id="supplier2"
               name="supplier"
-              value={mbox.supplier}
+              className={styles.input}
               onChange={(e) => handleMboxChange(e, mbox, setMbox)}
-            />
+            >
+              <option defaultValue={"-"}>-</option>
+              {suppliers.map((s, i) => (
+                <option key={i} value={s.name}>
+                  {s.name}
+                </option>
+              ))}
+            </select>
           </div>
           <div className={styles.buttonContainer}>
             <AddBtn
@@ -301,23 +321,23 @@ const AddCoffin = () => {
           </div>
           {add.metal_box.length
             ? add.metal_box.map((m: Mbox, i) => {
-                return (
-                  <div className={styles.card} key={i}>
-                    <div className={styles.formRow}>
-                      <div>Tamaño: </div>
-                      <div>{m.size}</div>
-                    </div>
-                    <div className={styles.formRow}>
-                      <div>Unidades: </div>
-                      <div>{m.units}</div>
-                    </div>
-                    <div className={styles.formRow}>
-                      <div>Proveedor: </div>
-                      <div>{m.supplier}</div>
-                    </div>
+              return (
+                <div className={styles.card} key={i}>
+                  <div className={styles.formRow}>
+                    <div>Tamaño: </div>
+                    <div>{m.size}</div>
                   </div>
-                );
-              })
+                  <div className={styles.formRow}>
+                    <div>Unidades: </div>
+                    <div>{m.units}</div>
+                  </div>
+                  <div className={styles.formRow}>
+                    <div>Proveedor: </div>
+                    <div>{m.supplier}</div>
+                  </div>
+                </div>
+              );
+            })
             : null}
         </div>
         <div className={styles.buttonContainer}>

@@ -8,14 +8,15 @@ export const getAllDeceased = async (dispatch: any)=>{
     try{
         const allDeceased = await getAllDeceasedApi()
         const orderDeceased = allDeceased.data.sort((a: any, b: any) => {
-            if (a.date > b.date) {
-              return 1;
-            }
-            if (a.date < b.date) {
+            if (a.dod > b.dod) {
               return -1;
+            }
+            if (a.dod < b.dod) {
+              return 1;
             }
             return 0;
         })
+        console.log(orderDeceased)
         dispatch(setDeceasedsData(orderDeceased))
     }
     catch(err){
