@@ -10,6 +10,9 @@ declare const styles: {
   searchContaier: string;
   table: string;
   tableContainer: string;
+  formGroup: string;
+  formControl: string;
+  nextBtn: string;
 };
 
 export default styles;
