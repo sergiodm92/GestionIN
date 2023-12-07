@@ -3,6 +3,7 @@ import {
   Deceased,
   RequestService,
   Request,
+  PostDeceased,
 } from "../../../types/requestsInterfaces";
 import { createToast } from "../../Notifications/Notifications";
 import { postRequestApi, postRequestServiceApi } from "../../../services/requestApi";
@@ -12,7 +13,7 @@ import { validateDeceased } from "../../Validations/deceased";
 
 export const handleDeceasedChange = (
   e: any,
-  deceased: Deceased,
+  deceased: PostDeceased,
   setDeceased: any
 ) => {
   e.preventDefault();
@@ -68,9 +69,9 @@ export const handleToggleSwitch = (isOn: boolean, setIsOn: any) => {
 
 export const handleSubmit = async (
   e: React.FormEvent<HTMLFormElement>,
-  deceased: Deceased,
+  deceased: PostDeceased,
   setDeceased: any,
-  initialDeceased: Deceased,
+  initialDeceased: PostDeceased,
   request: Request,
   setRequest: any,
   initialRequest: Request,
@@ -83,7 +84,8 @@ export const handleSubmit = async (
   initialDate: DateType,
   coffin: CoffinInitials,
   isOn: boolean,
-  setIsLoading: any
+  setIsLoading: any,
+  isCremation: any
 ) => {
   e.preventDefault();
   setIsLoading(true);
@@ -108,6 +110,13 @@ export const handleSubmit = async (
 
   request.wreath = isOn;
   request.id_coffin_group = `${coffin.place.initials}${coffin.type.initials}${coffin.size.initials}${coffin.color.initials}${coffin.metal_box.initials}`;
+
+  //cremations
+  if(isCremation){
+    deceased.cementery="cremation";
+    deceased.tombstone= "null";
+  }
+
   if (validateDeceased(deceased) && validateRequest(request)) {
     const json = {
       request: request,
@@ -168,9 +177,9 @@ export const handleSubmit = async (
 
 export const handleSubmitServices = async (
   e: React.FormEvent<HTMLFormElement>,
-  deceased: Deceased,
+  deceased: PostDeceased,
   setDeceased: any,
-  initialDeceased: Deceased,
+  initialDeceased: PostDeceased,
   request: RequestService,
   setRequest: any,
   initialRequest: RequestService,
@@ -183,7 +192,8 @@ export const handleSubmitServices = async (
   initialDate: DateType,
   coffin: CoffinInitials,
   isOn: boolean,
-  setIsLoading: any
+  setIsLoading: any,
+  isCremation: any
 ) => {
   e.preventDefault();
   setIsLoading(true);
@@ -208,6 +218,13 @@ export const handleSubmitServices = async (
 
   request.wreath = isOn;
   request.id_coffin_group = `${coffin.place.initials}${coffin.type.initials}${coffin.size.initials}${coffin.color.initials}${coffin.metal_box.initials}`;
+
+  //cremations
+  if(isCremation){
+    deceased.cementery="cremation";
+    deceased.tombstone= "null";
+  }
+
   if (validateDeceased(deceased) && validateRequestService(request)) {
     const json = {
       request: request,

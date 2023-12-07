@@ -1,13 +1,13 @@
 import { AxiosResponse } from "axios";
 import { apiClient } from "../utils/constants";
-import { PDFRequest, PDFRequestService } from "../types/requestsInterfaces";
+import { PDFRequestService, PostNewRequest, PostRequestService } from "../types/requestsInterfaces";
 import { getAuthToken } from "./authService";
 
 const token = getAuthToken()
 
 // Post request
 export const postRequestApi = async (
-  data: PDFRequest
+  data: PostNewRequest
 ): Promise<AxiosResponse> => {
   try {
     const response = await apiClient.post("/request", data, {
@@ -23,7 +23,7 @@ export const postRequestApi = async (
 
 // Post request
 export const postRequestServiceApi = async (
-  data: PDFRequestService
+  data: PostRequestService
 ): Promise<AxiosResponse> => {
   try {
     const response = await apiClient.post("/particular_request", data, {

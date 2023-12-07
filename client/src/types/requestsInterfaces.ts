@@ -109,13 +109,14 @@ export interface DeceasedState {
   isAllowedExpand: boolean;
 }
 export interface FormDeceased {
-  deceased: Deceased;
+  deceased: PostDeceased;
   setDeceased: any;
   date: DateType;
   setDate: any;
   birthDate: string;
   setBirthDate: any;
   cementeries: Cementery[];
+  isCremation: boolean;
 }
 export interface FormRequest {
   isOn: boolean;
@@ -151,10 +152,14 @@ export interface PostParticularRequest {
 }
 export interface PDFRequest {
   request: Request;
-  deceased: Deceased;
+  deceased: PostDeceased;
   types: Place[];
   sizes: Place[];
   colors: Place[];
+}
+export interface PostNewRequest {
+  request: Request;
+  deceased: PostDeceased;
 }
 export interface PDFRequestService {
   request: RequestService;
@@ -163,6 +168,10 @@ export interface PDFRequestService {
   sizes: Place[];
   colors: Place[];
   companies: Place[];
+}
+export interface PostRequestService {
+  request: RequestService;
+  deceased: PostDeceased;
 }
 export interface GetRequest {
   id: string;

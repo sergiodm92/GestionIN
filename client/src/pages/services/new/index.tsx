@@ -80,6 +80,7 @@ const NewRequestService = () => {
   const [isOn, setIsOn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isParticular, setIsParticular] = useState(false);
+  const [isCremation, setIsCremation] = useState(false);
 
   const dispatch = useAppDispatch();
   const places = useAppSelector(getplace);
@@ -98,6 +99,10 @@ const NewRequestService = () => {
   const handleCustomerSwitch = () => {
     setIsParticular(!isParticular);
   };
+
+  const handleCremationSwitch = ()=>{
+    setIsCremation(!isCremation)
+  }
 
   return (
     <div className={styles.container}>
@@ -121,7 +126,8 @@ const NewRequestService = () => {
             initialDate,
             coffin,
             isOn,
-            setIsLoading
+            setIsLoading,
+            isCremation
           )
         }
         className={styles.form}
@@ -173,6 +179,19 @@ const NewRequestService = () => {
             : null}
         </select>
       </div>}
+      <div className={styles.formRow}>
+          <div>Cremación: </div>
+          <div className={styles.switch}>
+            <div>No</div>
+            <div>
+              <SwitchBtn
+                isOn={isCremation}
+                onClick={() => handleCremationSwitch()}
+              />
+            </div>
+            <div>Si</div>
+          </div>
+        </div>
         <FormDeceasedService
           deceased={deceased}
           setDeceased={setDeceased}
@@ -181,6 +200,7 @@ const NewRequestService = () => {
           birthDate={birthDate}
           setBirthDate={setBirthDate}
           cementeries={cementeries}
+          isCremation={isCremation}
         />
         <FormRequestService
           isOn={isOn}

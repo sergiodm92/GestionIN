@@ -1,8 +1,8 @@
-import { Deceased } from "../../types/requestsInterfaces";
+import { PostDeceased } from "../../types/requestsInterfaces";
 import { cementery_type1 } from "../../utils/constants";
 import { createToast } from "../Notifications/Notifications";
 
-export const validateDeceased = (form: Deceased) => {
+export const validateDeceased = (form: PostDeceased) => {
   const validationList = [
     {
       field: "name",
@@ -29,11 +29,6 @@ export const validateDeceased = (form: Deceased) => {
       message: "Debe proporcionar un número de DNI válido",
       condition: !form.dni || !/^\d{7,9}$/.test(form.dni),
     },
-    // {
-    //   field: "leyend",
-    //   message: "Debe proporcionar texto de placa",
-    //   condition: !form.leyend,
-    // },
     {
       field: "news_paper",
       message: "Debe proporcionar Esquela",

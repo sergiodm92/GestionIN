@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { handleSubmit } from "../../components/functions/newRequest/functions";
 import FormDeceased from "../../components/newRequest/components/formDeceased";
 import FormRequest from "../../components/newRequest/components/formRequest";
-import { FormButton } from "../../components/Buttons";
-import styles from "./styles/newRequest.module.css"
+import { FormButton, SwitchBtn } from "../../components/Buttons";
+import styles from "./styles/newRequest.module.css";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { getAllPlaces } from "../../components/functions/places";
 import { getplace } from "../../store/Slices/place";
@@ -12,10 +12,9 @@ import { getCementery } from "../../store/Slices/cementery";
 import { getCementeriesByType } from "../../components/functions/settings/cementeries";
 
 const NewRequest = () => {
-
-   const initialRequest = {
+  const initialRequest = {
     id: "",
-    id_deceased:"",
+    id_deceased: "",
     date: 0,
     place: "",
     funeral: "",
@@ -36,12 +35,11 @@ const NewRequest = () => {
     burial_place: "",
     burial_time: "",
     cladding: "",
-    service_improvement: ""
-}
- const initialDeceased = {
+    service_improvement: "",
+  };
+  const initialDeceased = {
     id: "",
-    id_doc:"",
-    id_request:"",
+    id_request: "",
     name: "",
     dob: 0,
     dod: 0,
@@ -52,26 +50,26 @@ const NewRequest = () => {
     news_paper_name: "",
     tombstone: "pending",
     cementery: "",
-    cementery_type:"",
+    cementery_type: "",
     sector: "",
     parcel: "",
     level: 0,
-    first_level_name:"",
-    second_level_name:"",
-    religion_symbol: ""
-}
-const initialDate={
-    day:"",
-    time:""
-}
-const initialCoffin={
+    first_level_name: "",
+    second_level_name: "",
+    religion_symbol: "",
+  };
+  const initialDate = {
+    day: "",
+    time: "",
+  };
+  const initialCoffin = {
     id_add: "",
-    place:{name: "", initials: ""},
-    type:{name: "", initials: ""},
-    size:{name: "", initials: ""},
-    color:{name: "", initials: ""},
-    metal_box:{name: "", initials: ""}
-}
+    place: { name: "", initials: "" },
+    type: { name: "", initials: "" },
+    size: { name: "", initials: "" },
+    color: { name: "", initials: "" },
+    metal_box: { name: "", initials: "" },
+  };
 
   const [deceased, setDeceased] = useState(initialDeceased);
   const [date, setDate] = useState(initialDate);
@@ -81,50 +79,93 @@ const initialCoffin={
   const [coffin, setCoffin] = useState(initialCoffin);
   const [isOn, setIsOn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isCremation, setIsCremation] = useState(false);
 
-  const dispatch = useAppDispatch()
-  const places = useAppSelector(getplace)
-  const cementeries = useAppSelector(getCementery)
+  const dispatch = useAppDispatch();
+  const places = useAppSelector(getplace);
+  const cementeries = useAppSelector(getCementery);
 
-  useEffect(()=>{
-    getAllPlaces(dispatch)
-  },[])
+  useEffect(() => {
+    getAllPlaces(dispatch);
+  }, []);
 
-  useEffect(()=>{
-    getCementeriesByType( dispatch, deceased.cementery_type)
-  },[deceased.cementery_type])
+  useEffect(() => {
+    getCementeriesByType(dispatch, deceased.cementery_type);
+  }, [deceased.cementery_type]);
+
+  const handleCremationSwitch = ()=>{
+    setIsCremation(!isCremation)
+  }
 
   return (
     <div className={styles.container}>
       <div className={styles.title}>Nueva Solicitud de Siniestro</div>
-      <form onSubmit={(e) => handleSubmit(e, deceased, setDeceased, initialDeceased, request, setRequest, initialRequest, date, birthDate, currentDate, setBirthDate, setDate, setCurrentDate,  initialDate, coffin, isOn, setIsLoading)} className={styles.form}>
-          <FormDeceased
-            deceased={deceased}
-            setDeceased={setDeceased}
-            date={date}
-            setDate={setDate}
-            birthDate={birthDate}
-            setBirthDate={setBirthDate}
-            cementeries={cementeries}
-          />
-          <FormRequest
-            isOn={isOn}
-            setIsOn={setIsOn}
-            places={places}
-            request={request}
-            setRequest={setRequest}
-            currentDate={currentDate}
-            setCurrentDate={setCurrentDate}
-            coffin={coffin}
-            setCoffin={setCoffin}
-          />
-          <div className={styles.buttonContainer}>
-            <FormButton
-              title={isLoading? <Loading/> :"Guardar"}
-              loading={isLoading}
-              disabled={isLoading}
-            />
+      <form
+        onSubmit={(e) =>
+          handleSubmit(
+            e,
+            deceased,
+            setDeceased,
+            initialDeceased,
+            request,
+            setRequest,
+            initialRequest,
+            date,
+            birthDate,
+            currentDate,
+            setBirthDate,
+            setDate,
+            setCurrentDate,
+            initialDate,
+            coffin,
+            isOn,
+            setIsLoading,
+            isCremation
+          )
+        }
+        className={styles.form}
+      >
+        <div className={styles.formRow}>
+          <div>Cremación: </div>
+          <div className={styles.switch}>
+            <div>No</div>
+            <div>
+              <SwitchBtn
+                isOn={isCremation}
+                onClick={() => handleCremationSwitch()}
+              />
+            </div>
+            <div>Si</div>
           </div>
+        </div>
+        <FormDeceased
+          deceased={deceased}
+          setDeceased={setDeceased}
+          date={date}
+          setDate={setDate}
+          birthDate={birthDate}
+          setBirthDate={setBirthDate}
+          cementeries={cementeries}
+          isCremation={isCremation}
+        />
+        <FormRequest
+          isOn={isOn}
+          setIsOn={setIsOn}
+          places={places}
+          request={request}
+          setRequest={setRequest}
+          currentDate={currentDate}
+          setCurrentDate={setCurrentDate}
+          coffin={coffin}
+          setCoffin={setCoffin}
+        />
+        <div className={styles.buttonContainer}>
+          <FormButton
+            title={isLoading ? <Loading /> : "Guardar"}
+            loading={isLoading}
+            disabled={isLoading}
+          />
+        </div>
       </form>
     </div>
   );

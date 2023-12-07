@@ -9,10 +9,18 @@ import { cementery_type1 } from "../../utils/constants";
 import { useRouter } from "next/router";
 
 const FormDeceasedService = (data: FormDeceased) => {
-  
-  const { deceased, setDeceased, date, setDate, birthDate, setBirthDate, cementeries } = data;
+  const {
+    deceased,
+    setDeceased,
+    date,
+    setDate,
+    birthDate,
+    setBirthDate,
+    cementeries,
+    isCremation,
+  } = data;
 
-  const router = useRouter()
+  const router = useRouter();
 
   return (
     <div className={styles.formContainer}>
@@ -39,7 +47,7 @@ const FormDeceasedService = (data: FormDeceased) => {
           name="pod"
           value={deceased.pod}
           onChange={(e) => handleDeceasedChange(e, deceased, setDeceased)}
-        />        
+        />
       </div>
       <div className={styles.formRow}>
         <div>Fecha de fallecimiento: </div>
@@ -67,15 +75,15 @@ const FormDeceasedService = (data: FormDeceased) => {
       <div className={styles.formRow}>
         <div>Fecha de nacimiento: </div>
         <div className={styles.dateRow}>
-        <input
+          <input
             type="date"
             id="birthDate"
             name="birthDate"
             value={birthDate}
             className={styles.dateInput}
             onChange={(e) => {
-              e.preventDefault()
-              setBirthDate(e.target.value)
+              e.preventDefault();
+              setBirthDate(e.target.value);
             }}
           />
         </div>
@@ -94,167 +102,190 @@ const FormDeceasedService = (data: FormDeceased) => {
       <div>
         <div>Esquela (Diario): </div>
         <textarea
-              className={styles.textArea}
-              id="news_paper"
-              name="news_paper"
-              value={deceased.news_paper==="-"?"":deceased.news_paper}
-              onChange={(e) => handleDeceasedChange(e, deceased, setDeceased)}
-            />
+          className={styles.textArea}
+          id="news_paper"
+          name="news_paper"
+          value={deceased.news_paper === "-" ? "" : deceased.news_paper}
+          onChange={(e) => handleDeceasedChange(e, deceased, setDeceased)}
+        />
       </div>
       <div className={styles.formRow}>
         <div>Nombre del Diario: </div>
         <input
-              className={styles.input}
-              style={{ width: "calc(100% - 134px)" }}
-              type="text"
-              id="news_paper_name"
-              name="news_paper_name"
-              value={deceased.news_paper_name}
-              onChange={(e) => handleDeceasedChange(e, deceased, setDeceased)}
-            />
+          className={styles.input}
+          style={{ width: "calc(100% - 134px)" }}
+          type="text"
+          id="news_paper_name"
+          name="news_paper_name"
+          value={deceased.news_paper_name}
+          onChange={(e) => handleDeceasedChange(e, deceased, setDeceased)}
+        />
       </div>
-      
-      <div className={styles.formRow}>
-        <div>Tipo de cementerio: </div>
-        <select
-          id="cementery_type"
-          name="cementery_type"
-          className={styles.selects}
-          onChange={(e)=>handleDeceasedChange(e, deceased, setDeceased)}
-        >
-          <option defaultValue="-">-</option>
-          {cementeryType.length > 0
-            ? cementeryType.map((c, i) => (
-                <option key={i} value={c}>
-                  {c}
-                </option>
-              ))
-            : null}
-        </select>
-      </div>
-      <div className={styles.formRow}>
-        <div>Cementerio: </div>
-        <select
-          id="cementery"
-          name="cementery"
-          className={styles.selects}
-          onChange={(e)=>handleDeceasedChange(e, deceased, setDeceased)}
-        >
-          <option defaultValue="-">-</option>
-          {cementeries.length > 0
-            ? cementeries.map((c, i) => (
-                <option key={i} value={c.name}>
-                  {c.name}
-                </option>
-              ))
-            : null}
-        </select>
-        <div  className={styles.newCementery} onClick={()=>router.push('/settings/cementeries')}>Agregar cementerio</div>
-      </div>
-      {deceased.cementery_type === cementery_type1?
-      (
+      {isCremation ? null : (
         <>
           <div className={styles.formRow}>
-            <div>Sector: </div>
-            <input
+            <div>Tipo de cementerio: </div>
+            <select
+              id="cementery_type"
+              name="cementery_type"
+              className={styles.selects}
+              onChange={(e) => handleDeceasedChange(e, deceased, setDeceased)}
+            >
+              <option defaultValue="-">-</option>
+              {cementeryType.length > 0
+                ? cementeryType.map((c, i) => (
+                    <option key={i} value={c}>
+                      {c}
+                    </option>
+                  ))
+                : null}
+            </select>
+          </div>
+          <div className={styles.formRow}>
+            <div>Cementerio: </div>
+            <select
+              id="cementery"
+              name="cementery"
+              className={styles.selects}
+              onChange={(e) => handleDeceasedChange(e, deceased, setDeceased)}
+            >
+              <option defaultValue="-">-</option>
+              {cementeries.length > 0
+                ? cementeries.map((c, i) => (
+                    <option key={i} value={c.name}>
+                      {c.name}
+                    </option>
+                  ))
+                : null}
+            </select>
+            <div
+              className={styles.newCementery}
+              onClick={() => router.push("/settings/cementeries")}
+            >
+              Agregar cementerio
+            </div>
+          </div>
+          {deceased.cementery_type === cementery_type1 ? (
+            <>
+              <div className={styles.formRow}>
+                <div>Sector: </div>
+                <input
                   className={styles.input}
                   style={{ width: "calc(100% - 62px)" }}
                   type="text"
                   id="sector"
                   name="sector"
                   value={deceased.sector}
-                  onChange={(e) => handleDeceasedChange(e, deceased, setDeceased)}
+                  onChange={(e) =>
+                    handleDeceasedChange(e, deceased, setDeceased)
+                  }
                 />
-          </div>
-          <div className={styles.formRow}>
-            <div>Parcela: </div>
-            <input
+              </div>
+              <div className={styles.formRow}>
+                <div>Parcela: </div>
+                <input
                   className={styles.input}
                   style={{ width: "calc(100% - 70px)" }}
                   type="text"
                   id="parcel"
                   name="parcel"
                   value={deceased.parcel}
-                  onChange={(e) => handleDeceasedChange(e, deceased, setDeceased)}
+                  onChange={(e) =>
+                    handleDeceasedChange(e, deceased, setDeceased)
+                  }
                 />
-          </div>
-          <div className={styles.formRow}>
-            <div>Nivel: </div>
-            <select
-              id="level"
-              name="level"
-              className={styles.selects}
-              onChange={(e)=>handleDeceasedChange(e, deceased, setDeceased)}
-            >
-              <option key={0} defaultValue="-">-</option>
-              <option key={1} value={1}>1</option>
-              <option key={2} value={2}>2</option>
-              <option key={3} value={3}>3</option>
-            </select>
-          </div>
-          {deceased.level==2?(
-            <>
+              </div>
               <div className={styles.formRow}>
-                <div>1° Nivel: </div>
-                <input
+                <div>Nivel: </div>
+                <select
+                  id="level"
+                  name="level"
+                  className={styles.selects}
+                  onChange={(e) =>
+                    handleDeceasedChange(e, deceased, setDeceased)
+                  }
+                >
+                  <option key={0} defaultValue="-">
+                    -
+                  </option>
+                  <option key={1} value={1}>
+                    1
+                  </option>
+                  <option key={2} value={2}>
+                    2
+                  </option>
+                  <option key={3} value={3}>
+                    3
+                  </option>
+                </select>
+              </div>
+              {deceased.level == 2 ? (
+                <>
+                  <div className={styles.formRow}>
+                    <div>1° Nivel: </div>
+                    <input
                       className={styles.input}
                       style={{ width: "calc(100% - 70px)" }}
                       type="text"
                       id="first_level_name"
                       name="first_level_name"
                       value={deceased.first_level_name}
-                      onChange={(e) => handleDeceasedChange(e, deceased, setDeceased)}
+                      onChange={(e) =>
+                        handleDeceasedChange(e, deceased, setDeceased)
+                      }
                     />
-              </div>
-            </>
-          )
-          :deceased.level==3?
-          (
-            <>
-              <div className={styles.formRow}>
-                <div>1° Nivel: </div>
-                <input
+                  </div>
+                </>
+              ) : deceased.level == 3 ? (
+                <>
+                  <div className={styles.formRow}>
+                    <div>1° Nivel: </div>
+                    <input
                       className={styles.input}
                       style={{ width: "calc(100% - 70px)" }}
                       type="text"
                       id="first_level_name"
                       name="first_level_name"
                       value={deceased.first_level_name}
-                      onChange={(e) => handleDeceasedChange(e, deceased, setDeceased)}
+                      onChange={(e) =>
+                        handleDeceasedChange(e, deceased, setDeceased)
+                      }
                     />
-              </div>
-              <div className={styles.formRow}>
-                <div>2° Nivel: </div>
-                <input
+                  </div>
+                  <div className={styles.formRow}>
+                    <div>2° Nivel: </div>
+                    <input
                       className={styles.input}
                       style={{ width: "calc(100% - 70px)" }}
                       type="text"
                       id="second_level_name"
                       name="second_level_name"
                       value={deceased.second_level_name}
-                      onChange={(e) => handleDeceasedChange(e, deceased, setDeceased)}
+                      onChange={(e) =>
+                        handleDeceasedChange(e, deceased, setDeceased)
+                      }
                     />
-              </div>
-            </>
-          )
-          :null}
-          <div className={styles.formRow}>
-            <div>Simbolo de la Religion: </div>
-            <input
+                  </div>
+                </>
+              ) : null}
+              <div className={styles.formRow}>
+                <div>Simbolo de la Religion: </div>
+                <input
                   className={styles.input}
                   style={{ width: "calc(100% - 160px)" }}
                   type="text"
                   id="religion_symbol"
                   name="religion_symbol"
                   value={deceased.religion_symbol}
-                  onChange={(e) => handleDeceasedChange(e, deceased, setDeceased)}
+                  onChange={(e) =>
+                    handleDeceasedChange(e, deceased, setDeceased)
+                  }
                 />
-          </div>
+              </div>
+            </>
+          ) : null}
         </>
-      )
-      :null
-      }
-      
+      )}
     </div>
   );
 };
