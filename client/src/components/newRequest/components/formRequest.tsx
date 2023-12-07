@@ -4,7 +4,6 @@ import { FormRequest, Request } from "../../../types/requestsInterfaces";
 import { handleRequestChange, handleToggleSwitch } from "../../functions/newRequest/functions";
 import styles from "../../../pages/newRequest/styles/newRequest.module.css";
 import { useState } from "react";
-import { types, sizes, colors } from "../../arrays";
 import { AddBtn, SwitchBtn } from "../../Buttons";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { getCoffinStock } from "../../../store/Slices/coffinStockSlice";
@@ -15,6 +14,8 @@ import Loading from "../../Loading/loading";
 import { Products } from "../../../types/addsInterfaces";
 import { createToast } from "../../Notifications/Notifications";
 import { validateProduct } from "../../Validations/addCoffin";
+import { getAllColors, getAllSizes, getAllTypes } from "../../functions/settings/coffinProperty";
+import { getColors, getSizes, getTypes } from "../../../store/Slices/coffinProperty";
 
 const initialState = {
   id:"",
@@ -51,8 +52,17 @@ const FormRequest = (data: FormRequest) => {
   const stock = useAppSelector(getCoffinStock);
   const mboxStock = useAppSelector(getmetalBoxStock);
   const productsStock = useAppSelector(getProductsStock);
+  const types = useAppSelector(getTypes);
+  const sizes = useAppSelector(getSizes);
+  const colors = useAppSelector(getColors);
+
   const [isStock, setIsStock] = useState(true)
 
+  useEffect(() => {
+    getAllTypes(dispatch);
+    getAllSizes(dispatch);
+    getAllColors(dispatch);
+  }, []);
 
   useEffect(() => {
     setIsStock(true)

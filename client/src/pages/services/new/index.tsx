@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
-import { handleSubmitServices } from "../../../components/functions/newRequest/functions";
+import {
+  handleRequestServiceChange,
+  handleSubmitServices,
+} from "../../../components/functions/newRequest/functions";
 import FormDeceasedService from "../../../components/newRequestService/formDeceasedService";
 import FormRequestService from "../../../components/newRequestService/formRequestService";
-import { FormButton } from "../../../components/Buttons";
+import { FormButton, SwitchBtn } from "../../../components/Buttons";
 import styles from "./styles/newRequest.module.css";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { getAllPlaces } from "../../../components/functions/places";
@@ -10,6 +13,8 @@ import { getplace } from "../../../store/Slices/place";
 import Loading from "../../../components/Loading/loading";
 import { getCementery } from "../../../store/Slices/cementery";
 import { getCementeriesByType } from "../../../components/functions/settings/cementeries";
+import { getAllCompanies } from "../../../components/functions/settings/companies";
+import { getCompanies } from "../../../store/Slices/companies";
 
 const NewRequestService = () => {
   const initialRequest = {
@@ -34,7 +39,6 @@ const NewRequestService = () => {
   };
   const initialDeceased = {
     id: "",
-    id_doc: "",
     id_request: "",
     name: "",
     dob: 0,
@@ -75,18 +79,25 @@ const NewRequestService = () => {
   const [coffin, setCoffin] = useState(initialCoffin);
   const [isOn, setIsOn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isParticular, setIsParticular] = useState(false);
 
   const dispatch = useAppDispatch();
   const places = useAppSelector(getplace);
   const cementeries = useAppSelector(getCementery);
+  const companies = useAppSelector(getCompanies);
 
   useEffect(() => {
     getAllPlaces(dispatch);
+    getAllCompanies(dispatch);
   }, []);
 
   useEffect(() => {
     getCementeriesByType(dispatch, deceased.cementery_type);
   }, [deceased.cementery_type]);
+
+  const handleCustomerSwitch = () => {
+    setIsParticular(!isParticular);
+  };
 
   return (
     <div className={styles.container}>
@@ -115,6 +126,53 @@ const NewRequestService = () => {
         }
         className={styles.form}
       >
+        <div className={styles.formRow}>
+          <div>Cliente: </div>
+          <div className={styles.switch}>
+            <div>Empresa</div>
+            <div>
+              <SwitchBtn
+                isOn={isParticular}
+                onClick={() => handleCustomerSwitch()}
+              />
+            </div>
+            <div>Particular</div>
+          </div>
+        </div>
+        {isParticular ? (
+          <div className={styles.formRow}>
+            <div>Nombre del Titular: </div>
+            <input
+              className={styles.input}
+              style={{ width: "calc(100% - 150px)" }}
+              type="text"
+              id="customer"
+              name="company"
+              value={request.company}
+              onChange={(e) =>
+                handleRequestServiceChange(e, request, setRequest)
+              }
+            />
+          </div>
+        ) : 
+        <div className={styles.formRow}>
+        <div>Empresa: </div>
+        <select
+          id="company"
+          name="company"
+          className={styles.selects}
+          onChange={(e)=>handleRequestServiceChange(e, request, setRequest)}
+        >
+          <option defaultValue="-">-</option>
+          {companies.length > 0
+            ? companies.map((c, i) => (
+                <option key={i} value={c.name}>
+                  {c.name}
+                </option>
+              ))
+            : null}
+        </select>
+      </div>}
         <FormDeceasedService
           deceased={deceased}
           setDeceased={setDeceased}

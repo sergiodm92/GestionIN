@@ -1,0 +1,79 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+.secondContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.card{
+    position: relative;
+    background-color: var(--secondary-color);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    border-radius: 20px;
+    padding: 30px;
+    gap: 20px;
+}
+.title{
+    font-size: 23px;
+    color: var(--primary-color);
+    font-weight: bolder;
+    text-decoration: underline;
+}
+.items{
+    display: flex;
+    width: 100%;
+    justify-content: left;
+    gap: 10px;
+}
+.subTitle{
+    font-size: 16px;
+    color: var(--title-color);
+    font-weight: bold;
+}
+.text{
+    max-width: 500px;
+    text-align: justify;
+    font-size: 16px;
+    color: var(--title-color);
+    
+}
+.subItems{
+    display: flex;
+    gap: 5px;
+}
+.deleteBtn{
+    position: absolute;
+    right: 7px;
+    top: 7px;
+}
+@media screen and (max-width: 700px){
+    .text{
+        max-width: 250px;
+    }
+}
+@media screen and (max-width: 450px){
+    .card{
+        padding: 15px;
+    }
+    .title{
+        font-size: 19px;
+    }
+    .subTitle{
+        font-size: 13px;
+    }
+    .text{
+        font-size: 13px;
+        max-width: 200px;
+    }
+}

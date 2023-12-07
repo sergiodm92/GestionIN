@@ -14,6 +14,7 @@ import { productsSlice } from './Slices/products'
 import { companySlice } from './Slices/companies'
 import { supplierSlice } from './Slices/suppliers'
 import { propertySlice } from './Slices/coffinProperty'
+import {particularRequestsSlice} from './Slices/particularRequestsSlice'
 
 
 export const store = configureStore({
@@ -23,6 +24,7 @@ export const store = configureStore({
       addsMetalBox: addsMetalBoxSlice.reducer,
       addsProducts: addsProductsSlice.reducer,
       requests: requestsSlice.reducer,
+      particularRequests: particularRequestsSlice.reducer,
       deceaseds: deceasedsSlice.reducer,
       coffinStock: coffinStockSlice.reducer,
       metalBoxStock: metalBoxStockSlice.reducer,

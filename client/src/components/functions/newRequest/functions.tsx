@@ -35,7 +35,7 @@ export const handleRequestChange = (
 };
 
 export const handleRequestServiceChange = (
-  e: React.ChangeEvent<HTMLInputElement>,
+  e: any,
   request: RequestService,
   setRequest: any
 ) => {
@@ -55,41 +55,6 @@ export const handleDateChange = (
   setDate({
     ...date,
     [e.target.name]: e.target.value,
-  });
-};
-
-export const cementerySelect = (
-  e: React.ChangeEvent<HTMLSelectElement>,
-  setDeceased: any,
-  deceased: Deceased
-) => {
-  e.preventDefault();
-  setDeceased({
-    ...deceased,
-    cementery: e.target.value,
-  });
-};
-
-export const cementeryTypeSelect = (
-  e: React.ChangeEvent<HTMLSelectElement>,
-  setDeceased: any,
-  deceased: Deceased
-) => {
-  e.preventDefault();
-  setDeceased({
-    ...deceased,
-    cementery_type: e.target.value,
-  });
-};
-export const levelSelect = (
-  e: React.ChangeEvent<HTMLSelectElement>,
-  setDeceased: any,
-  deceased: Deceased
-) => {
-  e.preventDefault();
-  setDeceased({
-    ...deceased,
-    level: e.target.value,
   });
 };
 
@@ -208,7 +173,7 @@ export const handleSubmitServices = async (
   initialDeceased: Deceased,
   request: RequestService,
   setRequest: any,
-  initialRequest: Request,
+  initialRequest: RequestService,
   date: DateType,
   birthDate: string,
   currentDate: string,

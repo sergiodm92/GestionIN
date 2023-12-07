@@ -26,7 +26,7 @@ export const postRequestServiceApi = async (
   data: PDFRequestService
 ): Promise<AxiosResponse> => {
   try {
-    const response = await apiClient.post("/request", data, {
+    const response = await apiClient.post("/particular_request", data, {
       headers: {
         "auth-token": token,
       },
@@ -41,6 +41,20 @@ export const postRequestServiceApi = async (
 export const getAllRequestsApi = async (): Promise<AxiosResponse> => {
   try {
     const response = await apiClient.get("/request/all", {
+      headers: {
+        "auth-token": token,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// get all servicesRequests
+export const getAllParticularRequestsApi = async (): Promise<AxiosResponse> => {
+  try {
+    const response = await apiClient.get("/particular_request/all", {
       headers: {
         "auth-token": token,
       },
@@ -73,6 +87,22 @@ export const getRequestsByIdApi = async (
 ): Promise<AxiosResponse> => {
   try {
     const response = await apiClient.get(`/request/id/${id}`, {
+      headers: {
+        "auth-token": token,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// get particular requests by id
+export const getParticularRequestsByIdApi = async (
+  id: string
+): Promise<AxiosResponse> => {
+  try {
+    const response = await apiClient.get(`/particular_request/id/${id}`, {
       headers: {
         "auth-token": token,
       },

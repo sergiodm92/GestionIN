@@ -1,5 +1,4 @@
 import { Place } from "../types/place";
-import { sizes, types, colors } from "./arrays";
 
 export const generateRandomID = () => {
   var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -13,7 +12,7 @@ export const generateRandomID = () => {
   return id;
 }
 
-export function decomposeId(id: string, places: Place[]) {
+export function decomposeId(id: string, places: Place[], types: Place[], sizes: Place[], colors: Place[]) {
   const placeInitials = id.slice(0, 2);
   const typeInitials = id.slice(2, 4);
   const sizeInitials = id.slice(4, 6);

@@ -16,7 +16,6 @@ export const getAllDeceased = async (dispatch: any)=>{
             }
             return 0;
         })
-        console.log(orderDeceased)
         dispatch(setDeceasedsData(orderDeceased))
     }
     catch(err){

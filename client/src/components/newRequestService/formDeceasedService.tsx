@@ -1,41 +1,21 @@
 import {
-  cementerySelect,
-  cementeryTypeSelect,
   handleDateChange,
   handleDeceasedChange,
-  levelSelect,
 } from "../functions/newRequest/functions";
-import styles from "../../pages/newRequest/styles/newRequest.module.css";
+import { FormDeceased } from "../../types/requestsInterfaces";
+import styles from "../../pages/services/new/styles/newRequest.module.css";
 import { cementeryType } from "../arrays";
 import { cementery_type1 } from "../../utils/constants";
 import { useRouter } from "next/router";
-import { FormDeceased } from "../../types/requestsInterfaces";
 
 const FormDeceasedService = (data: FormDeceased) => {
   
   const { deceased, setDeceased, date, setDate, birthDate, setBirthDate, cementeries } = data;
+
   const router = useRouter()
-  const companies = ["Caruso", "Particular"]
-  
+
   return (
     <div className={styles.formContainer}>
-      <div className={styles.formRow}>
-        <div>Cliente: </div>
-        <select
-          id="cementery_type"
-          className={styles.selects}
-          onChange={(e)=>cementeryTypeSelect(e, setDeceased, deceased)}
-        >
-          <option defaultValue="-">-</option>
-          {companies.length > 0
-            ? companies.map((c, i) => (
-                <option key={i} value={c}>
-                  {c}
-                </option>
-              ))
-            : null}
-        </select>
-      </div>
       <div className={styles.formRow}>
         <div>Apellido y Nombre:</div>
         <input
@@ -62,7 +42,7 @@ const FormDeceasedService = (data: FormDeceased) => {
         />        
       </div>
       <div className={styles.formRow}>
-        <div>Fecha: </div>
+        <div>Fecha de fallecimiento: </div>
         <div className={styles.dateRow}>
           <input
             type="date"
@@ -138,8 +118,9 @@ const FormDeceasedService = (data: FormDeceased) => {
         <div>Tipo de cementerio: </div>
         <select
           id="cementery_type"
+          name="cementery_type"
           className={styles.selects}
-          onChange={(e)=>cementeryTypeSelect(e, setDeceased, deceased)}
+          onChange={(e)=>handleDeceasedChange(e, deceased, setDeceased)}
         >
           <option defaultValue="-">-</option>
           {cementeryType.length > 0
@@ -155,8 +136,9 @@ const FormDeceasedService = (data: FormDeceased) => {
         <div>Cementerio: </div>
         <select
           id="cementery"
+          name="cementery"
           className={styles.selects}
-          onChange={(e)=>cementerySelect(e, setDeceased, deceased)}
+          onChange={(e)=>handleDeceasedChange(e, deceased, setDeceased)}
         >
           <option defaultValue="-">-</option>
           {cementeries.length > 0
@@ -200,8 +182,9 @@ const FormDeceasedService = (data: FormDeceased) => {
             <div>Nivel: </div>
             <select
               id="level"
+              name="level"
               className={styles.selects}
-              onChange={(e)=>levelSelect(e, setDeceased, deceased)}
+              onChange={(e)=>handleDeceasedChange(e, deceased, setDeceased)}
             >
               <option key={0} defaultValue="-">-</option>
               <option key={1} value={1}>1</option>

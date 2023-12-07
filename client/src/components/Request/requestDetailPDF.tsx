@@ -1,6 +1,5 @@
 import { Page, Text, View, Document, Image, StyleSheet } from '@react-pdf/renderer';
 import { PDFRequest } from '../../types/requestsInterfaces';
-import { types, sizes, colors } from '../arrays';
 import { cementery_type1 } from '../../utils/constants';
 
 const styles = StyleSheet.create({
@@ -73,7 +72,7 @@ const styles = StyleSheet.create({
 });
 
 const PDFDetail = (data: PDFRequest) => {
-    const { request, deceased } = data;
+    const { request, deceased, types, sizes, colors } = data;
 
     const date = new Date(request.date)
 

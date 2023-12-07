@@ -5,29 +5,29 @@ import { Cementery } from "./cementery";
 import { Place } from "./place";
 
 export interface Request {
-    id: string;
-    id_deceased: string;
-    date: number;
-    place: string;
-    funeral: string;
-    id_add: string;
-    id_coffin_group: string;
-    id_add_metal_box: string;
-    id_metal_box_group: string;
-    holder_name: string;
-    holder_relationship: string;
-    policy: string;
-    certificate_number: number;
-    way_to_pay: string;
-    agreement: string;
-    additional: string;
-    wreath: boolean;
-    present: string;
-    products: Products[];
-    burial_place: string;
-    burial_time: string;
-    cladding: string;
-    service_improvement: string;
+  id: string;
+  id_deceased: string;
+  date: number;
+  place: string;
+  funeral: string;
+  id_add: string;
+  id_coffin_group: string;
+  id_add_metal_box: string;
+  id_metal_box_group: string;
+  holder_name: string;
+  holder_relationship: string;
+  policy: string;
+  certificate_number: number;
+  way_to_pay: string;
+  agreement: string;
+  additional: string;
+  wreath: boolean;
+  present: string;
+  products: Products[];
+  burial_place: string;
+  burial_time: string;
+  cladding: string;
+  service_improvement: string;
 }
 
 export interface RequestService {
@@ -48,14 +48,41 @@ export interface RequestService {
   burial_time: string;
   cladding: string;
   service_improvement: string;
+  company: string;
 }
 export interface RequestState {
   requests: Request[];
   request: PostRequest;
   isAllowedExpand: boolean;
 }
+export interface ParticularRequestState {
+  requests: RequestService[];
+  request: PostParticularRequest;
+  isAllowedExpand: boolean;
+}
 export interface Deceased {
+  id: string;
   id_doc: string;
+  id_request: string;
+  name: string;
+  dob: number;
+  dod: number;
+  pod: string;
+  dni: string;
+  leyend: string;
+  news_paper: string;
+  news_paper_name: string;
+  tombstone: string;
+  cementery: string;
+  cementery_type: string;
+  sector: string;
+  parcel: string;
+  level: number;
+  first_level_name: string;
+  second_level_name: string;
+  religion_symbol: string;
+}
+export interface PostDeceased {
   id: string;
   id_request: string;
   name: string;
@@ -72,8 +99,8 @@ export interface Deceased {
   sector: string;
   parcel: string;
   level: number;
-  first_level_name:string;
-  second_level_name:string;
+  first_level_name: string;
+  second_level_name: string;
   religion_symbol: string;
 }
 export interface DeceasedState {
@@ -81,16 +108,16 @@ export interface DeceasedState {
   deceased: Deceased;
   isAllowedExpand: boolean;
 }
-export interface  FormDeceased {
+export interface FormDeceased {
   deceased: Deceased;
   setDeceased: any;
   date: DateType;
   setDate: any;
   birthDate: string;
   setBirthDate: any;
-  cementeries: Cementery[]
+  cementeries: Cementery[];
 }
-export interface  FormRequest {
+export interface FormRequest {
   isOn: boolean;
   setIsOn: any;
   places: Place[];
@@ -101,7 +128,7 @@ export interface  FormRequest {
   coffin: CoffinInitials;
   setCoffin: any;
 }
-export interface  FormRequestService {
+export interface FormRequestService {
   isOn: boolean;
   setIsOn: any;
   places: Place[];
@@ -112,28 +139,40 @@ export interface  FormRequestService {
   coffin: CoffinInitials;
   setCoffin: any;
 }
-export interface PostRequest{
+export interface PostRequest {
   id_doc: string;
   request: Request;
-  deceased: Deceased
+  deceased: Deceased;
 }
-export interface PDFRequest{
-  request: Request;
-  deceased: Deceased
-}
-export interface PDFRequestService{
+export interface PostParticularRequest {
+  id_doc: string;
   request: RequestService;
-  deceased: Deceased
+  deceased: Deceased;
 }
-export interface GetRequest{
+export interface PDFRequest {
+  request: Request;
+  deceased: Deceased;
+  types: Place[];
+  sizes: Place[];
+  colors: Place[];
+}
+export interface PDFRequestService {
+  request: RequestService;
+  deceased: Deceased;
+  types: Place[];
+  sizes: Place[];
+  colors: Place[];
+  companies: Place[];
+}
+export interface GetRequest {
   id: string;
   request: Request;
-  deceased: Deceased
+  deceased: Deceased;
 }
-export interface TombstoneStatus{
+export interface TombstoneStatus {
   doc_id: string;
   status: string;
 }
-export interface PutTombstoneStatus{
+export interface PutTombstoneStatus {
   data_put_status: TombstoneStatus[];
 }

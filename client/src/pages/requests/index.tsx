@@ -3,9 +3,9 @@ import { useEffect, useState, useRef } from "react"
 import Card1 from "../../components/Cards/Card1"
 import { useAppDispatch, useAppSelector } from "../../store/hooks"
 import styles from './styles/requests.module.css'
-import { getRequests } from "../../store/Slices/requestsSlice"
 import { getAllRequests } from "../../components/functions/requests/functions"
 import Loading from "../../components/Loading/loading"
+import { getRequests } from "../../store/Slices/requestsSlice"
 
 const initialRequestState = [
   {

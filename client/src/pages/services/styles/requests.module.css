@@ -1,0 +1,60 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 70vh;
+    padding: 3rem;
+    margin: 0;
+}
+.title{
+    font-size: 25px;
+    color: var(--title-color);
+    font-weight: bold;
+    margin: 10px;
+}
+.subTitle{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 10px;
+    max-width: 400px;
+    width: 100%;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 16px;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+.bigSpace{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.smallSpace{
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.cardsContainer{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+  .noRequests{
+    padding-top: 5%;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--bringht-color);
+  }
+  @media (max-width:768px){
+    .container{
+        padding: 1rem;
+    }
+  }

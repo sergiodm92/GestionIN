@@ -1,5 +1,6 @@
-import { deleteRequestApi, getAllRequestsApi, getRequestsByIdApi } from "../../../services/requestApi"
-import { setRequestsData, setRequestData } from "../../../store/Slices/requestsSlice"
+import { deleteRequestApi, getAllParticularRequestsApi, getAllRequestsApi, getParticularRequestsByIdApi, getRequestsByIdApi } from "../../../services/requestApi"
+import {  setParticularRequestData, setParticularRequestsData } from "../../../store/Slices/particularRequestsSlice"
+import { setRequestData, setRequestsData } from "../../../store/Slices/requestsSlice"
 import { createToast, questionAlert } from "../../Notifications/Notifications"
 
 export const getAllRequests = async (dispatch: any)=>{
@@ -20,10 +21,38 @@ export const getAllRequests = async (dispatch: any)=>{
         console.log(err)
     }
 }
+export const getAllParticularRequests = async (dispatch: any)=>{
+    try{
+        const allRequests = await getAllParticularRequestsApi()
+        const orderRequests = allRequests.data.sort((a: any, b: any) => {
+            if (a.date > b.date) {
+              return 1;
+            }
+            if (a.date < b.date) {
+              return -1;
+            }
+            return 0;
+        })
+        dispatch(setParticularRequestsData(orderRequests))
+    }
+    catch(err){
+        console.log(err)
+    }
+}
 export const getRequestById = async (dispatch: any, id:string)=>{
     try{
         const request = await getRequestsByIdApi(id)
         dispatch(setRequestData(request.data))
+    }
+    catch(err){
+        console.log(err)
+    }
+}
+
+export const getParticularRequestById = async (dispatch: any, id:string)=>{
+    try{
+        const request = await getParticularRequestsByIdApi(id)
+        dispatch(setParticularRequestData(request.data))
     }
     catch(err){
         console.log(err)

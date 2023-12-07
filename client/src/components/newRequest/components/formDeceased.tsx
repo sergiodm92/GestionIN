@@ -1,9 +1,6 @@
 import {
-  cementerySelect,
-  cementeryTypeSelect,
   handleDateChange,
   handleDeceasedChange,
-  levelSelect,
 } from "../../functions/newRequest/functions";
 import { FormDeceased } from "../../../types/requestsInterfaces";
 import styles from "../../../pages/newRequest/styles/newRequest.module.css";
@@ -45,7 +42,7 @@ const FormDeceased = (data: FormDeceased) => {
         />        
       </div>
       <div className={styles.formRow}>
-        <div>Fecha: </div>
+        <div>Fecha de fallecimiento: </div>
         <div className={styles.dateRow}>
           <input
             type="date"
@@ -94,16 +91,6 @@ const FormDeceased = (data: FormDeceased) => {
           onChange={(e) => handleDeceasedChange(e, deceased, setDeceased)}
         />
       </div>
-      {/* <div>
-        <div>Texto de Placa: </div>
-        <textarea
-            className={styles.textArea}
-            id="leyend"
-            name="leyend"
-            value={deceased.leyend==="-"?"":deceased.leyend}
-            onChange={(e) => handleDeceasedChange(e, deceased, setDeceased)}
-          />
-      </div> */}
       <div>
         <div>Esquela (Diario): </div>
         <textarea
@@ -131,8 +118,9 @@ const FormDeceased = (data: FormDeceased) => {
         <div>Tipo de cementerio: </div>
         <select
           id="cementery_type"
+          name="cementery_type"
           className={styles.selects}
-          onChange={(e)=>cementeryTypeSelect(e, setDeceased, deceased)}
+          onChange={(e)=>handleDeceasedChange(e, deceased, setDeceased)}
         >
           <option defaultValue="-">-</option>
           {cementeryType.length > 0
@@ -148,8 +136,9 @@ const FormDeceased = (data: FormDeceased) => {
         <div>Cementerio: </div>
         <select
           id="cementery"
+          name="cementery"
           className={styles.selects}
-          onChange={(e)=>cementerySelect(e, setDeceased, deceased)}
+          onChange={(e)=>handleDeceasedChange(e, deceased, setDeceased)}
         >
           <option defaultValue="-">-</option>
           {cementeries.length > 0
@@ -193,8 +182,9 @@ const FormDeceased = (data: FormDeceased) => {
             <div>Nivel: </div>
             <select
               id="level"
+              name="level"
               className={styles.selects}
-              onChange={(e)=>levelSelect(e, setDeceased, deceased)}
+              onChange={(e)=>handleDeceasedChange(e, deceased, setDeceased)}
             >
               <option key={0} defaultValue="-">-</option>
               <option key={1} value={1}>1</option>

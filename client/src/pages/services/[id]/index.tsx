@@ -3,16 +3,18 @@ import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { GetServerSideProps } from "next";
 import { decomposeId } from "../../../components/functions";
 import Loading from "../../../components/Loading/loading";
-import { getRequestById, handleDeleteRequest } from "../../../components/functions/requests/functions";
+import { getParticularRequest } from "../../../store/Slices/particularRequestsSlice";
+import { getParticularRequestById } from "../../../components/functions/requests/functions";
 import styles from "../styles/requestDetail.module.css";
-import { DeleteBtn, SmallBtn } from "../../../components/Buttons";
+import { SmallBtn } from "../../../components/Buttons";
 import { useRouter } from "next/router";
 import { getAllPlaces } from "../../../components/functions/places";
 import { getplace } from "../../../store/Slices/place";
 import { cementery_type1 } from "../../../utils/constants";
+import { getAllCompanies } from "../../../components/functions/settings/companies";
+import { getCompanies } from "../../../store/Slices/companies";
 import { getAllColors, getAllSizes, getAllTypes } from "../../../components/functions/settings/coffinProperty";
 import { getColors, getSizes, getTypes } from "../../../store/Slices/coffinProperty";
-import { getRequest } from "../../../store/Slices/requestsSlice";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { params } = context;
@@ -53,7 +55,7 @@ const initialData = {
     level: 0,
     first_level_name: "",
     second_level_name: "",
-    religion_symbol: ""
+    religion_symbol: "",
   },
   request: {
     id: "",
@@ -65,45 +67,44 @@ const initialData = {
     id_coffin_group: "",
     id_add_metal_box: "",
     id_metal_box_group: "",
-    holder_name: "",
-    holder_relationship: "",
-    policy: "",
-    certificate_number: 0,
-    way_to_pay: "",
-    agreement: "",
     additional: "",
     wreath: false,
     present: "",
-    products: [{
-      id: "",
-      name: "",
-      units: 0
-    }],
+    products: [
+      {
+        id: "",
+        name: "",
+        units: 0,
+      },
+    ],
     burial_place: "",
     burial_time: "",
     cladding: "",
-    service_improvement: ""
+    service_improvement: "",
+    company: "",
   },
 };
 
-const RequestDetail = ({ id }: { id: string }) => {
+const ParticularRequestDetail = ({ id }: { id: string }) => {
   const [updateData, setUpdateData] = useState(initialData);
   const dispatch = useAppDispatch();
-  const request = useAppSelector(getRequest);
+  const request = useAppSelector(getParticularRequest);
   const places = useAppSelector(getplace);
   const types = useAppSelector(getTypes);
   const sizes = useAppSelector(getSizes);
   const colors = useAppSelector(getColors);
+  const companies = useAppSelector(getCompanies);
   const prevRequest = useRef(request);
 
-  const route = useRouter()
+  const route = useRouter();
 
   useEffect(() => {
-    getRequestById(dispatch, id);
-    getAllPlaces(dispatch)
-    getAllTypes(dispatch)
-    getAllSizes(dispatch)
-    getAllColors(dispatch)
+    getParticularRequestById(dispatch, id);
+    getAllPlaces(dispatch);
+    getAllTypes(dispatch);
+    getAllSizes(dispatch);
+    getAllColors(dispatch);
+    getAllCompanies(dispatch);
   }, []);
 
   useEffect(() => {
@@ -123,11 +124,6 @@ const RequestDetail = ({ id }: { id: string }) => {
       ) : (
         <div className={styles.secondContainer}>
           <div className={styles.card}>
-            {/* <div className={styles.deleteBtn}>
-              <DeleteBtn
-                onClick={() => handleDeleteRequest(id, route)}
-              />
-            </div> */}
             <div className={styles.title}>Detalle:</div>
             <div className={styles.items}>
               <div className={styles.subItems}>
@@ -140,6 +136,25 @@ const RequestDetail = ({ id }: { id: string }) => {
                 <div className={styles.subTitle}>Lugar:</div>
                 <div className={styles.text}>{updateData.request?.place}</div>
               </div>
+            </div>
+            <div className={styles.items}>
+              {companies.find((c) => {
+                c.name == updateData.request?.company;
+              }) ? (
+                <div className={styles.subItems}>
+                  <div className={styles.subTitle}>Empresa:</div>
+                  <div className={styles.text}>
+                    {updateData.request?.company}
+                  </div>
+                </div>
+              ) : (
+                <div className={styles.subItems}>
+                  <div className={styles.subTitle}>Particular:</div>
+                  <div className={styles.text}>
+                    {updateData.request?.company}
+                  </div>
+                </div>
+              )}
             </div>
             <div className={styles.items}>
               <div className={styles.subItems}>
@@ -162,13 +177,15 @@ const RequestDetail = ({ id }: { id: string }) => {
               </div>
               <div className={styles.subItems}>
                 <div className={styles.subTitle}>Hora:</div>
-                <div className={styles.text}>{`${new Date(updateData.deceased?.dod).getHours() < 10
+                <div className={styles.text}>{`${
+                  new Date(updateData.deceased?.dod).getHours() < 10
                     ? "0" + new Date(updateData.deceased?.dod).getHours()
                     : new Date(updateData.deceased?.dod).getHours()
-                  } : ${new Date(updateData.deceased?.dod).getMinutes() < 10
+                } : ${
+                  new Date(updateData.deceased?.dod).getMinutes() < 10
                     ? "0" + new Date(updateData.deceased?.dod).getMinutes()
                     : new Date(updateData.deceased?.dod).getMinutes()
-                  }`}</div>
+                }`}</div>
               </div>
             </div>
             <div className={styles.items}>
@@ -187,50 +204,6 @@ const RequestDetail = ({ id }: { id: string }) => {
               <div className={styles.subItems}>
                 <div className={styles.subTitle}>Lugar de velatorio:</div>
                 <div className={styles.text}>{updateData.request?.funeral}</div>
-              </div>
-            </div>
-            <div className={styles.items}>
-              <div className={styles.subItems}>
-                <div className={styles.subTitle}>Nombre del titular:</div>
-                <div className={styles.text}>
-                  {updateData.request?.holder_name}
-                </div>
-              </div>
-            </div>
-            <div className={styles.items}>
-              <div className={styles.subItems}>
-                <div className={styles.subTitle}>Parentesco del titular:</div>
-                <div className={styles.text}>
-                  {updateData.request?.holder_relationship}
-                </div>
-              </div>
-            </div>
-            <div className={styles.items}>
-              <div className={styles.subItems}>
-                <div className={styles.subTitle}>N° de Certificado:</div>
-                <div className={styles.text}>
-                  {updateData.request?.certificate_number}
-                </div>
-              </div>
-              <div className={styles.subItems}>
-                <div className={styles.subTitle}>Póliza:</div>
-                <div className={styles.text}>{updateData.request?.policy}</div>
-              </div>
-            </div>
-            <div className={styles.items}>
-              <div className={styles.subItems}>
-                <div className={styles.subTitle}>Forma que paga el seguro:</div>
-                <div className={styles.text}>
-                  {updateData.request?.way_to_pay}
-                </div>
-              </div>
-            </div>
-            <div className={styles.items}>
-              <div className={styles.subItems}>
-                <div className={styles.subTitle}>Convenio:</div>
-                <div className={styles.text}>
-                  {updateData.request?.agreement}
-                </div>
               </div>
             </div>
             <div className={styles.items}>
@@ -275,8 +248,11 @@ const RequestDetail = ({ id }: { id: string }) => {
               <div className={styles.subItems}>
                 {updateData.request?.products.map((p, i) => {
                   return (
-                    <div className={styles.text} key={i}>{`- ${p.units} ${p.name}`}</div>
-                  )
+                    <div
+                      className={styles.text}
+                      key={i}
+                    >{`- ${p.units} ${p.name}`}</div>
+                  );
                 })}
               </div>
             </div>
@@ -288,75 +264,75 @@ const RequestDetail = ({ id }: { id: string }) => {
                 </div>
               </div>
             </div>
-            {updateData.deceased.cementery_type === cementery_type1 ?
-              (
-                <>
-                  <div className={styles.items}>
-                    <div className={styles.subItems}>
-                      <div className={styles.subTitle}>Sector:</div>
-                      <div className={styles.text}>
-                        {updateData.deceased.sector}
-                      </div>
+            {updateData.deceased.cementery_type === cementery_type1 ? (
+              <>
+                <div className={styles.items}>
+                  <div className={styles.subItems}>
+                    <div className={styles.subTitle}>Sector:</div>
+                    <div className={styles.text}>
+                      {updateData.deceased.sector}
                     </div>
                   </div>
-                  <div className={styles.items}>
-                    <div className={styles.subItems}>
-                      <div className={styles.subTitle}>Parcela:</div>
-                      <div className={styles.text}>
-                        {updateData.deceased.parcel}
-                      </div>
+                </div>
+                <div className={styles.items}>
+                  <div className={styles.subItems}>
+                    <div className={styles.subTitle}>Parcela:</div>
+                    <div className={styles.text}>
+                      {updateData.deceased.parcel}
                     </div>
                   </div>
-                  <div className={styles.items}>
-                    <div className={styles.subItems}>
-                      <div className={styles.subTitle}>Nivel:</div>
-                      <div className={styles.text}>
-                        {updateData.deceased.level}
-                      </div>
+                </div>
+                <div className={styles.items}>
+                  <div className={styles.subItems}>
+                    <div className={styles.subTitle}>Nivel:</div>
+                    <div className={styles.text}>
+                      {updateData.deceased.level}
                     </div>
                   </div>
-                  {updateData.deceased.level == 2 ?
-                    (<>
-                      <div className={styles.items}>
-                        <div className={styles.subItems}>
-                          <div className={styles.subTitle}>1° Nivel:</div>
-                          <div className={styles.text}>
-                            {updateData.deceased.first_level_name}
-                          </div>
+                </div>
+                {updateData.deceased.level == 2 ? (
+                  <>
+                    <div className={styles.items}>
+                      <div className={styles.subItems}>
+                        <div className={styles.subTitle}>1° Nivel:</div>
+                        <div className={styles.text}>
+                          {updateData.deceased.first_level_name}
                         </div>
                       </div>
-                    </>)
-                    : updateData.deceased.level == 3 ?
-                      (<>
-                        <div className={styles.items}>
-                          <div className={styles.subItems}>
-                            <div className={styles.subTitle}>1° Nivel:</div>
-                            <div className={styles.text}>
-                              {updateData.deceased.first_level_name}
-                            </div>
-                          </div>
+                    </div>
+                  </>
+                ) : updateData.deceased.level == 3 ? (
+                  <>
+                    <div className={styles.items}>
+                      <div className={styles.subItems}>
+                        <div className={styles.subTitle}>1° Nivel:</div>
+                        <div className={styles.text}>
+                          {updateData.deceased.first_level_name}
                         </div>
-                        <div className={styles.items}>
-                          <div className={styles.subItems}>
-                            <div className={styles.subTitle}>2° Nivel:</div>
-                            <div className={styles.text}>
-                              {updateData.deceased.second_level_name}
-                            </div>
-                          </div>
-                        </div>
-                      </>)
-                      : null}
-                  <div className={styles.items}>
-                    <div className={styles.subItems}>
-                      <div className={styles.subTitle}>Símbolo de la Religión:</div>
-                      <div className={styles.text}>
-                        {updateData.deceased.religion_symbol}
                       </div>
                     </div>
+                    <div className={styles.items}>
+                      <div className={styles.subItems}>
+                        <div className={styles.subTitle}>2° Nivel:</div>
+                        <div className={styles.text}>
+                          {updateData.deceased.second_level_name}
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                ) : null}
+                <div className={styles.items}>
+                  <div className={styles.subItems}>
+                    <div className={styles.subTitle}>
+                      Símbolo de la Religión:
+                    </div>
+                    <div className={styles.text}>
+                      {updateData.deceased.religion_symbol}
+                    </div>
                   </div>
-                </>
-              )
-              : null}
+                </div>
+              </>
+            ) : null}
             <div className={styles.items}>
               <div className={styles.subItems}>
                 <div className={styles.subTitle}>Lugar de inhumación:</div>
@@ -374,7 +350,9 @@ const RequestDetail = ({ id }: { id: string }) => {
             <div className={styles.items}>
               <div className={styles.subItems}>
                 <div className={styles.subTitle}>Revestimiento:</div>
-                <div className={styles.text}>{updateData.request?.cladding}</div>
+                <div className={styles.text}>
+                  {updateData.request?.cladding}
+                </div>
               </div>
             </div>
             <div className={styles.items}>
@@ -413,4 +391,4 @@ const RequestDetail = ({ id }: { id: string }) => {
     </div>
   );
 };
-export default RequestDetail;
+export default ParticularRequestDetail;
