@@ -39,16 +39,16 @@ export const validateDeceased = (form: PostDeceased) => {
       message: "Debe proporcionar un Nombre del Diario",
       condition: !form.news_paper_name,
     },
-    {
-      field: "cementery",
-      message: "Debe proporcionar el nombre del cementerio",
-      condition: !form.cementery,
-    },
-    {
-      field: "cementery_type",
-      message: "Debe proporcionar un tipo de cementerio",
-      condition: !form.cementery_type,
-    },
+    // {
+    //   field: "cementery",
+    //   message: "Debe proporcionar el nombre del cementerio",
+    //   condition: !form.cementery,
+    // },
+    // {
+    //   field: "cementery_type",
+    //   message: "Debe proporcionar un tipo de cementerio",
+    //   condition: !form.cementery_type,
+    // },
     {
       field: "sector",
       message: "Debe proporcionar un sector",

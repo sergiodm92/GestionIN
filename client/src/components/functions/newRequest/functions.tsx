@@ -124,16 +124,19 @@ export const handleSubmit = async (
     };
     try {
       const response = await postRequestApi(json);
+      console.log(response.data)
       if (response?.data.status === "ok") {
         createToast("success", "Solicitud creada con éxito");
         setDeceased(initialDeceased);
         setBirthDate(initialDate);
         setDate(initialDate);
         setCurrentDate(initialDate);
-        const selectElement = document.getElementById(
-          "cementery_type"
-        ) as HTMLSelectElement;
-        selectElement.selectedIndex = 0;
+        if(!isCremation){
+          const selectElement = document.getElementById(
+            "cementery_type"
+          ) as HTMLSelectElement;
+          selectElement.selectedIndex = 0;
+        }
         setRequest(initialRequest);
         const selectElement1 = document.getElementById(
           "place"
