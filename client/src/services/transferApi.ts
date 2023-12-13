@@ -20,3 +20,17 @@ export const postCoffinTransferApi = async (
     throw error;
   }
 };
+
+// get all coffin transfers
+export const getAllCoffinTransfersApi = async (): Promise<AxiosResponse> => {
+  try {
+    const response = await apiClient.get("/transfer/all", {
+      headers: {
+        "auth-token": token,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

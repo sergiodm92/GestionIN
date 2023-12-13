@@ -6,15 +6,20 @@ declare const styles: {
   items: string;
   subItems: string;
   noStock: string;
-  search:string;
+  search: string;
   searchContaier: string;
   table: string;
   tableContainer: string;
   formGroup: string;
   formControl: string;
   nextBtn: string;
+  containerII: string;
+  bigSpace: string;
+  smallSpace: string;
+  cardsContainer: string;
+  card: string;
+  cardHover: string;
+  noAdds: string;
 };
 
 export default styles;
-  
-  

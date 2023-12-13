@@ -64,7 +64,7 @@ const AddsCoffin = () => {
                       space1={new Date(add.date)
                         .toLocaleDateString("es")}
                       space2={add.place}
-                      space3={add.state === "new" ? "Nuevo" : add.state === "pending" ? "Pendiente" : "Completo"}
+                      space3={add.status === "pending" ? "Pendiente" : "Completo"}
                     />
                   </div>
                 );

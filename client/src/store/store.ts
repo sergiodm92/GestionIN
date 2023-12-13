@@ -15,6 +15,7 @@ import { companySlice } from './Slices/companies'
 import { supplierSlice } from './Slices/suppliers'
 import { propertySlice } from './Slices/coffinProperty'
 import {particularRequestsSlice} from './Slices/particularRequestsSlice'
+import { coffinTransferSlice } from './Slices/transfersSlice'
 
 
 export const store = configureStore({
@@ -34,7 +35,8 @@ export const store = configureStore({
       cementery: cementerySlice.reducer,
       companies: companySlice.reducer,
       suppliers: supplierSlice.reducer,
-      properties: propertySlice.reducer
+      properties: propertySlice.reducer,
+      coffinTransfers: coffinTransferSlice.reducer,
   }
 })
 

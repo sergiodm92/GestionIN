@@ -384,7 +384,7 @@ const ParticularRequestDetail = ({ id }: { id: string }) => {
           </div>
           <SmallBtn
             title={"Generar PDF"}
-            onClick={() => route.push(`/requests/pdf/${id}`)}
+            onClick={() => route.push(`/services/pdf/${id}`)}
           />
         </div>
       )}
