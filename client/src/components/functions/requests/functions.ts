@@ -7,11 +7,11 @@ export const getAllRequests = async (dispatch: any)=>{
     try{
         const allRequests = await getAllRequestsApi()
         const orderRequests = allRequests.data.sort((a: any, b: any) => {
-            if (a.date > b.date) {
-              return 1;
-            }
-            if (a.date < b.date) {
+            if (a.request.date > b.request.date) {
               return -1;
+            }
+            if (a.request.date < b.request.date) {
+              return 1;
             }
             return 0;
         })
@@ -25,11 +25,11 @@ export const getAllParticularRequests = async (dispatch: any)=>{
     try{
         const allRequests = await getAllParticularRequestsApi()
         const orderRequests = allRequests.data.sort((a: any, b: any) => {
-            if (a.date > b.date) {
-              return 1;
-            }
-            if (a.date < b.date) {
+            if (a.request.date > b.request.date) {
               return -1;
+            }
+            if (a.request.date < b.request.date) {
+              return 1;
             }
             return 0;
         })

@@ -3,7 +3,12 @@ import {Table, TableHeader,TableCell, TableBody, DataTableCell} from 'react-pdf-
 
 const styles = StyleSheet.create({
   letterhead: {
+    marginTop: '1vh',
     width: '100%',
+  },
+  letterheadImage:{
+    height:'50px',
+    width:'475px',
   },
   container: {
     paddingLeft: '4vh',
@@ -21,7 +26,8 @@ const styles = StyleSheet.create({
     fontSize: '1.8vh',
     textAlign: 'center',
     fontFamily: 'Times-BoldItalic',
-    marginBottom: 10
+    marginBottom: 8,
+    marginTop: 12,
   },
   cardsTitleContainer: {
     width: '100%',
@@ -84,10 +90,10 @@ const PDFTombstoneDetail = (deceaseds) => {
 
   return (
     <Document>
-      <Page size="A4" style={{ paddingBottom: '4vh' }}>
+      <Page size="A4" style={{ paddingBottom: '4vh' }} orientation={deceaseds?.deceaseds.tombstones.length > 0? "landscape" : "portrait"}>
         <View>
           <View style={styles.letterhead} fixed>
-            <Image src="https://res.cloudinary.com/dk2al2urj/image/upload/v1685158810/DR%20full%20code/Instituto_del_norte_-_Membrete_ku2fzh.png" />
+            <Image src="https://res.cloudinary.com/dk2al2urj/image/upload/v1685158810/DR%20full%20code/Instituto_del_norte_-_Membrete_ku2fzh.png" style={styles.letterheadImage}/>
           </View>
           <View style={styles.container}>
             <View style={styles.date}>
@@ -108,9 +114,9 @@ const PDFTombstoneDetail = (deceaseds) => {
                     <TableCell style={styles.border}><Text style={styles.tableTitle}>F.fall.</Text></TableCell>
                     <TableCell style={styles.border}><Text style={styles.tableTitle}>Cementerio</Text></TableCell>
                     <TableCell style={styles.border}><Text style={styles.tableTitle}>Sector</Text></TableCell>
-                    <TableCell style={styles.border}><Text style={styles.tableTitle}>Parcela</Text></TableCell>
-                    <TableCell style={styles.border} weighting={0.4}><Text style={styles.tableTitle}>Nivel</Text></TableCell>
-                    <TableCell style={styles.border} weighting={0.4}><Text style={styles.tableTitle}>Religión</Text></TableCell>
+                    <TableCell style={styles.border} ><Text style={styles.tableTitle}>Parcela</Text></TableCell>
+                    <TableCell style={styles.border} ><Text style={styles.tableTitle}>Nivel</Text></TableCell>
+                    <TableCell style={styles.border} ><Text style={styles.tableTitle}>Religión</Text></TableCell>
                   </TableHeader>
                   <TableBody includeBottomBorder={false}
                     includeLeftBorder={false}
@@ -121,8 +127,8 @@ const PDFTombstoneDetail = (deceaseds) => {
                     <DataTableCell getContent={(e) => new Date(e.dod).toLocaleDateString('es')} style={styles.tableText} />
                     <DataTableCell getContent={(e) => e.cementery} style={styles.tableText} />
                     <DataTableCell getContent={(e) => e.sector} style={styles.tableText} />
-                    <DataTableCell getContent={(e) => e.parcel} style={styles.tableText}/>
-                    <DataTableCell getContent={(e) => e.level} style={styles.tableText}  weighting={0.6}/>
+                    <DataTableCell getContent={(e) => e.parcel} style={styles.tableText} />
+                    <DataTableCell getContent={(e) => e.level} style={styles.tableText}  />
                     <DataTableCell getContent={(e) => e.religion_symbol} style={styles.tableText} />
                   </TableBody>
                 </Table>
