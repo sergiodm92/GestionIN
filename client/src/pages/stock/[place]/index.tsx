@@ -1,12 +1,18 @@
 import { GetServerSideProps } from "next";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import React, { useEffect, useRef, useState } from "react";
-import { getCoffinStockByPlace, getMboxStockByPlace, getProductsStockByPlace } from "../../../components/functions/stock";
+import {
+  getCoffinStockByPlace,
+  getMboxStockByPlace,
+  getProductsStockByPlace,
+} from "../../../components/functions/stock";
 import Loading from "../../../components/Loading/loading";
 import { getCoffinStock } from "../../../store/Slices/coffinStockSlice";
 import { getProductsStock } from "../../../store/Slices/productsStockSlice";
 import { getmetalBoxStock } from "../../../store/Slices/metalBoxStockSlice";
 import styles from "../styles/stock.module.css";
+import { SmallBtn } from "../../../components/Buttons";
+import { useRouter } from "next/router";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { params } = context;
@@ -46,6 +52,7 @@ const Stock = ({ place }: { place: string }) => {
   const [isStock, setIsStock] = useState(true);
 
   const dispatch = useAppDispatch();
+  const route = useRouter();
 
   const stock = useAppSelector(getCoffinStock);
   const productsStock = useAppSelector(getProductsStock);
@@ -74,22 +81,18 @@ const Stock = ({ place }: { place: string }) => {
   const filteredMBData = MBStock.filter((s) =>
     s.size.toLowerCase().includes(searchSize.toLowerCase())
   );
-  let totalFilterData = 0
+  let totalFilterData = 0;
   filteredData.forEach((d) => {
-    totalFilterData+=d.units
-  }
-  );
-  let totalFilterMBData = 0
+    totalFilterData += d.units;
+  });
+  let totalFilterMBData = 0;
   filteredMBData.forEach((d) => {
-    totalFilterMBData+=d.units
-  }
-  )
-  let totalFilterProductsData = 0
+    totalFilterMBData += d.units;
+  });
+  let totalFilterProductsData = 0;
   filteredProductsData.forEach((d) => {
-    totalFilterProductsData+=d.units
-  }
-  )
-  
+    totalFilterProductsData += d.units;
+  });
 
   return (
     <div className={styles.container}>
@@ -114,39 +117,41 @@ const Stock = ({ place }: { place: string }) => {
                 />
               </div>
               {filteredData.length > 0 ? (
-              <table className={styles.table}>
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Tipo</th>
-                    <th>Tamaño</th>
-                    <th>Color</th>
-                    <th>Caja Metálica</th>
-                    <th>Unidades</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filteredData.map((d, i) => (
-                    <tr key={i}>
-                      <td>{d.id}</td>
-                      <td>{d.type}</td>
-                      <td>{d.size}</td>
-                      <td>{d.color}</td>
-                      <td>{d.mbox ? "Si" : "No"}</td>
-                      <td>{d.units}</td>
+                <table className={styles.table}>
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Tipo</th>
+                      <th>Tamaño</th>
+                      <th>Color</th>
+                      <th>Caja Metálica</th>
+                      <th>Unidades</th>
                     </tr>
-                  ))}
-                   <tr key={"total"}>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>Total</td>
-                        <td>{totalFilterData || 0}</td>
+                  </thead>
+                  <tbody>
+                    {filteredData.map((d, i) => (
+                      <tr key={i}>
+                        <td>{d.id}</td>
+                        <td>{d.type}</td>
+                        <td>{d.size}</td>
+                        <td>{d.color}</td>
+                        <td>{d.mbox ? "Si" : "No"}</td>
+                        <td>{d.units}</td>
                       </tr>
-                </tbody>
-              </table>
-              ) :  <p>No hay items disponibles</p>}
+                    ))}
+                    <tr key={"total"}>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>Total</td>
+                      <td>{totalFilterData || 0}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              ) : (
+                <p>No hay items disponibles</p>
+              )}
             </div>
           </>
 
@@ -179,14 +184,16 @@ const Stock = ({ place }: { place: string }) => {
                         <td>{s.units}</td>
                       </tr>
                     ))}
-                     <tr key={"total"}>
-                        <td></td>
-                        <td>Total</td>
-                        <td>{totalFilterMBData || 0}</td>
-                      </tr>
+                    <tr key={"total"}>
+                      <td></td>
+                      <td>Total</td>
+                      <td>{totalFilterMBData || 0}</td>
+                    </tr>
                   </tbody>
                 </table>
-              ) :  <p>No hay items disponibles</p>}
+              ) : (
+                <p>No hay items disponibles</p>
+              )}
             </div>
           </>
 
@@ -220,15 +227,21 @@ const Stock = ({ place }: { place: string }) => {
                       </tr>
                     ))}
                     <tr key={"total"}>
-                        <td></td>
-                        <td>Total</td>
-                        <td>{totalFilterProductsData || 0}</td>
-                      </tr>
+                      <td></td>
+                      <td>Total</td>
+                      <td>{totalFilterProductsData || 0}</td>
+                    </tr>
                   </tbody>
                 </table>
-              ) : <p>No hay items disponibles</p>}
+              ) : (
+                <p>No hay items disponibles</p>
+              )}
             </div>
           </>
+          <SmallBtn
+            title={"Generar PDF"}
+            onClick={() => route.push(`/stock/pdf/${place}`)}
+          />
         </>
       )}
     </div>
