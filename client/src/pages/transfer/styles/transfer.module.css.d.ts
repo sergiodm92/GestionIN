@@ -24,6 +24,12 @@ declare const styles: {
   formContainer: string;
   form: string;
   link: string;
+  card2: string;
+  text: string;
+  items2: string;
+  itemsGroups: string;
+  groups: string;
+  subTitle2: string;
 };
 
 export default styles;

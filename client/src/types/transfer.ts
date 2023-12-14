@@ -21,5 +21,6 @@ export interface GetCoffinTransfer{
 }
 export interface CoffinTransferState{
     transfers: GetCoffinTransfer[];
+    transfer: CoffinTransfer;
     isAllowedExpand: boolean;
 }

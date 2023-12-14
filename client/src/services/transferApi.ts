@@ -34,3 +34,17 @@ export const getAllCoffinTransfersApi = async (): Promise<AxiosResponse> => {
     throw error;
   }
 };
+
+// get transfer by id
+export const getCoffinTransferByIdApi = async (id: string): Promise<AxiosResponse> => {
+  try {
+    const response = await apiClient.get(`/transfer/id/${id}`, {
+      headers: {
+        "auth-token": token,
+      },
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};

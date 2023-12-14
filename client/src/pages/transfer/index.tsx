@@ -9,6 +9,7 @@ import Card2 from "../../components/Cards/Card2";
 
 let initialValues = [
   {
+    id: "",
     date: 0,
     add_id: "",
     coffin_group_id: "",
@@ -24,7 +25,7 @@ let initialValues = [
       color: "",
       mbox: false,
     },
-  }
+  },
 ];
 
 const Transfer = () => {
@@ -49,7 +50,7 @@ const Transfer = () => {
     <section className={styles.container}>
       {updateData.length === 0 ? (
         <div className={styles.noAdds}>No hay datos para mostrar</div>
-      ) : updateData[0].add_id === "" ? (
+      ) : updateData[0].id === "" ? (
         <Loading />
       ) : (
         <>
@@ -66,9 +67,7 @@ const Transfer = () => {
                   return (
                     <div className={styles.card} key={i}>
                       <Card2
-                        onClick={() =>
-                          router.push(`/`)
-                        }
+                        onClick={() => router.push(`/transfer/coffin/${t.id}`)}
                         space1={new Date(t.date).toLocaleDateString("es")}
                         space2={t.place_origin}
                         space3={t.place_destiny}

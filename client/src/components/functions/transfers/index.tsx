@@ -1,5 +1,5 @@
-import { getAllCoffinTransfersApi } from "../../../services/transferApi"
-import { setCoffinTransfersData } from "../../../store/Slices/transfersSlice"
+import { getAllCoffinTransfersApi, getCoffinTransferByIdApi } from "../../../services/transferApi"
+import { setCoffinTransferData, setCoffinTransfersData } from "../../../store/Slices/transfersSlice"
 
 export const getAllCoffinTransfers = async (dispatch: any)=>{
     try{
@@ -10,3 +10,13 @@ export const getAllCoffinTransfers = async (dispatch: any)=>{
         console.log(err)
     }
   }
+
+  export const getCoffinTransferById = async (dispatch: any, id:string)=>{
+    try{
+        const transfer = await getCoffinTransferByIdApi(id)
+        dispatch(setCoffinTransferData(transfer.data.data))
+    }
+    catch(err){
+        console.log(err)
+    }
+}
