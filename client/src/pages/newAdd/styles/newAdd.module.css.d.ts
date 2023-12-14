@@ -5,7 +5,7 @@ declare const styles: {
   inputDate: string;
   dateRow: string;
   input: string;
-  formRow: string;
+  form: string;
   textAreaP: string;
   textArea: string;
   formLevel: string;
@@ -20,7 +20,12 @@ declare const styles: {
   dateInput: string;
   coffinGroup: string;
   error: string;
-  card: string
+  card: string;
+  subTitle: string;
+  input2: string;
+  cardRow: string;
+  cardTitle: string;
+  cardText: string;
 };
 
 export default styles;

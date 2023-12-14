@@ -55,7 +55,7 @@ const AddProducts = () => {
             }}
           />
         </div>
-        <div className={styles.formRow}>
+        <div className={styles.form}>
           <div>Lugar de Depósito:</div>
           <select
             id="place"
@@ -73,7 +73,7 @@ const AddProducts = () => {
             ))}
           </select>
         </div>
-        <div className={styles.formRow}>
+        <div className={styles.form}>
           <div>Productos:</div>
           <select
             id="product"
@@ -95,7 +95,7 @@ const AddProducts = () => {
           </select>
           <div>Unidades:</div>
           <input
-            className={styles.input}
+            className={styles.input2}
             type="number"
             id="units"
             name="units"
@@ -116,11 +116,11 @@ const AddProducts = () => {
               add.products.map((p: Products, i) => {
                 return (
                   <div key={i}>
-                    <div className={styles.formRow}>
+                    <div className={styles.form}>
                       <div>Nombre: </div>
                       <div>{p.name}</div>
                     </div>
-                    <div className={styles.formRow}>
+                    <div className={styles.form}>
                       <div>Unidades: </div>
                       <div>{p.units}</div>
                     </div>
@@ -129,18 +129,6 @@ const AddProducts = () => {
               })
               : null
           }
-
-        {/* <div className={styles.formRow}>
-          <div>Responsable:</div>
-          <input
-            className={styles.input}
-            type="text"
-            id="responsible"
-            name="responsible"
-            value={add.responsible}
-            onChange={(e) => handleAddChange(e, add, setAdd)}
-          />
-        </div> */}
         <div className={styles.buttonContainer}>
           <FormButton title={isLoading ? <Loading /> : "Guardar"} loading={isLoading} disabled={isLoading} />
         </div>

@@ -30,6 +30,7 @@ declare const styles: {
   itemsGroups: string;
   groups: string;
   subTitle2: string;
+  formBtn: string;
 };
 
 export default styles;

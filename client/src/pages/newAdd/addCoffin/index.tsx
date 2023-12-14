@@ -94,7 +94,7 @@ const AddCoffin = () => {
         className={styles.formContainer}
       >
         <div className={styles.dateRow}>
-          <div>Fecha: </div>
+          <div className={styles.subTitle}>Fecha: </div>
           <input
             type="date"
             id="date1"
@@ -107,8 +107,8 @@ const AddCoffin = () => {
             }}
           />
         </div>
-        <div className={styles.formRow}>
-          <div>Lugar de Depósito:</div>
+        <div className={styles.form}>
+          <div className={styles.subTitle}>Lugar de Depósito:</div>
           <select
             id="place1"
             className={styles.input}
@@ -122,9 +122,9 @@ const AddCoffin = () => {
             ))}
           </select>
         </div>
-        <div>Ataúd:</div>
+        <div className={styles.subTitle}>Ataúd:</div>
         <div className={styles.coffinGroup}>
-          <div className={styles.formRow}>
+          <div className={styles.form}>
             <div>Tipo:</div>
             <select
               id="type"
@@ -140,7 +140,7 @@ const AddCoffin = () => {
               ))}
             </select>
           </div>
-          <div className={styles.formRow}>
+          <div className={styles.form}>
             <div>Tamaño:</div>
             <select
               id="size"
@@ -156,7 +156,7 @@ const AddCoffin = () => {
               ))}
             </select>
           </div>
-          <div className={styles.formRow}>
+          <div className={styles.form}>
             <div>Color:</div>
             <select
               id="color"
@@ -172,7 +172,7 @@ const AddCoffin = () => {
               ))}
             </select>
           </div>
-          <div className={styles.formRow}>
+          <div className={styles.dateRow} style={{margin:'10px 0'}}>
             <div>Caja metálica:</div>
             <div className={styles.metalBox}>
               <div>No</div>
@@ -182,10 +182,10 @@ const AddCoffin = () => {
               <div>Si</div>
             </div>
           </div>
-          <div className={styles.formRow}>
+          <div className={styles.form}>
             <div>Unidades:</div>
             <input
-              className={styles.input}
+              className={styles.input2}
               type="number"
               id="units"
               name="units"
@@ -193,7 +193,7 @@ const AddCoffin = () => {
               onChange={(e) => handleCoffinChange(e, coffin, setCoffin)}
             />
           </div>
-          <div className={styles.formRow}>
+          <div className={styles.form}>
             <div>Proveedor:</div>
             <select
               id="supplier1"
@@ -235,38 +235,38 @@ const AddCoffin = () => {
             ? add.coffins.map((c: Coffin, i) => {
               return (
                 <div className={styles.card} key={i}>
-                  <div className={styles.formRow}>
-                    <div>Tipo: </div>
-                    <div>{c.type}</div>
+                  <div className={styles.cardRow}>
+                    <div className={styles.cardTitle}>Tipo: </div>
+                    <div className={styles.cardText}>{c.type}</div>
                   </div>
-                  <div className={styles.formRow}>
-                    <div>Tamaño: </div>
-                    <div>{c.size}</div>
+                  <div className={styles.cardRow}>
+                    <div className={styles.cardTitle}>Tamaño: </div>
+                    <div className={styles.cardText}>{c.size}</div>
                   </div>
-                  <div className={styles.formRow}>
-                    <div>Color: </div>
-                    <div>{c.color}</div>
+                  <div className={styles.cardRow}>
+                    <div className={styles.cardTitle}>Color: </div>
+                    <div className={styles.cardText}>{c.color}</div>
                   </div>
-                  <div className={styles.formRow}>
-                    <div>Caja Metálica: </div>
-                    <div>{c.mbox ? "Si" : "No"}</div>
+                  <div className={styles.cardRow}>
+                    <div className={styles.cardTitle}>Caja Metálica: </div>
+                    <div className={styles.cardText}>{c.mbox ? "Si" : "No"}</div>
                   </div>
-                  <div className={styles.formRow}>
-                    <div>Unidades: </div>
-                    <div>{c.units}</div>
+                  <div className={styles.cardRow}>
+                    <div className={styles.cardTitle}>Unidades: </div>
+                    <div className={styles.cardText}>{c.units}</div>
                   </div>
-                  <div className={styles.formRow}>
-                    <div>Proveedor: </div>
-                    <div>{c.supplier}</div>
+                  <div className={styles.cardRow}>
+                    <div className={styles.cardTitle}>Proveedor: </div>
+                    <div className={styles.cardText}>{c.supplier}</div>
                   </div>
                 </div>
               );
             })
             : null}
         </div>
-        <div>Cajas metálicas:</div>
+        <div className={styles.subTitle}>Cajas metálicas:</div>
         <div className={styles.coffinGroup}>
-          <div className={styles.formRow}>
+          <div className={styles.form}>
             <div>Tamaño:</div>
             <select
               id="mbsize"
@@ -282,10 +282,10 @@ const AddCoffin = () => {
               ))}
             </select>
           </div>
-          <div className={styles.formRow}>
+          <div className={styles.form}>
             <div>Unidades:</div>
             <input
-              className={styles.input}
+              className={styles.input2}
               type="number"
               id="mbUnits"
               name="units"
@@ -293,7 +293,7 @@ const AddCoffin = () => {
               onChange={(e) => handleMboxChange(e, mbox, setMbox)}
             />
           </div>
-          <div className={styles.formRow}>
+          <div className={styles.form}>
             <div>Proveedor:</div>
             <select
               id="supplier2"
@@ -323,17 +323,17 @@ const AddCoffin = () => {
             ? add.metal_box.map((m: Mbox, i) => {
               return (
                 <div className={styles.card} key={i}>
-                  <div className={styles.formRow}>
-                    <div>Tamaño: </div>
-                    <div>{m.size}</div>
+                  <div className={styles.cardRow}>
+                    <div className={styles.cardTitle}>Tamaño: </div>
+                    <div className={styles.cardText}>{m.size}</div>
                   </div>
-                  <div className={styles.formRow}>
-                    <div>Unidades: </div>
-                    <div>{m.units}</div>
+                  <div className={styles.cardRow}>
+                    <div className={styles.cardTitle}>Unidades: </div>
+                    <div className={styles.cardText}>{m.units}</div>
                   </div>
-                  <div className={styles.formRow}>
-                    <div>Proveedor: </div>
-                    <div>{m.supplier}</div>
+                  <div className={styles.cardRow}>
+                    <div className={styles.cardTitle}>Proveedor: </div>
+                    <div className={styles.cardText}>{m.supplier}</div>
                   </div>
                 </div>
               );

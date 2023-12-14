@@ -123,7 +123,7 @@ const NewTransferStepOne = () => {
             {step === 1 && (
               <div className={styles.formContainer}>
                 <div className={styles.form}>
-                  <label htmlFor="place_origin">Origen</label>
+                  <label htmlFor="place_origin" className={styles.subTitle2}>Origen</label>
                   <Field
                     as="select"
                     name="place_origin"
@@ -137,7 +137,7 @@ const NewTransferStepOne = () => {
                   </Field>
                 </div>
                 <div className={styles.form}>
-                  <label htmlFor="place_destiny">Destino</label>
+                  <label htmlFor="place_destiny" className={styles.subTitle2}>Destino</label>
                   <Field
                     as="select"
                     name="place_destiny"
@@ -232,36 +232,36 @@ const NewTransferStepOne = () => {
                 {isLoading ? (
                   <Loading />
                 ) : (
-                  <>
+                  <div className={styles.card2}>
                     <div className={styles.title}>Transferir:</div>
-                    <div className={styles.subTitle}>
+                    <div className={styles.subTitle2}>
                       {values.coffin.units} ataúd
                     </div>
-                    <div className={styles.subTitle}>
+                    <div className={styles.subTitle2}>
                       Tipo: {values.coffin.type}
                     </div>
-                    <div className={styles.subTitle}>
+                    <div className={styles.subTitle2}>
                       Tamaño: {values.coffin.size}
                     </div>
-                    <div className={styles.subTitle}>
+                    <div className={styles.subTitle2}>
                       Color: {values.coffin.color}
                     </div>
-                    <div className={styles.subTitle}>
+                    <div className={styles.subTitle2}>
                       {values.coffin.mbox
                         ? "Con caja metálica"
                         : "Sin caja metálica"}
                     </div>
-                    <div className={styles.subTitle}>
+                    <div className={styles.subTitle2}>
                       de {originPlace} a {values.place_destiny}
                     </div>
-                    <div className={styles.formGroup}>
+                    <div className={styles.formBtn}>
                       <FormButton
-                        title={isLoading ? <Loading /> : "Transferir"}
+                        title={isLoading ? <Loading /> : "Confirmar"}
                         loading={isLoading}
                         disabled={isLoading}
                       />
                     </div>
-                  </>
+                  </div>
                 )}
               </div>
             )}
