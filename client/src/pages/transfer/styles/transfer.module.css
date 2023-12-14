@@ -67,24 +67,27 @@
     width: 160px;
     height: 20px;
   }
-  
-  @media screen and (max-width: 600px) {
-    .container {
-      min-height: none;
-      height: 100%;
-    }
-  
-    .table {
-      font-size: 11px;
-    }
-  
-    .table th,
-    .table td {
-      border: 1px solid #43815A;
-      text-align: center;
-      padding: 5px;
-    }
+  .input{
+    background-color: var(--secondary-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    height: 30px;
+    font-size: 15px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   }
+  .formContainer{
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .form{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  
   .containerII {
     display: flex;
     flex-direction: column;
@@ -92,13 +95,6 @@
     align-items: center;
     /* width: 100%; */
     gap: 15px;
-  }
-  .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* width: 100%; */
-    min-height: 70vh;
   }
   .title {
     display: flex;
@@ -179,6 +175,14 @@
     font-weight: bold;
     color: var(--bringht-color);
   }
+  .link{
+    color: var(--primary-color);
+    cursor: pointer;
+  }
+  .link:hover{
+    color: var(--secondary-font-color);
+    text-decoration: solid underline;
+  }
   @media screen and (max-width: 850px){
     .cardHover{
      right: -7rem;
@@ -190,4 +194,21 @@
       display: none;
     }
   
+  }
+  @media screen and (max-width: 600px) {
+    .container {
+      min-height: none;
+      height: 100%;
+    }
+  
+    .table {
+      font-size: 11px;
+    }
+  
+    .table th,
+    .table td {
+      border: 1px solid #43815A;
+      text-align: center;
+      padding: 5px;
+    }
   }

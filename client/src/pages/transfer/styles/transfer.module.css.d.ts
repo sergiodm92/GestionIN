@@ -20,6 +20,10 @@ declare const styles: {
   card: string;
   cardHover: string;
   noAdds: string;
+  input: string;
+  formContainer: string;
+  form: string;
+  link: string;
 };
 
 export default styles;

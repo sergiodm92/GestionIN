@@ -5,7 +5,6 @@ import { getAllCoffinTransfers } from "../../components/functions/transfers";
 import { getCoffinTransfers } from "../../store/Slices/transfersSlice";
 import styles from "./styles/transfer.module.css";
 import Loading from "../../components/Loading/loading";
-import Card1 from "../../components/Cards/Card1";
 import Card2 from "../../components/Cards/Card2";
 
 let initialValues = [
