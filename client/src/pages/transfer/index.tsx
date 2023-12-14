@@ -32,7 +32,6 @@ const Transfer = () => {
   const dispatch = useAppDispatch();
   const [updateData, setUpdateData] = useState(initialValues);
   const transfers = useAppSelector(getCoffinTransfers);
-  console.log(transfers)
   const prevAdds = useRef(transfers);
 
   useEffect(() => {
