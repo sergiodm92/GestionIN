@@ -125,8 +125,8 @@ const NewRequest = () => {
         }
         className={styles.form}
       >
-        <div className={styles.formRow}>
-          <div>Cremación: </div>
+        <div className={styles.dateRow}>
+          <div className={styles.items}>Cremación: </div>
           <div className={styles.switch}>
             <div>No</div>
             <div>

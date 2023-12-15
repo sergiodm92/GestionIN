@@ -15,6 +15,14 @@ declare const styles: {
     dateInput: string;
     newCementery: string;
     productsGroup: string;
+    input2: string;
+    row: string;
+    backgroundColor: string;
+    subTitle: string;
+    items: string;
+    formContainer2: string;
+    products: string;
+    space: string;
   };
   
   export default styles;

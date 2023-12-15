@@ -26,6 +26,7 @@ declare const styles: {
   cardRow: string;
   cardTitle: string;
   cardText: string;
+  
 };
 
 export default styles;
