@@ -1,7 +1,7 @@
-import { AddProducts } from "../../types/addsInterfaces";
+import { PostAddProducts } from "../../types/addsInterfaces";
 import { createToast } from "../Notifications/Notifications";
 
-export const validateAddGeneral = (form: AddProducts) => {
+export const validateAddGeneral = (form: PostAddProducts) => {
   const validationList = [
     {
       field: "date",
@@ -27,7 +27,7 @@ export const validateAddGeneral = (form: AddProducts) => {
   ];
 
   for (const { field, message, condition } of validationList) {
-    if (condition || !form[field as keyof AddProducts]) {
+    if (condition || !form[field as keyof PostAddProducts]) {
       createToast("error", message)
       return false;
     }

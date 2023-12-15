@@ -23,12 +23,12 @@ const FormDeceasedService = (data: FormDeceased) => {
   const router = useRouter();
 
   return (
-    <div className={styles.formContainer}>
+    <div className={`${styles.formContainer} ${styles.backgroundColor}`}>
+        <div className={styles.subTitle}>Datos del difunto</div>
       <div className={styles.formRow}>
-        <div>Apellido y Nombre:</div>
+        <div className={styles.items}>Apellido y Nombre:</div>
         <input
-          className={styles.input}
-          style={{ width: "calc(100% - 135px)" }}
+          className={styles.input2}
           type="text"
           id="name"
           name="name"
@@ -38,10 +38,9 @@ const FormDeceasedService = (data: FormDeceased) => {
         />
       </div>
       <div className={styles.formRow}>
-        <div>Lugar de fallecimiento: </div>
+        <div className={styles.items}>Lugar de fallecimiento: </div>
         <input
-          className={styles.input}
-          style={{ width: "calc(100% - 157px)" }}
+          className={styles.input2}
           type="text"
           id="pod"
           name="pod"
@@ -49,8 +48,8 @@ const FormDeceasedService = (data: FormDeceased) => {
           onChange={(e) => handleDeceasedChange(e, deceased, setDeceased)}
         />
       </div>
-      <div className={styles.formRow}>
-        <div>Fecha de fallecimiento: </div>
+      <div className={styles.dateRow}>
+        <div className={styles.items}>Fecha de fallecimiento: </div>
         <div className={styles.dateRow}>
           <input
             type="date"
@@ -61,7 +60,7 @@ const FormDeceasedService = (data: FormDeceased) => {
             onChange={(e) => handleDateChange(e, date, setDate)}
           />
         </div>
-        <div>Hora: </div>
+        <div className={styles.items}>Hora: </div>
         <input
           className={styles.inputDate}
           type="text"
@@ -72,8 +71,8 @@ const FormDeceasedService = (data: FormDeceased) => {
           placeholder="00:00"
         />
       </div>
-      <div className={styles.formRow}>
-        <div>Fecha de nacimiento: </div>
+      <div className={styles.dateRow}>
+        <div className={styles.items}>Fecha de nacimiento: </div>
         <div className={styles.dateRow}>
           <input
             type="date"
@@ -89,9 +88,9 @@ const FormDeceasedService = (data: FormDeceased) => {
         </div>
       </div>
       <div className={styles.formRow}>
-        <div>DNI: </div>
+        <div className={styles.items}>DNI: </div>
         <input
-          className={styles.input}
+          className={styles.input2}
           type="text"
           id="dni"
           name="dni"
@@ -100,7 +99,7 @@ const FormDeceasedService = (data: FormDeceased) => {
         />
       </div>
       <div>
-        <div>Esquela (Diario): </div>
+        <div className={styles.items}>Esquela (Diario): </div>
         <textarea
           className={styles.textArea}
           id="news_paper"
@@ -110,10 +109,9 @@ const FormDeceasedService = (data: FormDeceased) => {
         />
       </div>
       <div className={styles.formRow}>
-        <div>Nombre del Diario: </div>
+        <div className={styles.items}>Nombre del Diario: </div>
         <input
-          className={styles.input}
-          style={{ width: "calc(100% - 134px)" }}
+          className={styles.input2}
           type="text"
           id="news_paper_name"
           name="news_paper_name"
@@ -124,11 +122,11 @@ const FormDeceasedService = (data: FormDeceased) => {
       {isCremation ? null : (
         <>
           <div className={styles.formRow}>
-            <div>Tipo de cementerio: </div>
+            <div className={styles.items}>Tipo de cementerio: </div>
             <select
               id="cementery_type"
               name="cementery_type"
-              className={styles.selects}
+              className={styles.input}
               onChange={(e) => handleDeceasedChange(e, deceased, setDeceased)}
             >
               <option defaultValue="-">-</option>
@@ -142,11 +140,11 @@ const FormDeceasedService = (data: FormDeceased) => {
             </select>
           </div>
           <div className={styles.formRow}>
-            <div>Cementerio: </div>
+            <div className={styles.items}>Cementerio: </div>
             <select
               id="cementery"
               name="cementery"
-              className={styles.selects}
+              className={styles.input}
               onChange={(e) => handleDeceasedChange(e, deceased, setDeceased)}
             >
               <option defaultValue="-">-</option>
@@ -158,20 +156,13 @@ const FormDeceasedService = (data: FormDeceased) => {
                   ))
                 : null}
             </select>
-            <div
-              className={styles.newCementery}
-              onClick={() => router.push("/settings/cementeries")}
-            >
-              Agregar cementerio
-            </div>
           </div>
           {deceased.cementery_type === cementery_type1 ? (
             <>
               <div className={styles.formRow}>
-                <div>Sector: </div>
+                <div className={styles.items}>Sector: </div>
                 <input
-                  className={styles.input}
-                  style={{ width: "calc(100% - 62px)" }}
+                  className={styles.input2}
                   type="text"
                   id="sector"
                   name="sector"
@@ -182,10 +173,9 @@ const FormDeceasedService = (data: FormDeceased) => {
                 />
               </div>
               <div className={styles.formRow}>
-                <div>Parcela: </div>
+                <div className={styles.items}>Parcela: </div>
                 <input
-                  className={styles.input}
-                  style={{ width: "calc(100% - 70px)" }}
+                  className={styles.input2}
                   type="text"
                   id="parcel"
                   name="parcel"
@@ -196,11 +186,11 @@ const FormDeceasedService = (data: FormDeceased) => {
                 />
               </div>
               <div className={styles.formRow}>
-                <div>Nivel: </div>
+                <div className={styles.items}>Nivel: </div>
                 <select
                   id="level"
                   name="level"
-                  className={styles.selects}
+                  className={styles.input}
                   onChange={(e) =>
                     handleDeceasedChange(e, deceased, setDeceased)
                   }
@@ -222,10 +212,9 @@ const FormDeceasedService = (data: FormDeceased) => {
               {deceased.level == 2 ? (
                 <>
                   <div className={styles.formRow}>
-                    <div>1° Nivel: </div>
+                    <div className={styles.items}>1° Nivel: </div>
                     <input
-                      className={styles.input}
-                      style={{ width: "calc(100% - 70px)" }}
+                      className={styles.input2}
                       type="text"
                       id="first_level_name"
                       name="first_level_name"
@@ -239,10 +228,9 @@ const FormDeceasedService = (data: FormDeceased) => {
               ) : deceased.level == 3 ? (
                 <>
                   <div className={styles.formRow}>
-                    <div>1° Nivel: </div>
+                    <div className={styles.items}>1° Nivel: </div>
                     <input
-                      className={styles.input}
-                      style={{ width: "calc(100% - 70px)" }}
+                      className={styles.input2}
                       type="text"
                       id="first_level_name"
                       name="first_level_name"
@@ -253,10 +241,9 @@ const FormDeceasedService = (data: FormDeceased) => {
                     />
                   </div>
                   <div className={styles.formRow}>
-                    <div>2° Nivel: </div>
+                    <div className={styles.items}>2° Nivel: </div>
                     <input
-                      className={styles.input}
-                      style={{ width: "calc(100% - 70px)" }}
+                      className={styles.input2}
                       type="text"
                       id="second_level_name"
                       name="second_level_name"
@@ -269,10 +256,9 @@ const FormDeceasedService = (data: FormDeceased) => {
                 </>
               ) : null}
               <div className={styles.formRow}>
-                <div>Simbolo de la Religion: </div>
+                <div className={styles.items}>Simbolo de la Religion: </div>
                 <input
-                  className={styles.input}
-                  style={{ width: "calc(100% - 160px)" }}
+                  className={styles.input2}
                   type="text"
                   id="religion_symbol"
                   name="religion_symbol"

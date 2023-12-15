@@ -9,6 +9,7 @@ declare const styles: {
     deleteBtn: string;
     none: string;
     groups: string;
+    productsGroups: string;
   };
   
   export default styles;

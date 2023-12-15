@@ -23,6 +23,7 @@ declare const styles: {
     formContainer2: string;
     products: string;
     space: string;
+    productsCard: string;
   };
   
   export default styles;

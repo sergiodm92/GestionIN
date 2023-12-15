@@ -115,14 +115,14 @@ const AddProducts = () => {
             add.products.length ?
               add.products.map((p: Products, i) => {
                 return (
-                  <div key={i}>
-                    <div className={styles.form}>
-                      <div>Nombre: </div>
-                      <div>{p.name}</div>
+                  <div key={i} className={styles.card}>
+                    <div className={styles.cardRow}>
+                      <div className={styles.cardTitle}>Nombre: </div>
+                      <div className={styles.cardText}>{p.name}</div>
                     </div>
-                    <div className={styles.form}>
-                      <div>Unidades: </div>
-                      <div>{p.units}</div>
+                    <div className={styles.cardRow}>
+                      <div className={styles.cardTitle}>Unidades: </div>
+                      <div className={styles.cardText}>{p.units}</div>
                     </div>
                   </div>
                 )

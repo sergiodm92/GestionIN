@@ -50,11 +50,6 @@ const AddProductsDetail = ({ id }: { id: string }) => {
         (<Loading />)
         : (
           <div className={styles.card}>
-            {/* <div className={styles.deleteBtn}>
-                <DeleteBtn
-                  onClick={()=>handleDeleteAddProducts(add.id, id_doc, router)}
-                />
-              </div> */}
             <div className={styles.title}>Detalle:</div>
             <div className={styles.items}>
               <div className={styles.subTitle}>Fecha:</div>
@@ -70,14 +65,16 @@ const AddProductsDetail = ({ id }: { id: string }) => {
             </div>
             <div className={styles.items}>
               <div className={styles.subTitle}>Productos:</div>
+              <div className={styles.groups}>
               {add.products.map((product: any, i: any) => {
                 return (
-                  <div key={i}>
+                  <div key={i} className={styles.productsGroups}>
+                    <div className={styles.text}>- {product.units}</div>
                     <div className={styles.text}>{product.name}</div>
-                    <div className={styles.text}>{product.units}</div>
                   </div>
                 )
               })}
+              </div>
             </div>
 
           </div>

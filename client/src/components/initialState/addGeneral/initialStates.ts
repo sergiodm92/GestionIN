@@ -1,5 +1,4 @@
 export const addGeneralInicialState = {
-  id: "",
   products: [],
   date: 0,
   responsible: "",

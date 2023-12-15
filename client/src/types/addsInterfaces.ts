@@ -40,6 +40,13 @@ export interface AddProducts {
   place: string;
   status: string;
 }
+export interface PostAddProducts {
+  products: Products[];
+  date: number;
+  responsible: string;
+  place: string;
+  status: string;
+}
 export interface Product {
   id: string;
   name: string;

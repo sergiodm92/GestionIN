@@ -132,8 +132,8 @@ const NewRequestService = () => {
         }
         className={styles.form}
       >
-        <div className={styles.formRow}>
-          <div>Cliente: </div>
+        <div className={styles.dateRow}>
+          <div className={styles.items}>Cliente: </div>
           <div className={styles.switch}>
             <div>Empresa</div>
             <div>
@@ -147,10 +147,9 @@ const NewRequestService = () => {
         </div>
         {isParticular ? (
           <div className={styles.formRow}>
-            <div>Nombre del Titular: </div>
+            <div className={styles.items}>Nombre del Titular: </div>
             <input
-              className={styles.input}
-              style={{ width: "calc(100% - 150px)" }}
+              className={`${styles.input2} ${styles.backgroundColor}`}
               type="text"
               id="customer"
               name="company"
@@ -162,11 +161,11 @@ const NewRequestService = () => {
           </div>
         ) : 
         <div className={styles.formRow}>
-        <div>Empresa: </div>
+        <div className={styles.items}>Empresa: </div>
         <select
           id="company"
           name="company"
-          className={styles.selects}
+          className={`${styles.input} ${styles.backgroundColor}`}
           onChange={(e)=>handleRequestServiceChange(e, request, setRequest)}
         >
           <option defaultValue="-">-</option>
@@ -179,8 +178,8 @@ const NewRequestService = () => {
             : null}
         </select>
       </div>}
-      <div className={styles.formRow}>
-          <div>Cremación: </div>
+      <div className={styles.dateRow}>
+          <div className={styles.items}>Cremación: </div>
           <div className={styles.switch}>
             <div>No</div>
             <div>

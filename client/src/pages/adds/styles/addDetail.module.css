@@ -51,6 +51,10 @@
     padding-left: 16px;
     gap: 16px;
 }
+.productsGroups{
+ display: flex;
+ gap: 10px;
+}
 .none{
     display: none;
 }

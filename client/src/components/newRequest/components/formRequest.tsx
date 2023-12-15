@@ -355,8 +355,10 @@ const FormRequest = (data: FormRequest) => {
           onChange={(e) => handleRequestChange(e, request, setRequest)}
         />
       </div>
-      <div className={`${styles.formContainer2} ${styles.backgroundColor} ${styles.space}`}>
-        <div className={`${styles.subTitle}`}>Ataud:</div>
+      <div
+        className={`${styles.formContainer2} ${styles.backgroundColor} ${styles.space}`}
+      >
+        <div className={styles.subTitle}>Ataud:</div>
         <div className={styles.items}>Lugar de depósito:</div>
         <select
           id="place"
@@ -543,24 +545,19 @@ const FormRequest = (data: FormRequest) => {
               }
             />
           </div>
+          {request.products.length
+            ? request.products.map((p, i) => {
+                return (
+                  <div key={i} className={styles.productsCard}>
+                      <p>- {p.units}</p>
+                      <p>{p.name}</p>
+                  </div>
+                );
+              })
+            : null}
         </div>
       )}
-      {request.products.length
-        ? request.products.map((p, i) => {
-            return (
-              <div key={i}>
-                <div className={styles.formRow}>
-                  <div>Producto: </div>
-                  <div>{p.name}</div>
-                </div>
-                <div className={styles.formRow}>
-                  <div>Unidades: </div>
-                  <div>{p.units}</div>
-                </div>
-              </div>
-            );
-          })
-        : null}
+
       <div className={styles.dateRow}>
         <div className={styles.items}>Lugar de inhumación: </div>
         <input

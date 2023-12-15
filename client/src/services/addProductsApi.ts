@@ -1,12 +1,12 @@
 import { AxiosResponse } from "axios";
 import { apiClient } from "../utils/constants";
-import { AddProducts } from "../types/addsInterfaces";
+import { AddProducts, PostAddProducts } from "../types/addsInterfaces";
 import { getAuthToken } from "./authService";
 
 const token = getAuthToken()
 
 // Post Add
-export const postAddProductsApi = async (data: AddProducts): Promise<AxiosResponse> => {
+export const postAddProductsApi = async (data: PostAddProducts): Promise<AxiosResponse> => {
   try {
     const response = await apiClient.post("/add_products", data, {
       headers: {
